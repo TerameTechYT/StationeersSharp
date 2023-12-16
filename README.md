@@ -11,9 +11,9 @@
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.
 > Changes heating affect by lowering the amount of waste that goes into the waste tank when cooling the suit by 3 times.
 
-### DetailedPlayerInfo *(currently buggy)*:
+### DetailedPlayerInfo:
 > Makes the info windows on the bottom right more accurate by adding decimals to them.
-> You can also quickly change between viewing celsius and kelvin temperatures by pressing "K" ingame.
+> You can also quickly enable between viewing celsius and kelvin temperatures by holding "K" ingame.
 
 ### ExternalSuitReader:
 > Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.

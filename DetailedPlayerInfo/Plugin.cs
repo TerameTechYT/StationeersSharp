@@ -25,15 +25,10 @@ public class DetailedPlayerInfo : BaseUnityPlugin
 
 public class Utilities
 {
-    public static T GetFieldValue<T>(Traverse traverse, string fieldName)
-    {
-        return traverse.Field<T>(fieldName).Value;
-    }
-
     public struct Plugin
     {
         public const string GUID = "detailedplayerinfo";
         public const string NAME = "DetailedPlayerInfo";
-        public const string VERSION = "1.0";
+        public const string VERSION = "1.1";
     }
 }
