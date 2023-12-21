@@ -29,6 +29,6 @@ public class Utilities
     {
         public const string GUID = "detailedplayerinfo";
         public const string NAME = "DetailedPlayerInfo";
-        public const string VERSION = "1.1";
+        public const string VERSION = "1.2";
     }
 }
