@@ -64,7 +64,7 @@ public static class DetailedPlayerInfo
             if (__instance.InfoExternalPressure != null)
             {
                 var temp = _kelvinMode ? __instance._tempExternalK : __instance._tempExternal;
-                var text = temp <= Chemistry.Temperature.Minimum ? "Nil" : temp.ToString("F");
+                var text = __instance._tempExternalK <= Chemistry.Temperature.Minimum ? "Nil" : temp.ToString("F");
                 __instance.InfoExternalTemperature.text = text;
                 _externalTempUnit.text = _kelvinMode ? "°K" : "°C";
             }
@@ -72,7 +72,7 @@ public static class DetailedPlayerInfo
             if (__instance.InfoInternalTemperature != null && human.BreathingAtmosphere != null)
             {
                 var temp = _kelvinMode ? __instance._tempInternalK : __instance._tempInternal;
-                var text = temp <= Chemistry.Temperature.Minimum ? "Nil" : temp.ToString("F");
+                var text = __instance._tempInternalK <= Chemistry.Temperature.Minimum ? "Nil" : temp.ToString("F");
 
                 __instance.InfoInternalTemperature.text = text;
                 _internalTempUnit.text = _kelvinMode ? "°K" : "°C";
