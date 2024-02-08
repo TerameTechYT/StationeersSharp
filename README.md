@@ -9,24 +9,24 @@
 
 ### BetterWasteTank:
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.
-> Changes heating affect by lowering the amount of waste that goes into the waste tank when cooling the suit by 3 times.
+> Changes heating affect by lowering the amount of waste that goes into the waste tank when cooling the suit by 3 times. <br>
 ![Image](img/bwt.png)
 
 ### DetailedPlayerInfo:
 > Makes the info windows on the bottom right more informal by untruncating the numbers it displays.
 > also fixed a small bug with the day counter being "0" when you first enter a world.
-> You can also quickly enable between viewing celsius and kelvin temperatures by holding "K" ingame.
+> You can also quickly enable between viewing celsius and kelvin temperatures by holding "K" ingame. <br>
 ![Image](img/dpi_celcius.png)
 ![Image](img/dpi_kelvin.png)
 
 ### ExternalSuitReader:
 > Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.
-> You can read the ratios via "Ratio*gas*Outpout" as shown below.
+> You can read the ratios via "Ratio*gas*Outpout" as shown below. <br>
 ![Image](img/esr.png)
 
 ### InstantPlants:
 > Makes plants grow as fast as possible when planted.
-> Good for people that just want to focus on building and less on trying to grow plants.
+> Good for people that just want to focus on building and less on trying to grow plants. <br>
 
 ### NoFractionalReagents *(mostly untested)*
-> Makes reagent mixes not have annoying decimal places.
+> Makes reagent mixes not have annoying decimal places. <br>
