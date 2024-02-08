@@ -97,7 +97,7 @@ public static class DetailedPlayerInfo
 
             // Suit Pressure Setting
             var pressureSetting = suit?.OutputSetting ?? 0f;
-            var pressureSettingText = pressureSetting.ToString("F");
+            var pressureSettingText = _kelvinMode ? (pressureSetting - Chemistry.Temperature.ZeroDegrees).ToString("F") : pressureSetting.ToString("F");
             window.InfoInternalPressureSetting.text = pressureSettingText;
 
             // Suit Temperature Setting
