@@ -13,14 +13,15 @@
 ![Image](img/bwt.png)
 
 ### DetailedPlayerInfo:
-> Makes the info windows on the bottom right more accurate by adding decimals to them.
+> Makes the info windows on the bottom right more informal by untruncating the numbers it displays.
+> also fixed a small bug with the day counter being "0" when you first enter a world.
 > You can also quickly enable between viewing celsius and kelvin temperatures by holding "K" ingame.
 ![Image](img/dpi_celcius.png)
 ![Image](img/dpi_kelvin.png)
 
 ### ExternalSuitReader:
 > Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.
-> You can read the ratios via "RatioOxygenOutput" or "RatioPollutantsOutput", you can change "Oxygen" and "Pollutants" to any of the other gas types!
+> You can read the ratios via "Ratio*gas*Outpout" as shown below.
 ![Image](img/esr.png)
 
 ### InstantPlants:
