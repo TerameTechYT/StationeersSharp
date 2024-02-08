@@ -10,14 +10,18 @@
 ### BetterWasteTank:
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.
 > Changes heating affect by lowering the amount of waste that goes into the waste tank when cooling the suit by 3 times.
+![Image](img/bwt.png)
 
 ### DetailedPlayerInfo:
 > Makes the info windows on the bottom right more accurate by adding decimals to them.
 > You can also quickly enable between viewing celsius and kelvin temperatures by holding "K" ingame.
+![Image](img/dpi_celcius.png)
+![Image](img/dpi_kelvin.png)
 
 ### ExternalSuitReader:
 > Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.
 > You can read the ratios via "RatioOxygenOutput" or "RatioPollutantsOutput", you can change "Oxygen" and "Pollutants" to any of the other gas types!
+![Image](img/esr.png)
 
 ### InstantPlants:
 > Makes plants grow as fast as possible when planted.
