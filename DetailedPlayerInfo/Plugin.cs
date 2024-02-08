@@ -25,6 +25,15 @@ public class DetailedPlayerInfo : BaseUnityPlugin
 
 public class Utilities
 {
+    public class Data
+    {
+        public const string ExternalTemperatureUnit =
+            "GameCanvas/PanelStatusInfo/PanelExternalNavigation/PanelExternal/PanelTemp/ValueTemp/TextUnitTemp";
+
+        public const string InternalTemperatureUnit =
+            "GameCanvas/PanelStatusInfo/PanelVerticalGroup/Internals/PanelInternal/PanelTemp/ValueTemp/TextUnitTemp";
+    }
+
     public struct Plugin
     {
         public const string GUID = "detailedplayerinfo";

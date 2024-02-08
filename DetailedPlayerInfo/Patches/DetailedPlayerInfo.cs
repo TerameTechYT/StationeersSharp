@@ -1,7 +1,15 @@
-﻿using Assets.Scripts;
+﻿// ReSharper disable InconsistentNaming
+
+#pragma warning disable IDE0060
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts;
 using Assets.Scripts.Atmospherics;
 using Assets.Scripts.GridSystem;
 using Assets.Scripts.Objects;
+using Assets.Scripts.Objects.Clothing;
 using Assets.Scripts.Objects.Items;
 using Assets.Scripts.UI;
 using HarmonyLib;
@@ -18,18 +26,40 @@ public static class DetailedPlayerInfo
     private static TextMeshProUGUI _externalTempUnit;
     private static bool _kelvinMode;
 
+    public static bool ReadyToExecute(ref PlayerStateWindow window)
+    {
+        return new List<bool>
+        {
+            window.Parent != null,
+            GameManager.GameState == GameState.Running,
+
+            window.InfoExternalDays != null,
+            window.InfoExternalPressure != null,
+            window.InfoInternalPressure != null,
+            window.InfoInternalPressureSetting != null,
+            window.InfoExternalTemperature != null,
+            window.InfoInternalTemperature != null,
+            window.InfoInternalTemperatureSetting != null,
+            window.InfoExternalVelocity != null,
+            window.CognitionPercentage != null,
+            window.ToxinPercentage != null,
+            window.HealthPercentage != null,
+            window.HungerPercentage != null,
+            window.HydrationPercentage != null,
+            window.NavigationText != null,
+            window.InfoJetpackPressureDeltaText != null,
+            window.InfoJetpackThrust != null
+        }.All(boolean => boolean);
+    }
+
     [UsedImplicitly]
     [HarmonyPatch(typeof(PlayerStateWindow), "Awake")]
     [HarmonyPostfix]
     public static void PlayerStateWindowAwake(PlayerStateWindow __instance)
     {
-        // this was the most annoying part of all of this, it took 3 hours to figure out this was even a thing
-        _internalTempUnit = GameObject.Find(
-                "GameCanvas/PanelStatusInfo/PanelExternalNavigation/PanelExternal/PanelTemp/ValueTemp/TextUnitTemp")
-            .GetComponent<TextMeshProUGUI>();
-        _externalTempUnit = GameObject.Find(
-                "GameCanvas/PanelStatusInfo/PanelVerticalGroup/Internals/PanelInternal/PanelTemp/ValueTemp/TextUnitTemp")
-            .GetComponent<TextMeshProUGUI>();
+        // This was the most annoying part of all of this, it took 3 hours to figure out this was even a thing
+        _internalTempUnit = GameObject.Find(Utilities.Data.InternalTemperatureUnit).GetComponent<TextMeshProUGUI>();
+        _externalTempUnit = GameObject.Find(Utilities.Data.ExternalTemperatureUnit).GetComponent<TextMeshProUGUI>();
     }
 
     [UsedImplicitly]
@@ -37,111 +67,112 @@ public static class DetailedPlayerInfo
     [HarmonyPostfix]
     public static void PlayerStateWindowUpdate(PlayerStateWindow __instance)
     {
-        if (GameManager.GameState == GameState.Running && __instance != null && __instance.Parent != null)
-        {
-            var human = __instance.Parent;
+        var window = __instance;
 
-            if (WorldManager.DaysPast == 0)
-                __instance.InfoExternalDays.text = "DAY 0";
+        if (ReadyToExecute(ref window))
+        {
+            var human = window.Parent;
+            var suit = human.SuitSlot.Get<Suit>();
+            var jetpack = human.BackpackSlot.Get<Jetpack>();
+            var jetpackPropellant = jetpack?.PropellentSlot.Get<GasCanister>();
+
+            var temperatureUnit = _kelvinMode ? "°K" : "°C";
 
             _kelvinMode = Input.GetKey(KeyCode.K);
 
-            if (__instance.InfoExternalPressure != null)
-            {
-                var pressure = __instance._pressureExternal;
-                var text = pressure <= Chemistry.Pressure.Minimum ? "0" : pressure.ToString("F");
-                __instance.InfoExternalPressure.text = text;
-            }
+            // Little fix for initially logging in day counter is just "0" until next day update
+            window.InfoExternalDays.text = "DAY " + WorldManager.DaysPast;
 
-            if (__instance.InfoInternalPressure != null)
-            {
-                var pressure = __instance._pressureInternal;
-                var text = pressure <= Chemistry.Pressure.Minimum ? "0" : pressure.ToString("F");
+            // Suit External Pressure
+            var externalPressure = window._pressureExternal;
+            var externalPressureText =
+                externalPressure <= Chemistry.Pressure.Minimum ? "None" : externalPressure.ToString("F");
+            window.InfoExternalPressure.text = externalPressureText;
 
-                __instance.InfoInternalPressure.text = text;
-            }
+            // Suit Internal Pressure
+            var internalPressure = window._pressureInternal;
+            var internalPressureText =
+                internalPressure <= Chemistry.Pressure.Minimum ? "None" : internalPressure.ToString("F");
+            window.InfoInternalPressure.text = internalPressureText;
 
-            if (__instance.InfoExternalTemperature != null)
-            {
-                var temp = _kelvinMode ? __instance._tempExternalK : __instance._tempExternal;
-                var text = __instance._tempExternalK <= Chemistry.Temperature.Minimum ? "Nil" : temp.ToString("F");
-                __instance.InfoExternalTemperature.text = text;
-                _externalTempUnit.text = _kelvinMode ? "°K" : "°C";
-            }
+            // Suit Pressure Setting
+            var pressureSetting = suit?.OutputSetting ?? 0f;
+            var pressureSettingText = pressureSetting.ToString("F");
+            window.InfoInternalPressureSetting.text = pressureSettingText;
 
-            if (__instance.InfoInternalTemperature != null)
-            {
-                var temp = _kelvinMode ? __instance._tempInternalK : __instance._tempInternal;
-                var text = __instance._tempInternalK <= Chemistry.Temperature.Minimum ? "Nil" : temp.ToString("F");
+            // Suit Temperature Setting
+            var temperatureSetting = suit?.OutputTemperature ?? 0f;
+            var temperatureSettingText = temperatureSetting.ToString("F");
+            window.InfoInternalTemperatureSetting.text = temperatureSettingText;
 
-                __instance.InfoInternalTemperature.text = text;
-                _internalTempUnit.text = _kelvinMode ? "°K" : "°C";
-            }
+            // Suit External Temperature
+            var externalTemperature = _kelvinMode ? window._tempExternalK : window._tempExternal;
+            var externalTemperatureText = window._tempExternalK <= Chemistry.Temperature.Minimum
+                ? "Nil"
+                : externalTemperature.ToString("F");
+            window.InfoExternalTemperature.text = externalTemperatureText;
 
-            if (__instance.InfoExternalVelocity != null)
-            {
-                var velocity = human.VelocityMagnitude;
-                var text = velocity <= 0f ? "0" : velocity.ToString("F1");
+            // Suit Internal Temperature
+            var internalTemperature = _kelvinMode ? window._tempInternalK : window._tempInternal;
+            var internalTemperatureText = window._tempInternalK <= Chemistry.Temperature.Minimum
+                ? "Nil"
+                : internalTemperature.ToString("F");
+            window.InfoInternalTemperature.text = internalTemperatureText;
 
-                __instance.InfoExternalVelocity.text = text;
-            }
+            // Set Temperature Unit
+            _internalTempUnit.text = _externalTempUnit.text = temperatureUnit;
 
-            if (__instance.CognitionPercentage != null)
-            {
-                var stunDamage = human.DamageState.Stun;
+            // Jetpack Delta Pressure
+            var jetpackPressure = jetpackPropellant?.Pressure ?? 0f;
+            var pressureDelta = jetpackPressure - externalPressure;
+            var pressureDeltaText = pressureDelta.ToString("F1");
+            window.InfoJetpackPressureDeltaText.text = pressureDeltaText;
 
-                __instance.CognitionPercentage.text = stunDamage.ToString("F1");
-            }
+            // Jetpack Thrust Setting
+            var jetpackSetting = jetpack?.OutputSetting ?? 0f;
+            // Rounding of thrust so your thrust is more accurate. 0.1 - 2;
+            var jetpackSettingRounded = Math.Round(jetpackSetting, 1) * 100f;
+            var jetpackSettingText = jetpackSettingRounded.ToString("F1");
+            window.InfoJetpackThrust.text = jetpackSettingText;
 
-            if (__instance.ToxinPercentage != null)
-            {
-                var toxinDamage = human.DamageState.Toxic;
+            // Character Velocity
+            var velocity = human.VelocityMagnitude;
+            var velocityText = velocity <= 0f ? "0" : velocity.ToString("F1");
+            window.InfoExternalVelocity.text = velocityText;
 
-                __instance.ToxinPercentage.text = toxinDamage.ToString("F1");
-            }
+            // Character Stun Damage
+            var stunDamage = human.DamageState.Stun;
+            var stunDamageText = stunDamage.ToString("F1");
+            window.CognitionPercentage.text = stunDamageText;
 
-            if (__instance.HealthPercentage != null)
-            {
-                var totalDamage = human.DamageState.TotalRatio;
-                var healthLeft = 100f - totalDamage * 100f;
+            // Character Toxin Damage
+            var toxinDamage = human.DamageState.Toxic;
+            var toxinDamageText = toxinDamage.ToString("F1");
+            window.ToxinPercentage.text = toxinDamageText;
 
-                __instance.HealthPercentage.text = healthLeft.ToString("F1");
-            }
+            // Character Total Damage
+            var totalDamage = human.DamageState.TotalRatio * 100f;
+            var healthLeft = 100f - totalDamage;
+            var healthLeftText = healthLeft.ToString("F1");
+            window.HealthPercentage.text = healthLeftText;
 
-            if (__instance.HungerPercentage != null)
-            {
-                var hunger = human.Nutrition;
-                var hungerLeft = hunger / human.MaxNutritionStorage * 100;
-                var text = hungerLeft <= 0f ? "0" : hungerLeft.ToString("F1");
+            // Character Hunger Left
+            var hunger = human.Nutrition;
+            var hungerLeft = hunger / human.MaxNutritionStorage * 100;
+            var hungerLeftText = hungerLeft <= 0f ? "0" : hungerLeft.ToString("F1");
+            window.HungerPercentage.text = hungerLeftText;
 
-                __instance.HungerPercentage.text = text;
-            }
+            // Character Hydration Left
+            var hydration = human.Hydration;
+            var hydrationLeft = hydration / Entity.MAX_HYDRATION_STORAGE * 100f;
+            var hydrationLeftText = hydrationLeft <= 0f ? "0" : hydrationLeft.ToString("F1");
+            window.HydrationPercentage.text = hydrationLeftText;
 
-            if (__instance.HydrationPercentage != null)
-            {
-                var hydration = human.Hydration;
-                var hydrationLeft = hydration / Entity.MAX_HYDRATION_STORAGE * 100f;
-                var text = hydrationLeft <= 0f ? "0" : hydrationLeft.ToString("F1");
-
-                __instance.HydrationPercentage.text = text;
-            }
-
-            if (__instance.NavigationText != null)
-            {
-                var eulerAnglesY = human.EntityRotation.eulerAngles.y;
-                var orientation = (eulerAnglesY + 270f) % 360f;
-
-                __instance.NavigationText.text = orientation.ToString("F1");
-            }
-
-            if (__instance.InfoJetpackPressureDeltaText != null && human.BackpackSlot.Contains<Jetpack>() && human.BackpackSlot.Get<Jetpack>().PropellentSlot.Contains<GasCanister>())
-            {
-                var jetpack = human.BackpackSlot.Get<Jetpack>();
-                var jetpackPressure = jetpack.PropellentSlot.Get<GasCanister>().Pressure;
-                var pressureDelta = jetpackPressure - __instance._pressureExternal;
-
-                __instance.InfoJetpackPressureDeltaText.text = pressureDelta.ToString("F1");
-            }
+            // Character Look Angle
+            var eulerAnglesY = human.EntityRotation.eulerAngles.y;
+            var orientation = (eulerAnglesY + 270f) % 360f;
+            var orientationText = orientation.ToString("F1");
+            window.NavigationText.text = orientationText;
         }
     }
 }
