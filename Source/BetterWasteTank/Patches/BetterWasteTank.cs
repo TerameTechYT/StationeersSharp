@@ -10,7 +10,7 @@ using UnityEngine;
 namespace BetterWasteTank.Patches;
 
 [HarmonyPatch]
-public static class BetterWasteTank
+public static class BetterWasteTankPatches
 {
     [UsedImplicitly]
     [HarmonyPatch(typeof(StatusUpdates), nameof(StatusUpdates.IsWasteCritical))]

@@ -55,7 +55,7 @@ internal class Utilities
         public const string Name = "BetterWasteTank";
         public const string Version = "1.1";
         public const string WorkshopHandle = "3071913936";
-        public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/";
+        public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source";
         public const string GitVersion = GitRaw + Name + "/VERSION";
     }
 }

@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extra", "Extra", "{A48A0EFC
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		img\bwt.png = img\bwt.png
+		img\dpi_celcius.png = img\dpi_celcius.png
+		img\dpi_kelvin.png = img\dpi_kelvin.png
+		img\esr.png = img\esr.png
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -18,8 +22,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalSuitReader", "Source\ExternalSuitReader\ExternalSuitReader.csproj", "{DDFC47F3-82FC-424A-84C3-423903BE7D94}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstantPlants", "Source\InstantPlants\InstantPlants.csproj", "{7EFABA30-CD25-4D4D-A241-12FDB6FCD1EF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoFractionalReageants", "Source\NoFractionalReageants\NoFractionalReageants.csproj", "{6FB0613C-06F1-416B-A33C-AA300FF76803}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +45,6 @@ Global
 		{7EFABA30-CD25-4D4D-A241-12FDB6FCD1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EFABA30-CD25-4D4D-A241-12FDB6FCD1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EFABA30-CD25-4D4D-A241-12FDB6FCD1EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FB0613C-06F1-416B-A33C-AA300FF76803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FB0613C-06F1-416B-A33C-AA300FF76803}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FB0613C-06F1-416B-A33C-AA300FF76803}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FB0613C-06F1-416B-A33C-AA300FF76803}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

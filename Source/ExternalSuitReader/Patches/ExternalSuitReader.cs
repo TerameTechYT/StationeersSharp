@@ -8,7 +8,7 @@ using static Assets.Scripts.Atmospherics.Chemistry;
 namespace ExternalSuitReader.Patches;
 
 [HarmonyPatch]
-public static class ExternalSuitReader
+public static class ExternalSuitReaderPatches
 {
     [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.CanLogicRead))]

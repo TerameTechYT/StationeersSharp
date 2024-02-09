@@ -20,7 +20,7 @@ using UnityEngine;
 namespace DetailedPlayerInfo.Patches;
 
 [HarmonyPatch]
-public static class DetailedPlayerInfo
+public static class DetailedPlayerInfoPatches
 {
     private static TextMeshProUGUI _internalTempUnit;
     private static TextMeshProUGUI _externalTempUnit;

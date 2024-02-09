@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace InstantPlants.Patches;
 
 [HarmonyPatch]
-public static class InstantPlants
+public static class InstantPlantsPatches
 {
     [UsedImplicitly]
     [HarmonyPatch(typeof(Plant), nameof(Plant.Awake))]

@@ -65,7 +65,7 @@ internal class Utilities
         public const string Name = "DetailedPlayerInfo";
         public const string Version = "1.3";
         public const string WorkshopHandle = "3071950159";
-        public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/";
+        public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
         public const string GitVersion = GitRaw + Name + "/VERSION";
     }
 }
