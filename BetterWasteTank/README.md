@@ -2,4 +2,5 @@
 
 ### BetterWasteTank:
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.
-> Changes heating affect by lowering the amount of waste that goes into the waste tank when cooling the suit by 3 times.
+> Changes heating affect by lowering the amount of waste that goes into the waste tank when cooling the suit by 3 times. <br>
+![Image](../img/bwt.png)

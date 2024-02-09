@@ -1,10 +1,14 @@
-﻿using BepInEx;
+﻿using System.Collections;
+using Assets.Scripts;
+using Assets.Scripts.UI;
+using BepInEx;
 using HarmonyLib;
 using JetBrains.Annotations;
+using UnityEngine.Networking;
 
 namespace NoFractionalReageants;
 
-[BepInPlugin(Utilities.Plugin.GUID, Utilities.Plugin.NAME, Utilities.Plugin.VERSION)]
+[BepInPlugin(Utilities.Plugin.Guid, Utilities.Plugin.Name, Utilities.Plugin.Version)]
 [BepInProcess("rocketstation.exe")]
 public class NoFractionalReageants : BaseUnityPlugin
 {
@@ -12,28 +16,47 @@ public class NoFractionalReageants : BaseUnityPlugin
     public static Harmony HarmonyInstance { get; private set; }
 
     [UsedImplicitly]
-    public void Awake()
+    public async void Awake()
     {
-        Logger.LogInfo(Utilities.Plugin.NAME + " successfully loaded!");
+        Logger.LogInfo(Utilities.Plugin.Name + " successfully loaded!");
         Instance = this;
-        HarmonyInstance = new Harmony(Utilities.Plugin.GUID);
+        HarmonyInstance = new Harmony(Utilities.Plugin.Guid);
         HarmonyInstance.PatchAll();
 
-        Logger.LogInfo(Utilities.Plugin.NAME + " successfully patched!");
+        Logger.LogInfo(Utilities.Plugin.Name + " successfully patched!");
+
+        CheckVersion();
+    }
+
+    private IEnumerator CheckVersion()
+    {
+        var webRequest = UnityWebRequest.Get(Utilities.Plugin.GitVersion);
+        yield return webRequest.SendWebRequest();
+
+        if (webRequest.result != UnityWebRequest.Result.Success) yield break;
+
+        var data = webRequest.downloadHandler.text.Trim();
+        if (data != Utilities.Plugin.Version)
+        {
+            if (MainMenu.Instance.MainMenuCanvas.isActiveAndEnabled)
+                ConsoleWindow.PrintAction(
+                    "New version of " + Utilities.Plugin.Name + " v" + Utilities.Plugin.Version + " is available!",
+                    false);
+            else
+                yield return null;
+        }
     }
 }
 
-public class Utilities
+internal class Utilities
 {
-    public static T GetFieldValue<T>(Traverse traverse, string fieldName)
+    internal struct Plugin
     {
-        return traverse.Field<T>(fieldName).Value;
-    }
-
-    public struct Plugin
-    {
-        public const string GUID = "nofractionalreageants";
-        public const string NAME = "NoFractionalReageants";
-        public const string VERSION = "1.0";
+        public const string Guid = "nofractionalreageants";
+        public const string Name = "NoFractionalReageants";
+        public const string Version = "1.1";
+        public const string WorkshopHandle = "3072573233";
+        public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/";
+        public const string GitVersion = GitRaw + Name + "/VERSION";
     }
 }

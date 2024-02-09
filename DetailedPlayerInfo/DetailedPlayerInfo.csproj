@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>DetailedPlayerInfo</AssemblyName>
-    <Version>1.0.0</Version>
+    <Version>1.3</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
@@ -14,20 +14,45 @@
     <RootNamespace>DetailedPlayerInfo</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
    <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-   <RunPostBuildEvent>Always</RunPostBuildEvent>
+   <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+   <NoWin32Manifest>true</NoWin32Manifest>
+   <IsPublishable>False</IsPublishable>
+   <PlatformTarget>x64</PlatformTarget>
+   <Nullable>disable</Nullable>
+   <SignAssembly>False</SignAssembly>
+   <ErrorReport>none</ErrorReport>
+   <Title>$(AssemblyName)</Title>
+   <Company>vivi</Company>
+   <PackageProjectUrl>https://github.com/TerameTechYT/RocketMods</PackageProjectUrl>
+   <PackageReadmeFile>README.MD</PackageReadmeFile>
+   <RepositoryUrl>https://github.com/TerameTechYT/RocketMods</RepositoryUrl>
+   <RepositoryType>git</RepositoryType>
+   <AssemblyVersion>1.3</AssemblyVersion>
+   <FileVersion>1.3</FileVersion>
+   <PackageLicenseFile>LICENSE</PackageLicenseFile>
+   <AnalysisLevel>latest-all</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>embedded</DebugType>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>embedded</DebugType>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="clean.bat" />
     <None Remove="DetailedPlayerInfo.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -71,7 +96,10 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="cmd /c clean.bat" />
-  </Target>
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 </Project>

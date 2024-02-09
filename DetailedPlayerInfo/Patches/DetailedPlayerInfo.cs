@@ -103,7 +103,9 @@ public static class DetailedPlayerInfo
             // Suit Temperature Setting
             var temperatureSetting = suit?.OutputTemperature ?? 0f;
             var temperatureSettingText =
-                _kelvinMode ? temperatureSetting.ToString("F") : (temperatureSetting - Chemistry.Temperature.ZeroDegrees).ToString("F");
+                _kelvinMode
+                    ? temperatureSetting.ToString("F")
+                    : (temperatureSetting - Chemistry.Temperature.ZeroDegrees).ToString("F");
             window.InfoInternalTemperatureSetting.text = temperatureSettingText;
 
             // Suit External Temperature

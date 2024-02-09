@@ -48,8 +48,7 @@ public static class ExternalSuitReader
             !logicTypeAsString.EndsWith(endingString)) return GasType.Undefined;
 
         var gasTypeString = logicTypeAsString.Replace("Ratio", "").Replace(endingString, "");
-        if (Enum.TryParse(gasTypeString, out GasType gasType)) return gasType;
 
-        return GasType.Undefined;
+        return Enum.TryParse(gasTypeString, out GasType gasType) ? gasType : GasType.Undefined;
     }
 }
