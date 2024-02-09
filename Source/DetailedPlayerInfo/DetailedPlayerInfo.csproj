@@ -17,7 +17,7 @@
    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
    <NoWin32Manifest>true</NoWin32Manifest>
    <IsPublishable>False</IsPublishable>
-   <PlatformTarget>x64</PlatformTarget>
+   <PlatformTarget>AnyCPU</PlatformTarget>
    <Nullable>disable</Nullable>
    <SignAssembly>False</SignAssembly>
    <ErrorReport>none</ErrorReport>
@@ -31,6 +31,7 @@
    <FileVersion>1.3</FileVersion>
    <PackageLicenseFile>LICENSE</PackageLicenseFile>
    <AnalysisLevel>latest-all</AnalysisLevel>
+   <BaseOutputPath>..\..\Build\</BaseOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -68,31 +69,44 @@
 
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.Addressables">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Addressables.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Addressables.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.DOTween">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.DOTween.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.DOTween.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.Linq">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Linq.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Linq.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.TextMeshPro">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.TextMeshPro.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>InstantPlants</AssemblyName>
+    <AssemblyName>NoFractionalReageants</AssemblyName>
     
     <Version>1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -12,23 +12,23 @@
       https://nuget.bepinex.dev/v3/index.json;
       https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
-    <RootNamespace>InstantPlants</RootNamespace>
+    <RootNamespace>NoFractionalReageants</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <NoWin32Manifest>true</NoWin32Manifest>
-    <IsPublishable>False</IsPublishable>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <Nullable>disable</Nullable>
-    <ErrorReport>none</ErrorReport>
     <Title>$(AssemblyName)</Title>
     <Company>vivi</Company>
-    <PackageProjectUrl>https://github.com/TerameTechYT/RocketMods</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/TerameTechYT/RocketMods</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <AssemblyVersion>1.0</AssemblyVersion>
     <FileVersion>1.0</FileVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/TerameTechYT/RocketMods</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/TerameTechYT/RocketMods</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <AnalysisLevel>latest-all</AnalysisLevel>
+    <IsPublishable>False</IsPublishable>
+    <BaseOutputPath>..\..\Build\</BaseOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -61,34 +61,44 @@
 
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.Addressables">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Addressables.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Addressables.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.DOTween">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.DOTween.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.DOTween.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.Linq">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Linq.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Linq.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.TextMeshPro">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.TextMeshPro.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 
