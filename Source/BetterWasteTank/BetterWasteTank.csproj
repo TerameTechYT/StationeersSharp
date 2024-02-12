@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>BetterWasteTank</AssemblyName>
-    
-    <Version>1.0</Version>
+
+    <Version>1.2.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
@@ -17,46 +17,47 @@
     <NoWin32Manifest>true</NoWin32Manifest>
     <IsPublishable>False</IsPublishable>
     <ImplicitUsings>disable</ImplicitUsings>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>none</ErrorReport>
     <Title>$(AssemblyName)</Title>
     <Company>vivi</Company>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>1.0</AssemblyVersion>
-    <FileVersion>1.0</FileVersion>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
+    <FileVersion>1.2.0</FileVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <AnalysisLevel>latest-all</AnalysisLevel>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/TerameTechYT/RocketMods</RepositoryUrl>
     <PackageProjectUrl>https://github.com/TerameTechYT/RocketMods</PackageProjectUrl>
     <Nullable>disable</Nullable>
-    <Platforms>AnyCPU</Platforms>
     <BaseOutputPath>..\..\Build\</BaseOutputPath>
+    <Platforms>x64;x86</Platforms>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>embedded</DebugType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebugType>portable</DebugType>
     <WarningLevel>4</WarningLevel>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DebugType>portable</DebugType>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebugType>embedded</DebugType>
     <WarningLevel>4</WarningLevel>
-    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DebugType>embedded</DebugType>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="bin\**" />
     <EmbeddedResource Remove="bin\**" />
     <None Remove="bin\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -71,52 +72,64 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Include="VERSION" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Newtonsoft.Json.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UniTask">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.Addressables">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Addressables.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Addressables.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.DOTween">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.DOTween.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.DOTween.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.Linq">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Linq.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.Linq.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UniTask.TextMeshPro">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.TextMeshPro.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UniTask.TextMeshPro.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\Unity.TextMeshPro.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>D:\Programs\Steam\steamapps\common\Stationeers\rocketstation_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-
+  
   <ItemGroup>
     <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) &quot;C:\Users\vivien\Documents\My Games\Stationeers\mods\$(AssemblyName)\&quot;&#xD;&#xA;&#xD;&#xA;exit 0" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="del &quot;C:\Users\vivien\Documents\My Games\Stationeers\mods\$(AssemblyName)\$(AssemblyName).dll&quot;&#xD;&#xA;&#xD;&#xA;exit 0" />
+  </Target>
 </Project>
