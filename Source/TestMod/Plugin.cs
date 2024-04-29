@@ -5,8 +5,6 @@
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
-using BepInEx.Bootstrap;
-using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
 using System;
@@ -14,10 +12,9 @@ using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-namespace DetailedPlayerInfo;
+namespace TestMod;
 
 [BepInPlugin(Data.Guid, Data.Name, Data.Version)]
-[BepInDependency("PlantsnNutrition", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("rocketstation.exe")]
 public class Plugin : BaseUnityPlugin
 {
@@ -33,32 +30,21 @@ public class Plugin : BaseUnityPlugin
         HarmonyInstance.PatchAll();
         Logger.LogInfo(Data.Name + " successfully patched!");
 
-
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) =>
         {
-            if (scene.name.Equals("base", StringComparison.OrdinalIgnoreCase))
+            if (scene.name.Equals("base", StringComparison.CurrentCultureIgnoreCase))
             {
                 // I do startcoroutine and it nullrefs?
                 // but this works?? wtf???
-                CheckVersion().ToUniTask().Forget();
-            }
-
-            if (Chainloader.PluginInfos.ContainsKey(Data.PNNGuid))
-            {
-                Data.PNNInstalled = true;
-
-                Type PNNType = Type.GetType("PlantsnNutritionRebalance.Scripts.ConfigFile, PlantsnNutritionRebalancePlugin");
-                Data.PNNMaxNutrition = (float?)PNNType?.GetField("MaxNutritionStorage").GetValue(PNNType) ?? 0f;
-                Data.PNNMaxHydration = (float?)PNNType?.GetField("MaxHydrationStorage").GetValue(PNNType) ?? 0f;
-
+                //CheckVersion().ToUniTask().Forget();
             }
         };
     }
 
     public IEnumerator CheckVersion()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get(new Uri(Data.GitVersion));
+        UnityWebRequest webRequest = UnityWebRequest.Get(Data.GitVersion);
         Logger.LogInfo("Awaiting send web request...");
         yield return webRequest.SendWebRequest();
 
@@ -97,43 +83,10 @@ public class Plugin : BaseUnityPlugin
 
 internal struct Data
 {
-    public const string Guid = "detailedplayerinfo";
-    public const string Name = "DetailedPlayerInfo";
-
-    // Plants And Nutrition support
-    public const string PNNGuid = "PlantsnNutrition";
-    public static bool PNNInstalled;
-    public static float PNNMaxHydration;
-    public static float PNNMaxNutrition;
-
-    public const string Version = "1.4.0";
-    public const string WorkshopHandle = "3071950159";
+    public const string Guid = "testmod";
+    public const string Name = "TestMod";
+    public const string Version = "1.2.0";
+    public const string WorkshopHandle = "";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
-
-    public const float TemperatureZero = 273.15f;
-    public const float TemperatureOne = 274.15f;
-    public const float TemperatureTwenty = 293.15f;
-    public const float TemperatureThirty = 303.15f;
-    public const float TemperatureFifty = 323.15f;
-
-    public const float TemperatureMinimumSafe = TemperatureZero;
-    public const float TemperatureMaximumSafe = TemperatureFifty;
-
-    public const float TemperatureMinimum = 1f;
-    public const float TemperatureMaximum = 80000f;
-
-    public const float PressureAtmosphere = 101.325f;
-
-    public const float PressureMinimumSafe = 273.15f;
-    public const float PressureMaximumSafe = 607.94995f;
-
-    public const float PressureMinimum = 0f;
-    public const float PressureMaximum = 1000000f;
-
-    public const string ExternalTemperatureUnit =
-        "GameCanvas/PanelStatusInfo/PanelExternalNavigation/PanelExternal/PanelTemp/ValueTemp/TextUnitTemp";
-
-    public const string InternalTemperatureUnit =
-        "GameCanvas/PanelStatusInfo/PanelVerticalGroup/Internals/PanelInternal/PanelTemp/ValueTemp/TextUnitTemp";
 }

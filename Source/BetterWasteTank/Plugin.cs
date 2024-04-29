@@ -1,17 +1,15 @@
 ﻿// ReSharper disable InconsistentNaming
 
-#pragma warning disable CA1822
 #pragma warning disable CA2243
 
-using System;
-using System.Collections;
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
-using UnityEngine;
+using System;
+using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -30,13 +28,13 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo(Data.Name + " successfully loaded!");
         Instance = this;
         HarmonyInstance = new Harmony(Data.Guid);
-        HarmonyInstance.PatchAll();
-        Logger.LogInfo(Data.Name + " successfully patched!");
+        //HarmonyInstance.PatchAll();
+        //Logger.LogInfo(Data.Name + " successfully patched!");
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) =>
-        { 
-            if (scene.name.ToLower() == "base")
+        {
+            if (scene.name.Equals("base", StringComparison.OrdinalIgnoreCase))
             {
                 // I do startcoroutine and it nullrefs?
                 // but this works?? wtf???
@@ -47,15 +45,17 @@ public class Plugin : BaseUnityPlugin
 
     public IEnumerator CheckVersion()
     {
-        var webRequest = UnityWebRequest.Get(Data.GitVersion);
+        UnityWebRequest webRequest = UnityWebRequest.Get(new Uri(Data.GitVersion));
         Logger.LogInfo("Awaiting send web request...");
         yield return webRequest.SendWebRequest();
 
-        var currentVersion = webRequest.downloadHandler.text.Trim();
+        string currentVersion = webRequest.downloadHandler.text.Trim();
         Logger.LogInfo("Await complete!");
 
         while (!MainMenu.Instance.MainMenuCanvas.gameObject.activeInHierarchy)
+        {
             yield return null;
+        }
 
         if (webRequest.result == UnityWebRequest.Result.Success)
         {
@@ -63,7 +63,9 @@ public class Plugin : BaseUnityPlugin
             ConsoleWindow.Print($"[{Data.Name}]: v{Data.Version} is installed.");
 
             if (Data.Version == currentVersion)
+            {
                 yield break;
+            }
 
             Logger.LogInfo("User does not have latest version, printing to console.");
             ConsoleWindow.PrintAction($"[{Data.Name}]: New version v{currentVersion} is available");
@@ -88,8 +90,4 @@ internal struct Data
     public const string WorkshopHandle = "3071913936";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
-}
-
-internal class Utilities
-{
 }

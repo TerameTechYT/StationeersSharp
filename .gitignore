@@ -202,3 +202,4 @@ healthchecksdb
 MigrationBackup/
 .ionide/
 FodyWeavers.xsd
+/Source/TestMod/TestMod.csproj

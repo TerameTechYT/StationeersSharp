@@ -14,17 +14,16 @@ public static class Functions
 {
     public static bool IsWasteCritical(Suit suit)
     {
-        return suit != null && suit.WasteTank == null || suit != null &&
+        return (suit != null && suit.WasteTank == null) || (suit != null &&
                                                             suit.WasteTank != null &&
                                                             suit.WasteTank.Pressure >=
-                                                            suit.WasteMaxPressure * 0.975f;
+                                                            suit.WasteMaxPressure * 0.975f);
     }
 
     public static bool IsWasteCaution(Suit suit)
     {
-        if (suit == null) return false;
-
-        return suit.WasteTank != null &&
+        return suit != null
+&& suit.WasteTank != null &&
                suit.WasteTank.Pressure >=
                suit.WasteMaxPressure * 0.75f;
     }
@@ -33,26 +32,30 @@ public static class Functions
     {
         if (human.Suit != null && human.Suit.WasteTank != null && wasteText != null)
         {
-            var percent = Mathf.RoundToInt(human.Suit && human.Suit.WasteTank
+            string percent = Mathf.RoundToInt(human.Suit.WasteTank
                 ? human.Suit.WasteTank.Pressure / human.Suit.WasteMaxPressure * 100f
                 : 0f) + "%";
 
             wasteText.text = percent;
         }
 
-        if (human.Suit != null && human.Suit.WasteTank != null)
-            human.Suit.WasteMaxPressure = human.Suit.WasteTank.MaxPressure - 101f;
+        if (human.SuitSlot.Contains(out Suit suit) && human.Suit.WasteTank != null)
+        {
+            suit.WasteMaxPressure = suit.WasteTank.MaxPressure - 101f;
+        }
     }
 
     public static float SuitAirConditioner(ref InternalAtmosphereConditioner conditioner,
         ref Atmosphere selectedAtmosphere)
     {
         if (conditioner.WasteTank.IsOpen)
+        {
             OnServer.Interact(conditioner.WasteTank.InteractOpen, 0, true);
+        }
 
-        var desiredEnergy = conditioner.OutputTemperature * selectedAtmosphere.GasMixture.HeatCapacity;
-        var desiredEnergyDelta = desiredEnergy - selectedAtmosphere.GasMixture.TotalEnergy;
-        var usedEnergy = Mathf.Abs(Mathf.Clamp(desiredEnergyDelta, -conditioner.MaxEnergy * conditioner.Efficiency,
+        float desiredEnergy = conditioner.OutputTemperature * selectedAtmosphere.GasMixture.HeatCapacity;
+        float desiredEnergyDelta = desiredEnergy - selectedAtmosphere.GasMixture.TotalEnergy;
+        float usedEnergy = Mathf.Abs(Mathf.Clamp(desiredEnergyDelta, -conditioner.MaxEnergy * conditioner.Efficiency,
             conditioner.MaxEnergy * conditioner.Efficiency));
 
         if (desiredEnergyDelta < 0.0) // cooling suit

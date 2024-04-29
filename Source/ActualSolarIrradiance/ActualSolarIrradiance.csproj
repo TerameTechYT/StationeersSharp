@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>BetterWasteTank</AssemblyName>
+    <AssemblyName>ActualSolarIrradiance</AssemblyName>
 
     <Version>1.2.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -12,24 +12,23 @@
       https://nuget.bepinex.dev/v3/index.json;
       https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
-    <RootNamespace>BetterWasteTank</RootNamespace>
+    <RootNamespace>ActualSolarIrradiance</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <NoWin32Manifest>true</NoWin32Manifest>
-    <IsPublishable>False</IsPublishable>
-    <ImplicitUsings>disable</ImplicitUsings>
     <PlatformTarget>x64</PlatformTarget>
+    <Nullable>disable</Nullable>
     <ErrorReport>none</ErrorReport>
     <Title>$(AssemblyName)</Title>
     <Company>vivi</Company>
+    <PackageProjectUrl>https://github.com/TerameTechYT/RocketMods</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/TerameTechYT/RocketMods</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <AssemblyVersion>1.2.0</AssemblyVersion>
     <FileVersion>1.2.0</FileVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <AnalysisLevel>latest-all</AnalysisLevel>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/TerameTechYT/RocketMods</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/TerameTechYT/RocketMods</PackageProjectUrl>
-    <Nullable>disable</Nullable>
+    <IsPublishable>False</IsPublishable>
     <BaseOutputPath>..\..\Build\</BaseOutputPath>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>
@@ -69,10 +68,6 @@
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Include="VERSION" />
   </ItemGroup>
 
   <ItemGroup>
@@ -117,7 +112,7 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-  
+
   <ItemGroup>
     <None Update="README.md">
       <Pack>True</Pack>

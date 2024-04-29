@@ -45,15 +45,16 @@ public static class PatchFunctions
     public static bool InternalAtmosphereConditionerAirConditioning(InternalAtmosphereConditioner __instance,
         ref float __result, ref Atmosphere selectedAtmosphere)
     {
-        if (__instance == null || __instance.Thing is not Suit || selectedAtmosphere == null) return true;
+        return true;
+        //if (__instance == null || __instance.Thing is not Suit || selectedAtmosphere == null) return true;
 
-        if (!__instance.OnOff || __instance.Battery == null || __instance.WasteTank == null ||
-            __instance.Battery.IsEmpty)
-            return true;
+        //if (!__instance.OnOff || __instance.Battery == null || __instance.WasteTank == null ||
+        //    __instance.Battery.IsEmpty)
+        //    return true;
 
-        if (__instance.WasteTank.InternalAtmosphere.PressureGasses >= __instance.WasteMaxPressure) return true;
+        //if (__instance.WasteTank.InternalAtmosphere.PressureGasses >= __instance.WasteMaxPressure) return true;
 
-        __result = Functions.SuitAirConditioner(ref __instance, ref selectedAtmosphere);
-        return false;
+        //__result = Functions.SuitAirConditioner(ref __instance, ref selectedAtmosphere);
+        //return false;
     }
 }
