@@ -1,9 +1,11 @@
-﻿namespace ActualSolarIrradiance;
+﻿using UnityEngine;
+
+namespace ActualSolarIrradiance;
 
 internal class Functions
 {
-    public static float GetPotentialPowerGenerated()
+    public static float GetPotentialPowerGenerated(float MaxVoltage)
     {
-        return OrbitalSimulation.SolarIrradiance;
+        return Mathf.Min(MaxVoltage, OrbitalSimulation.SolarIrradiance);
     }
 }

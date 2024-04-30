@@ -133,9 +133,9 @@ internal class Functions
         _kelvinMode = Input.GetKey(KeyCode.K);
 
         Human human = window.Parent;
-        Suit suit = (Suit)human.SuitSlot.Get();
-        Jetpack jetpack = (Jetpack)human.BackpackSlot.Get();
-        GasCanister jetpackPropellant = (GasCanister)jetpack?.PropellentSlot.Get();
+        Suit suit = human.SuitSlot.Get<Suit>();
+        Jetpack jetpack = human.BackpackSlot.Get<Jetpack>();
+        GasCanister jetpackPropellant = jetpack?.PropellentSlot.Get<GasCanister>();
 
         string temperatureUnit = _kelvinMode ? "°K" : "°C";
 
@@ -226,7 +226,7 @@ internal class Functions
 
         // Character Hunger Left
         float hunger = human.Nutrition;
-        float hungerDivisor = Data.PNNInstalled ? Data.PNNMaxNutrition : human.GetNutritionStorage();
+        float hungerDivisor = human.GetNutritionStorage();
         float hungerClamp = hunger / hungerDivisor;
         float hungerLeft = hungerClamp * 100f;
         string hungerLeftText = hungerLeft.ToString("F");
@@ -235,7 +235,7 @@ internal class Functions
 
         // Character Hydration Left
         float hydration = human.Hydration;
-        float hydrationDivisor = Data.PNNInstalled ? Data.PNNMaxHydration : human.GetHydrationStorage();
+        float hydrationDivisor = human.GetHydrationStorage();
         float hydrationClamp = hydration / hydrationDivisor;
         float hydrationLeft = hydrationClamp * 100f;
         string hydrationLeftText = hydrationLeft.ToString("F");

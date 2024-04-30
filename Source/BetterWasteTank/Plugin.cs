@@ -28,7 +28,7 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo(Data.Name + " successfully loaded!");
         Instance = this;
         HarmonyInstance = new Harmony(Data.Guid);
-        //HarmonyInstance.PatchAll();
+        //HarmonyInstance.PatchAll();   
         //Logger.LogInfo(Data.Name + " successfully patched!");
 
         // Thx jixxed for awesome code :)

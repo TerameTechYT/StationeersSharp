@@ -2,7 +2,6 @@
 
 using Assets.Scripts.Objects.Electrical;
 using HarmonyLib;
-using UnityEngine;
 
 namespace ActualSolarIrradiance;
 
@@ -16,7 +15,7 @@ public static class PatchFunctions
     {
         if (__instance != null)
         {
-            __result = Mathf.Min(__instance.PowerCable.MaxVoltage, Functions.GetPotentialPowerGenerated());
+            __result = Functions.GetPotentialPowerGenerated(__instance.PowerCable.MaxVoltage);
         }
     }
 }

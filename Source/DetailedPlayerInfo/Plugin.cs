@@ -5,7 +5,6 @@
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
-using BepInEx.Bootstrap;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
@@ -42,16 +41,6 @@ public class Plugin : BaseUnityPlugin
                 // I do startcoroutine and it nullrefs?
                 // but this works?? wtf???
                 CheckVersion().ToUniTask().Forget();
-            }
-
-            if (Chainloader.PluginInfos.ContainsKey(Data.PNNGuid))
-            {
-                Data.PNNInstalled = true;
-
-                Type PNNType = Type.GetType("PlantsnNutritionRebalance.Scripts.ConfigFile, PlantsnNutritionRebalancePlugin");
-                Data.PNNMaxNutrition = (float?)PNNType?.GetField("MaxNutritionStorage").GetValue(PNNType) ?? 0f;
-                Data.PNNMaxHydration = (float?)PNNType?.GetField("MaxHydrationStorage").GetValue(PNNType) ?? 0f;
-
             }
         };
     }
@@ -99,12 +88,6 @@ internal struct Data
 {
     public const string Guid = "detailedplayerinfo";
     public const string Name = "DetailedPlayerInfo";
-
-    // Plants And Nutrition support
-    public const string PNNGuid = "PlantsnNutrition";
-    public static bool PNNInstalled;
-    public static float PNNMaxHydration;
-    public static float PNNMaxNutrition;
 
     public const string Version = "1.5.0";
     public const string WorkshopHandle = "3071950159";
