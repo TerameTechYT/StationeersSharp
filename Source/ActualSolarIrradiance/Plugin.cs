@@ -5,6 +5,7 @@
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
+using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
 using System;
@@ -37,7 +38,7 @@ public class Plugin : BaseUnityPlugin
             {
                 // I do startcoroutine and it nullrefs?
                 // but this works?? wtf???
-                //CheckVersion().ToUniTask().Forget();
+                CheckVersion().ToUniTask().Forget();
             }
         };
     }
