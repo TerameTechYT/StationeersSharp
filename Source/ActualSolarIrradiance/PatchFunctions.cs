@@ -15,7 +15,7 @@ public static class PatchFunctions
     {
         if (__instance != null)
         {
-            __result = Functions.GetPotentialPowerGenerated(__instance.PowerCable.MaxVoltage);
+            __result = Functions.GetPotentialPowerGenerated(__instance.PowerCable?.MaxVoltage ?? Data.FiveKilowatts);
         }
     }
 }
