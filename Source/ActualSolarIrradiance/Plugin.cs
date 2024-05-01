@@ -86,7 +86,7 @@ internal struct Data
 {
     public const string Guid = "actualsolarirradiance";
     public const string Name = "ActualSolarIrradiance";
-    public const string Version = "1.0.1";
+    public const string Version = "1.0.2";
     public const string WorkshopHandle = "3234906754";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
