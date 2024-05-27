@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{0F4A42
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActualSolarIrradiance", "Source\ActualSolarIrradiance\ActualSolarIrradiance.csproj", "{89545E6B-8535-4020-9D17-3E66857787D9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoulanRevived", "Source\LoulanRevived\LoulanRevived.csproj", "{3DB9C869-8085-454E-9B8F-B8FA33F1AC6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -59,6 +61,14 @@ Global
 		{89545E6B-8535-4020-9D17-3E66857787D9}.Release|x64.Build.0 = Release|x64
 		{89545E6B-8535-4020-9D17-3E66857787D9}.Release|x86.ActiveCfg = Release|x86
 		{89545E6B-8535-4020-9D17-3E66857787D9}.Release|x86.Build.0 = Release|x86
+		{3DB9C869-8085-454E-9B8F-B8FA33F1AC6F}.Debug|x64.ActiveCfg = Debug|x64
+		{3DB9C869-8085-454E-9B8F-B8FA33F1AC6F}.Debug|x64.Build.0 = Debug|x64
+		{3DB9C869-8085-454E-9B8F-B8FA33F1AC6F}.Debug|x86.ActiveCfg = Debug|x86
+		{3DB9C869-8085-454E-9B8F-B8FA33F1AC6F}.Debug|x86.Build.0 = Debug|x86
+		{3DB9C869-8085-454E-9B8F-B8FA33F1AC6F}.Release|x64.ActiveCfg = Release|x64
+		{3DB9C869-8085-454E-9B8F-B8FA33F1AC6F}.Release|x64.Build.0 = Release|x64
+		{3DB9C869-8085-454E-9B8F-B8FA33F1AC6F}.Release|x86.ActiveCfg = Release|x86
+		{3DB9C869-8085-454E-9B8F-B8FA33F1AC6F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
