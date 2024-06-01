@@ -1,9 +1,7 @@
 ﻿#pragma warning disable CA1707
 
-using Assets.Scripts;
 using HarmonyLib;
 using JetBrains.Annotations;
-using System.Collections;
 
 namespace LoulanRevived;
 
@@ -21,18 +19,11 @@ public static class PatchFunctions
         }
     }
 
-    [UsedImplicitly]
-    [HarmonyPatch(typeof(TileSystem), "DelayIncident")]
-    [HarmonyPrefix]
-    public static bool TileSystemDelayIncident(ref TileSystem __instance, ref IEnumerator __result,
-        TileData tileData, Incident incident, int delay, WorldManager.TerrainFeatureIncident relatedValues)
-    {
-        if (Data.SpawnWrecks != null && Data.SpawnWrecks.Value)
-        {
-            __result = Functions.DelayIncident(tileData, incident, delay, relatedValues);
-            return false;
-        }
-
-        return true;
-    }
+    //[UsedImplicitly]
+    //[HarmonyPatch(typeof(TileSystem), "GenerateRandomIncident")]
+    //[HarmonyPrefix]
+    //public static bool TileSystemGenerateRandomIncident(ref TileSystem __instance, TileData tileData, bool onTileEnter = false)
+    //{
+    //    return Functions.GenerateRandomIncident(ref __instance, tileData, onTileEnter);
+    //}
 }
