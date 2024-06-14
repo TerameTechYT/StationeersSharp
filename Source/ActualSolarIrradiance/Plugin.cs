@@ -1,6 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-
-#pragma warning disable CA2243
+﻿#pragma warning disable CA2243
 
 using Assets.Scripts;
 using Assets.Scripts.UI;
@@ -34,7 +32,7 @@ public class Plugin : BaseUnityPlugin
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) =>
         {
-            if (scene.name.Equals("base", StringComparison.OrdinalIgnoreCase))
+            if (scene.name == "base")
             {
                 // I do startcoroutine and it nullrefs?
                 // but this works?? wtf???
@@ -45,7 +43,7 @@ public class Plugin : BaseUnityPlugin
 
     public IEnumerator CheckVersion()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get(Data.GitVersion);
+        UnityWebRequest webRequest = UnityWebRequest.Get(new Uri(Data.GitVersion));
         Logger.LogInfo("Awaiting send web request...");
         yield return webRequest.SendWebRequest();
 
@@ -93,4 +91,6 @@ internal struct Data
 
     public const float FiveKilowatts = 5000f;
     public const float OneHundredKilowatts = 100000f;
+
+    public static object GlobalAtmospherePrecise { get; internal set; }
 }

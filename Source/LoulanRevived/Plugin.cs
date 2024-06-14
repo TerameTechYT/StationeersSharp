@@ -38,7 +38,7 @@ public class Plugin : BaseUnityPlugin
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) =>
         {
-            if (scene.name.Equals("base", StringComparison.OrdinalIgnoreCase))
+            if (scene.name == "base")
             {
                 // I do startcoroutine and it nullrefs?
                 // but this works?? wtf???
