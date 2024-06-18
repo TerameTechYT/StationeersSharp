@@ -1,6 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
 
-#pragma warning disable CA1305
 #pragma warning disable CA1707
 #pragma warning disable IDE0060
 
@@ -19,7 +18,10 @@ public static class PatchFunctions
     [HarmonyPrefix]
     public static bool AdvancedSuitCanLogicRead(AdvancedSuit __instance, ref bool __result, LogicType logicType)
     {
-        if (!Functions.CanLogicRead(logicType)) return true;
+        if (!Functions.CanLogicRead(logicType))
+        {
+            return true;
+        }
 
         __result = true;
         return false;
@@ -30,10 +32,12 @@ public static class PatchFunctions
     [HarmonyPrefix]
     public static bool AdvancedSuitGetLogicValue(AdvancedSuit __instance, ref double __result, LogicType logicType)
     {
-        if (!Functions.CanLogicRead(logicType)) return true;
+        if (!Functions.CanLogicRead(logicType))
+        {
+            return true;
+        }
 
-        __result = Functions.GetLogicValue(__instance,
-            Functions.GetGasTypeFromLogicType(logicType, "Output"));
+        __result = Functions.GetLogicValue(__instance, logicType);
         return false;
     }
 }
