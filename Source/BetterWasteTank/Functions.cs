@@ -1,4 +1,3 @@
-#pragma warning disable CA1305
 
 using Assets.Scripts.Atmospherics;
 using Assets.Scripts.Objects.Clothing;
@@ -13,12 +12,12 @@ public static class Functions
 {
     public static GasCanister GetWasteCanister(Suit suit)
     {
-        return suit is not null && suit.WasteTankSlot.Contains(out GasCanister canister) ? canister : null;
+        return suit != null && suit.WasteTankSlot.Contains(out GasCanister canister) ? canister : null;
     }
 
     public static Suit GetSuit(Human human)
     {
-        return human is not null && human.SuitSlot.Contains(out Suit suit) ? suit : null;
+        return human != null && human.SuitSlot.Contains(out Suit suit) ? suit : null;
     }
 
     public static float GetWasteMaxPressure(Suit suit)
@@ -35,20 +34,31 @@ public static class Functions
         return wasteCanister?.Pressure ?? 0;
     }
 
+    public static bool GetWasteBroken(Suit suit)
+    {
+        GasCanister wasteCanister = GetWasteCanister(suit);
+
+        return wasteCanister?.IsBroken ?? false;
+    }
+
     public static bool IsWasteCritical(Suit suit)
     {
         float pressure = GetWastePressure(suit);
         float maxPressure = GetWasteMaxPressure(suit);
+        bool wasteBroken = GetWasteBroken(suit);
+        bool overThreshold = pressure != 0f && maxPressure != 0f && (pressure / maxPressure) >= Data.WasteCriticalRatio;
 
-        return pressure == 0f || maxPressure == 0f || (pressure / maxPressure) >= Data.WasteCriticalRatio;
+        return suit != null && (wasteBroken || overThreshold);
     }
 
     public static bool IsWasteCaution(Suit suit)
     {
         float pressure = GetWastePressure(suit);
         float maxPressure = GetWasteMaxPressure(suit);
+        bool overThreshold = pressure != 0f && maxPressure != 0f && (pressure / maxPressure) >= Data.WasteCautionRatio;
 
-        return !IsWasteCritical(suit) && (pressure / maxPressure) >= Data.WasteCautionRatio;
+
+        return suit != null && (!IsWasteCritical(suit) || overThreshold);
     }
 
     public static void UpdateIcons(ref TMP_Text wasteText, ref Human human)
@@ -59,8 +69,8 @@ public static class Functions
         {
             float pressure = GetWastePressure(suit);
             float maxPressure = GetWasteMaxPressure(suit);
-            int fullRatio = Mathf.RoundToInt(pressure / maxPressure);
-            string text = fullRatio.ToString("p");
+            int fullRatio = pressure == 0f || maxPressure == 0f ? 0 : Mathf.RoundToInt(pressure / maxPressure);
+            string text = $"{fullRatio}%";
 
             wasteText?.SetText(text);
         }

@@ -2,8 +2,10 @@
 
 #pragma warning disable CA1707
 
+using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Clothing;
 using Assets.Scripts.Objects.Entities;
+using Assets.Scripts.Objects.Items;
 using Assets.Scripts.UI;
 using HarmonyLib;
 using JetBrains.Annotations;
@@ -19,9 +21,22 @@ public static class PatchFunctions
     [HarmonyPostfix]
     public static void SuitAwake(ref Suit __instance)
     {
+        // recalculate max waste pressure
         __instance.WasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
+
     }
 
+    [UsedImplicitly]
+    [HarmonyPatch(typeof(Suit), nameof(Suit.OnChildEnterInventory))]
+    [HarmonyPostfix]
+    public static void SuitOnChildEnterInventory(ref Suit __instance, DynamicThing newChild)
+    {
+        if (newChild is GasCanister)
+        {
+            // recalculate max waste pressure
+            __instance.WasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
+        }
+    }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(StatusUpdates), nameof(StatusUpdates.IsWasteCritical))]
