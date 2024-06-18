@@ -34,7 +34,7 @@ public class Plugin : BaseUnityPlugin
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) =>
         {
-            if (scene.name == "base")
+            if (scene.name == "Base")
             {
                 // I do startcoroutine and it nullrefs?
                 // but this works?? wtf???
@@ -86,7 +86,7 @@ internal struct Data
 {
     public const string Guid = "externalsuitreader";
     public const string Name = "ExternalSuitReader";
-    public const string Version = "1.2.0";
+    public const string Version = "1.3.1";
     public const string WorkshopHandle = "3071985478";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";

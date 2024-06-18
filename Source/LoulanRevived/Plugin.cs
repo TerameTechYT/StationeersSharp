@@ -9,7 +9,6 @@ using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
-using System;
 using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -38,7 +37,7 @@ public class Plugin : BaseUnityPlugin
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) =>
         {
-            if (scene.name == "base")
+            if (scene.name == "Base")
             {
                 // I do startcoroutine and it nullrefs?
                 // but this works?? wtf???
