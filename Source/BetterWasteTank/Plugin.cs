@@ -28,13 +28,13 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo(Data.Name + " successfully loaded!");
         Instance = this;
         HarmonyInstance = new Harmony(Data.Guid);
-        //HarmonyInstance.PatchAll();   
-        //Logger.LogInfo(Data.Name + " successfully patched!");
+        HarmonyInstance.PatchAll();
+        Logger.LogInfo(Data.Name + " successfully patched!");
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) =>
         {
-            if (scene.name == "base")
+            if (scene.name == "Base")
             {
                 // I do startcoroutine and it nullrefs?
                 // but this works?? wtf???
@@ -86,8 +86,11 @@ internal struct Data
 {
     public const string Guid = "betterwastetank";
     public const string Name = "BetterWasteTank";
-    public const string Version = "1.2.0";
+    public const string Version = "1.3.1";
     public const string WorkshopHandle = "3071913936";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
+
+    public const float WasteCriticalRatio = 0.975f;
+    public const float WasteCautionRatio = 0.75f;
 }
