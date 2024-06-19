@@ -29,7 +29,7 @@ public static class PatchFunctions
     {
         try
         {
-            return Functions.EnableFrameCounter(ref ___FrameRate);
+            return (Data.CustomFramerate?.Value ?? false) && Functions.EnableFrameCounter(ref ___FrameRate);
         }
         catch (Exception ex)
         {
