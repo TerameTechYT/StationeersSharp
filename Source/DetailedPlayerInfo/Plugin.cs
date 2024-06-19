@@ -5,11 +5,13 @@
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
+using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
 using System;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -32,9 +34,10 @@ public class Plugin : BaseUnityPlugin
         HarmonyInstance.PatchAll();
         Logger.LogInfo(Data.Name + " successfully patched!");
 
+        InitalizeConfig();
 
         // Thx jixxed for awesome code :)
-        SceneManager.sceneLoaded += (scene, _) =>
+        SceneManager.sceneLoaded += (scene, sceneMode) =>
         {
             if (scene.name == "Base")
             {
@@ -43,6 +46,44 @@ public class Plugin : BaseUnityPlugin
                 CheckVersion().ToUniTask().Forget();
             }
         };
+    }
+
+    public void InitalizeConfig()
+    {
+        Data.KelvinMode = Config.Bind("Keybinds",
+            "Kelvin Mode",
+            KeyCode.K,
+            "Keybind that when pressed, changes the status temperatures to kelvin instead of celcius.");
+
+        Data.CustomFramerate = Config.Bind("Configurables",
+            "CustomFramerate",
+            true,
+            "Should the framerate text only display FPS.");
+
+        Data.ChangeFontSize = Config.Bind("Configurables",
+            "ChangeFontSize",
+            true,
+            "Should the font size be changed.");
+
+        Data.ExtraInfoPower = Config.Bind("Configurables",
+            "ExtraInfoPower",
+            true,
+            "Should a extra text label be placed next to the status like waste tank status.");
+
+        Data.ExtraInfoFilter = Config.Bind("Configurables",
+            "ExtraInfoFilter",
+            true,
+            "Should a extra text label be placed next to the status like waste tank status.");
+
+        Data.NumberPrecision = Config.Bind("Configurables",
+            "NumberPrecision",
+            2,
+            "How many decimal points should be displayed on numbers.");
+
+        Data.FontSize = Config.Bind("Configurables",
+            "FontSize",
+            21,
+            "What font size should the labels be changed to.");
     }
 
     public IEnumerator CheckVersion()
@@ -89,10 +130,24 @@ internal struct Data
     public const string Guid = "detailedplayerinfo";
     public const string Name = "DetailedPlayerInfo";
 
-    public const string Version = "1.5.1";
+    public const string Version = "1.5.3";
     public const string WorkshopHandle = "3071950159";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
+
+    //Keycode
+    public static ConfigEntry<KeyCode> KelvinMode;
+
+    //Bools
+    public static ConfigEntry<bool> CustomFramerate;
+    public static ConfigEntry<bool> ChangeFontSize;
+
+    public static ConfigEntry<bool> ExtraInfoPower;
+    public static ConfigEntry<bool> ExtraInfoFilter;
+
+    //Ints/Floats
+    public static ConfigEntry<int> NumberPrecision;
+    public static ConfigEntry<int> FontSize;
 
     public const float TemperatureZero = 273.15f;
     public const float TemperatureOne = 274.15f;
@@ -119,4 +174,14 @@ internal struct Data
 
     public const string InternalTemperatureUnit =
         "GameCanvas/PanelStatusInfo/PanelVerticalGroup/Internals/PanelInternal/PanelTemp/ValueTemp/TextUnitTemp";
+
+    public const string WasteTextPanel =
+        "GameCanvas/StatusIcons/Waste/Panel";
+
+    public const string BatteryStatus =
+        "GameCanvas/StatusIcons/Power";
+
+    public const string FilterStatus =
+    "GameCanvas/StatusIcons/Filter";
+
 }
