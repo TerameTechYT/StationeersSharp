@@ -41,14 +41,22 @@ public static class Functions
         return wasteCanister?.IsBroken ?? false;
     }
 
+    public static bool GetWasteNull(Suit suit)
+    {
+        GasCanister wasteCanister = GetWasteCanister(suit);
+
+        return wasteCanister == null;
+    }
+
     public static bool IsWasteCritical(Suit suit)
     {
         float pressure = GetWastePressure(suit);
         float maxPressure = GetWasteMaxPressure(suit);
         bool wasteBroken = GetWasteBroken(suit);
+        bool wasteNull = GetWasteNull(suit);
         bool overThreshold = pressure != 0f && maxPressure != 0f && (pressure / maxPressure) >= Data.WasteCriticalRatio;
 
-        return suit != null && (wasteBroken || overThreshold);
+        return suit != null && (wasteBroken || wasteNull || overThreshold);
     }
 
     public static bool IsWasteCaution(Suit suit)
