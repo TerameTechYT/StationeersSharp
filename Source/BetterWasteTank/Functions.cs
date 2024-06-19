@@ -24,7 +24,7 @@ public static class Functions
     {
         GasCanister wasteCanister = GetWasteCanister(suit);
 
-        return wasteCanister?.MaxPressure - Chemistry.OneAtmosphere ?? 0f;
+        return wasteCanister?.MaxPressure - Chemistry.OneAtmosphere ?? Suit.DEFUALT_MAX_WASTE_PRESSURE;
     }
 
     public static float GetWastePressure(Suit suit)
@@ -58,7 +58,7 @@ public static class Functions
         bool overThreshold = pressure != 0f && maxPressure != 0f && (pressure / maxPressure) >= Data.WasteCautionRatio;
 
 
-        return suit != null && (!IsWasteCritical(suit) || overThreshold);
+        return suit != null && !IsWasteCritical(suit) && overThreshold;
     }
 
     public static void UpdateIcons(ref TMP_Text wasteText, ref Human human)
