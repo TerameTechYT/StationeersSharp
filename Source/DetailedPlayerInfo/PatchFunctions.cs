@@ -40,7 +40,7 @@ public static class PatchFunctions
                 _patches[currentMethod] = true;
 
                 ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()}");
+                ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
             }
 
             return true;
@@ -65,7 +65,7 @@ public static class PatchFunctions
                 _patches[currentMethod] = true;
 
                 ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()}");
+                ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
             }
         }
     }
@@ -89,7 +89,7 @@ public static class PatchFunctions
                 _patches[currentMethod] = true;
 
                 ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()}");
+                ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
             }
         }
     }

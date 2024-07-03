@@ -61,9 +61,9 @@ public class SEGIPlugin : BaseUnityPlugin
     {
         // Voxel
         Data.VoxelResolution = Config.Bind("Voxel", "Resolution", SEGI.VoxelResolution.High, "High or Low");
-        Data.HalfResolution = Config.Bind("Voxel", "Half Resolution", false, "true or false");
+        Data.HalfResolution = Config.Bind("Voxel", "Half Resolution", true, "true or false");
         Data.VoxelSpaceSize = Config.Bind("Voxel", "Space Size", 25f, "1.0 to 100.0");
-        Data.VoxelAntiAliasing = Config.Bind("Voxel", "Anti Aliasing", false, "true or false");
+        Data.VoxelAntiAliasing = Config.Bind("Voxel", "Anti Aliasing", true, "true or false");
 
         // Occlusion
         Data.InnerOcclusionLayers = Config.Bind("Occlusion", "Inner Occlusion Layers", 1, "0 to 2");
@@ -76,28 +76,28 @@ public class SEGIPlugin : BaseUnityPlugin
 
         // Reflection
         Data.DoReflections = Config.Bind("Refections", "Do Reflections", true, "true or false");
-        Data.InfiniteBounces = Config.Bind("Refections", "Infinite Bounces", false, "true or false");
-        Data.ReflectionSteps = Config.Bind("Refections", "Reflection Steps", 64, "12 to 128");
+        Data.InfiniteBounces = Config.Bind("Refections", "Infinite Bounces", true, "true or false");
+        Data.ReflectionSteps = Config.Bind("Refections", "Reflection Steps", 32, "12 to 128");
         Data.ReflectionOcclusionPower = Config.Bind("Refections", "Reflection Occlusion Power", 1f, "0.001 to 4.0");
-        Data.SecondaryBounceGain = Config.Bind("Refections", "Secondary Bounce Gain", 1f, "0.1 to 4.0");
-        Data.SkyReflectionIntensity = Config.Bind("Refections", "Sky Reflection Intensity", 1f, "0.0 to 1.0f");
+        Data.SecondaryBounceGain = Config.Bind("Refections", "Secondary Bounce Gain", 0.75f, "0.1 to 4.0");
+        Data.SkyReflectionIntensity = Config.Bind("Refections", "Sky Reflection Intensity", 0.5f, "0.0 to 1.0f");
 
         // Cones
         Data.Cones = Config.Bind("Cones", "Cones", 6, "1 to 128");
-        Data.SecondaryCones = Config.Bind("Cones", "Secondary Cones", 6, "3 to 16");
+        Data.SecondaryCones = Config.Bind("Cones", "Secondary Cones", 3, "3 to 16");
         Data.ConeTraceSteps = Config.Bind("Cones", "Cone Trace Steps", 14, "1 to 32");
         Data.ConeTraceBias = Config.Bind("Cones", "Cone Trace Bias", 1f, "0.0 to 4.0");
         Data.ConeLength = Config.Bind("Cones", "Cone Length", 1f, "0.1 to 2.0");
-        Data.ConeWidth = Config.Bind("Cones", "Cone Width", 5.5f, "0.5 to 6.0");
+        Data.ConeWidth = Config.Bind("Cones", "Cone Width", 2.25f, "0.5 to 6.0");
 
         // Light
         Data.NearLightGain = Config.Bind("Light", "Near Light Gain", 1f, "0.0 to 4.0");
-        Data.GIGain = Config.Bind("Light", "Global Illumination Gain", 1f, "0.0 to 4.0");
+        Data.GIGain = Config.Bind("Light", "Global Illumination Gain", 0.5f, "0.0 to 4.0");
         Data.ShadowSpaceSize = Config.Bind("Light", "Shadow Space Size", 1f, "1.0 to 100.0");
 
         // Sampling & Filtering
-        Data.GaussianMipFilter = Config.Bind("Sampling & Filtering", "Gaussian Mip Filter", false, "true or false");
-        Data.UseBilateralFiltering = Config.Bind("Sampling & Filtering", "Use Bilateral Filtering", false, "true or false");
+        Data.GaussianMipFilter = Config.Bind("Sampling & Filtering", "Gaussian Mip Filter", true, "true or false");
+        Data.UseBilateralFiltering = Config.Bind("Sampling & Filtering", "Use Bilateral Filtering", true, "true or false");
         Data.StochasticSampling = Config.Bind("Sampling & Filtering", "Stochastic Sampling", true, "true or false");
         Data.TemporalBlendWeight = Config.Bind("Sampling & Filtering", "Temporal Blend Weight", 0.1f, "0.01 to 1.0");
 

@@ -8,7 +8,9 @@ using BepInEx;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -44,7 +46,7 @@ public class Plugin : BaseUnityPlugin
 
     public IEnumerator CheckVersion()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get(Data.GitVersion);
+        UnityWebRequest webRequest = UnityWebRequest.Get(new Uri(Data.GitVersion));
         Logger.LogInfo("Awaiting send web request...");
         yield return webRequest.SendWebRequest();
 
@@ -89,4 +91,55 @@ internal struct Data
     public const string WorkshopHandle = "";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
+
+    // All these planets will be added!!
+    public static readonly List<string> WorldOrder =
+    [
+        "Space",
+        "Mercury",
+        "Venus",
+        "Earth",
+        "Moon",
+
+        "Mars",
+        "Phobos",
+        "Deimos",
+
+        "Ceres",
+
+        "Jupiter",
+        "Io",
+        "Europa",
+        "Ganymede",
+        "Callisto",
+
+        "Saturn",
+        "Mimas",
+        "Enceladus",
+        "Tethys",
+        "Dione",
+        "Rhea",
+        "Titan",
+
+        "Uranus",
+        "Miranda",
+        "Ariel",
+        "Umbriel",
+        "Titania",
+        "Oberon",
+
+        "Neptune",
+        "Triton",
+
+        "Pluto",
+        "Haumea",
+        "Makemake",
+        "Quaoar",
+        "Orcus",
+        "Eris",
+        "Gonggong",
+        "Sedna",
+
+        "Vulcan",
+    ];
 }
