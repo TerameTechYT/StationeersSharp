@@ -18,7 +18,7 @@ public static class PatchFunctions
         }
     }
 
-    [UsedImplicitly]
+    /*[UsedImplicitly]
     [HarmonyPatch(typeof(TurbineGenerator), nameof(TurbineGenerator.GetGeneratedPower))]
     [HarmonyPostfix]
     public static void TurbineGeneratorGetGeneratedPower(ref TurbineGenerator __instance, ref float __result)
@@ -71,5 +71,5 @@ public static class PatchFunctions
         {
             __instance.BatteryChargeRate = Functions.GetPowerAvailable(__instance.PowerCable);
         }
-    }
+    }*/
 }
