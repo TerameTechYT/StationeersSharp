@@ -6,3 +6,8 @@
 > This is a port of Stationeers.SEGI for Stationeers.Mods. <br>
 > [erdoy Stationeers.SEGI](https://github.com/Erdroy/Stationeers.SEGI/)<br>
 > [sonicether SEGI](https://github.com/sonicether/SEGI)<br>
+
+![Image](../../Images/SEGI/light_scatter.png)<br>
+![Image](../../Images/SEGI/base_image_1.png)
+![Image](../../Images/SEGI/base_image_2.png)<br>
+![Image](../../Images/SEGI/rocket_flying.png)
