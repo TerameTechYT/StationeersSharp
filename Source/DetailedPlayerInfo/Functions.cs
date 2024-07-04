@@ -1,8 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-
-#pragma warning disable CA1305
-
-using Assets.Scripts;
+﻿using Assets.Scripts;
 using Assets.Scripts.GridSystem;
 using Assets.Scripts.Inventory;
 using Assets.Scripts.Objects.Clothing;

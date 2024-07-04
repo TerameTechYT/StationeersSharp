@@ -1,5 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-
+﻿
 using Assets.Scripts.Atmospherics;
 using Assets.Scripts.Objects.Clothing;
 using Assets.Scripts.Objects.Motherboards;

@@ -1,5 +1,4 @@
-﻿#pragma warning disable CA2243
-
+﻿
 using Assets.Scripts;
 using BepInEx;
 using Cysharp.Threading.Tasks;

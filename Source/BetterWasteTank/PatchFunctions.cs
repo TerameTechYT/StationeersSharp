@@ -1,7 +1,3 @@
-// ReSharper disable InconsistentNaming
-
-#pragma warning disable CA1707
-
 using Assets.Scripts.Objects.Clothing;
 using Assets.Scripts.Objects.Entities;
 using Assets.Scripts.UI;
@@ -20,8 +16,10 @@ public static class PatchFunctions
     public static void SuitAwake(ref Suit __instance)
     {
         // recalculate max waste pressure
-        __instance.WasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
-
+        if (__instance != null)
+        {
+            __instance.WasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
+        }
     }
 
     [UsedImplicitly]
@@ -30,7 +28,10 @@ public static class PatchFunctions
     public static void SuitOnAtmosphericTick(ref Suit __instance)
     {
         // recalculate max waste pressure
-        __instance.WasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
+        if (__instance != null)
+        {
+            __instance.WasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
+        }
     }
 
     [UsedImplicitly]

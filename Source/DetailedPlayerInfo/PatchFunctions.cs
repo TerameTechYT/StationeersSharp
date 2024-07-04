@@ -1,9 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-
-#pragma warning disable CA1707
-#pragma warning disable IDE0060
-
-using Assets.Scripts;
+﻿using Assets.Scripts;
 using Assets.Scripts.UI;
 using HarmonyLib;
 using JetBrains.Annotations;

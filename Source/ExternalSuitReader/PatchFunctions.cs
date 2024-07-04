@@ -1,7 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-
-#pragma warning disable CA1707
-#pragma warning disable IDE0060
+﻿
 
 using Assets.Scripts.Objects.Clothing;
 using Assets.Scripts.Objects.Motherboards;
