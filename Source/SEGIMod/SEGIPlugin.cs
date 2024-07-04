@@ -28,6 +28,7 @@ public class SEGIPlugin : BaseUnityPlugin
     [UsedImplicitly]
     public void Awake()
     {
+        LoadConfiguration();
         Logger.LogInfo(Data.Name + " successfully loaded!");
         Instance = this;
         HarmonyInstance = new Harmony(Data.Guid);
@@ -40,12 +41,7 @@ public class SEGIPlugin : BaseUnityPlugin
         SEGIManagerInstance = SEGIGameObject.AddComponent<SEGIManager>();
         Logger.LogInfo(Data.Name + " loaded segi object!");
 
-        Logger.LogInfo(Data.Name + " loading segi settings...");
-        LoadConfiguration();
-        Logger.LogInfo(Data.Name + " loaded segi settings!");
-
         // Thx jixxed for awesome code :)
-
         SceneManager.sceneLoaded += (scene, _) =>
         {
             if (scene.name == "Base")

@@ -3,14 +3,12 @@
 #pragma warning disable CA2243
 
 using Assets.Scripts;
-using Assets.Scripts.UI;
 using BepInEx;
 using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -28,27 +26,26 @@ public class Plugin : BaseUnityPlugin
     [UsedImplicitly]
     public void Awake()
     {
+        LoadConfiguration();
+
         Logger.LogInfo(Data.Name + " successfully loaded!");
         Instance = this;
         HarmonyInstance = new Harmony(Data.Guid);
         HarmonyInstance.PatchAll();
         Logger.LogInfo(Data.Name + " successfully patched!");
 
-        InitalizeConfig();
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, sceneMode) =>
         {
             if (scene.name == "Base")
             {
-                // I do startcoroutine and it nullrefs?
-                // but this works?? wtf???
-                CheckVersion().ToUniTask().Forget();
+                CheckVersion().Forget();
             }
         };
     }
 
-    public void InitalizeConfig()
+    public void LoadConfiguration()
     {
         Data.KelvinMode = Config.Bind("Keybinds",
             "Kelvin Mode",
@@ -86,19 +83,13 @@ public class Plugin : BaseUnityPlugin
             "What font size should the labels be changed to.");
     }
 
-    public IEnumerator CheckVersion()
+    public async UniTaskVoid CheckVersion()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get(new Uri(Data.GitVersion));
+        UnityWebRequest webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
         Logger.LogInfo("Awaiting send web request...");
-        yield return webRequest.SendWebRequest();
 
         string currentVersion = webRequest.downloadHandler.text.Trim();
         Logger.LogInfo("Await complete!");
-
-        while (!MainMenu.Instance.MainMenuCanvas.gameObject.activeInHierarchy)
-        {
-            yield return null;
-        }
 
         if (webRequest.result == UnityWebRequest.Result.Success)
         {
@@ -107,7 +98,7 @@ public class Plugin : BaseUnityPlugin
 
             if (Data.Version == currentVersion)
             {
-                yield break;
+                return;
             }
 
             Logger.LogInfo("User does not have latest version, printing to console.");

@@ -1,13 +1,11 @@
 ﻿#pragma warning disable CA2243
 
 using Assets.Scripts;
-using Assets.Scripts.UI;
 using BepInEx;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
 using System;
-using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -34,26 +32,18 @@ public class Plugin : BaseUnityPlugin
         {
             if (scene.name == "Base")
             {
-                // I do startcoroutine and it nullrefs?
-                // but this works?? wtf???
-                CheckVersion().ToUniTask().Forget();
+                CheckVersion().Forget();
             }
         };
     }
 
-    public IEnumerator CheckVersion()
+    public async UniTaskVoid CheckVersion()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get(new Uri(Data.GitVersion));
+        UnityWebRequest webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
         Logger.LogInfo("Awaiting send web request...");
-        yield return webRequest.SendWebRequest();
 
         string currentVersion = webRequest.downloadHandler.text.Trim();
         Logger.LogInfo("Await complete!");
-
-        while (!MainMenu.Instance.MainMenuCanvas.gameObject.activeInHierarchy)
-        {
-            yield return null;
-        }
 
         if (webRequest.result == UnityWebRequest.Result.Success)
         {
@@ -62,7 +52,7 @@ public class Plugin : BaseUnityPlugin
 
             if (Data.Version == currentVersion)
             {
-                yield break;
+                return;
             }
 
             Logger.LogInfo("User does not have latest version, printing to console.");
