@@ -4,7 +4,7 @@ used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and
 [StationeersMods](https://github.com/jixxed/StationeersMods/releases/latest/)
 by [Jixxed](https://github.com/jixxed/)<br>
 
-## Downloads in [Releases](https://github.com/TerameTechYT/RocketMods/releases/latest)
+## Downloads [here](https://github.com/TerameTechYT/RocketMods/tree/development/Build/x64/Release)
 
 ### BetterWasteTank:
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.<br>

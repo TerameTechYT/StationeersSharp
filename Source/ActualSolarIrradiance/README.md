@@ -1,4 +1,4 @@
-## Downloads in [Releases](https://github.com/TerameTechYT/RocketMods/releases/latest)
+## Downloads [here](https://github.com/TerameTechYT/RocketMods/tree/development/Build/x64/Release)
 
 ### ActualSolarIrradiance:
 > Fixes the max wattage (500w) of solar panels.<br>
