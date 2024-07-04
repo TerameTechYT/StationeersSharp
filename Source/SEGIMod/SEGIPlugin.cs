@@ -144,7 +144,7 @@ internal struct Data
     public const string Guid = "segimod";
     public const string Name = "SEGIMod";
     public const string Version = "1.0.1";
-    public const string WorkshopHandle = "";
+    public const string WorkshopHandle = "3281346086";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
 
