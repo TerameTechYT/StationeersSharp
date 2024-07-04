@@ -1,6 +1,7 @@
 ﻿
 
 using Assets.Scripts;
+using Assets.Scripts.UI;
 using BepInEx;
 using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
@@ -34,7 +35,7 @@ public class SEGIPlugin : BaseUnityPlugin
         Logger.LogInfo(Data.Name + " successfully patched!");
 
         Logger.LogInfo(Data.Name + " loading segi object...");
-        SEGIGameObject = new GameObject("SEGIManager");
+        SEGIGameObject = GameObject.Find("SEGIManager") ?? new GameObject("SEGIManager");
         DontDestroyOnLoad(SEGIGameObject);
         SEGIManagerInstance = SEGIGameObject.AddComponent<SEGIManager>();
         Logger.LogInfo(Data.Name + " loaded segi object!");
@@ -44,9 +45,7 @@ public class SEGIPlugin : BaseUnityPlugin
         {
             if (scene.name == "Base")
             {
-                CheckVersion().Forget();
-
-                SEGIManagerInstance.SetSEGIEnabled(true);
+                OnBaseLoaded().Forget();
             }
         };
     }
@@ -94,10 +93,20 @@ public class SEGIPlugin : BaseUnityPlugin
         Data.UseBilateralFiltering = Config.Bind("Sampling & Filtering", "Use Bilateral Filtering", true, "true or false");
         Data.StochasticSampling = Config.Bind("Sampling & Filtering", "Stochastic Sampling", true, "true or false");
         Data.TemporalBlendWeight = Config.Bind("Sampling & Filtering", "Temporal Blend Weight", 0.1f, "0.01 to 1.0");
-
     }
 
-    public async UniTaskVoid CheckVersion()
+    public async UniTask OnBaseLoaded()
+    {
+        // Wait until game has loaded into main menu
+        await UniTask.WaitUntil(() => { return MainMenu.Instance.IsVisible; });
+        // Check version after main menu is visible
+        await CheckVersion();
+
+        // enable SEGI instance
+        SEGIManagerInstance.SEGInstance.enabled = true;
+    }
+
+    public async UniTask CheckVersion()
     {
         UnityWebRequest webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
         Logger.LogInfo("Awaiting send web request...");

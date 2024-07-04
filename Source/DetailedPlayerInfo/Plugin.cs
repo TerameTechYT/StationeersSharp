@@ -1,6 +1,7 @@
 ﻿
 
 using Assets.Scripts;
+using Assets.Scripts.UI;
 using BepInEx;
 using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
@@ -38,7 +39,7 @@ public class Plugin : BaseUnityPlugin
         {
             if (scene.name == "Base")
             {
-                CheckVersion().Forget();
+                OnBaseLoaded().Forget();
             }
         };
     }
@@ -81,7 +82,16 @@ public class Plugin : BaseUnityPlugin
             "What font size should the labels be changed to.");
     }
 
-    public async UniTaskVoid CheckVersion()
+
+    public async UniTask OnBaseLoaded()
+    {
+        // Wait until game has loaded into main menu
+        await UniTask.WaitUntil(() => { return MainMenu.Instance.IsVisible; });
+        // Check version after main menu is visible
+        await CheckVersion();
+    }
+
+    public async UniTask CheckVersion()
     {
         UnityWebRequest webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
         Logger.LogInfo("Awaiting send web request...");
