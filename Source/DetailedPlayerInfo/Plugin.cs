@@ -129,7 +129,7 @@ internal struct Data
     public const string Guid = "detailedplayerinfo";
     public const string Name = "DetailedPlayerInfo";
 
-    public const string Version = "1.5.4";
+    public const string Version = "1.5.5";
     public const string WorkshopHandle = "3071950159";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
