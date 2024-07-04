@@ -30,4 +30,4 @@ by [Jixxed](https://github.com/jixxed/)<br>
 > This is a port of Stationeers.SEGI for Stationeers.Mods. <br>
 > [erdoy Stationeers.SEGI](https://github.com/Erdroy/Stationeers.SEGI/)<br>
 > [sonicether SEGI](https://github.com/sonicether/SEGI)<br>
-> [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/ActualSolarIrradiance)<br>
+> [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/SEGIMod)<br>
