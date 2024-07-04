@@ -184,9 +184,9 @@ internal class Functions
 
         // Suit slot stuff
         BatteryCell suitBattery = suit?.BatterySlot.Get<BatteryCell>();
-        GasFilter filter1 = suit.FilterSlot1.Get<GasFilter>();
-        GasFilter filter2 = suit.FilterSlot2.Get<GasFilter>();
-        GasFilter filter3 = suit.FilterSlot3.Get<GasFilter>();
+        GasFilter filter1 = suit?.FilterSlot1.Get<GasFilter>();
+        GasFilter filter2 = suit?.FilterSlot2.Get<GasFilter>();
+        GasFilter filter3 = suit?.FilterSlot3.Get<GasFilter>();
         GasFilter filter4 = advancedSuit?.FilterSlot4.Get<GasFilter>();
 
         // Jetpack stuff
