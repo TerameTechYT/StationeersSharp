@@ -10,15 +10,7 @@ public class SEGIManager : MonoBehaviour
     private void Awake()
     {
         SEGInstance = Camera.main.gameObject.AddComponent<SEGI>();
-        SetSEGIEnabled(false);
-    }
-
-    public void SetSEGIEnabled(bool enabled)
-    {
-        if (SEGInstance != null)
-        {
-            SEGInstance.enabled = enabled;
-        }
+        SEGInstance.enabled = false;
     }
 
     [UsedImplicitly]
