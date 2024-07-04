@@ -6,20 +6,28 @@ by [Jixxed](https://github.com/jixxed/)<br>
 
 ## Downloads [here](https://github.com/TerameTechYT/RocketMods/tree/development/Build/x64/Release)
 
-### BetterWasteTank:
+### Better Waste Tank (BWT):
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.<br>
 > [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/BetterWasteTank)<br>
 
-### DetailedPlayerInfo:
+### Detailed Player Info (DPI):
 > Makes the info windows on the bottom right more informal by untruncating the numbers it displays.<br>
 > [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/DetailedPlayerInfo)<br>
 
-### ExternalSuitReader:
+### External Suit Reader (ESR):
 > Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.<br>
 > [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/ExternalSuitReader)<br>
 
-### ActualSolarIrradiance:
+### Actual Solar Irradiance (ASR):
 > Fixes the max wattage (500w) of solar panels.<br>
 > They are now set to your planets irradiance level, or the max wattage of your cable.<br>
 > Be careful to not overvolt your cables!<br>
+> [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/ActualSolarIrradiance)<br>
+
+### Sonic Ether Global Illumination (SEGI):
+> **Full credits to Erdoy for the original port to Stationeers.Addons!!!**<br>
+> A fully-dynamic voxel-based global illumination system for Stationeers.<br>
+> This is a port of Stationeers.SEGI for Stationeers.Mods. <br>
+> [erdoy Stationeers.SEGI](https://github.com/Erdroy/Stationeers.SEGI/)<br>
+> [sonicether SEGI](https://github.com/sonicether/SEGI)<br>
 > [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/ActualSolarIrradiance)<br>

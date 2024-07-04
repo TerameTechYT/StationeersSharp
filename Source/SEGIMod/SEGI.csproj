@@ -81,6 +81,13 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="README.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
+
 
   <!-- Import Stationeers VS properties - paths etc. -->
   <Import Project="$(SolutionDir)Stationeers.VS.props" />
