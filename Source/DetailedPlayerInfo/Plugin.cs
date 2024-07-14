@@ -15,7 +15,6 @@ using UnityEngine.SceneManagement;
 namespace DetailedPlayerInfo;
 
 [BepInPlugin(Data.Guid, Data.Name, Data.Version)]
-[BepInDependency("PlantsnNutrition", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("rocketstation.exe")]
 public class Plugin : BaseUnityPlugin
 {
