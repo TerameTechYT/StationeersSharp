@@ -13,6 +13,7 @@ namespace ActualSolarIrradiance;
 
 [BepInPlugin(Data.Guid, Data.Name, Data.Version)]
 [BepInProcess("rocketstation.exe")]
+[BepInProcess("rocketstation_DedicatedServer.exe")]
 public class Plugin : BaseUnityPlugin
 {
     public static Plugin Instance { get; private set; }
