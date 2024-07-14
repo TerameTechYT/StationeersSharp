@@ -102,6 +102,14 @@ public class SEGIPlugin : BaseUnityPlugin
         // Check version after main menu is visible
         await CheckVersion();
 
+        await EnableSEGI();
+    }
+
+    public static async UniTask EnableSEGI()
+    {
+        await UniTask.WaitUntil(() => { return SEGIManagerInstance != null; });
+        await UniTask.WaitUntil(() => { return SEGIManagerInstance.SEGInstance != null; });
+
         // enable SEGI instance
         SEGIManagerInstance.SEGInstance.enabled = true;
     }
