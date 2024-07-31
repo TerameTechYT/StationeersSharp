@@ -5,15 +5,12 @@ using JetBrains.Annotations;
 namespace ActualSolarIrradiance;
 
 [HarmonyPatch]
-public static class PatchFunctions
-{
+public static class PatchFunctions {
     [UsedImplicitly]
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.PowerGenerated), MethodType.Getter)]
     [HarmonyPostfix]
-    public static void SolarPanelPowerGeneratedGetter(ref SolarPanel __instance, ref float __result)
-    {
-        if (__instance != null)
-        {
+    public static void SolarPanelPowerGeneratedGetter(ref SolarPanel __instance, ref float __result) {
+        if (__instance != null) {
             __result = Functions.GetPotentialSolarPowerGenerated(__instance.PowerCable);
         }
     }

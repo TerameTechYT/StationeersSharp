@@ -11,8 +11,7 @@ using TMPro;
 namespace DetailedPlayerInfo;
 
 [HarmonyPatch]
-public static class PatchFunctions
-{
+public static class PatchFunctions {
     private static readonly Dictionary<MethodInfo, bool> _patches =
         typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
@@ -20,18 +19,14 @@ public static class PatchFunctions
     [UsedImplicitly]
     [HarmonyPatch(typeof(WorldManager), "UpdateFrameRate")]
     [HarmonyPrefix]
-    public static bool WorldManagerUpdateFrameRate(ref TextMeshProUGUI ___FrameRate)
-    {
-        try
-        {
+    public static bool WorldManagerUpdateFrameRate(ref TextMeshProUGUI ___FrameRate) {
+        try {
             return (Data.CustomFramerate?.Value ?? false) && Functions.EnableFrameCounter(ref ___FrameRate);
         }
-        catch (Exception ex)
-        {
-            MethodInfo currentMethod = (MethodInfo)MethodBase.GetCurrentMethod();
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod])
-            {
+            if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
                 ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
@@ -45,18 +40,14 @@ public static class PatchFunctions
     [UsedImplicitly]
     [HarmonyPatch(typeof(PlayerStateWindow), "Awake")]
     [HarmonyPostfix]
-    public static void PlayerStateWindowAwake(PlayerStateWindow __instance)
-    {
-        try
-        {
+    public static void PlayerStateWindowAwake(PlayerStateWindow __instance) {
+        try {
             Functions.Initialize();
         }
-        catch (Exception ex)
-        {
-            MethodInfo currentMethod = (MethodInfo)MethodBase.GetCurrentMethod();
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod])
-            {
+            if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
                 ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
@@ -68,19 +59,15 @@ public static class PatchFunctions
     [UsedImplicitly]
     [HarmonyPatch(typeof(PlayerStateWindow), "Update")]
     [HarmonyPostfix]
-    public static void PlayerStateWindowUpdate(ref PlayerStateWindow __instance)
-    {
-        try
-        {
+    public static void PlayerStateWindowUpdate(ref PlayerStateWindow __instance) {
+        try {
             Functions.Update(ref __instance);
 
         }
-        catch (Exception ex)
-        {
-            MethodInfo currentMethod = (MethodInfo)MethodBase.GetCurrentMethod();
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod])
-            {
+            if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
                 ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");

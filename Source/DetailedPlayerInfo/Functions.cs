@@ -16,8 +16,7 @@ using UnityEngine;
 
 namespace DetailedPlayerInfo;
 
-internal class Functions
-{
+internal class Functions {
     // temperature text objects
     private static TextMeshProUGUI _internalTempUnit;
     private static TextMeshProUGUI _externalTempUnit;
@@ -37,8 +36,7 @@ internal class Functions
 
     private static bool _kelvinMode;
 
-    internal static bool ReadyToExecute(ref PlayerStateWindow window)
-    {
+    internal static bool ReadyToExecute(ref PlayerStateWindow window) {
         bool checkBattery = Data.ExtraInfoPower?.Value ?? false;
         bool checkFilter = Data.ExtraInfoFilter?.Value ?? false;
 
@@ -78,27 +76,21 @@ internal class Functions
         }.All(boolean => boolean);
     }
 
-    internal static T1 CatchAndReturnDefault<T1, T2>(T1 fallbackValue, Func<T1> action) where T2 : Exception
-    {
-        if (action == null)
-        {
+    internal static T1 CatchAndReturnDefault<T1, T2>(T1 fallbackValue, Func<T1> action) where T2 : Exception {
+        if (action == null) {
             return fallbackValue;
         }
 
-        try
-        {
+        try {
             return action();
         }
-        catch (T2)
-        {
+        catch (T2) {
             return fallbackValue;
         }
     }
 
-    internal static async UniTaskVoid FrameCounterUpdate(TextMeshProUGUI frameText)
-    {
-        while (Settings.CurrentData.ShowFps && frameText != null)
-        {
+    internal static async UniTaskVoid FrameCounterUpdate(TextMeshProUGUI frameText) {
+        while (Settings.CurrentData.ShowFps && frameText != null) {
             const int maxFrames = 1000;
             const int minFrames = 30;
 
@@ -116,8 +108,7 @@ internal class Functions
             // Hide counter when no ui mode is enabled
             frameText.transform.parent.gameObject.SetActive(InventoryManager.ShowUi);
 
-            if (!GameManager.IsBatchMode && GameManager.GameState != GameState.Running)
-            {
+            if (!GameManager.IsBatchMode && GameManager.GameState != GameState.Running) {
                 Application.targetFrameRate = Settings.CurrentData.FrameLock != "Off" ? framesCap : 250;
             }
 
@@ -125,53 +116,44 @@ internal class Functions
         }
     }
 
-    internal static bool EnableFrameCounter(ref TextMeshProUGUI frameCounter)
-    {
-        if (frameCounter == null)
-        {
+    internal static bool EnableFrameCounter(ref TextMeshProUGUI frameCounter) {
+        if (frameCounter == null) {
             return true;
         }
 
         frameCounter.transform.parent.gameObject.SetActive(Settings.CurrentData.ShowFps);
-        if (Settings.CurrentData.ShowFps)
-        {
+        if (Settings.CurrentData.ShowFps) {
             FrameCounterUpdate(frameCounter).Forget();
         }
 
         return false;
     }
 
-    internal static void Initialize()
-    {
+    internal static void Initialize() {
         // This was the most annoying part of all this, it took 3 hours to figure out this was even a thing
         _internalTempUnit = GameObject.Find(Data.InternalTemperatureUnit).GetComponent<TextMeshProUGUI>();
         _externalTempUnit = GameObject.Find(Data.ExternalTemperatureUnit).GetComponent<TextMeshProUGUI>();
 
         // Find object to be cloned later
-        if ((Data.ExtraInfoPower?.Value ?? false) || (Data.ExtraInfoFilter?.Value ?? false))
-        {
+        if ((Data.ExtraInfoPower?.Value ?? false) || (Data.ExtraInfoFilter?.Value ?? false)) {
             _wasteTextPanel = GameObject.Find(Data.WasteTextPanel);
         }
 
-        if (Data.ExtraInfoPower?.Value ?? false)
-        {
+        if (Data.ExtraInfoPower?.Value ?? false) {
             _batteryStatus = GameObject.Find(Data.BatteryStatus);
             _batteryTextPanel = GameObject.Instantiate(_wasteTextPanel, _batteryStatus.transform);
             _batteryText = _batteryTextPanel.GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        if (Data.ExtraInfoFilter?.Value ?? false)
-        {
+        if (Data.ExtraInfoFilter?.Value ?? false) {
             _filterStatus = GameObject.Find(Data.FilterStatus);
             _filterTextPanel = GameObject.Instantiate(_wasteTextPanel, _filterStatus.transform);
             _filterText = _filterTextPanel.GetComponentInChildren<TextMeshProUGUI>();
         }
     }
 
-    internal static void Update(ref PlayerStateWindow window)
-    {
-        if (!ReadyToExecute(ref window))
-        {
+    internal static void Update(ref PlayerStateWindow window) {
+        if (!ReadyToExecute(ref window)) {
             return;
         }
 
@@ -199,16 +181,14 @@ internal class Functions
         _internalTempUnit.text = _externalTempUnit.text = temperatureUnit;
 
         // Change battery percentage text
-        if ((Data.ExtraInfoPower?.Value ?? false) && (StatusUpdates.Instance.IsPowerCaution() || StatusUpdates.Instance.IsPowerCritical()))
-        {
+        if ((Data.ExtraInfoPower?.Value ?? false) && (StatusUpdates.Instance.IsPowerCaution() || StatusUpdates.Instance.IsPowerCritical())) {
             float percentage = (suitBattery?.PowerRatio ?? 0f) * 100f;
 
             _batteryText.text = percentage.ToStringRounded() + "%";
         }
 
         // Change filter percentage text
-        if ((Data.ExtraInfoFilter?.Value ?? false) && (StatusUpdates.Instance.IsFilterCaution() || StatusUpdates.Instance.IsFilterCritical()))
-        {
+        if ((Data.ExtraInfoFilter?.Value ?? false) && (StatusUpdates.Instance.IsFilterCaution() || StatusUpdates.Instance.IsFilterCritical())) {
             float ratio = Mathf.Min(filter1?.RemainingRatio ?? 10f,
                 filter2?.RemainingRatio ?? 10f,
                 filter3?.RemainingRatio ?? 10f,
@@ -270,7 +250,7 @@ internal class Functions
         // Jetpack Thrust Setting
         float jetpackSetting = jetpack?.OutputSetting ?? 0f;
         double jetpackSettingRounded = Math.Ceiling(jetpackSetting * 10f) * 5f;
-        string jetpackSettingText = ((int)jetpackSettingRounded).ToString() + "%";
+        string jetpackSettingText = ((int) jetpackSettingRounded).ToString() + "%";
         window.InfoJetpackThrust.text = jetpackSettingText;
 
         // Character Velocity
@@ -317,8 +297,7 @@ internal class Functions
         window.NavigationText.text = orientationText;
 
 
-        if (Data.ChangeFontSize?.Value ?? false)
-        {
+        if (Data.ChangeFontSize?.Value ?? false) {
             int fontSize = Data.FontSize?.Value ?? 21;
 
             window.NavigationText.fontSize = fontSize;
@@ -337,12 +316,10 @@ internal class Functions
     }
 }
 
-public static class Extensions
-{
-    public static string ToStringPrecision(this float value)
-    {
+public static class Extensions {
+    public static string ToStringPrecision(this float value) {
         int digits = Data.NumberPrecision?.Value ?? 2;
 
-        return Math.Round((double)value, digits).ToString();
+        return Math.Round((double) value, digits).ToString();
     }
 }

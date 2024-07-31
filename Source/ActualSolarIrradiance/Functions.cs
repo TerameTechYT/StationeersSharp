@@ -3,21 +3,10 @@ using UnityEngine;
 
 namespace ActualSolarIrradiance;
 
-internal class Functions
-{
-    public static float GetPotentialSolarPowerGenerated(Cable cable)
-    {
-        return Mathf.Min(cable?.MaxVoltage ?? Data.OneKilowatt, OrbitalSimulation.SolarIrradiance);
-    }
+internal class Functions {
+    public static float GetPotentialSolarPowerGenerated(Cable cable) => Mathf.Min(cable?.MaxVoltage ?? Data.OneKilowatt, OrbitalSimulation.SolarIrradiance);
 
-    public static float GetPotentialWindPowerGenerated(Cable cable, float worldAtmospherePressure, float noise)
-    {
+    public static float GetPotentialWindPowerGenerated(Cable cable, float worldAtmospherePressure, float noise) => Mathf.Min(0f, worldAtmospherePressure * noise);
 
-        return Mathf.Min(0f, worldAtmospherePressure * noise);
-    }
-
-    public static float GetPowerAvailable(Cable cable)
-    {
-        return Mathf.Max(cable?.MaxVoltage ?? Data.OneKilowatt, cable?.CableNetwork.EstimatedRemainingLoad ?? 0);
-    }
+    public static float GetPowerAvailable(Cable cable) => Mathf.Max(cable?.MaxVoltage ?? Data.OneKilowatt, cable?.CableNetwork.EstimatedRemainingLoad ?? 0);
 }

@@ -8,15 +8,12 @@ using JetBrains.Annotations;
 namespace ExternalSuitReader;
 
 [HarmonyPatch]
-public static class PatchFunctions
-{
+public static class PatchFunctions {
     [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.CanLogicRead))]
     [HarmonyPrefix]
-    public static bool AdvancedSuitCanLogicRead(AdvancedSuit __instance, ref bool __result, LogicType logicType)
-    {
-        if (!Functions.CanLogicRead(logicType))
-        {
+    public static bool AdvancedSuitCanLogicRead(AdvancedSuit __instance, ref bool __result, LogicType logicType) {
+        if (!Functions.CanLogicRead(logicType)) {
             return true;
         }
 
@@ -27,10 +24,8 @@ public static class PatchFunctions
     [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.GetLogicValue))]
     [HarmonyPrefix]
-    public static bool AdvancedSuitGetLogicValue(AdvancedSuit __instance, ref double __result, LogicType logicType)
-    {
-        if (!Functions.CanLogicRead(logicType))
-        {
+    public static bool AdvancedSuitGetLogicValue(AdvancedSuit __instance, ref double __result, LogicType logicType) {
+        if (!Functions.CanLogicRead(logicType)) {
             return true;
         }
 

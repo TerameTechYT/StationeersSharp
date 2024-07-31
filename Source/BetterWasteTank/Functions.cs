@@ -8,48 +8,36 @@ using UnityEngine;
 
 namespace BetterWasteTank;
 
-public static class Functions
-{
-    public static GasCanister GetWasteCanister(Suit suit)
-    {
-        return suit != null && suit.WasteTankSlot.Contains(out GasCanister canister) ? canister : null;
-    }
+public static class Functions {
+    public static GasCanister GetWasteCanister(Suit suit) => suit != null && suit.WasteTankSlot.Contains(out GasCanister canister) ? canister : null;
 
-    public static Suit GetSuit(Human human)
-    {
-        return human != null && human.SuitSlot.Contains(out Suit suit) ? suit : null;
-    }
+    public static Suit GetSuit(Human human) => human != null && human.SuitSlot.Contains(out Suit suit) ? suit : null;
 
-    public static float GetWasteMaxPressure(Suit suit)
-    {
+    public static float GetWasteMaxPressure(Suit suit) {
         GasCanister wasteCanister = GetWasteCanister(suit);
 
         return wasteCanister?.MaxPressure - Chemistry.OneAtmosphere ?? Suit.DEFUALT_MAX_WASTE_PRESSURE;
     }
 
-    public static float GetWastePressure(Suit suit)
-    {
+    public static float GetWastePressure(Suit suit) {
         GasCanister wasteCanister = GetWasteCanister(suit);
 
         return wasteCanister?.Pressure ?? 0;
     }
 
-    public static bool GetWasteBroken(Suit suit)
-    {
+    public static bool GetWasteBroken(Suit suit) {
         GasCanister wasteCanister = GetWasteCanister(suit);
 
         return wasteCanister?.IsBroken ?? false;
     }
 
-    public static bool GetWasteNull(Suit suit)
-    {
+    public static bool GetWasteNull(Suit suit) {
         GasCanister wasteCanister = GetWasteCanister(suit);
 
         return wasteCanister == null;
     }
 
-    public static bool IsWasteCritical(Suit suit)
-    {
+    public static bool IsWasteCritical(Suit suit) {
         float pressure = GetWastePressure(suit);
         float maxPressure = GetWasteMaxPressure(suit);
         bool wasteBroken = GetWasteBroken(suit);
@@ -59,8 +47,7 @@ public static class Functions
         return suit != null && (wasteBroken || wasteNull || overThreshold);
     }
 
-    public static bool IsWasteCaution(Suit suit)
-    {
+    public static bool IsWasteCaution(Suit suit) {
         float pressure = GetWastePressure(suit);
         float maxPressure = GetWasteMaxPressure(suit);
         bool overThreshold = pressure != 0f && maxPressure != 0f && (pressure / maxPressure) >= Data.WasteCautionRatio;
@@ -69,12 +56,10 @@ public static class Functions
         return suit != null && !IsWasteCritical(suit) && overThreshold;
     }
 
-    public static void UpdateIcons(ref TMP_Text wasteText, ref Human human)
-    {
+    public static void UpdateIcons(ref TMP_Text wasteText, ref Human human) {
         Suit suit = GetSuit(human);
 
-        if (IsWasteCaution(suit) || IsWasteCritical(suit))
-        {
+        if (IsWasteCaution(suit) || IsWasteCritical(suit)) {
             float pressure = GetWastePressure(suit);
             float maxPressure = GetWasteMaxPressure(suit);
             int fullRatio = pressure == 0f || maxPressure == 0f ? 0 : Mathf.RoundToInt(pressure / maxPressure);

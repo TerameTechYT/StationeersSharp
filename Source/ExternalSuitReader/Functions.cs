@@ -7,8 +7,7 @@ using System.Collections.Generic;
 
 namespace ExternalSuitReader;
 
-public static class Functions
-{
+public static class Functions {
     private static readonly Dictionary<LogicType, Chemistry.GasType> LogicPairs = new()
     {
         {LogicType.RatioOxygenOutput, Chemistry.GasType.Oxygen },
@@ -29,15 +28,9 @@ public static class Functions
     };
 
 
-    public static bool CanLogicRead(LogicType logicType)
-    {
-        return LogicPairs.TryGetValue(logicType, out _);
-    }
+    public static bool CanLogicRead(LogicType logicType) => LogicPairs.TryGetValue(logicType, out _);
 
-    public static double GetLogicValue(AdvancedSuit suit, LogicType gasType)
-    {
-        return suit != null && suit.HasAtmosphere && suit.HasReadableAtmosphere
+    public static double GetLogicValue(AdvancedSuit suit, LogicType gasType) => suit != null && suit.HasAtmosphere && suit.HasReadableAtmosphere
             ? Convert.ToDouble(suit.WorldAtmosphere.GetGasTypeRatio(LogicPairs[gasType]))
             : 0.0;
-    }
 }

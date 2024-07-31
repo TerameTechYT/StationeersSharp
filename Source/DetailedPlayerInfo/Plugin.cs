@@ -16,104 +16,98 @@ namespace DetailedPlayerInfo;
 
 [BepInPlugin(Data.Guid, Data.Name, Data.Version)]
 [BepInProcess("rocketstation.exe")]
-public class Plugin : BaseUnityPlugin
-{
-    public static Plugin Instance { get; private set; }
-    public static Harmony HarmonyInstance { get; private set; }
+public class Plugin : BaseUnityPlugin {
+    public static Plugin Instance {
+        get; private set;
+    }
+    public static Harmony HarmonyInstance {
+        get; private set;
+    }
 
     [UsedImplicitly]
-    public void Awake()
-    {
-        LoadConfiguration();
+    public void Awake() {
+        this.LoadConfiguration();
 
-        Logger.LogInfo(Data.Name + " successfully loaded!");
+        this.Logger.LogInfo(Data.Name + " successfully loaded!");
         Instance = this;
         HarmonyInstance = new Harmony(Data.Guid);
         HarmonyInstance.PatchAll();
-        Logger.LogInfo(Data.Name + " successfully patched!");
+        this.Logger.LogInfo(Data.Name + " successfully patched!");
 
 
         // Thx jixxed for awesome code :)
-        SceneManager.sceneLoaded += (scene, sceneMode) =>
-        {
-            if (scene.name == "Base")
-            {
-                OnBaseLoaded().Forget();
+        SceneManager.sceneLoaded += (scene, sceneMode) => {
+            if (scene.name == "Base") {
+                this.OnBaseLoaded().Forget();
             }
         };
     }
 
-    public void LoadConfiguration()
-    {
-        Data.KelvinMode = Config.Bind("Keybinds",
+    public void LoadConfiguration() {
+        Data.KelvinMode = this.Config.Bind("Keybinds",
             "Kelvin Mode",
             KeyCode.K,
             "Keybind that when pressed, changes the status temperatures to kelvin instead of celcius.");
 
-        Data.CustomFramerate = Config.Bind("Configurables",
+        Data.CustomFramerate = this.Config.Bind("Configurables",
             "CustomFramerate",
             true,
             "Should the framerate text only display FPS.");
 
-        Data.ChangeFontSize = Config.Bind("Configurables",
+        Data.ChangeFontSize = this.Config.Bind("Configurables",
             "ChangeFontSize",
             true,
             "Should the font size be changed.");
 
-        Data.ExtraInfoPower = Config.Bind("Configurables",
+        Data.ExtraInfoPower = this.Config.Bind("Configurables",
             "ExtraInfoPower",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.ExtraInfoFilter = Config.Bind("Configurables",
+        Data.ExtraInfoFilter = this.Config.Bind("Configurables",
             "ExtraInfoFilter",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.NumberPrecision = Config.Bind("Configurables",
+        Data.NumberPrecision = this.Config.Bind("Configurables",
             "NumberPrecision",
             2,
             "How many decimal points should be displayed on numbers.");
 
-        Data.FontSize = Config.Bind("Configurables",
+        Data.FontSize = this.Config.Bind("Configurables",
             "FontSize",
             21,
             "What font size should the labels be changed to.");
     }
 
 
-    public async UniTask OnBaseLoaded()
-    {
+    public async UniTask OnBaseLoaded() {
         // Wait until game has loaded into main menu
         await UniTask.WaitUntil(() => { return MainMenu.Instance.IsVisible; });
         // Check version after main menu is visible
-        await CheckVersion();
+        await this.CheckVersion();
     }
 
-    public async UniTask CheckVersion()
-    {
+    public async UniTask CheckVersion() {
         UnityWebRequest webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
-        Logger.LogInfo("Awaiting send web request...");
+        this.Logger.LogInfo("Awaiting send web request...");
 
         string currentVersion = webRequest.downloadHandler.text.Trim();
-        Logger.LogInfo("Await complete!");
+        this.Logger.LogInfo("Await complete!");
 
-        if (webRequest.result == UnityWebRequest.Result.Success)
-        {
-            Logger.LogInfo($"Latest version is {currentVersion}. Installed {Data.Version}");
+        if (webRequest.result == UnityWebRequest.Result.Success) {
+            this.Logger.LogInfo($"Latest version is {currentVersion}. Installed {Data.Version}");
             ConsoleWindow.Print($"[{Data.Name}]: v{Data.Version} is installed.");
 
-            if (Data.Version == currentVersion)
-            {
+            if (Data.Version == currentVersion) {
                 return;
             }
 
-            Logger.LogInfo("User does not have latest version, printing to console.");
+            this.Logger.LogInfo("User does not have latest version, printing to console.");
             ConsoleWindow.PrintAction($"[{Data.Name}]: New version v{currentVersion} is available");
         }
-        else
-        {
-            Logger.LogError(
+        else {
+            this.Logger.LogError(
                 $"Failed to request latest version. Result: {webRequest.result} Error: '\"{webRequest.error}\""
             );
             ConsoleWindow.PrintError($"[{Data.Name}]: Failed to request latest version! Check log for more info.");
@@ -123,8 +117,7 @@ public class Plugin : BaseUnityPlugin
     }
 }
 
-internal struct Data
-{
+internal struct Data {
     public const string Guid = "detailedplayerinfo";
     public const string Name = "DetailedPlayerInfo";
 
