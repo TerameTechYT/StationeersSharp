@@ -6,6 +6,15 @@ by [Jixxed](https://github.com/jixxed/)<br>
 
 ## Downloads [here](https://github.com/TerameTechYT/RocketMods/tree/development/Build/x64/Release)
 
+### BetterPowerMod (BPM):
+> Fixes the max wattage (500w) of solar panels.<br>
+> They are now set to your planets irradiance level, or the max wattage of your cable.<br>
+> Wind turbines now have a higher max output and a new tooltip.<br>
+> Stirling Engines can now generate 20kw like the Gas Fuel Generator.<br>
+> Turbine Generators now generate 10x their original output, now making them a viable power source.<br>
+> Battery Chargers, Power Controllers, and Omni Power Transmitters can now use up to 2,500w at once.<br>
+> [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/BetterPowerMod)<br>
+
 ### Better Waste Tank (BWT):
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.<br>
 > [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/BetterWasteTank)<br>
@@ -17,12 +26,6 @@ by [Jixxed](https://github.com/jixxed/)<br>
 ### External Suit Reader (ESR):
 > Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.<br>
 > [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/ExternalSuitReader)<br>
-
-### Actual Solar Irradiance (ASR):
-> Fixes the max wattage (500w) of solar panels.<br>
-> They are now set to your planets irradiance level, or the max wattage of your cable.<br>
-> Be careful to not overvolt your cables!<br>
-> [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/ActualSolarIrradiance)<br>
 
 ### Sonic Ether Global Illumination (SEGI):
 > **Full credits to Erdoy for the original port to Stationeers.Addons!!!**<br>
