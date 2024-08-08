@@ -11,5 +11,6 @@ obj/
 .vs/
 
 #
+Template/**
 Build/x64/Release/*.json
 !Build/x64/Release/*.dll
