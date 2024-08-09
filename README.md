@@ -11,7 +11,7 @@ by [Jixxed](https://github.com/jixxed/)<br>
 > [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/BetterPowerMod)<br>
 
 ### StationpediaCalculator (SC):
-> Demonstration Link: https://youtu.be/Bjh0wN31I_M <br>
+> Demonstration Link: On [Youtube](https://youtu.be/Bjh0wN31I_M) <br>
 > A fully capable calculator built straight into the stationpedia!<br>
 > [More Details](https://github.com/TerameTechYT/RocketMods/tree/development/Source/StationpediaCalculator)<br>
 
