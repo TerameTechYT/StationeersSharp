@@ -1,5 +1,63 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <!-- BepInEx DLL's -->
+    <Reference Include="BepInEx">
+      <HintPath>$(StationeersDirectory)\BepInEx\core\BepInEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BepInEx.Preloader">
+      <HintPath>$(StationeersDirectory)\BepInEx\core\BepInEx.Preloader.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BepInEx.Harmony">
+      <HintPath>$(StationeersDirectory)\BepInEx\core\BepInEx.Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- Stationeers.Mods DLL's -->
+    <Reference Include="StationeersMods">
+      <HintPath>$(StationeersDirectory)\BepInEx\plugins\StationeersMods\StationeersMods.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StationeersMods.Cecil">
+      <HintPath>$(StationeersDirectory)\BepInEx\plugins\StationeersMods\StationeersMods.Cecil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StationeersMods.Interface">
+      <HintPath>$(StationeersDirectory)\BepInEx\plugins\StationeersMods\StationeersMods.Interface.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StationeersMods.Shared">
+      <HintPath>$(StationeersDirectory)\BepInEx\plugins\StationeersMods\StationeersMods.Shared.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+
+    <!-- Harmony DLL's -->
+    <Reference Include="0Harmony">
+      <HintPath>$(StationeersDirectory)\BepInEx\core\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- Mono DLL's -->
+    <Reference Include="Mono.Cecil">
+      <HintPath>$(StationeersDirectory)\BepInEx\core\Mono.Cecil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>$(StationeersDirectory)\BepInEx\core\Mono.Cecil.Mdb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>$(StationeersDirectory)\BepInEx\core\Mono.Cecil.Pdb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>$(StationeersDirectory)\BepInEx\core\Mono.Cecil.Rocks.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- Unity DLL's -->
     <Reference Include="Assembly-CSharp">
       <HintPath>$(StationeersDirectory)\rocketstation_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -46,6 +104,10 @@
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>$(StationeersDirectory)\rocketstation_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>$(StationeersDirectory)\rocketstation_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">

@@ -6,11 +6,12 @@
 *.dll
 *.obj
 *.user
+*.json
 bin/
 obj/
 .vs/
 
 #
-Template/**
-Build/x64/Release/*.json
+Template/
+Objects/
 !Build/x64/Release/*.dll

@@ -3,35 +3,25 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>DetailedPlayerInfo</AssemblyName>
-    <Version>1.0.0</Version>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <LangVersion>latest</LangVersion>
-    <RestoreAdditionalProjectSources>
-      https://api.nuget.org/v3/index.json;
-      https://nuget.bepinex.dev/v3/index.json;
-      https://nuget.samboy.dev/v3/index.json
-    </RestoreAdditionalProjectSources>
-    <RootNamespace>DetailedPlayerInfo</RootNamespace>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <NoWin32Manifest>true</NoWin32Manifest>
-    <IsPublishable>False</IsPublishable>
-    <PlatformTarget>x64</PlatformTarget>
-    <Nullable>disable</Nullable>
-    <SignAssembly>False</SignAssembly>
-    <ErrorReport>none</ErrorReport>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
     <Title>$(AssemblyName)</Title>
-    <Company>vivi</Company>
+    <Version>1.0.0</Version>
+    <LangVersion>latest</LangVersion>
+
     <PackageProjectUrl>https://github.com/TerameTechYT/RocketMods</PackageProjectUrl>
-    <PackageReadmeFile>README.MD</PackageReadmeFile>
     <RepositoryUrl>https://github.com/TerameTechYT/RocketMods</RepositoryUrl>
+
+    <PlatformTarget>x64</PlatformTarget>
+    <Company>vivi</Company>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>..\..\LICENSE</PackageLicenseFile>
     <AnalysisLevel>latest-all</AnalysisLevel>
     <BaseOutputPath>..\..\Build\</BaseOutputPath>
+    <BaseIntermediateOutputPath >..\..\Objects\</BaseIntermediateOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>
 
@@ -62,24 +52,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="clean.bat" />
-    <None Remove="DetailedPlayerInfo.dll" />
+    <Compile Include="..\GlobalSuppressions.cs" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
-    <PackageReference Include="BepInEx.Core" Version="5.*" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="UnityEngine.Modules" Version="2021.2.13">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
 
   <!-- Import Stationeers VS properties - paths etc. -->
   <Import Project="$(SolutionDir)Stationeers.VS.props" />

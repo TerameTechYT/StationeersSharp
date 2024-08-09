@@ -13,3 +13,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Naming", "CA1708:Identifiers should differ by more than case")]
 [assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types")]
 [assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
+[assembly: SuppressMessage("Design", "CA1002:Do not expose generic lists")]
