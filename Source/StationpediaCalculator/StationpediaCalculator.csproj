@@ -68,6 +68,13 @@
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="README.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
+
 
   <!-- Import Stationeers VS properties - paths etc. -->
   <Import Project="$(SolutionDir)Stationeers.VS.props" />
