@@ -47,10 +47,13 @@
 
   <ItemGroup>
     <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
     <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
     <None Remove="bin\**" />
+    <None Remove="obj\**" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <Compile Include="..\GlobalSuppressions.cs" />
   </ItemGroup>
@@ -74,10 +77,10 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(TargetPath) &quot;C:\Users\vivien\Documents\My Games\Stationeers\mods\$(AssemblyName)\&quot;&#xD;&#xA;echo $(AssemblyName) $(Configuration) $(Platform) &gt; &quot;C:\Users\vivien\Documents\My Games\Stationeers\mods\$(AssemblyName)\$(Configuration).$(Platform)&quot;&#xD;&#xA;exit 0" />
+    <Exec Command="copy $(TargetPath) &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\&quot;&#xD;&#xA;echo $(AssemblyName) $(Configuration) $(Platform) &gt; &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(Configuration).$(Platform)&quot;&#xD;&#xA;exit 0" />
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="del &quot;C:\Users\vivien\Documents\My Games\Stationeers\mods\$(AssemblyName)\$(AssemblyName).dll&quot;&#xD;&#xA;del &quot;C:\Users\vivien\Documents\My Games\Stationeers\mods\$(AssemblyName)\*.x*&quot;&#xD;&#xA;exit 0" />
+    <Exec Command="del &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(AssemblyName).dll&quot;&#xD;&#xA;del &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\*.x*&quot;&#xD;&#xA;exit 0" />
   </Target>
 </Project>
