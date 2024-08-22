@@ -141,10 +141,10 @@ internal struct Data {
     public static ConfigEntry<int> FontSize;
 
     public const float TemperatureZero = 273.15f;
-    public const float TemperatureOne = 274.15f;
-    public const float TemperatureTwenty = 293.15f;
-    public const float TemperatureThirty = 303.15f;
-    public const float TemperatureFifty = 323.15f;
+    public const float TemperatureOne = TemperatureZero + 1f;
+    public const float TemperatureTwenty = TemperatureZero + 20f;
+    public const float TemperatureThirty = TemperatureZero + 30f;
+    public const float TemperatureFifty = TemperatureZero + 50f;
 
     public const float TemperatureMinimumSafe = TemperatureZero;
     public const float TemperatureMaximumSafe = TemperatureFifty;
