@@ -1,0 +1,3 @@
+[submodule "Mods"]
+	path = Mods
+	url = git://github.com/TerameTechYT/Stationeers.git
