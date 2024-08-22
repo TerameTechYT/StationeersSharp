@@ -107,7 +107,7 @@ public class Plugin : BaseUnityPlugin {
 internal struct Data {
     public const string Guid = "bettepowermod";
     public const string Name = "BetterPowerMod";
-    public const string Version = "1.0.6";
+    public const string Version = "1.0.7";
     public const string WorkshopHandle = "3234906754";
     public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
