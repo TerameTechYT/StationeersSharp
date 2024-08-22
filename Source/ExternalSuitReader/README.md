@@ -1,4 +1,4 @@
-## Downloads [here](https://github.com/TerameTechYT/RocketMods/tree/development/Build/x64/Release)
+## Downloads [here](https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release)
 
 ## ExternalSuitReader:
 ### Advanced Suit Logic Changes:

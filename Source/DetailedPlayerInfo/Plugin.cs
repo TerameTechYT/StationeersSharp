@@ -123,7 +123,7 @@ internal struct Data {
 
     public const string Version = "1.5.5";
     public const string WorkshopHandle = "3071950159";
-    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
+    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/StationeersSharp/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
 
     //Keycode

@@ -80,7 +80,7 @@ internal struct Data {
     public const string Name = "BetterWasteTank";
     public const string Version = "1.3.3";
     public const string WorkshopHandle = "3071913936";
-    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
+    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/StationeersSharp/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
 
     public const float WasteCriticalRatio = 0.975f;

@@ -142,7 +142,7 @@ internal struct Data {
     public const string Name = "SEGIMod";
     public const string Version = "1.0.2";
     public const string WorkshopHandle = "3281346086";
-    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
+    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/StationeersSharp/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
 
     // Voxel

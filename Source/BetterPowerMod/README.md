@@ -1,4 +1,4 @@
-## Downloads [here](https://github.com/TerameTechYT/RocketMods/tree/development/Build/x64/Release)
+## Downloads [here](https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release)
 
 ### BetterPowerMod:
 > Fixes the max wattage (500w) of solar panels.<br>

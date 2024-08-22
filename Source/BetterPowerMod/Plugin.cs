@@ -109,7 +109,7 @@ internal struct Data {
     public const string Name = "BetterPowerMod";
     public const string Version = "1.0.7";
     public const string WorkshopHandle = "3234906754";
-    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/RocketMods/development/Source/";
+    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/StationeersSharp/development/Source/";
     public const string GitVersion = GitRaw + Name + "/VERSION";
 
     public const float OneKilowatt = 1000f;
