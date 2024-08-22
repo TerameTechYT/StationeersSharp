@@ -13,7 +13,7 @@ internal class Functions {
     public static float GetPotentialSolarPowerGenerated() => OrbitalSimulation.SolarIrradiance;
 
     public static float GetPotentialWindPowerGenerated(float worldAtmospherePressure, float noise) {
-        var value = Mathf.Max(0, Mathf.Clamp(worldAtmospherePressure, 1f, 100f) * noise);
+        var value = Mathf.Max(0, Mathf.Clamp(worldAtmospherePressure, 20f, 100f) * noise);
 
         return (WeatherManager.IsWeatherEventRunning ? 2000 + value : value);
     }
