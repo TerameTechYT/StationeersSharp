@@ -1,5 +1,6 @@
-﻿
+﻿#region
 
+using System;
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
@@ -7,97 +8,91 @@ using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
-using System;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
+#endregion
+
 namespace SEGI;
 
-[BepInPlugin(Data.Guid, Data.Name, Data.Version)]
+[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
 [BepInProcess("rocketstation.exe")]
 public class SEGIPlugin : BaseUnityPlugin {
-    public static SEGIPlugin Instance {
-        get; private set;
-    }
-    public static Harmony HarmonyInstance {
-        get; private set;
-    }
+    public static SEGIPlugin Instance { get; private set; }
 
-    public static GameObject SEGIGameObject {
-        get; private set;
-    }
+    public static Harmony HarmonyInstance { get; private set; }
+
+    public static GameObject SEGIGameObject { get; private set; }
 
     [UsedImplicitly]
     public void Awake() {
-        this.LoadConfiguration();
-        this.Logger.LogInfo(Data.Name + " successfully loaded!");
+        //if (Harmony.HasAnyPatches(Data.ModGuid))
+        //    throw new Exception($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
+
+        LoadConfiguration();
+
         Instance = this;
-        HarmonyInstance = new Harmony(Data.Guid);
+        HarmonyInstance = new Harmony(Data.ModGuid);
         HarmonyInstance.PatchAll();
-        this.Logger.LogInfo(Data.Name + " successfully patched!");
-
-        this.Logger.LogInfo(Data.Name + " loading segi object...");
-
-        this.Logger.LogInfo(Data.Name + " loaded segi object!");
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
-            if (scene.name == "Base") {
-                this.OnBaseLoaded().Forget();
-            }
+            if (scene.name == "Base")
+                OnBaseLoaded().Forget();
         };
     }
 
     public void LoadConfiguration() {
         // Voxel
-        Data.VoxelResolution = this.Config.Bind("Voxel", "Resolution", SEGI.VoxelResolution.High, "High or Low");
-        Data.HalfResolution = this.Config.Bind("Voxel", "Half Resolution", true, "true or false");
-        Data.VoxelSpaceSize = this.Config.Bind("Voxel", "Space Size", 25f, "1.0 to 100.0");
-        Data.VoxelAntiAliasing = this.Config.Bind("Voxel", "Anti Aliasing", true, "true or false");
+        Data.VoxelResolution = Config.Bind("Voxel", "Resolution", SEGI.VoxelResolution.High, "High or Low");
+        Data.HalfResolution = Config.Bind("Voxel", "Half Resolution", true, "true or false");
+        Data.VoxelSpaceSize = Config.Bind("Voxel", "Space Size", 25f, "1.0 to 100.0");
+        Data.VoxelAntiAliasing = Config.Bind("Voxel", "Anti Aliasing", true, "true or false");
 
         // Occlusion
-        Data.InnerOcclusionLayers = this.Config.Bind("Occlusion", "Inner Occlusion Layers", 1, "0 to 2");
-        Data.OcclusionPower = this.Config.Bind("Occlusion", "Occlusion Power", 1f, "0.001 to 4.0");
-        Data.OcclusionStrenth = this.Config.Bind("Occlusion", "Occlusion Strenth", 1f, "0.0 to 4.0");
-        Data.SecondaryOcclusionStrenth = this.Config.Bind("Occlusion", "Secondary Occlusion Strenth", 1f, "0.1 to 4.0");
-        Data.NearOcclusionStrenth = this.Config.Bind("Occlusion", "Near Occlusion Strenth", 0.5f, "0 to 4.0");
-        Data.FarOcclusionStrenth = this.Config.Bind("Occlusion", "Far Occlusion Strenth", 1f, "0.1 to 4.0");
-        Data.FarthestOcclusionStrenth = this.Config.Bind("Occlusion", "Farthest Occlusion Strenth", 1f, "0.1 to 4.0");
+        Data.InnerOcclusionLayers = Config.Bind("Occlusion", "Inner Occlusion Layers", 1, "0 to 2");
+        Data.OcclusionPower = Config.Bind("Occlusion", "Occlusion Power", 1f, "0.001 to 4.0");
+        Data.OcclusionStrenth = Config.Bind("Occlusion", "Occlusion Strenth", 1f, "0.0 to 4.0");
+        Data.SecondaryOcclusionStrenth = Config.Bind("Occlusion", "Secondary Occlusion Strenth", 1f, "0.1 to 4.0");
+        Data.NearOcclusionStrenth = Config.Bind("Occlusion", "Near Occlusion Strenth", 0.5f, "0 to 4.0");
+        Data.FarOcclusionStrenth = Config.Bind("Occlusion", "Far Occlusion Strenth", 1f, "0.1 to 4.0");
+        Data.FarthestOcclusionStrenth = Config.Bind("Occlusion", "Farthest Occlusion Strenth", 1f, "0.1 to 4.0");
 
         // Reflection
-        Data.DoReflections = this.Config.Bind("Refections", "Do Reflections", true, "true or false");
-        Data.InfiniteBounces = this.Config.Bind("Refections", "Infinite Bounces", true, "true or false");
-        Data.ReflectionSteps = this.Config.Bind("Refections", "Reflection Steps", 32, "12 to 128");
-        Data.ReflectionOcclusionPower = this.Config.Bind("Refections", "Reflection Occlusion Power", 1f, "0.001 to 4.0");
-        Data.SecondaryBounceGain = this.Config.Bind("Refections", "Secondary Bounce Gain", 0.75f, "0.1 to 4.0");
-        Data.SkyReflectionIntensity = this.Config.Bind("Refections", "Sky Reflection Intensity", 0.5f, "0.0 to 1.0f");
+        Data.DoReflections = Config.Bind("Refections", "Do Reflections", true, "true or false");
+        Data.InfiniteBounces = Config.Bind("Refections", "Infinite Bounces", true, "true or false");
+        Data.ReflectionSteps = Config.Bind("Refections", "Reflection Steps", 32, "12 to 128");
+        Data.ReflectionOcclusionPower = Config.Bind("Refections", "Reflection Occlusion Power", 1f, "0.001 to 4.0");
+        Data.SecondaryBounceGain = Config.Bind("Refections", "Secondary Bounce Gain", 0.75f, "0.1 to 4.0");
+        Data.SkyReflectionIntensity = Config.Bind("Refections", "Sky Reflection Intensity", 0.5f, "0.0 to 1.0f");
 
         // Cones
-        Data.Cones = this.Config.Bind("Cones", "Cones", 6, "1 to 128");
-        Data.SecondaryCones = this.Config.Bind("Cones", "Secondary Cones", 3, "3 to 16");
-        Data.ConeTraceSteps = this.Config.Bind("Cones", "Cone Trace Steps", 14, "1 to 32");
-        Data.ConeTraceBias = this.Config.Bind("Cones", "Cone Trace Bias", 1f, "0.0 to 4.0");
-        Data.ConeLength = this.Config.Bind("Cones", "Cone Length", 1f, "0.1 to 2.0");
-        Data.ConeWidth = this.Config.Bind("Cones", "Cone Width", 2.25f, "0.5 to 6.0");
+        Data.Cones = Config.Bind("Cones", "Cones", 6, "1 to 128");
+        Data.SecondaryCones = Config.Bind("Cones", "Secondary Cones", 3, "3 to 16");
+        Data.ConeTraceSteps = Config.Bind("Cones", "Cone Trace Steps", 14, "1 to 32");
+        Data.ConeTraceBias = Config.Bind("Cones", "Cone Trace Bias", 1f, "0.0 to 4.0");
+        Data.ConeLength = Config.Bind("Cones", "Cone Length", 1f, "0.1 to 2.0");
+        Data.ConeWidth = Config.Bind("Cones", "Cone Width", 2.25f, "0.5 to 6.0");
 
         // Light
-        Data.NearLightGain = this.Config.Bind("Light", "Near Light Gain", 1f, "0.0 to 4.0");
-        Data.GIGain = this.Config.Bind("Light", "Global Illumination Gain", 0.5f, "0.0 to 4.0");
-        Data.ShadowSpaceSize = this.Config.Bind("Light", "Shadow Space Size", 1f, "1.0 to 100.0");
+        Data.NearLightGain = Config.Bind("Light", "Near Light Gain", 1f, "0.0 to 4.0");
+        Data.GIGain = Config.Bind("Light", "Global Illumination Gain", 0.5f, "0.0 to 4.0");
+        Data.ShadowSpaceSize = Config.Bind("Light", "Shadow Space Size", 1f, "1.0 to 100.0");
 
         // Sampling & Filtering
-        Data.GaussianMipFilter = this.Config.Bind("Sampling & Filtering", "Gaussian Mip Filter", true, "true or false");
-        Data.UseBilateralFiltering = this.Config.Bind("Sampling & Filtering", "Use Bilateral Filtering", true, "true or false");
-        Data.StochasticSampling = this.Config.Bind("Sampling & Filtering", "Stochastic Sampling", true, "true or false");
-        Data.TemporalBlendWeight = this.Config.Bind("Sampling & Filtering", "Temporal Blend Weight", 0.1f, "0.01 to 1.0");
+        Data.GaussianMipFilter = Config.Bind("Sampling & Filtering", "Gaussian Mip Filter", true, "true or false");
+        Data.UseBilateralFiltering =
+            Config.Bind("Sampling & Filtering", "Use Bilateral Filtering", true, "true or false");
+        Data.StochasticSampling = Config.Bind("Sampling & Filtering", "Stochastic Sampling", true, "true or false");
+        Data.TemporalBlendWeight = Config.Bind("Sampling & Filtering", "Temporal Blend Weight", 0.1f, "0.01 to 1.0");
     }
 
     public async UniTask OnBaseLoaded() {
         // Wait until game has loaded into main menu
         await UniTask.WaitUntil(() => { return MainMenu.Instance.IsVisible; });
         // Check version after main menu is visible
-        await this.CheckVersion();
+        await CheckVersion();
 
         EnableSEGI();
     }
@@ -109,41 +104,93 @@ public class SEGIPlugin : BaseUnityPlugin {
     }
 
     public async UniTask CheckVersion() {
-        UnityWebRequest webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
-        this.Logger.LogInfo("Awaiting send web request...");
+        if (!Data.VersionCheck) {
+            LogWarning("Version check has been disabled.");
 
-        string currentVersion = webRequest.downloadHandler.text.Trim();
-        this.Logger.LogInfo("Await complete!");
+            return;
+        }
 
-        if (webRequest.result == UnityWebRequest.Result.Success) {
-            this.Logger.LogInfo($"Latest version is {currentVersion}. Installed {Data.Version}");
-            ConsoleWindow.Print($"[{Data.Name}]: v{Data.Version} is installed.");
+        try {
+            var webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
+            var currentVersion = webRequest.downloadHandler.text.Trim();
 
-            if (Data.Version == currentVersion) {
-                return;
+            if (webRequest.result == UnityWebRequest.Result.Success) {
+                LogInfo($"v{Data.ModVersion} is installed.");
+
+                if (Data.ModVersion == currentVersion)
+                    return;
+
+                LogWarning($"New version v{currentVersion} is available!");
             }
 
-            this.Logger.LogInfo("User does not have latest version, printing to console.");
-            ConsoleWindow.PrintAction($"[{Data.Name}]: New version v{currentVersion} is available");
+            webRequest.Dispose();
         }
-        else {
-            this.Logger.LogError(
-                $"Failed to request latest version. Result: {webRequest.result} Error: '\"{webRequest.error}\""
-            );
-            ConsoleWindow.PrintError($"[{Data.Name}]: Failed to request latest version! Check log for more info.");
+        catch (Exception e) {
+            LogError($"Failed to request latest version! {e.StackTrace}: {e.Message}");
         }
+    }
 
-        webRequest.Dispose();
+
+    public void LogError(string message) {
+        Log(message, Data.Severity.Error);
+    }
+
+    public void LogWarning(string message) {
+        Log(message, Data.Severity.Warning);
+    }
+
+    public void LogInfo(string message) {
+        Log(message, Data.Severity.Info);
+    }
+
+    private void Log(string message, Data.Severity severity) {
+        var newMessage = $"[{Data.ModName}]: {message}";
+
+        switch (severity) {
+            case Data.Severity.Error: {
+                ConsoleWindow.PrintError(newMessage);
+                break;
+            }
+            case Data.Severity.Warning: {
+                ConsoleWindow.PrintAction(newMessage);
+                break;
+            }
+            case Data.Severity.Info:
+            default: {
+                ConsoleWindow.Print(newMessage);
+                break;
+            }
+        }
     }
 }
 
 internal struct Data {
-    public const string Guid = "segimod";
-    public const string Name = "SEGIMod";
-    public const string Version = "1.0.2";
-    public const string WorkshopHandle = "3281346086";
-    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/StationeersSharp/development/Source/";
-    public const string GitVersion = GitRaw + Name + "/VERSION";
+    // Mod Data
+    public const string ModGuid = "segimod";
+    public const string ModName = "SEGIMod";
+    public const string ModVersion = "1.0.4";
+    public const string ModHandle = "3281346086";
+
+    // Log Data
+    public enum Severity {
+        Error,
+        Warning,
+        Info
+    }
+
+    // Version Check Data
+    public const string GitContent = "https://raw.githubusercontent.com/";
+    public const string GitAuthor = "TerameTechYT";
+    public const string GitName = "StationeersSharp";
+    public const string GitBranch = "development";
+    public const string GitSourceFolder = "Source";
+    public const string GitVersionFile = "VERSION";
+
+    public const string GitVersion =
+        $"{GitContent}/{GitAuthor}/{GitName}/{GitBranch}/{GitSourceFolder}/{ModName}/{GitVersionFile}";
+
+    public const bool VersionCheck = false;
+
 
     // Voxel
     public static ConfigEntry<SEGI.VoxelResolution> VoxelResolution;

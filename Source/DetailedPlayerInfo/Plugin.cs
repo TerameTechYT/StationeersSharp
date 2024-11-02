@@ -1,5 +1,6 @@
-﻿
+﻿#region
 
+using System;
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
@@ -7,74 +8,70 @@ using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
-using System;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
+#endregion
+
 namespace DetailedPlayerInfo;
 
-[BepInPlugin(Data.Guid, Data.Name, Data.Version)]
+[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
 [BepInProcess("rocketstation.exe")]
 public class Plugin : BaseUnityPlugin {
-    public static Plugin Instance {
-        get; private set;
-    }
-    public static Harmony HarmonyInstance {
-        get; private set;
-    }
+    public static Plugin Instance { get; private set; }
+
+    public static Harmony HarmonyInstance { get; private set; }
 
     [UsedImplicitly]
     public void Awake() {
-        this.LoadConfiguration();
+        //if (Harmony.HasAnyPatches(Data.ModGuid))
+        //    throw new Exception($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
+        LoadConfiguration();
 
-        this.Logger.LogInfo(Data.Name + " successfully loaded!");
         Instance = this;
-        HarmonyInstance = new Harmony(Data.Guid);
+        HarmonyInstance = new Harmony(Data.ModGuid);
         HarmonyInstance.PatchAll();
-        this.Logger.LogInfo(Data.Name + " successfully patched!");
-
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, sceneMode) => {
-            if (scene.name == "Base") {
-                this.OnBaseLoaded().Forget();
-            }
+            if (scene.name == "Base")
+                OnBaseLoaded().Forget();
         };
     }
 
     public void LoadConfiguration() {
-        Data.KelvinMode = this.Config.Bind("Keybinds",
+        Data.KelvinMode = Config.Bind("Keybinds",
             "Kelvin Mode",
             KeyCode.K,
             "Keybind that when pressed, changes the status temperatures to kelvin instead of celcius.");
 
-        Data.CustomFramerate = this.Config.Bind("Configurables",
+        Data.CustomFramerate = Config.Bind("Configurables",
             "CustomFramerate",
             true,
             "Should the framerate text only display FPS.");
 
-        Data.ChangeFontSize = this.Config.Bind("Configurables",
+        Data.ChangeFontSize = Config.Bind("Configurables",
             "ChangeFontSize",
             true,
             "Should the font size be changed.");
 
-        Data.ExtraInfoPower = this.Config.Bind("Configurables",
+        Data.ExtraInfoPower = Config.Bind("Configurables",
             "ExtraInfoPower",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.ExtraInfoFilter = this.Config.Bind("Configurables",
+        Data.ExtraInfoFilter = Config.Bind("Configurables",
             "ExtraInfoFilter",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.NumberPrecision = this.Config.Bind("Configurables",
+        Data.NumberPrecision = Config.Bind("Configurables",
             "NumberPrecision",
             2,
             "How many decimal points should be displayed on numbers.");
 
-        Data.FontSize = this.Config.Bind("Configurables",
+        Data.FontSize = Config.Bind("Configurables",
             "FontSize",
             21,
             "What font size should the labels be changed to.");
@@ -85,46 +82,96 @@ public class Plugin : BaseUnityPlugin {
         // Wait until game has loaded into main menu
         await UniTask.WaitUntil(() => { return MainMenu.Instance.IsVisible; });
         // Check version after main menu is visible
-        await this.CheckVersion();
+        await CheckVersion();
     }
 
     public async UniTask CheckVersion() {
-        UnityWebRequest webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
-        this.Logger.LogInfo("Awaiting send web request...");
+        if (!Data.VersionCheck) {
+            LogWarning("Version check has been disabled.");
 
-        string currentVersion = webRequest.downloadHandler.text.Trim();
-        this.Logger.LogInfo("Await complete!");
+            return;
+        }
 
-        if (webRequest.result == UnityWebRequest.Result.Success) {
-            this.Logger.LogInfo($"Latest version is {currentVersion}. Installed {Data.Version}");
-            ConsoleWindow.Print($"[{Data.Name}]: v{Data.Version} is installed.");
+        try {
+            var webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
+            var currentVersion = webRequest.downloadHandler.text.Trim();
 
-            if (Data.Version == currentVersion) {
-                return;
+            if (webRequest.result == UnityWebRequest.Result.Success) {
+                LogInfo($"v{Data.ModVersion} is installed.");
+
+                if (Data.ModVersion == currentVersion)
+                    return;
+
+                LogWarning($"New version v{currentVersion} is available!");
             }
 
-            this.Logger.LogInfo("User does not have latest version, printing to console.");
-            ConsoleWindow.PrintAction($"[{Data.Name}]: New version v{currentVersion} is available");
+            webRequest.Dispose();
         }
-        else {
-            this.Logger.LogError(
-                $"Failed to request latest version. Result: {webRequest.result} Error: '\"{webRequest.error}\""
-            );
-            ConsoleWindow.PrintError($"[{Data.Name}]: Failed to request latest version! Check log for more info.");
+        catch (Exception e) {
+            LogError($"Failed to request latest version! {e.StackTrace}: {e.Message}");
         }
+    }
 
-        webRequest.Dispose();
+
+    public void LogError(string message) {
+        Log(message, Data.Severity.Error);
+    }
+
+    public void LogWarning(string message) {
+        Log(message, Data.Severity.Warning);
+    }
+
+    public void LogInfo(string message) {
+        Log(message, Data.Severity.Info);
+    }
+
+    private void Log(string message, Data.Severity severity) {
+        var newMessage = $"[{Data.ModName}]: {message}";
+
+        switch (severity) {
+            case Data.Severity.Error: {
+                ConsoleWindow.PrintError(newMessage);
+                break;
+            }
+            case Data.Severity.Warning: {
+                ConsoleWindow.PrintAction(newMessage);
+                break;
+            }
+            case Data.Severity.Info:
+            default: {
+                ConsoleWindow.Print(newMessage);
+                break;
+            }
+        }
     }
 }
 
 internal struct Data {
-    public const string Guid = "detailedplayerinfo";
-    public const string Name = "DetailedPlayerInfo";
+    // Mod Data
+    public const string ModGuid = "detailedplayerinfo";
+    public const string ModName = "DetailedPlayerInfo";
+    public const string ModVersion = "1.5.7";
+    public const string ModHandle = "3071950159";
 
-    public const string Version = "1.5.5";
-    public const string WorkshopHandle = "3071950159";
-    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/StationeersSharp/development/Source/";
-    public const string GitVersion = GitRaw + Name + "/VERSION";
+    // Log Data
+    public enum Severity {
+        Error,
+        Warning,
+        Info
+    }
+
+    // Version Check Data
+    public const string GitContent = "https://raw.githubusercontent.com/";
+    public const string GitAuthor = "TerameTechYT";
+    public const string GitName = "StationeersSharp";
+    public const string GitBranch = "development";
+    public const string GitSourceFolder = "Source";
+    public const string GitVersionFile = "VERSION";
+
+    public const string GitVersion =
+        $"{GitContent}/{GitAuthor}/{GitName}/{GitBranch}/{GitSourceFolder}/{ModName}/{GitVersionFile}";
+
+    public const bool VersionCheck = false;
 
     //Keycode
     public static ConfigEntry<KeyCode> KelvinMode;
@@ -173,6 +220,5 @@ internal struct Data {
         "GameCanvas/StatusIcons/Power";
 
     public const string FilterStatus =
-    "GameCanvas/StatusIcons/Filter";
-
+        "GameCanvas/StatusIcons/Filter";
 }

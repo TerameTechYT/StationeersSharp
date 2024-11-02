@@ -1,41 +1,40 @@
-﻿
+﻿#region
 
+using System;
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
-using System;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
+#endregion
+
 namespace BetterWasteTank;
 
-[BepInPlugin(Data.Guid, Data.Name, Data.Version)]
+[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
 [BepInProcess("rocketstation.exe")]
 [BepInProcess("rocketstation_DedicatedServer.exe")]
 public class Plugin : BaseUnityPlugin {
-    public static Plugin Instance {
-        get; private set;
-    }
-    public static Harmony HarmonyInstance {
-        get; private set;
-    }
+    public static Plugin Instance { get; private set; }
+
+    public static Harmony HarmonyInstance { get; private set; }
 
     [UsedImplicitly]
     public void Awake() {
-        this.Logger.LogInfo(Data.Name + " successfully loaded!");
+        //if (Harmony.HasAnyPatches(Data.ModGuid))
+        //    throw new Exception($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
+
         Instance = this;
-        HarmonyInstance = new Harmony(Data.Guid);
+        HarmonyInstance = new Harmony(Data.ModGuid);
         HarmonyInstance.PatchAll();
-        this.Logger.LogInfo(Data.Name + " successfully patched!");
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
-            if (scene.name == "Base") {
-                this.OnBaseLoaded().Forget();
-            }
+            if (scene.name == "Base")
+                OnBaseLoaded().Forget();
         };
     }
 
@@ -43,45 +42,96 @@ public class Plugin : BaseUnityPlugin {
         // Wait until game has loaded into main menu
         await UniTask.WaitUntil(() => { return MainMenu.Instance.IsVisible; });
         // Check version after main menu is visible
-        await this.CheckVersion();
+        await CheckVersion();
     }
 
     public async UniTask CheckVersion() {
-        UnityWebRequest webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
-        this.Logger.LogInfo("Awaiting send web request...");
+        if (!Data.VersionCheck) {
+            LogWarning("Version check has been disabled.");
 
-        string currentVersion = webRequest.downloadHandler.text.Trim();
-        this.Logger.LogInfo("Await complete!");
+            return;
+        }
 
-        if (webRequest.result == UnityWebRequest.Result.Success) {
-            this.Logger.LogInfo($"Latest version is {currentVersion}. Installed {Data.Version}");
-            ConsoleWindow.Print($"[{Data.Name}]: v{Data.Version} is installed.");
+        try {
+            var webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
+            var currentVersion = webRequest.downloadHandler.text.Trim();
 
-            if (Data.Version == currentVersion) {
-                return;
+            if (webRequest.result == UnityWebRequest.Result.Success) {
+                LogInfo($"v{Data.ModVersion} is installed.");
+
+                if (Data.ModVersion == currentVersion)
+                    return;
+
+                LogWarning($"New version v{currentVersion} is available!");
             }
 
-            this.Logger.LogInfo("User does not have latest version, printing to console.");
-            ConsoleWindow.PrintAction($"[{Data.Name}]: New version v{currentVersion} is available");
+            webRequest.Dispose();
         }
-        else {
-            this.Logger.LogError(
-                $"Failed to request latest version. Result: {webRequest.result} Error: '\"{webRequest.error}\""
-            );
-            ConsoleWindow.PrintError($"[{Data.Name}]: Failed to request latest version! Check log for more info.");
+        catch (Exception e) {
+            LogError($"Failed to request latest version! {e.StackTrace}: {e.Message}");
         }
+    }
 
-        webRequest.Dispose();
+
+    public void LogError(string message) {
+        Log(message, Data.Severity.Error);
+    }
+
+    public void LogWarning(string message) {
+        Log(message, Data.Severity.Warning);
+    }
+
+    public void LogInfo(string message) {
+        Log(message, Data.Severity.Info);
+    }
+
+    private void Log(string message, Data.Severity severity) {
+        var newMessage = $"[{Data.ModName}]: {message}";
+
+        switch (severity) {
+            case Data.Severity.Error: {
+                ConsoleWindow.PrintError(newMessage);
+                break;
+            }
+            case Data.Severity.Warning: {
+                ConsoleWindow.PrintAction(newMessage);
+                break;
+            }
+            case Data.Severity.Info:
+            default: {
+                ConsoleWindow.Print(newMessage);
+                break;
+            }
+        }
     }
 }
 
 internal struct Data {
-    public const string Guid = "betterwastetank";
-    public const string Name = "BetterWasteTank";
-    public const string Version = "1.3.3";
-    public const string WorkshopHandle = "3071913936";
-    public const string GitRaw = "https://raw.githubusercontent.com/TerameTechYT/StationeersSharp/development/Source/";
-    public const string GitVersion = GitRaw + Name + "/VERSION";
+    // Mod Data
+    public const string ModGuid = "betterwastetank";
+    public const string ModName = "BetterWasteTank";
+    public const string ModVersion = "1.3.5";
+    public const string ModHandle = "3071913936";
+
+    // Log Data
+    public enum Severity {
+        Error,
+        Warning,
+        Info
+    }
+
+    // Version Check Data
+    public const string GitContent = "https://raw.githubusercontent.com/";
+    public const string GitAuthor = "TerameTechYT";
+    public const string GitName = "StationeersSharp";
+    public const string GitBranch = "development";
+    public const string GitSourceFolder = "Source";
+    public const string GitVersionFile = "VERSION";
+
+    public const string GitVersion =
+        $"{GitContent}/{GitAuthor}/{GitName}/{GitBranch}/{GitSourceFolder}/{ModName}/{GitVersionFile}";
+
+    public const bool VersionCheck = false;
 
     public const float WasteCriticalRatio = 0.975f;
     public const float WasteCautionRatio = 0.75f;

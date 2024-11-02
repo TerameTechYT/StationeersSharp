@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>BetterHydrationNutrition</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <Title>$(AssemblyName)</Title>
+    <Version>1.0.0</Version>
+    <LangVersion>latest</LangVersion>
+
+    <PackageProjectUrl>https://github.com/TerameTechYT/StationeersSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TerameTechYT/StationeersSharp</RepositoryUrl>
+
+    <PlatformTarget>x64</PlatformTarget>
+    <Company>vivi</Company>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <PackageLicenseFile>..\..\LICENSE</PackageLicenseFile>
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <BaseOutputPath>..\..\Build\</BaseOutputPath>
+    <BaseIntermediateOutputPath >..\..\Objects\</BaseIntermediateOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Platforms>x64;x86</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebugType>portable</DebugType>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DebugType>portable</DebugType>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DebugType>embedded</DebugType>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DebugType>embedded</DebugType>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalSuppressions.cs" />
+  </ItemGroup>
+
+  <!-- Import Stationeers VS properties - paths etc. -->
+  <Import Project="$(SolutionDir)Stationeers.VS.props" />
+
+  <!-- Import Game/Unity DLL references -->
+  <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\&quot;&#xD;&#xA;echo $(AssemblyName) $(Configuration) $(Platform) &gt; &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(Configuration).$(Platform)&quot;&#xD;&#xA;exit 0" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="del &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(AssemblyName).dll&quot;&#xD;&#xA;del &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\*.x*&quot;&#xD;&#xA;exit 0" />
+  </Target>
+</Project>

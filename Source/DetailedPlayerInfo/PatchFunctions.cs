@@ -1,12 +1,15 @@
-﻿using Assets.Scripts;
-using Assets.Scripts.UI;
-using HarmonyLib;
-using JetBrains.Annotations;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Assets.Scripts.UI;
+using HarmonyLib;
+using JetBrains.Annotations;
 using TMPro;
+
+#endregion
 
 namespace DetailedPlayerInfo;
 
@@ -24,15 +27,11 @@ public static class PatchFunctions {
             return (Data.CustomFramerate?.Value ?? false) && Functions.EnableFrameCounter(ref ___FrameRate);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+            var currentMethod = (MethodInfo)MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
-            }
-
+            if (!_patches[currentMethod]) _patches[currentMethod] = true;
+            //ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+            //ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
             return true;
         }
     }
@@ -45,14 +44,11 @@ public static class PatchFunctions {
             Functions.Initialize();
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+            var currentMethod = (MethodInfo)MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
-            }
+            if (!_patches[currentMethod]) _patches[currentMethod] = true;
+            //ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+            //ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
         }
     }
 
@@ -62,17 +58,13 @@ public static class PatchFunctions {
     public static void PlayerStateWindowUpdate(ref PlayerStateWindow __instance) {
         try {
             Functions.Update(ref __instance);
-
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+            var currentMethod = (MethodInfo)MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
-            }
+            if (!_patches[currentMethod]) _patches[currentMethod] = true;
+            //ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+            //ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
         }
     }
 }

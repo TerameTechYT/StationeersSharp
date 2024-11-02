@@ -1,14 +1,17 @@
-﻿using Assets.Scripts;
+﻿#region
+
+using System.Collections.Generic;
+using Assets.Scripts;
 using Assets.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using NCalc;
-using System.Collections.Generic;
 using UnityObject = UnityEngine.Object;
+
+#endregion
 
 namespace StationpediaCalculator;
 
 public static class Functions {
-
     public static void CalculateSearch(ref SPDAListItem calculatorItem, string inputText) {
         try {
             if (Stationpedia.Instance != null && calculatorItem != null && !string.IsNullOrEmpty(inputText)) {
@@ -43,7 +46,8 @@ public static class Functions {
 
     public static void CreateCalculator(ref List<SPDAListItem> items) {
         if (Stationpedia.Instance != null && items != null) {
-            var calculatorItem = UnityObject.Instantiate(Stationpedia.Instance.ListInsertPrefab, Stationpedia.Instance.SearchContents);
+            var calculatorItem = UnityObject.Instantiate(Stationpedia.Instance.ListInsertPrefab,
+                Stationpedia.Instance.SearchContents);
             calculatorItem.gameObject.SetActive(false);
 
             Data.CalculatorItem = calculatorItem;

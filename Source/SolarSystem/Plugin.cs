@@ -1,39 +1,38 @@
-﻿using Assets.Scripts;
+﻿#region
+
+using System;
+using System.Collections.Generic;
+using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+
+#endregion
 
 namespace SolarSystem;
 
 [BepInPlugin(Data.Guid, Data.Name, Data.Version)]
 [BepInProcess("rocketstation.exe")]
 public class Plugin : BaseUnityPlugin {
-    public static Plugin Instance {
-        get; private set;
-    }
-    public static Harmony HarmonyInstance {
-        get; private set;
-    }
+    public static Plugin Instance { get; private set; }
+
+    public static Harmony HarmonyInstance { get; private set; }
 
     [UsedImplicitly]
     public void Awake() {
-        this.Logger.LogInfo(Data.Name + " successfully loaded!");
+        Logger.LogInfo(Data.Name + " successfully loaded!");
         Instance = this;
         HarmonyInstance = new Harmony(Data.Guid);
         HarmonyInstance.PatchAll();
-        this.Logger.LogInfo(Data.Name + " successfully patched!");
+        Logger.LogInfo(Data.Name + " successfully patched!");
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
-            if (scene.name == "Base") {
-                this.OnBaseLoaded().Forget();
-            }
+            if (scene.name == "Base") OnBaseLoaded().Forget();
         };
     }
 
@@ -41,29 +40,27 @@ public class Plugin : BaseUnityPlugin {
         // Wait until game has loaded into main menu
         await UniTask.WaitUntil(() => { return MainMenu.Instance.IsVisible; });
         // Check version after main menu is visible
-        await this.CheckVersion();
+        //await this.CheckVersion();
     }
 
     public async UniTask CheckVersion() {
-        UnityWebRequest webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
-        this.Logger.LogInfo("Awaiting send web request...");
+        var webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
+        Logger.LogInfo("Awaiting send web request...");
 
-        string currentVersion = webRequest.downloadHandler.text.Trim();
-        this.Logger.LogInfo("Await complete!");
+        var currentVersion = webRequest.downloadHandler.text.Trim();
+        Logger.LogInfo("Await complete!");
 
         if (webRequest.result == UnityWebRequest.Result.Success) {
-            this.Logger.LogInfo($"Latest version is {currentVersion}. Installed {Data.Version}");
+            Logger.LogInfo($"Latest version is {currentVersion}. Installed {Data.Version}");
             ConsoleWindow.Print($"[{Data.Name}]: v{Data.Version} is installed.");
 
-            if (Data.Version == currentVersion) {
-                return;
-            }
+            if (Data.Version == currentVersion) return;
 
-            this.Logger.LogInfo("User does not have latest version, printing to console.");
+            Logger.LogInfo("User does not have latest version, printing to console.");
             ConsoleWindow.PrintAction($"[{Data.Name}]: New version v{currentVersion} is available");
         }
         else {
-            this.Logger.LogError(
+            Logger.LogError(
                 $"Failed to request latest version. Result: {webRequest.result} Error: '\"{webRequest.error}\""
             );
             ConsoleWindow.PrintError($"[{Data.Name}]: Failed to request latest version! Check log for more info.");
@@ -82,8 +79,7 @@ internal struct Data {
     public const string GitVersion = GitRaw + Name + "/VERSION";
 
     // All these planets will be added!!
-    public static readonly List<string> WorldOrder =
-    [
+    public static readonly List<string> WorldOrder = [
         "Space",
         "Mercury",
         "Venus",
@@ -129,6 +125,6 @@ internal struct Data {
         "Gonggong",
         "Sedna",
 
-        "Vulcan",
+        "Vulcan"
     ];
 }

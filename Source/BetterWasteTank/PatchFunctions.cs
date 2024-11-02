@@ -1,9 +1,13 @@
+#region
+
 using Assets.Scripts.Objects.Clothing;
 using Assets.Scripts.Objects.Entities;
 using Assets.Scripts.UI;
 using HarmonyLib;
 using JetBrains.Annotations;
 using TMPro;
+
+#endregion
 
 namespace BetterWasteTank;
 
@@ -14,9 +18,8 @@ public static class PatchFunctions {
     [HarmonyPostfix]
     public static void SuitAwake(ref Suit __instance) {
         // recalculate max waste pressure
-        if (__instance != null) {
-            __instance.WasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
-        }
+        if (__instance != null)
+            __instance.wasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
     }
 
     [UsedImplicitly]
@@ -24,9 +27,8 @@ public static class PatchFunctions {
     [HarmonyPostfix]
     public static void SuitOnAtmosphericTick(ref Suit __instance) {
         // recalculate max waste pressure
-        if (__instance != null) {
-            __instance.WasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
-        }
+        if (__instance != null)
+            __instance.wasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
     }
 
     [UsedImplicitly]
@@ -50,5 +52,7 @@ public static class PatchFunctions {
     [UsedImplicitly]
     [HarmonyPatch(typeof(StatusUpdates), "HandleIconUpdates")]
     [HarmonyPrefix]
-    public static void StatusUpdatesHandleIconUpdates(ref TMP_Text ___TextWaste, ref Human ____human) => Functions.UpdateIcons(ref ___TextWaste, ref ____human);
+    public static void StatusUpdatesHandleIconUpdates(ref TMP_Text ___TextWaste, ref Human ____human) {
+        Functions.UpdateIcons(ref ___TextWaste, ref ____human);
+    }
 }

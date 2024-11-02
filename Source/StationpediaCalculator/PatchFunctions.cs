@@ -1,13 +1,16 @@
-﻿using Assets.Scripts.UI;
+﻿#region
+
+using System.Collections.Generic;
+using Assets.Scripts.UI;
 using HarmonyLib;
 using JetBrains.Annotations;
-using System.Collections.Generic;
+
+#endregion
 
 namespace StationpediaCalculator;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-
     [UsedImplicitly]
     [HarmonyPatch(typeof(Stationpedia), "ForceSearch")]
     [HarmonyPostfix]
