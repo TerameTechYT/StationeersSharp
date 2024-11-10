@@ -16,16 +16,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{0F4A42
 		.gitmodules = .gitmodules
 		Source\GlobalSuppressions.cs = Source\GlobalSuppressions.cs
 		LICENSE = LICENSE
+		MODS.md = MODS.md
 		README.md = README.md
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarSystem", "Source\SolarSystem\SolarSystem.csproj", "{2957708D-26DE-47F4-A463-8573BD0D0C74}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEGI", "Source\SEGIMod\SEGI.csproj", "{B839CA26-9ED5-4DF0-8A19-00954FB334BA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterPowerMod", "Source\BetterPowerMod\BetterPowerMod.csproj", "{63DB2F36-F2CB-4102-AA0D-03D85476657B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationpediaCalculator", "Source\StationpediaCalculator\StationpediaCalculator.csproj", "{5E37C7D4-C0F5-44DC-940E-5706D2EFC878}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{50E1B1AF-F60D-4EEB-B52F-16EB28081E79}"
+	ProjectSection(SolutionItems) = preProject
+		Stationeers.VS.props = Stationeers.VS.props
+		Stationeers.VS.References.props = Stationeers.VS.References.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,18 +80,6 @@ Global
 		{FDD20503-5164-4EED-ACAD-BAD4A5E84B7C}.Release|x64.Build.0 = Release|x64
 		{FDD20503-5164-4EED-ACAD-BAD4A5E84B7C}.Release|x86.ActiveCfg = Release|x86
 		{FDD20503-5164-4EED-ACAD-BAD4A5E84B7C}.Release|x86.Build.0 = Release|x86
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Debug|Any CPU.Build.0 = Debug|x64
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Debug|x64.ActiveCfg = Debug|x64
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Debug|x64.Build.0 = Debug|x64
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Debug|x86.ActiveCfg = Debug|x86
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Debug|x86.Build.0 = Debug|x86
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Release|Any CPU.ActiveCfg = Release|x64
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Release|Any CPU.Build.0 = Release|x64
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Release|x64.ActiveCfg = Release|x64
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Release|x64.Build.0 = Release|x64
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Release|x86.ActiveCfg = Release|x86
-		{2957708D-26DE-47F4-A463-8573BD0D0C74}.Release|x86.Build.0 = Release|x86
 		{B839CA26-9ED5-4DF0-8A19-00954FB334BA}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{B839CA26-9ED5-4DF0-8A19-00954FB334BA}.Debug|Any CPU.Build.0 = Debug|x64
 		{B839CA26-9ED5-4DF0-8A19-00954FB334BA}.Debug|x64.ActiveCfg = Debug|x64
@@ -124,6 +119,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{193C5542-8666-4915-9DD7-952934283F13} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
+		{B7C8CEF1-44A6-41BF-9B06-566B1F674C02} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
+		{FDD20503-5164-4EED-ACAD-BAD4A5E84B7C} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
+		{B839CA26-9ED5-4DF0-8A19-00954FB334BA} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
+		{63DB2F36-F2CB-4102-AA0D-03D85476657B} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
+		{5E37C7D4-C0F5-44DC-940E-5706D2EFC878} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {40BF085B-8E5B-4402-A4A9-84F4C85863BE}

@@ -57,8 +57,6 @@
       <Private>False</Private>
     </Reference>
 
-
-
     <!-- Unity DLL's -->
     <Reference Include="Assembly-CSharp">
       <HintPath>$(StationeersDirectory)\rocketstation_Data\Managed\Assembly-CSharp.dll</HintPath>
