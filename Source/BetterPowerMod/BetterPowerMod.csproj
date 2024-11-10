@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>BetterPowerMod</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <Title>$(AssemblyName)</Title>
@@ -20,7 +20,7 @@
     <PackageLicenseFile>..\..\LICENSE</PackageLicenseFile>
     <AnalysisLevel>latest-all</AnalysisLevel>
     <BaseOutputPath>..\..\Build\</BaseOutputPath>
-    <BaseIntermediateOutputPath >..\..\Objects\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\Objects\</BaseIntermediateOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>
