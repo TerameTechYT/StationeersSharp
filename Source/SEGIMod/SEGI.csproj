@@ -6,6 +6,7 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <Title>$(AssemblyName)</Title>
     <LangVersion>latest</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
     <PackageProjectUrl>https://github.com/TerameTechYT/StationeersSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TerameTechYT/StationeersSharp</RepositoryUrl>
