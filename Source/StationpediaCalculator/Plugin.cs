@@ -1,13 +1,13 @@
 ﻿#region
 
-using System;
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
+using BepInEx.Bootstrap;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
-using UnityEngine.Networking;
+using System;
 using UnityEngine.SceneManagement;
 
 #endregion
@@ -17,14 +17,18 @@ namespace StationpediaCalculator;
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
 [BepInProcess("rocketstation.exe")]
 public class Plugin : BaseUnityPlugin {
-    public static Plugin Instance { get; private set; }
+    public static Plugin Instance {
+        get; private set;
+    }
 
-    public static Harmony HarmonyInstance { get; private set; }
+    public static Harmony HarmonyInstance {
+        get; private set;
+    }
 
     [UsedImplicitly]
     public void Awake() {
-        //if (Harmony.HasAnyPatches(Data.ModGuid))
-        //    throw new Exception($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
+        if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
+            throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
 
         Instance = this;
         HarmonyInstance = new Harmony(Data.ModGuid);
@@ -37,55 +41,20 @@ public class Plugin : BaseUnityPlugin {
         };
     }
 
-    public async UniTask OnBaseLoaded() {
+    public static async UniTask OnBaseLoaded() {
         // Wait until game has loaded into main menu
-        await UniTask.WaitUntil(() => { return MainMenu.Instance.IsVisible; });
-        // Check version after main menu is visible
-        await CheckVersion();
+        await UniTask.WaitUntil(() => MainMenu.Instance.IsVisible);
+
+        // Print version after main menu is visible
+        LogInfo($"v{Data.ModVersion} is installed.");
     }
 
-    public async UniTask CheckVersion() {
-        if (!Data.VersionCheck) {
-            LogWarning("Version check has been disabled.");
+    public static void LogError(string message) => Log(message, Data.Severity.Error);
+    public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
+    public static void LogInfo(string message) => Log(message, Data.Severity.Info);
 
-            return;
-        }
-
-        try {
-            var webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
-            var currentVersion = webRequest.downloadHandler.text.Trim();
-
-            if (webRequest.result == UnityWebRequest.Result.Success) {
-                LogInfo($"v{Data.ModVersion} is installed.");
-
-                if (Data.ModVersion == currentVersion)
-                    return;
-
-                LogWarning($"New version v{currentVersion} is available!");
-            }
-
-            webRequest.Dispose();
-        }
-        catch (Exception e) {
-            LogError($"Failed to request latest version! {e.StackTrace}: {e.Message}");
-        }
-    }
-
-
-    public void LogError(string message) {
-        Log(message, Data.Severity.Error);
-    }
-
-    public void LogWarning(string message) {
-        Log(message, Data.Severity.Warning);
-    }
-
-    public void LogInfo(string message) {
-        Log(message, Data.Severity.Info);
-    }
-
-    private void Log(string message, Data.Severity severity) {
-        var newMessage = $"[{Data.ModName}]: {message}";
+    private static void Log(string message, Data.Severity severity) {
+        string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
             case Data.Severity.Error: {
@@ -109,7 +78,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "stationpediacalculator";
     public const string ModName = "StationpediaCalculator";
-    public const string ModVersion = "1.0.4";
+    public const string ModVersion = "1.0.5";
     public const string ModHandle = "3305312105";
 
     // Log Data
@@ -119,19 +88,16 @@ internal struct Data {
         Info
     }
 
-    // Version Check Data
-    public const string GitContent = "https://raw.githubusercontent.com/";
-    public const string GitAuthor = "TerameTechYT";
-    public const string GitName = "StationeersSharp";
-    public const string GitBranch = "development";
-    public const string GitSourceFolder = "Source";
-    public const string GitVersionFile = "VERSION";
+    public class AlreadyLoadedException : Exception {
+        public AlreadyLoadedException(string message) : base(message) {
+        }
 
-    public const string GitVersion =
-        $"{GitContent}/{GitAuthor}/{GitName}/{GitBranch}/{GitSourceFolder}/{ModName}/{GitVersionFile}";
+        public AlreadyLoadedException(string message, Exception innerException) : base(message, innerException) {
+        }
 
-    public const bool VersionCheck = false;
-
+        public AlreadyLoadedException() {
+        }
+    }
 
     public static SPDAListItem CalculatorItem;
 }

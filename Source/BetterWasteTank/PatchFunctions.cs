@@ -52,7 +52,5 @@ public static class PatchFunctions {
     [UsedImplicitly]
     [HarmonyPatch(typeof(StatusUpdates), "HandleIconUpdates")]
     [HarmonyPrefix]
-    public static void StatusUpdatesHandleIconUpdates(ref TMP_Text ___TextWaste, ref Human ____human) {
-        Functions.UpdateIcons(ref ___TextWaste, ref ____human);
-    }
+    public static void StatusUpdatesHandleIconUpdates(ref TMP_Text ___TextWaste, ref Human ____human) => Functions.UpdateIcons(ref ___TextWaste, ref ____human);
 }

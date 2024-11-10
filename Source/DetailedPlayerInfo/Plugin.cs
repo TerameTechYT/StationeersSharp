@@ -1,15 +1,15 @@
 ﻿#region
 
-using System;
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using BepInEx;
+using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
+using System;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 #endregion
@@ -19,15 +19,20 @@ namespace DetailedPlayerInfo;
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
 [BepInProcess("rocketstation.exe")]
 public class Plugin : BaseUnityPlugin {
-    public static Plugin Instance { get; private set; }
+    public static Plugin Instance {
+        get; private set;
+    }
 
-    public static Harmony HarmonyInstance { get; private set; }
+    public static Harmony HarmonyInstance {
+        get; private set;
+    }
 
     [UsedImplicitly]
     public void Awake() {
-        //if (Harmony.HasAnyPatches(Data.ModGuid))
-        //    throw new Exception($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
-        LoadConfiguration();
+        if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
+            throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
+
+        this.LoadConfiguration();
 
         Instance = this;
         HarmonyInstance = new Harmony(Data.ModGuid);
@@ -41,92 +46,57 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.KelvinMode = Config.Bind("Keybinds",
+        Data.KelvinMode = this.Config.Bind("Keybinds",
             "Kelvin Mode",
             KeyCode.K,
             "Keybind that when pressed, changes the status temperatures to kelvin instead of celcius.");
 
-        Data.CustomFramerate = Config.Bind("Configurables",
+        Data.CustomFramerate = this.Config.Bind("Configurables",
             "CustomFramerate",
             true,
             "Should the framerate text only display FPS.");
 
-        Data.ChangeFontSize = Config.Bind("Configurables",
+        Data.ChangeFontSize = this.Config.Bind("Configurables",
             "ChangeFontSize",
             true,
             "Should the font size be changed.");
 
-        Data.ExtraInfoPower = Config.Bind("Configurables",
+        Data.ExtraInfoPower = this.Config.Bind("Configurables",
             "ExtraInfoPower",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.ExtraInfoFilter = Config.Bind("Configurables",
+        Data.ExtraInfoFilter = this.Config.Bind("Configurables",
             "ExtraInfoFilter",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.NumberPrecision = Config.Bind("Configurables",
+        Data.NumberPrecision = this.Config.Bind("Configurables",
             "NumberPrecision",
             2,
             "How many decimal points should be displayed on numbers.");
 
-        Data.FontSize = Config.Bind("Configurables",
+        Data.FontSize = this.Config.Bind("Configurables",
             "FontSize",
             21,
             "What font size should the labels be changed to.");
     }
 
 
-    public async UniTask OnBaseLoaded() {
+    public static async UniTask OnBaseLoaded() {
         // Wait until game has loaded into main menu
-        await UniTask.WaitUntil(() => { return MainMenu.Instance.IsVisible; });
-        // Check version after main menu is visible
-        await CheckVersion();
+        await UniTask.WaitUntil(() => MainMenu.Instance.IsVisible);
+
+        // Print version after main menu is visible
+        LogInfo($"v{Data.ModVersion} is installed.");
     }
 
-    public async UniTask CheckVersion() {
-        if (!Data.VersionCheck) {
-            LogWarning("Version check has been disabled.");
+    public static void LogError(string message) => Log(message, Data.Severity.Error);
+    public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
+    public static void LogInfo(string message) => Log(message, Data.Severity.Info);
 
-            return;
-        }
-
-        try {
-            var webRequest = await UnityWebRequest.Get(new Uri(Data.GitVersion)).SendWebRequest();
-            var currentVersion = webRequest.downloadHandler.text.Trim();
-
-            if (webRequest.result == UnityWebRequest.Result.Success) {
-                LogInfo($"v{Data.ModVersion} is installed.");
-
-                if (Data.ModVersion == currentVersion)
-                    return;
-
-                LogWarning($"New version v{currentVersion} is available!");
-            }
-
-            webRequest.Dispose();
-        }
-        catch (Exception e) {
-            LogError($"Failed to request latest version! {e.StackTrace}: {e.Message}");
-        }
-    }
-
-
-    public void LogError(string message) {
-        Log(message, Data.Severity.Error);
-    }
-
-    public void LogWarning(string message) {
-        Log(message, Data.Severity.Warning);
-    }
-
-    public void LogInfo(string message) {
-        Log(message, Data.Severity.Info);
-    }
-
-    private void Log(string message, Data.Severity severity) {
-        var newMessage = $"[{Data.ModName}]: {message}";
+    private static void Log(string message, Data.Severity severity) {
+        string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
             case Data.Severity.Error: {
@@ -150,7 +120,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "detailedplayerinfo";
     public const string ModName = "DetailedPlayerInfo";
-    public const string ModVersion = "1.5.7";
+    public const string ModVersion = "1.5.8";
     public const string ModHandle = "3071950159";
 
     // Log Data
@@ -160,18 +130,16 @@ internal struct Data {
         Info
     }
 
-    // Version Check Data
-    public const string GitContent = "https://raw.githubusercontent.com/";
-    public const string GitAuthor = "TerameTechYT";
-    public const string GitName = "StationeersSharp";
-    public const string GitBranch = "development";
-    public const string GitSourceFolder = "Source";
-    public const string GitVersionFile = "VERSION";
+    public class AlreadyLoadedException : Exception {
+        public AlreadyLoadedException(string message) : base(message) {
+        }
 
-    public const string GitVersion =
-        $"{GitContent}/{GitAuthor}/{GitName}/{GitBranch}/{GitSourceFolder}/{ModName}/{GitVersionFile}";
+        public AlreadyLoadedException(string message, Exception innerException) : base(message, innerException) {
+        }
 
-    public const bool VersionCheck = false;
+        public AlreadyLoadedException() {
+        }
+    }
 
     //Keycode
     public static ConfigEntry<KeyCode> KelvinMode;

@@ -36,15 +36,17 @@ public static class PatchFunctions {
     [HarmonyPostfix]
     public static void WindTurbineGeneratorSetTurbineRotationSpeed(ref WindTurbineGenerator __instance, float speed) {
         if (Data.EnableWindTurbine.Value && __instance != null) {
-            var traverse = Traverse.Create(__instance);
-            var bladesTransform = traverse.Field("bladesTransform").GetValue<Transform>();
+            Traverse traverse = Traverse.Create(__instance);
+            Transform bladesTransform = traverse.Field("bladesTransform").GetValue<Transform>();
 
-            var RPM = Functions.GetWindTurbineRPM(__instance);
-            if (__instance.BaseAnimator != null)
+            float RPM = Functions.GetWindTurbineRPM(__instance);
+            if (__instance.BaseAnimator != null) {
                 __instance.BaseAnimator.SetFloat(WindTurbineGenerator.SpeedState, __instance.GenerationRate);
-            else if (bladesTransform != null && RPM > 0f)
+            }
+            else if (bladesTransform != null && RPM > 0f) {
                 bladesTransform.Rotate(__instance is LargeWindTurbineGenerator ? Vector3.forward : Vector3.up,
                     RPM / 60f);
+            }
         }
     }
 
@@ -52,9 +54,9 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.GenerationRate), MethodType.Getter)]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorGenerationRate(ref WindTurbineGenerator __instance, ref float __result) {
-        if (Data.EnableWindTurbine.Value && __instance != null && __instance.HasRoom != null) {
-            var noise = WindTurbineGenerator.GetNoise(__instance.NoiseIntensity);
-            var atmosphere = __instance.GetWorldAtmospherePressure();
+        if (Data.EnableWindTurbine.Value && __instance != null && !__instance.HasRoom) {
+            float noise = WindTurbineGenerator.GetNoise(__instance.NoiseIntensity);
+            Assets.Scripts.Atmospherics.PressurekPa atmosphere = __instance.GetWorldAtmospherePressure();
 
             __result = Functions.GetPotentialWindPowerGenerated(atmosphere.ToFloat(), noise);
         }

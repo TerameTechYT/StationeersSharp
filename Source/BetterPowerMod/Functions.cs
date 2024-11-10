@@ -1,11 +1,11 @@
 ﻿#region
 
-using System.Text;
 using Assets.Scripts;
 using Assets.Scripts.Localization2;
 using Assets.Scripts.Objects;
 using Assets.Scripts.Util;
 using Objects;
+using System.Text;
 using UnityEngine;
 using Weather;
 
@@ -13,30 +13,29 @@ using Weather;
 
 namespace BetterPowerMod;
 
-internal class Functions {
-    public static float GetPotentialSolarPowerGenerated() {
-        return OrbitalSimulation.SolarIrradiance;
-    }
+internal sealed class Functions {
+    public static float GetPotentialSolarPowerGenerated() => OrbitalSimulation.SolarIrradiance;
 
     public static float GetPotentialWindPowerGenerated(float worldAtmospherePressure, float noise) {
-        var value = Mathf.Max(0, Mathf.Clamp(worldAtmospherePressure, 20f, 100f) * noise);
+        float value = Mathf.Max(0, Mathf.Clamp(worldAtmospherePressure, 20f, 100f) * noise);
 
         return WeatherManager.IsWeatherEventRunning ? 2000 + value : value;
     }
 
-    public static float GetWindTurbineRPM(WindTurbineGenerator generator) {
-        return GameManager.DeltaTime * generator.GenerationRate * 60;
-    }
+    public static float GetWindTurbineRPM(WindTurbineGenerator generator) => GameManager.DeltaTime * generator.GenerationRate * 60;
 
     public static PassiveTooltip GetWindTurbineTooltip(WindTurbineGenerator generator) {
-        var stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine(
-            $"{GameStrings.GeneratingPower} {generator.GenerationRate.ToStringPrefix("W", "yellow")}");
-        stringBuilder.AppendLine($"{GetWindTurbineRPM(generator).ToStringPrefix("RPM", "yellow")}");
+        StringBuilder stringBuilder = new();
 
-        var passiveTooltip = new PassiveTooltip();
-        passiveTooltip.Title = generator.DisplayName;
-        passiveTooltip.Slider = generator.ThingHealth;
+        _ = stringBuilder.AppendLine(
+            $"{GameStrings.GeneratingPower} {generator.GenerationRate.ToStringPrefix("W", "yellow")}");
+
+        _ = stringBuilder.AppendLine($"{GetWindTurbineRPM(generator).ToStringPrefix("RPM", "yellow")}");
+
+        PassiveTooltip passiveTooltip = new() {
+            Title = generator.DisplayName,
+            Slider = generator.ThingHealth
+        };
         passiveTooltip.SetExtendedText(stringBuilder.ToString());
 
         return passiveTooltip;

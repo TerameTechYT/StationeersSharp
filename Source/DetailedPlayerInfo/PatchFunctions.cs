@@ -1,12 +1,12 @@
 ﻿#region
 
+using Assets.Scripts.UI;
+using HarmonyLib;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Assets.Scripts.UI;
-using HarmonyLib;
-using JetBrains.Annotations;
 using TMPro;
 
 #endregion
@@ -26,10 +26,11 @@ public static class PatchFunctions {
         try {
             return (Data.CustomFramerate?.Value ?? false) && Functions.EnableFrameCounter(ref ___FrameRate);
         }
-        catch (Exception ex) {
-            var currentMethod = (MethodInfo)MethodBase.GetCurrentMethod();
+        catch (Exception) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod]) _patches[currentMethod] = true;
+            if (!_patches[currentMethod])
+                _patches[currentMethod] = true;
             //ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
             //ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
             return true;
@@ -43,10 +44,11 @@ public static class PatchFunctions {
         try {
             Functions.Initialize();
         }
-        catch (Exception ex) {
-            var currentMethod = (MethodInfo)MethodBase.GetCurrentMethod();
+        catch (Exception) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod]) _patches[currentMethod] = true;
+            if (!_patches[currentMethod])
+                _patches[currentMethod] = true;
             //ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
             //ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
         }
@@ -59,10 +61,11 @@ public static class PatchFunctions {
         try {
             Functions.Update(ref __instance);
         }
-        catch (Exception ex) {
-            var currentMethod = (MethodInfo)MethodBase.GetCurrentMethod();
+        catch (Exception) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod]) _patches[currentMethod] = true;
+            if (!_patches[currentMethod])
+                _patches[currentMethod] = true;
             //ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
             //ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
         }

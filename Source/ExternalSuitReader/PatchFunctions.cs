@@ -15,7 +15,8 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.CanLogicRead))]
     [HarmonyPrefix]
     public static bool AdvancedSuitCanLogicRead(AdvancedSuit __instance, ref bool __result, LogicType logicType) {
-        if (!Functions.CanLogicRead(logicType)) return true;
+        if (!Functions.CanLogicRead(logicType))
+            return true;
 
         __result = true;
         return false;
@@ -25,7 +26,8 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.GetLogicValue))]
     [HarmonyPrefix]
     public static bool AdvancedSuitGetLogicValue(AdvancedSuit __instance, ref double __result, LogicType logicType) {
-        if (!Functions.CanLogicRead(logicType)) return true;
+        if (!Functions.CanLogicRead(logicType))
+            return true;
 
         __result = Functions.GetLogicValue(__instance, logicType);
         return false;

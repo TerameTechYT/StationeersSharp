@@ -1,10 +1,10 @@
 ﻿#region
 
-using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using NCalc;
+using System.Collections.Generic;
 using UnityObject = UnityEngine.Object;
 
 #endregion
@@ -15,13 +15,13 @@ public static class Functions {
     public static void CalculateSearch(ref SPDAListItem calculatorItem, string inputText) {
         try {
             if (Stationpedia.Instance != null && calculatorItem != null && !string.IsNullOrEmpty(inputText)) {
-                var expression = new Expression(inputText, EvaluateOptions.IgnoreCase);
+                Expression expression = new(inputText, EvaluateOptions.IgnoreCase);
 
                 if (expression.HasErrors()) {
                     calculatorItem.gameObject.SetActive(false);
                 }
                 else {
-                    var result = expression.Evaluate().ToString();
+                    string result = expression.Evaluate().ToString();
 
                     calculatorItem.gameObject.SetActive(true);
                     calculatorItem.transform.SetSiblingIndex(0);
@@ -46,7 +46,7 @@ public static class Functions {
 
     public static void CreateCalculator(ref List<SPDAListItem> items) {
         if (Stationpedia.Instance != null && items != null) {
-            var calculatorItem = UnityObject.Instantiate(Stationpedia.Instance.ListInsertPrefab,
+            SPDAListItem calculatorItem = UnityObject.Instantiate(Stationpedia.Instance.ListInsertPrefab,
                 Stationpedia.Instance.SearchContents);
             calculatorItem.gameObject.SetActive(false);
 

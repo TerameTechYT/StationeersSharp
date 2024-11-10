@@ -1,10 +1,10 @@
 ﻿#region
 
-using System;
-using System.Collections.Generic;
 using Assets.Scripts.Atmospherics;
 using Assets.Scripts.Objects.Clothing;
 using Assets.Scripts.Objects.Motherboards;
+using System;
+using System.Collections.Generic;
 
 #endregion
 
@@ -29,17 +29,14 @@ public static class Functions {
         { LogicType.RatioWaterOutput2, Chemistry.GasType.PollutedWater }
     };
 
-    public static bool CanLogicRead(LogicType logicType) {
-        if (LogicPairs.TryGetValue(logicType, out _) || logicType == LogicType.TotalMolesOutput) return true;
-
-        return false;
-    }
+    public static bool CanLogicRead(LogicType logicType) => LogicPairs.TryGetValue(logicType, out _) || logicType == LogicType.TotalMolesOutput;
 
     public static double GetLogicValue(AdvancedSuit suit, LogicType logicType) {
         if (suit != null && suit.HasAtmosphere && suit.HasReadableAtmosphere) {
-            if (LogicPairs.TryGetValue(logicType, out var gasType))
+            if (LogicPairs.TryGetValue(logicType, out Chemistry.GasType gasType))
                 return Convert.ToDouble(suit.WorldAtmosphere.GetGasTypeRatio(gasType));
-            if (logicType == LogicType.TotalMolesOutput) return Convert.ToDouble(suit.WorldAtmosphere.TotalMoles);
+            if (logicType == LogicType.TotalMolesOutput)
+                return Convert.ToDouble(suit.WorldAtmosphere.TotalMoles);
         }
 
         return 0.0;
