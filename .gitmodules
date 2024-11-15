@@ -1,3 +1,6 @@
 [submodule "Mods"]
 	path = Mods
 	url = https://ithub.com/TerameTechYT/Stationeers
+[submodule "Stationeers"]
+	path = Stationeers
+	url = https://github.com/TerameTechYT/Stationeers
