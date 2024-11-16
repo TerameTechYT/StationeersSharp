@@ -8,7 +8,7 @@ used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [Stat
 # Building
 ## Prerequisites:
 [Stationeers](https://store.steampowered.com/app/544550/Stationeers/)<br>
-[BepInEx](https://github.com/BepInEx/BepInEx) and [StationeersMods](https://github.com/jixxed/StationeersMods/releases/latest/)<br>
+[BepInEx 5.4.21](https://github.com/BepInEx/BepInEx/releases/latest) or Greater and [StationeersMods](https://github.com/jixxed/StationeersMods/releases/latest/) latest<br>
 [Visual Studio 2019](https://visualstudio.microsoft.com) or Greater<br>
 
 ## Setup
