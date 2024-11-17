@@ -54,7 +54,7 @@ public class Plugin : BaseUnityPlugin {
     public static void LogInfo(string message) => Log(message, Data.Severity.Info);
 
     private static void Log(string message, Data.Severity severity) {
-        string newMessage = $"[{Data.ModName} - {Data.ModVersion}]: {message}";
+        string newMessage = $"[{Data.ModName} - v{Data.ModVersion}]: {message}";
 
         switch (severity) {
             case Data.Severity.Error: {
