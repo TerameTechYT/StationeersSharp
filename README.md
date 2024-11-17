@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # StationeersSharp
 > A collection of mods specifically for the game [Stationeers](https://store.steampowered.com/app/544550/Stationeers/) 
 used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [StationeersMods](https://github.com/jixxed/StationeersMods/releases/latest/) by [Jixxed](https://github.com/jixxed/)<br>
@@ -18,6 +17,3 @@ used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [Stat
 - Expand the `Data` Folder
 - Open `Stationeers.VS.props` and follow the instructions in that file.
 - Your now ready to make edit and compile!
-=======
-# RocketMods
->>>>>>> 90d6892 (Fix dumb repository mistake)
