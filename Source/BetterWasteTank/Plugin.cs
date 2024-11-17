@@ -101,13 +101,13 @@ internal struct Data {
     public const string ModHandle = "3071913936";
 
     // Log Data
-    public enum Severity {
+    internal enum Severity {
         Error,
         Warning,
         Info
     }
 
-    public class AlreadyLoadedException : Exception {
+    public sealed class AlreadyLoadedException : Exception {
         public AlreadyLoadedException(string message) : base(message) {
         }
 
