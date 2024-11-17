@@ -4,7 +4,6 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>SEGI</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
-    <Title>$(AssemblyName)</Title>
     <LangVersion>latest</LangVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
@@ -21,6 +20,7 @@
     <BaseIntermediateOutputPath>..\..\Objects\</BaseIntermediateOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Platforms>x64;x86</Platforms>
+    <ErrorReport>none</ErrorReport>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
