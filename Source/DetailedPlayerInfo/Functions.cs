@@ -20,7 +20,7 @@ using Object = UnityEngine.Object;
 
 namespace DetailedPlayerInfo;
 
-internal sealed class Functions {
+internal static class Functions {
     // temperature text objects
     private static TextMeshProUGUI _internalTempUnit;
     private static TextMeshProUGUI _externalTempUnit;

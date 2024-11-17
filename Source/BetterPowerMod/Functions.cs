@@ -13,7 +13,7 @@ using Weather;
 
 namespace BetterPowerMod;
 
-internal sealed class Functions {
+internal static class Functions {
     public static float GetPotentialSolarPowerGenerated() => OrbitalSimulation.SolarIrradiance;
 
     public static float GetPotentialWindPowerGenerated(float worldAtmospherePressure, float noise) {
