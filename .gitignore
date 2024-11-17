@@ -14,4 +14,11 @@ obj/
 #
 Template/
 Objects/
+
 !Build/x64/Release/*.dll
+!Build/x64/Debug/*.dll
+!Build/x64/Debug/*.pdb
+
+!Build/x86/Release/*.dll
+!Build/x86/Debug/*.dll
+!Build/x86/Debug/*.pdb
