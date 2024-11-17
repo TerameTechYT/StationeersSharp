@@ -79,7 +79,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "externalsuitreader";
     public const string ModName = "ExternalSuitReader";
-    public const string ModVersion = "1.3.7";
+    public const string ModVersion = "1.3.8";
     public const string ModHandle = "3071985478";
 
     // Log Data

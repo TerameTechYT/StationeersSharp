@@ -120,7 +120,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "detailedplayerinfo";
     public const string ModName = "DetailedPlayerInfo";
-    public const string ModVersion = "1.5.8";
+    public const string ModVersion = "1.5.9";
     public const string ModHandle = "3071950159";
 
     // Log Data

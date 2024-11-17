@@ -78,7 +78,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "stationpediacalculator";
     public const string ModName = "StationpediaCalculator";
-    public const string ModVersion = "1.0.5";
+    public const string ModVersion = "1.0.6";
     public const string ModHandle = "3305312105";
 
     // Log Data

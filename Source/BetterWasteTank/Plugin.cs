@@ -97,7 +97,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "betterwastetank";
     public const string ModName = "BetterWasteTank";
-    public const string ModVersion = "1.3.6";
+    public const string ModVersion = "1.3.7";
     public const string ModHandle = "3071913936";
 
     // Log Data

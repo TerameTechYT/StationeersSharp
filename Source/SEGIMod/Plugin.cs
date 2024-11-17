@@ -140,7 +140,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "segimod";
     public const string ModName = "SEGIMod";
-    public const string ModVersion = "1.0.5";
+    public const string ModVersion = "1.0.6";
     public const string ModHandle = "3281346086";
 
     // Log Data

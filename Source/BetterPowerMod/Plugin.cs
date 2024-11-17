@@ -109,7 +109,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "betterpowermod";
     public const string ModName = "BetterPowerMod";
-    public const string ModVersion = "1.0.8";
+    public const string ModVersion = "1.0.9";
     public const string ModHandle = "3234906754";
 
     // Log Data
