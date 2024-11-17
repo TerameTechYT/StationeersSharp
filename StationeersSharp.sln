@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{0F4A42
 		.gitignore = .gitignore
 		.gitmodules = .gitmodules
 		Source\GlobalSuppressions.cs = Source\GlobalSuppressions.cs
-		LICENSE = LICENSE
+		LICENSE.md = LICENSE.md
 		MODS.md = MODS.md
 		README.md = README.md
 	EndProjectSection
