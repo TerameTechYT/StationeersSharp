@@ -101,6 +101,8 @@ public class Plugin : BaseUnityPlugin {
         // Print version after main menu is visible
         LogInfo("is installed.");
 
+        SetModVersion();
+
         EnableSEGI();
     }
 
@@ -110,6 +112,17 @@ public class Plugin : BaseUnityPlugin {
         DontDestroyOnLoad(SEGIGameObject);
     }
 
+    private static void SetModVersion() {
+        ModData mod = WorkshopMenu.ModsConfig.Mods.Find((mod) => mod.GetAboutData().WorkshopHandle == Data.ModHandle);
+        if (mod == null) {
+            return;
+        }
+
+        ModAbout aboutData = mod.GetAboutData();
+        aboutData.Version = Data.ModVersion;
+
+        Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
+    }
 
     public static void LogError(string message) => Log(message, Data.Severity.Error);
     public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
@@ -140,8 +153,8 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "segimod";
     public const string ModName = "SEGIMod";
-    public const string ModVersion = "1.0.6";
-    public const string ModHandle = "3281346086";
+    public const string ModVersion = "1.0.7";
+    public const ulong ModHandle = 3281346086;
 
     // Log Data
     internal enum Severity {

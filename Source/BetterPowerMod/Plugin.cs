@@ -78,6 +78,20 @@ public class Plugin : BaseUnityPlugin {
 
         // Print version after main menu is visible
         LogInfo("is installed.");
+
+        SetModVersion();
+    }
+
+    private static void SetModVersion() {
+        ModData mod = WorkshopMenu.ModsConfig.Mods.Find((mod) => mod.GetAboutData().WorkshopHandle == Data.ModHandle);
+        if (mod == null) {
+            return;
+        }
+
+        ModAbout aboutData = mod.GetAboutData();
+        aboutData.Version = Data.ModVersion;
+
+        Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
     }
 
     public static void LogError(string message) => Log(message, Data.Severity.Error);
@@ -109,8 +123,8 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "betterpowermod";
     public const string ModName = "BetterPowerMod";
-    public const string ModVersion = "1.0.9";
-    public const string ModHandle = "3234906754";
+    public const string ModVersion = "1.1.0";
+    public const ulong ModHandle = 3234916147;
 
     // Log Data
     internal enum Severity {

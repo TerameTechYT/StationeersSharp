@@ -63,13 +63,25 @@ public class Plugin : BaseUnityPlugin {
 
         // Print version after main menu is visible
         LogInfo("is installed.");
+
+        SetModVersion();
+    }
+
+    private static void SetModVersion() {
+        ModData mod = WorkshopMenu.ModsConfig.Mods.Find((mod) => mod.GetAboutData().WorkshopHandle == Data.ModHandle);
+        if (mod == null) {
+            return;
+        }
+
+        ModAbout aboutData = mod.GetAboutData();
+        aboutData.Version = Data.ModVersion;
+
+        Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
     }
 
 
     public static void LogError(string message) => Log(message, Data.Severity.Error);
-
     public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
-
     public static void LogInfo(string message) => Log(message, Data.Severity.Info);
 
     private static void Log(string message, Data.Severity severity) {
@@ -97,8 +109,8 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "betterwastetank";
     public const string ModName = "BetterWasteTank";
-    public const string ModVersion = "1.3.7";
-    public const string ModHandle = "3071913936";
+    public const string ModVersion = "1.3.8";
+    public const ulong ModHandle = 3071913936;
 
     // Log Data
     internal enum Severity {
