@@ -2,11 +2,6 @@
 > Fixes the max wattage (500w) of solar panels, and much more!<br>
 > [More Details](/Source/BetterPowerMod)<br>
 
-### StationpediaCalculator (SC):
-> Demonstration Link: On [Youtube](https://youtu.be/Bjh0wN31I_M) <br>
-> A fully capable calculator built straight into the stationpedia!<br>
-> [More Details](/Source/StationpediaCalculator)<br>
-
 ### Better Waste Tank (BWT):
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.<br>
 > [More Details](/Source/BetterWasteTank)<br>
@@ -26,3 +21,8 @@
 > [erdoy Stationeers.SEGI](https://github.com/Erdroy/Stationeers.SEGI/)<br>
 > [sonicether SEGI](https://github.com/sonicether/SEGI)<br>
 > [More Details](/Source/SEGIMod)<br>
+
+### StationpediaCalculator (SC):
+> Demonstration Link: On [Youtube](https://youtu.be/Bjh0wN31I_M) <br>
+> A fully capable calculator built straight into the stationpedia!<br>
+> [More Details](/Source/StationpediaCalculator)<br>
