@@ -14,3 +14,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
 [assembly: SuppressMessage("Design", "CA1002:Do not expose generic lists")]
 [assembly: SuppressMessage("Style", "IDE0060:Remove unused parameter")]
+[assembly: SuppressMessage("Style", "IDE0058:Expression value is never used")]
