@@ -4,6 +4,7 @@ used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [Stat
 
 ## Downloads [here](/Build/x64/Release)
 ## Mod Info [here](/MODS.md)
+## Pull Requests are welcome!
 
 # Building
 ## Prerequisites:
