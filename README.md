@@ -1,6 +1,6 @@
 # StationeersSharp
 > A collection of mods specifically for the game [Stationeers](https://store.steampowered.com/app/544550/Stationeers/) 
-used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [StationeersMods](https://github.com/jixxed/StationeersMods/releases/latest/) by [Jixxed](https://github.com/jixxed/)<br>
+used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [StationeersMods](https://github.com/jixxed/StationeersMods) by [Jixxed](https://github.com/jixxed/)<br>
 ### Pull requests are welcome!
 
 ## Downloads [here](/Build/x64/Release)
