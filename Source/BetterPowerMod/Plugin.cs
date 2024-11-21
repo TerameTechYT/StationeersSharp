@@ -122,7 +122,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "betterpowermod";
     public const string ModName = "BetterPowerMod";
-    public const string ModVersion = "1.1.0";
+    public const string ModVersion = "1.1.2";
     public const ulong ModHandle = 3234916147;
 
     // Log Data
