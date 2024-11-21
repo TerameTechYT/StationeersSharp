@@ -45,9 +45,9 @@ internal static class Functions {
     internal static string GetExtraSolarPanelTooltip(SolarPanel panel, string text) {
         StringBuilder stringBuilder = new();
         stringBuilder.AppendLine(text);
-        stringBuilder.Append($"Vertical: {panel.Vertical}");
+        stringBuilder.Append($"Vertical: {(panel.Vertical * panel.MaximumVertical).ToStringPrefix("Deg", "yellow", true)}");
         stringBuilder.AppendLine();
-        stringBuilder.Append($"Horizontal: {panel.Horizontal}");
+        stringBuilder.Append($"Horizontal: {(panel.Horizontal * panel.MaximumHorizontal).ToStringPrefix("Deg", "yellow", true)}");
 
         return stringBuilder.ToString();
     }
