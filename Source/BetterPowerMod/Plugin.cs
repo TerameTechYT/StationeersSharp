@@ -54,22 +54,21 @@ public class Plugin : BaseUnityPlugin {
             "Wind Turbine Patches",
             true,
             "Should the max power output be set higher based on the atmospheric pressure");
-        ;
+
         Data.EnableTurbine = this.Config.Bind("Configurables",
             "Wall Turbine Patches",
             true,
             "Should the max power output be multipled by 10");
-        ;
+
         Data.EnableStirling = this.Config.Bind("Configurables",
             "Stirling Patches",
             true,
             $"Should the max power output be set to {Data.TwentyKilowatts} like the gas fuel generator");
-        ;
+
         Data.EnableFasterCharging = this.Config.Bind("Configurables",
             "Charging Patches",
             true,
             $"Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to {Data.TwoAndAHalfKilowatts}");
-        ;
     }
 
     public static async UniTask OnBaseLoaded() {
