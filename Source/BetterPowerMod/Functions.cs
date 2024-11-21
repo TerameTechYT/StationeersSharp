@@ -19,8 +19,13 @@ namespace BetterPowerMod;
 internal static class Functions {
     public static float GetPotentialSolarPowerGenerated() => OrbitalSimulation.SolarIrradiance;
 
-    public static float GetPotentialWindPowerGenerated(PressurekPa worldAtmospherePressure, float noise) {
-        float value = Mathf.Max(0, Mathf.Clamp(worldAtmospherePressure.ToFloat(), 20f, 100f) * noise);
+    public static float GetPotentialWindPowerGenerated(PressurekPa worldAtmosphere, float noise) {
+        float pressure = worldAtmosphere.ToFloat();
+        if (pressure < 1f) {
+            return 0f;
+        }
+
+        float value = Mathf.Max(0, Mathf.Clamp(pressure, 1f, 100f) * noise);
 
         return WeatherManager.IsWeatherEventRunning && WeatherManager.CurrentWeatherEvent != null ? WeatherManager.CurrentWeatherEvent.WindStrength * value : value;
     }
@@ -42,14 +47,19 @@ internal static class Functions {
         };
     }
 
-    internal static string GetSolarPanelTooltip(SolarPanel panel) {
-        StringBuilder stringBuilder = new();
-        stringBuilder.Append($"Vertical: {(panel.Vertical * panel.MaximumVertical).ToStringPrefix("Deg", "yellow", true)}");
-        stringBuilder.AppendLine();
-        stringBuilder.Append($"Horizontal: {(panel.Horizontal * panel.MaximumHorizontal).ToStringPrefix("Deg", "yellow", true)}");
-        stringBuilder.AppendLine();
-        stringBuilder.AppendLine(panel.SolarInfo());
+    internal static string GetSolarPanelTooltip(SolarPanel panel, string text) {
+        if (!Data.IgnoredPrefabs.Contains(panel.PrefabName)) {
+            float vertical = Mathf.Lerp((float) panel.MinimumVertical, (float) panel.MaximumVertical, (float) panel.Vertical);
+            float horizontal = (float) panel.Horizontal * (float) panel.MaximumHorizontal;
 
-        return stringBuilder.ToString();
+            StringBuilder stringBuilder = new();
+            stringBuilder.AppendLine($"Vertical {vertical.ToStringPrefix("Deg", "yellow")}");
+            stringBuilder.AppendLine($"Horizontal {horizontal.ToStringPrefix("Deg", "yellow")}");
+            stringBuilder.Append(text);
+            return stringBuilder.ToString();
+        }
+        else {
+            return text;
+        }
     }
 }

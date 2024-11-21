@@ -28,7 +28,7 @@ public static class PatchFunctions {
     [HarmonyPostfix]
     public static void SolarPanelSolarInfo(ref SolarPanel __instance, ref string __result) {
         if (Data.EnableSolarPanel.Value && __instance != null)
-            __result = Functions.GetSolarPanelTooltip(__instance);
+            __result = Functions.GetSolarPanelTooltip(__instance, __result);
     }
 
     [UsedImplicitly]
