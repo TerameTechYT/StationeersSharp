@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 #endregion
@@ -142,6 +143,11 @@ internal struct Data {
         public AlreadyLoadedException() {
         }
     }
+
+    public static List<string> IgnoredPrefabs => [
+        "StructureSolarPanelFlat", "StructureSolarPanel45",
+        "StructureSolarPanelFlatReinforced", "StructureSolarPanel45Reinforced"
+    ];
 
     public const float OneKilowatt = 1000f;
     public const float FiveKilowatts = OneKilowatt * 5f;
