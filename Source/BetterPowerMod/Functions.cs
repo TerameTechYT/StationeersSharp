@@ -1,10 +1,13 @@
 ﻿#region
 
 using Assets.Scripts;
+using Assets.Scripts.Atmospherics;
 using Assets.Scripts.Localization2;
 using Assets.Scripts.Objects;
+using Assets.Scripts.Objects.Electrical;
 using Assets.Scripts.Util;
 using Objects;
+using System;
 using System.Text;
 using UnityEngine;
 using Weather;
@@ -16,10 +19,10 @@ namespace BetterPowerMod;
 internal static class Functions {
     public static float GetPotentialSolarPowerGenerated() => OrbitalSimulation.SolarIrradiance;
 
-    public static float GetPotentialWindPowerGenerated(float worldAtmospherePressure, float noise) {
-        float value = Mathf.Max(0, Mathf.Clamp(worldAtmospherePressure, 20f, 100f) * noise);
+    public static float GetPotentialWindPowerGenerated(PressurekPa worldAtmospherePressure, float noise) {
+        float value = Mathf.Max(0, Mathf.Clamp(worldAtmospherePressure.ToFloat(), 20f, 100f) * noise);
 
-        return WeatherManager.IsWeatherEventRunning ? 2000 + value : value;
+        return WeatherManager.IsWeatherEventRunning && WeatherManager.CurrentWeatherEvent != null ? WeatherManager.CurrentWeatherEvent.WindStrength * value : value;
     }
 
     public static float GetWindTurbineRPM(WindTurbineGenerator generator) => GameManager.DeltaTime * generator.GenerationRate * 60;
@@ -32,12 +35,20 @@ internal static class Functions {
 
         _ = stringBuilder.AppendLine($"{GetWindTurbineRPM(generator).ToStringPrefix("RPM", "yellow")}");
 
-        PassiveTooltip passiveTooltip = new() {
+        return new PassiveTooltip() {
             Title = generator.DisplayName,
-            Slider = generator.ThingHealth
+            Slider = generator.ThingHealth,
+            Extended = stringBuilder.ToString()
         };
-        passiveTooltip.SetExtendedText(stringBuilder.ToString());
+    }
 
-        return passiveTooltip;
+    internal static string GetExtraSolarPanelTooltip(SolarPanel panel, string text) {
+        StringBuilder stringBuilder = new();
+        stringBuilder.AppendLine(text);
+        stringBuilder.Append($"Vertical: {panel.Vertical}");
+        stringBuilder.AppendLine();
+        stringBuilder.Append($"Horizontal: {panel.Horizontal}");
+
+        return stringBuilder.ToString();
     }
 }

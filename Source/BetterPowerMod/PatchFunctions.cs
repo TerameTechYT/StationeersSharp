@@ -1,5 +1,6 @@
 ﻿#region
 
+using Assets.Scripts;
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Electrical;
 using Assets.Scripts.Objects.Pipes;
@@ -23,11 +24,20 @@ public static class PatchFunctions {
     }
 
     [UsedImplicitly]
+    [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.SolarInfo))]
+    [HarmonyPostfix]
+    public static void SolarPanelSolarInfo(ref SolarPanel __instance, ref string __result) {
+        if (Data.EnableSolarPanel.Value && __instance != null)
+            __result = Functions.GetExtraSolarPanelTooltip(__instance, __result);
+    }
+
+    [UsedImplicitly]
     [HarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
     [HarmonyPostfix]
     public static void DeviceGetPassiveTooltip(ref Device __instance, ref PassiveTooltip __result,
         Collider hitCollider) {
-        if (Data.EnableWindTurbine.Value && __instance != null && __instance is WindTurbineGenerator generator)
+
+        if (Data.EnableWindTurbine.Value && __instance != null && __instance is WindTurbineGenerator generator && !GameManager.IsBatchMode)
             __result = Functions.GetWindTurbineTooltip(generator);
     }
 
@@ -36,16 +46,14 @@ public static class PatchFunctions {
     [HarmonyPostfix]
     public static void WindTurbineGeneratorSetTurbineRotationSpeed(ref WindTurbineGenerator __instance, float speed) {
         if (Data.EnableWindTurbine.Value && __instance != null) {
-            Traverse traverse = Traverse.Create(__instance);
-            Transform bladesTransform = traverse.Field("bladesTransform").GetValue<Transform>();
+            Transform bladesTransform = Traverse.Create(__instance).Field("bladesTransform").GetValue<Transform>();
 
             float RPM = Functions.GetWindTurbineRPM(__instance);
             if (__instance.BaseAnimator != null) {
                 __instance.BaseAnimator.SetFloat(WindTurbineGenerator.SpeedState, __instance.GenerationRate);
             }
             else if (bladesTransform != null && RPM > 0f) {
-                bladesTransform.Rotate(__instance is LargeWindTurbineGenerator ? Vector3.forward : Vector3.up,
-                    RPM / 60f);
+                bladesTransform.Rotate(__instance is LargeWindTurbineGenerator ? Vector3.forward : Vector3.up, RPM / 60f);
             }
         }
     }
@@ -56,9 +64,8 @@ public static class PatchFunctions {
     public static void WindTurbineGeneratorGenerationRate(ref WindTurbineGenerator __instance, ref float __result) {
         if (Data.EnableWindTurbine.Value && __instance != null && !__instance.HasRoom) {
             float noise = WindTurbineGenerator.GetNoise(__instance.NoiseIntensity);
-            Assets.Scripts.Atmospherics.PressurekPa atmosphere = __instance.GetWorldAtmospherePressure();
 
-            __result = Functions.GetPotentialWindPowerGenerated(atmosphere.ToFloat(), noise);
+            __result = Functions.GetPotentialWindPowerGenerated(__instance.GetWorldAtmospherePressure(), noise);
         }
     }
 
