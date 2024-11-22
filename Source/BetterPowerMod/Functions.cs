@@ -1,13 +1,11 @@
 ﻿#region
 
 using Assets.Scripts;
-using Assets.Scripts.Atmospherics;
 using Assets.Scripts.Localization2;
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Electrical;
 using Assets.Scripts.Util;
 using Objects;
-using System;
 using System.Text;
 using UnityEngine;
 using Weather;
@@ -17,14 +15,15 @@ using Weather;
 namespace BetterPowerMod;
 
 internal static class Functions {
-    public static float GetPotentialSolarPowerGenerated() => OrbitalSimulation.SolarIrradiance;
+    public static float GetPotentialSolarPowerGenerated(SolarPanel panel) => OrbitalSimulation.SolarIrradiance;
 
-    public static float GetPotentialWindPowerGenerated(PressurekPa worldAtmosphere, float noise) {
-        float pressure = worldAtmosphere.ToFloat();
+    public static float GetPotentialWindPowerGenerated(WindTurbineGenerator generator) {
+        float pressure = generator.GetWorldAtmospherePressure().ToFloat();
         if (pressure < 1f) {
             return 0f;
         }
 
+        float noise = WindTurbineGenerator.GetNoise(generator.NoiseIntensity);
         float value = Mathf.Max(0, Mathf.Clamp(pressure, 1f, 100f) * noise);
 
         return WeatherManager.IsWeatherEventRunning && WeatherManager.CurrentWeatherEvent != null ? WeatherManager.CurrentWeatherEvent.WindStrength * value : value;
@@ -38,7 +37,7 @@ internal static class Functions {
         _ = stringBuilder.AppendLine(
             $"{GameStrings.GeneratingPower} {generator.GenerationRate.ToStringPrefix("W", "yellow")}");
 
-        _ = stringBuilder.AppendLine($"{GetWindTurbineRPM(generator).ToStringPrefix("RPM", "yellow")}");
+        _ = stringBuilder.AppendLine($"Speed {GetWindTurbineRPM(generator).ToStringPrefix("RPM", "yellow")}");
 
         return new PassiveTooltip() {
             Title = generator.DisplayName,
@@ -49,8 +48,8 @@ internal static class Functions {
 
     internal static string GetSolarPanelTooltip(SolarPanel panel, string text) {
         if (!Data.IgnoredPrefabs.Contains(panel.PrefabName)) {
-            float vertical = Mathf.Lerp((float) panel.MinimumVertical, (float) panel.MaximumVertical, (float) panel.Vertical);
-            float horizontal = (float) panel.Horizontal * (float) panel.MaximumHorizontal;
+            double vertical = panel.Vertical * panel.MaximumVertical;
+            double horizontal = panel.Horizontal * panel.MaximumHorizontal;
 
             StringBuilder stringBuilder = new();
             stringBuilder.AppendLine($"Vertical {vertical.ToStringPrefix("Deg", "yellow")}");
@@ -58,8 +57,6 @@ internal static class Functions {
             stringBuilder.Append(text);
             return stringBuilder.ToString();
         }
-        else {
-            return text;
-        }
+        return text;
     }
 }

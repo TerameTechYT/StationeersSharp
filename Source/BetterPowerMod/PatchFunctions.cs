@@ -1,6 +1,7 @@
 ﻿#region
 
 using Assets.Scripts;
+using Assets.Scripts.Atmospherics;
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Electrical;
 using Assets.Scripts.Objects.Pipes;
@@ -20,13 +21,16 @@ public static class PatchFunctions {
     [HarmonyPostfix]
     public static void SolarPanelPowerGeneratedGetter(ref SolarPanel __instance, ref float __result) {
         if (Data.EnableSolarPanel.Value && __instance != null)
-            __result = Functions.GetPotentialSolarPowerGenerated();
+            __result = Functions.GetPotentialSolarPowerGenerated(__instance);
     }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.SolarInfo))]
     [HarmonyPostfix]
     public static void SolarPanelSolarInfo(ref SolarPanel __instance, ref string __result) {
+        if (GameManager.IsBatchMode)
+            return; // exit as server will never be the one rendering tooltips
+
         if (Data.EnableSolarPanel.Value && __instance != null)
             __result = Functions.GetSolarPanelTooltip(__instance, __result);
     }
@@ -36,8 +40,10 @@ public static class PatchFunctions {
     [HarmonyPostfix]
     public static void DeviceGetPassiveTooltip(ref Device __instance, ref PassiveTooltip __result,
         Collider hitCollider) {
+        if (GameManager.IsBatchMode)
+            return; // exit as server will never be the one rendering tooltips
 
-        if (Data.EnableWindTurbine.Value && __instance != null && __instance is WindTurbineGenerator generator && !GameManager.IsBatchMode)
+        if (Data.EnableWindTurbine.Value && __instance != null && __instance is WindTurbineGenerator generator)
             __result = Functions.GetWindTurbineTooltip(generator);
     }
 
@@ -45,6 +51,9 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WindTurbineGenerator), "SetTurbineRotationSpeed")]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorSetTurbineRotationSpeed(ref WindTurbineGenerator __instance, float speed) {
+        if (GameManager.IsBatchMode)
+            return; // exit as server will never be the one rendering the turbine (i think)
+
         if (Data.EnableWindTurbine.Value && __instance != null) {
             Transform bladesTransform = Traverse.Create(__instance).Field("bladesTransform").GetValue<Transform>();
 
@@ -61,11 +70,9 @@ public static class PatchFunctions {
     [UsedImplicitly]
     [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.GenerationRate), MethodType.Getter)]
     [HarmonyPostfix]
-    public static void WindTurbineGeneratorGenerationRate(ref WindTurbineGenerator __instance, ref float __result) {
+    public static void WindTurbineGeneratorGenerationRateGetter(ref WindTurbineGenerator __instance, ref float __result) {
         if (Data.EnableWindTurbine.Value && __instance != null && !__instance.HasRoom) {
-            float noise = WindTurbineGenerator.GetNoise(__instance.NoiseIntensity);
-
-            __result = Functions.GetPotentialWindPowerGenerated(__instance.GetWorldAtmospherePressure(), noise);
+            __result = Functions.GetPotentialWindPowerGenerated(__instance);
         }
     }
 
@@ -78,11 +85,11 @@ public static class PatchFunctions {
     }
 
     [UsedImplicitly]
-    [HarmonyPatch(typeof(StirlingEngine), nameof(StirlingEngine.Awake))]
+    [HarmonyPatch(typeof(StirlingEngine), nameof(StirlingEngine.MaxPower), MethodType.Getter)]
     [HarmonyPostfix]
-    public static void StirlingEngineAwake(ref StirlingEngine __instance) {
+    public static void StirlingEngineMaxPowerGetter(ref StirlingEngine __instance, ref MoleEnergy __result) {
         if (Data.EnableStirling.Value && __instance != null)
-            _ = Traverse.Create(__instance).Field("MaxPower").SetValue(Data.TwentyKilowatts);
+            __result = new MoleEnergy(Data.TwentyKilowatts);
     }
 
     [UsedImplicitly]
