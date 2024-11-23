@@ -32,7 +32,7 @@ public class Plugin : BaseUnityPlugin {
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
 
-        this.LoadConfiguration();
+        LoadConfiguration();
 
         Instance = this;
         HarmonyInstance = new Harmony(Data.ModGuid);
@@ -46,37 +46,37 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.KelvinMode = this.Config.Bind("Keybinds",
+        Data.KelvinMode = Config.Bind("Keybinds",
             "Kelvin Mode",
             KeyCode.K,
             "Keybind that when pressed, changes the status temperatures to kelvin instead of celcius.");
 
-        Data.CustomFramerate = this.Config.Bind("Configurables",
+        Data.CustomFramerate = Config.Bind("Configurables",
             "CustomFramerate",
             true,
             "Should the framerate text only display FPS.");
 
-        Data.ChangeFontSize = this.Config.Bind("Configurables",
+        Data.ChangeFontSize = Config.Bind("Configurables",
             "ChangeFontSize",
             true,
             "Should the font size be changed.");
 
-        Data.ExtraInfoPower = this.Config.Bind("Configurables",
+        Data.ExtraInfoPower = Config.Bind("Configurables",
             "ExtraInfoPower",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.ExtraInfoFilter = this.Config.Bind("Configurables",
+        Data.ExtraInfoFilter = Config.Bind("Configurables",
             "ExtraInfoFilter",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.NumberPrecision = this.Config.Bind("Configurables",
+        Data.NumberPrecision = Config.Bind("Configurables",
             "NumberPrecision",
             2,
             "How many decimal points should be displayed on numbers.");
 
-        Data.FontSize = this.Config.Bind("Configurables",
+        Data.FontSize = Config.Bind("Configurables",
             "FontSize",
             21,
             "What font size should the labels be changed to.");

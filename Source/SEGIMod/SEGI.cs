@@ -179,8 +179,8 @@ public class SEGI : MonoBehaviour {
         public bool voxelizationShader;
         public bool tracingShader;
 
-        public bool fullFunctionality => this.hdrTextures && this.rIntTextures && this.dx11 && this.volumeTextures && this.postShader &&
-                                         this.sunDepthShader && this.voxelizationShader && this.tracingShader;
+        public bool fullFunctionality => hdrTextures && rIntTextures && dx11 && volumeTextures && postShader &&
+                                         sunDepthShader && voxelizationShader && tracingShader;
 
         public override bool Equals(object obj) => throw new NotImplementedException();
 
@@ -205,40 +205,40 @@ public class SEGI : MonoBehaviour {
         get {
             long v = 0;
 
-            if (this.sunDepthTexture != null)
-                v += this.sunDepthTexture.width * this.sunDepthTexture.height * 16;
+            if (sunDepthTexture != null)
+                v += sunDepthTexture.width * sunDepthTexture.height * 16;
 
-            if (this.previousGIResult != null)
-                v += this.previousGIResult.width * this.previousGIResult.height * 16 * 4;
+            if (previousGIResult != null)
+                v += previousGIResult.width * previousGIResult.height * 16 * 4;
 
-            if (this.previousCameraDepth != null)
-                v += this.previousCameraDepth.width * this.previousCameraDepth.height * 32;
+            if (previousCameraDepth != null)
+                v += previousCameraDepth.width * previousCameraDepth.height * 32;
 
-            if (this.integerVolume != null)
-                v += this.integerVolume.width * this.integerVolume.height * this.integerVolume.volumeDepth * 32;
+            if (integerVolume != null)
+                v += integerVolume.width * integerVolume.height * integerVolume.volumeDepth * 32;
 
-            if (this.volumeTextures != null) {
-                for (int i = 0; i < this.volumeTextures.Length; i++) {
-                    if (this.volumeTextures[i] != null) {
-                        v += this.volumeTextures[i].width * this.volumeTextures[i].height * this.volumeTextures[i].volumeDepth * 16 *
+            if (volumeTextures != null) {
+                for (int i = 0; i < volumeTextures.Length; i++) {
+                    if (volumeTextures[i] != null) {
+                        v += volumeTextures[i].width * volumeTextures[i].height * volumeTextures[i].volumeDepth * 16 *
                              4;
                     }
                 }
             }
 
-            if (this.secondaryIrradianceVolume != null) {
-                v += this.secondaryIrradianceVolume.width * this.secondaryIrradianceVolume.height *
-                     this.secondaryIrradianceVolume.volumeDepth * 16 * 4;
+            if (secondaryIrradianceVolume != null) {
+                v += secondaryIrradianceVolume.width * secondaryIrradianceVolume.height *
+                     secondaryIrradianceVolume.volumeDepth * 16 * 4;
             }
 
-            if (this.volumeTextureB != null)
-                v += this.volumeTextureB.width * this.volumeTextureB.height * this.volumeTextureB.volumeDepth * 16 * 4;
+            if (volumeTextureB != null)
+                v += volumeTextureB.width * volumeTextureB.height * volumeTextureB.volumeDepth * 16 * 4;
 
-            if (this.dummyVoxelTextureAAScaled != null)
-                v += this.dummyVoxelTextureAAScaled.width * this.dummyVoxelTextureAAScaled.height * 8;
+            if (dummyVoxelTextureAAScaled != null)
+                v += dummyVoxelTextureAAScaled.width * dummyVoxelTextureAAScaled.height * 8;
 
-            if (this.dummyVoxelTextureFixed != null)
-                v += this.dummyVoxelTextureFixed.width * this.dummyVoxelTextureFixed.height * 8;
+            if (dummyVoxelTextureFixed != null)
+                v += dummyVoxelTextureFixed.width * dummyVoxelTextureFixed.height * 8;
 
             float vram = v / 8388608.0f;
 

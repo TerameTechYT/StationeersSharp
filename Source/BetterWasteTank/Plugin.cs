@@ -32,7 +32,7 @@ public class Plugin : BaseUnityPlugin {
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
 
-        this.LoadConfiguration();
+        LoadConfiguration();
 
         Instance = this;
         HarmonyInstance = new Harmony(Data.ModGuid);
@@ -46,12 +46,12 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.WasteCriticalRatio = this.Config.Bind("Configurables",
+        Data.WasteCriticalRatio = Config.Bind("Configurables",
             "Waste Critical Ratio",
             0.975f,
             "(0.0 to 1.0) Ratio when \"Waste Tank Critical!\" alarm goes off.");
 
-        Data.WasteCautionRatio = this.Config.Bind("Configurables",
+        Data.WasteCautionRatio = Config.Bind("Configurables",
             "Waste Caution Ratio",
             0.75f,
             "(0.0 to 1.0) Ratio when \"Waste Tank Caution\" alarm goes off.");

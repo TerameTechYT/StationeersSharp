@@ -33,7 +33,7 @@ public class Plugin : BaseUnityPlugin {
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
 
-        this.LoadConfiguration();
+        LoadConfiguration();
 
         Instance = this;
         HarmonyInstance = new Harmony(Data.ModGuid);
@@ -47,26 +47,26 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.EnableSolarPanel = this.Config.Bind("Configurables",
+        Data.EnableSolarPanel = Config.Bind("Configurables",
             "Solar Panel Patches",
             true,
             "Should the max power output be set to the worlds Solar Irradiance");
-        Data.EnableWindTurbine = this.Config.Bind("Configurables",
+        Data.EnableWindTurbine = Config.Bind("Configurables",
             "Wind Turbine Patches",
             true,
             "Should the max power output be set higher based on the atmospheric pressure");
 
-        Data.EnableTurbine = this.Config.Bind("Configurables",
+        Data.EnableTurbine = Config.Bind("Configurables",
             "Wall Turbine Patches",
             true,
             "Should the max power output be multipled by 10");
 
-        Data.EnableStirling = this.Config.Bind("Configurables",
+        Data.EnableStirling = Config.Bind("Configurables",
             "Stirling Patches",
             true,
             $"Should the max power output be set to {Data.TwentyKilowatts} like the gas fuel generator");
 
-        Data.EnableFasterCharging = this.Config.Bind("Configurables",
+        Data.EnableFasterCharging = Config.Bind("Configurables",
             "Charging Patches",
             true,
             $"Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to {Data.TwoAndAHalfKilowatts}");

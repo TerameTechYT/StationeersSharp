@@ -36,7 +36,7 @@ public class Plugin : BaseUnityPlugin {
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
 
-        this.LoadConfiguration();
+        LoadConfiguration();
 
         Instance = this;
         HarmonyInstance = new Harmony(Data.ModGuid);
@@ -51,47 +51,47 @@ public class Plugin : BaseUnityPlugin {
 
     public void LoadConfiguration() {
         // Voxel
-        Data.VoxelResolution = this.Config.Bind("Voxel", "Resolution", SEGI.VoxelResolution.High, "High or Low");
-        Data.HalfResolution = this.Config.Bind("Voxel", "Half Resolution", true, "true or false");
-        Data.VoxelSpaceSize = this.Config.Bind("Voxel", "Space Size", 25f, "1.0 to 100.0");
-        Data.VoxelAntiAliasing = this.Config.Bind("Voxel", "Anti Aliasing", true, "true or false");
+        Data.VoxelResolution = Config.Bind("Voxel", "Resolution", SEGI.VoxelResolution.High, "High or Low");
+        Data.HalfResolution = Config.Bind("Voxel", "Half Resolution", true, "true or false");
+        Data.VoxelSpaceSize = Config.Bind("Voxel", "Space Size", 25f, "1.0 to 100.0");
+        Data.VoxelAntiAliasing = Config.Bind("Voxel", "Anti Aliasing", true, "true or false");
 
         // Occlusion
-        Data.InnerOcclusionLayers = this.Config.Bind("Occlusion", "Inner Occlusion Layers", 1, "0 to 2");
-        Data.OcclusionPower = this.Config.Bind("Occlusion", "Occlusion Power", 1f, "0.001 to 4.0");
-        Data.OcclusionStrenth = this.Config.Bind("Occlusion", "Occlusion Strenth", 1f, "0.0 to 4.0");
-        Data.SecondaryOcclusionStrenth = this.Config.Bind("Occlusion", "Secondary Occlusion Strenth", 1f, "0.1 to 4.0");
-        Data.NearOcclusionStrenth = this.Config.Bind("Occlusion", "Near Occlusion Strenth", 0.5f, "0 to 4.0");
-        Data.FarOcclusionStrenth = this.Config.Bind("Occlusion", "Far Occlusion Strenth", 1f, "0.1 to 4.0");
-        Data.FarthestOcclusionStrenth = this.Config.Bind("Occlusion", "Farthest Occlusion Strenth", 1f, "0.1 to 4.0");
+        Data.InnerOcclusionLayers = Config.Bind("Occlusion", "Inner Occlusion Layers", 1, "0 to 2");
+        Data.OcclusionPower = Config.Bind("Occlusion", "Occlusion Power", 1f, "0.001 to 4.0");
+        Data.OcclusionStrenth = Config.Bind("Occlusion", "Occlusion Strenth", 1f, "0.0 to 4.0");
+        Data.SecondaryOcclusionStrenth = Config.Bind("Occlusion", "Secondary Occlusion Strenth", 1f, "0.1 to 4.0");
+        Data.NearOcclusionStrenth = Config.Bind("Occlusion", "Near Occlusion Strenth", 0.5f, "0 to 4.0");
+        Data.FarOcclusionStrenth = Config.Bind("Occlusion", "Far Occlusion Strenth", 1f, "0.1 to 4.0");
+        Data.FarthestOcclusionStrenth = Config.Bind("Occlusion", "Farthest Occlusion Strenth", 1f, "0.1 to 4.0");
 
         // Reflection
-        Data.DoReflections = this.Config.Bind("Refections", "Do Reflections", true, "true or false");
-        Data.InfiniteBounces = this.Config.Bind("Refections", "Infinite Bounces", true, "true or false");
-        Data.ReflectionSteps = this.Config.Bind("Refections", "Reflection Steps", 32, "12 to 128");
-        Data.ReflectionOcclusionPower = this.Config.Bind("Refections", "Reflection Occlusion Power", 1f, "0.001 to 4.0");
-        Data.SecondaryBounceGain = this.Config.Bind("Refections", "Secondary Bounce Gain", 0.75f, "0.1 to 4.0");
-        Data.SkyReflectionIntensity = this.Config.Bind("Refections", "Sky Reflection Intensity", 0.5f, "0.0 to 1.0f");
+        Data.DoReflections = Config.Bind("Refections", "Do Reflections", true, "true or false");
+        Data.InfiniteBounces = Config.Bind("Refections", "Infinite Bounces", true, "true or false");
+        Data.ReflectionSteps = Config.Bind("Refections", "Reflection Steps", 32, "12 to 128");
+        Data.ReflectionOcclusionPower = Config.Bind("Refections", "Reflection Occlusion Power", 1f, "0.001 to 4.0");
+        Data.SecondaryBounceGain = Config.Bind("Refections", "Secondary Bounce Gain", 0.75f, "0.1 to 4.0");
+        Data.SkyReflectionIntensity = Config.Bind("Refections", "Sky Reflection Intensity", 0.5f, "0.0 to 1.0f");
 
         // Cones
-        Data.Cones = this.Config.Bind("Cones", "Cones", 6, "1 to 128");
-        Data.SecondaryCones = this.Config.Bind("Cones", "Secondary Cones", 3, "3 to 16");
-        Data.ConeTraceSteps = this.Config.Bind("Cones", "Cone Trace Steps", 14, "1 to 32");
-        Data.ConeTraceBias = this.Config.Bind("Cones", "Cone Trace Bias", 1f, "0.0 to 4.0");
-        Data.ConeLength = this.Config.Bind("Cones", "Cone Length", 1f, "0.1 to 2.0");
-        Data.ConeWidth = this.Config.Bind("Cones", "Cone Width", 2.25f, "0.5 to 6.0");
+        Data.Cones = Config.Bind("Cones", "Cones", 6, "1 to 128");
+        Data.SecondaryCones = Config.Bind("Cones", "Secondary Cones", 3, "3 to 16");
+        Data.ConeTraceSteps = Config.Bind("Cones", "Cone Trace Steps", 14, "1 to 32");
+        Data.ConeTraceBias = Config.Bind("Cones", "Cone Trace Bias", 1f, "0.0 to 4.0");
+        Data.ConeLength = Config.Bind("Cones", "Cone Length", 1f, "0.1 to 2.0");
+        Data.ConeWidth = Config.Bind("Cones", "Cone Width", 2.25f, "0.5 to 6.0");
 
         // Light
-        Data.NearLightGain = this.Config.Bind("Light", "Near Light Gain", 1f, "0.0 to 4.0");
-        Data.GIGain = this.Config.Bind("Light", "Global Illumination Gain", 0.5f, "0.0 to 4.0");
-        Data.ShadowSpaceSize = this.Config.Bind("Light", "Shadow Space Size", 1f, "1.0 to 100.0");
+        Data.NearLightGain = Config.Bind("Light", "Near Light Gain", 1f, "0.0 to 4.0");
+        Data.GIGain = Config.Bind("Light", "Global Illumination Gain", 0.5f, "0.0 to 4.0");
+        Data.ShadowSpaceSize = Config.Bind("Light", "Shadow Space Size", 1f, "1.0 to 100.0");
 
         // Sampling & Filtering
-        Data.GaussianMipFilter = this.Config.Bind("Sampling & Filtering", "Gaussian Mip Filter", true, "true or false");
+        Data.GaussianMipFilter = Config.Bind("Sampling & Filtering", "Gaussian Mip Filter", true, "true or false");
         Data.UseBilateralFiltering =
-            this.Config.Bind("Sampling & Filtering", "Use Bilateral Filtering", true, "true or false");
-        Data.StochasticSampling = this.Config.Bind("Sampling & Filtering", "Stochastic Sampling", true, "true or false");
-        Data.TemporalBlendWeight = this.Config.Bind("Sampling & Filtering", "Temporal Blend Weight", 0.1f, "0.01 to 1.0");
+            Config.Bind("Sampling & Filtering", "Use Bilateral Filtering", true, "true or false");
+        Data.StochasticSampling = Config.Bind("Sampling & Filtering", "Stochastic Sampling", true, "true or false");
+        Data.TemporalBlendWeight = Config.Bind("Sampling & Filtering", "Temporal Blend Weight", 0.1f, "0.01 to 1.0");
     }
 
     public static async UniTask OnBaseLoaded() {
