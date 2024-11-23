@@ -4,41 +4,25 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>ExternalSuitReader</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
-    <LangVersion>latest</LangVersion>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>none</ErrorReport>
+
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/TerameTechYT/StationeersSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TerameTechYT/StationeersSharp</RepositoryUrl>
-
-    <PlatformTarget>x64</PlatformTarget>
-    <Company>vivi</Company>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>..\..\LICENSE.md</PackageLicenseFile>
-    <AnalysisLevel>latest-all</AnalysisLevel>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
     <BaseOutputPath>..\..\Build\</BaseOutputPath>
     <BaseIntermediateOutputPath>..\..\Objects\</BaseIntermediateOutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <PlatformTarget>x64</PlatformTarget>
     <Platforms>x64;x86</Platforms>
-    <ErrorReport>none</ErrorReport>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DebugType>portable</DebugType>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <DebugType>portable</DebugType>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DebugType>embedded</DebugType>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <DebugType>embedded</DebugType>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
