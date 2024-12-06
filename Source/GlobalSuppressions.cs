@@ -4,6 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 
 #endregion
 
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static")]
+
 [assembly: SuppressMessage("Globalization", "CA1305:Specify IFormatProvider")]
 
 [assembly: SuppressMessage("Usage", "CA2243:Attribute string literals should parse correctly")]
