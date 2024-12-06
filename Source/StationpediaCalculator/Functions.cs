@@ -11,8 +11,8 @@ using UnityObject = UnityEngine.Object;
 
 namespace StationpediaCalculator;
 
-public static class Functions {
-    public static void CalculateSearch(ref SPDAListItem calculatorItem, string inputText) {
+internal static class Functions {
+    internal static void CalculateSearch(ref SPDAListItem calculatorItem, string inputText) {
         try {
             if (Stationpedia.Instance != null && calculatorItem != null && !string.IsNullOrEmpty(inputText)) {
                 Expression expression = new(inputText, EvaluateOptions.IgnoreCase);
@@ -44,7 +44,7 @@ public static class Functions {
         catch { }
     }
 
-    public static void CreateCalculator(ref List<SPDAListItem> items) {
+    internal static void CreateCalculator(ref List<SPDAListItem> items) {
         if (Stationpedia.Instance != null && items != null) {
             SPDAListItem calculatorItem = UnityObject.Instantiate(Stationpedia.Instance.ListInsertPrefab,
                 Stationpedia.Instance.SearchContents);

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace ExternalSuitReader;
 
-public static class Functions {
+internal static class Functions {
     private static readonly Dictionary<LogicType, Chemistry.GasType> LogicPairs = new() {
         { LogicType.RatioOxygenOutput, Chemistry.GasType.Oxygen },
         { LogicType.RatioLiquidOxygenOutput, Chemistry.GasType.LiquidOxygen },
@@ -29,12 +29,13 @@ public static class Functions {
         { LogicType.RatioWaterOutput2, Chemistry.GasType.PollutedWater }
     };
 
-    public static bool CanLogicRead(LogicType logicType) => LogicPairs.TryGetValue(logicType, out _) || logicType == LogicType.TotalMolesOutput;
+    internal static bool CanLogicRead(LogicType logicType) => LogicPairs.TryGetValue(logicType, out _) || logicType == LogicType.TotalMolesOutput;
 
-    public static double GetLogicValue(AdvancedSuit suit, LogicType logicType) {
+    internal static double GetLogicValue(AdvancedSuit suit, LogicType logicType) {
         if (suit != null && suit.HasAtmosphere && suit.HasReadableAtmosphere) {
             if (LogicPairs.TryGetValue(logicType, out Chemistry.GasType gasType))
                 return Convert.ToDouble(suit.WorldAtmosphere.GetGasTypeRatio(gasType));
+
             if (logicType == LogicType.TotalMolesOutput)
                 return Convert.ToDouble(suit.WorldAtmosphere.TotalMoles);
         }

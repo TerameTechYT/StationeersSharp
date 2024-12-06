@@ -15,9 +15,9 @@ using Weather;
 namespace BetterPowerMod;
 
 internal static class Functions {
-    public static float GetPotentialSolarPowerGenerated(SolarPanel panel) => OrbitalSimulation.SolarIrradiance;
+    internal static float GetPotentialSolarPowerGenerated(SolarPanel panel) => OrbitalSimulation.SolarIrradiance;
 
-    public static float GetPotentialWindPowerGenerated(WindTurbineGenerator generator) {
+    internal static float GetPotentialWindPowerGenerated(WindTurbineGenerator generator) {
         float pressure = generator.GetWorldAtmospherePressure().ToFloat();
         if (pressure < 1f) {
             return 0f;
@@ -29,9 +29,9 @@ internal static class Functions {
         return WeatherManager.IsWeatherEventRunning && WeatherManager.CurrentWeatherEvent != null ? WeatherManager.CurrentWeatherEvent.WindStrength * value : value;
     }
 
-    public static float GetWindTurbineRPM(WindTurbineGenerator generator) => GameManager.DeltaTime * generator.GenerationRate * 60;
+    internal static float GetWindTurbineRPM(WindTurbineGenerator generator) => GameManager.DeltaTime * generator.GenerationRate * 60;
 
-    public static PassiveTooltip GetWindTurbineTooltip(WindTurbineGenerator generator) {
+    internal static PassiveTooltip GetWindTurbineTooltip(WindTurbineGenerator generator) {
         StringBuilder stringBuilder = new();
 
         _ = stringBuilder.AppendLine(
