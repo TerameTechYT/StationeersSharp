@@ -9,7 +9,7 @@ used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [Stat
 # Building
 ## Prerequisites:
 [Stationeers](https://store.steampowered.com/app/544550/Stationeers/)<br>
-[BepInEx 5.4+](https://docs.bepinex.dev/articles/user_guide/installation/index.html) and [StationeersMods latest](https://github.com/jixxed/StationeersMods/tree/main?tab=readme-ov-file#installation)<br>
+[BepInEx 5.4.23.1](https://docs.bepinex.dev/articles/user_guide/installation/index.html) and [StationeersMods latest](https://github.com/jixxed/StationeersMods/tree/main?tab=readme-ov-file#installation)<br> 
 [Visual Studio 2019+](https://visualstudio.microsoft.com)<br>
 
 ## Setup
