@@ -57,7 +57,7 @@ public class Plugin : BaseUnityPlugin {
             "(0.0 to 1.0) Ratio when \"Waste Tank Caution\" alarm goes off.");
     }
 
-    public static async UniTask OnBaseLoaded() {
+    public async UniTask OnBaseLoaded() {
         // Wait until game has loaded into main menu
         await UniTask.WaitUntil(() => MainMenu.Instance.IsVisible);
 
@@ -67,7 +67,7 @@ public class Plugin : BaseUnityPlugin {
         SetModVersion();
     }
 
-    private static void SetModVersion() {
+    private void SetModVersion() {
         ModData mod = WorkshopMenu.ModsConfig.Mods.Find((mod) => mod.GetAboutData().WorkshopHandle == Data.ModHandle);
         if (mod == null) {
             return;
