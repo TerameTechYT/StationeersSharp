@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>BetterCodeEditor</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>none</ErrorReport>
+
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/TerameTechYT/StationeersSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TerameTechYT/StationeersSharp</RepositoryUrl>
+    <PackageLicenseFile>..\..\LICENSE.md</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <BaseOutputPath>..\..\Build\</BaseOutputPath>
+    <BaseIntermediateOutputPath>..\..\Objects\</BaseIntermediateOutputPath>
+
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x64;x86</Platforms>
+    <DebugType>embedded</DebugType>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\GlobalSuppressions.cs" />
+  </ItemGroup>
+
+  <!-- Import Stationeers VS properties - paths etc. -->
+  <Import Project="$(SolutionDir)Stationeers.VS.props" />
+
+  <!-- Import Game/Unity DLL references -->
+  <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\&quot;&#xD;&#xA;echo $(AssemblyName) $(Configuration) $(Platform) &gt; &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(Configuration).$(Platform)&quot;&#xD;&#xA;exit 0" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="del &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(AssemblyName).dll&quot;&#xD;&#xA;del &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\*.x*&quot;&#xD;&#xA;exit 0" />
+  </Target>
+</Project>
