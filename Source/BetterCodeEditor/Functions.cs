@@ -23,7 +23,7 @@ internal static class Functions {
             (instruction) => // if instruction opcode is Ldc_I4 AND the operand is MAX_LINES
                 instruction.OpcodeOperandIs(OpCodes.Ldc_I4, InputSourceCode.MAX_LINES.ToIndex(index)),
             (instruction) => // change operand to our value or default if null
-                instruction.operand = (Data.CodeEditorLines?.Value ?? InputSourceCode.MAX_LINES).ToIndex(index)
+                instruction.operand = Data.MaxLines.ToIndex(index)
         );
 
     internal static IEnumerable<CodeInstruction> ReplaceLineLength(this IEnumerable<CodeInstruction> instructions) =>
@@ -31,7 +31,7 @@ internal static class Functions {
             (instruction) => // if instruction opcode is Ldc_I4 AND the operand is LINE_LENGTH_LIMIT
                 instruction.OpcodeOperandIs(OpCodes.Ldc_I4, InputSourceCode.LINE_LENGTH_LIMIT),
             (instruction) => // change operand to our value or default if null
-                instruction.operand = Data.CodeEditorLineLength?.Value ?? InputSourceCode.LINE_LENGTH_LIMIT
+                instruction.operand = Data.MaxLineLength
         );
 
     internal static IEnumerable<CodeInstruction> ReplaceMaxFileSize(this IEnumerable<CodeInstruction> instructions) =>
@@ -39,6 +39,6 @@ internal static class Functions {
             (instruction) => // if instruction opcode is Ldc_I4 AND the operand is MAX_FILE_SIZE
                 instruction.OpcodeOperandIs(OpCodes.Ldc_I4, InputSourceCode.MAX_FILE_SIZE),
             (instruction) => // change operand to our value or default if null
-                instruction.operand = Data.CodeEditorMaxFileSize?.Value ?? InputSourceCode.MAX_LINES
+                instruction.operand = Data.MaxFileSize
         );
 }

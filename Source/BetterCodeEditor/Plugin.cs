@@ -138,5 +138,9 @@ internal struct Data {
 
     public static ConfigEntry<int> CodeEditorLines;
     public static ConfigEntry<int> CodeEditorLineLength;
-    public static ConfigEntry<int> CodeEditorMaxFileSize;
+    public static int BytesPerLine => InputSourceCode.MAX_FILE_SIZE / InputSourceCode.MAX_LINES;
+
+    public static int MaxFileSize => BytesPerLine * (CodeEditorLines?.Value ?? InputSourceCode.MAX_LINES);
+    public static int MaxLines => CodeEditorLines?.Value ?? InputSourceCode.MAX_LINES;
+    public static int MaxLineLength => CodeEditorLineLength?.Value ?? InputSourceCode.LINE_LENGTH_LIMIT;
 }
