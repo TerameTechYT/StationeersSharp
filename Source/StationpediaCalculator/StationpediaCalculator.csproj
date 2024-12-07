@@ -60,7 +60,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(TargetPath) &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\&quot;&#xD;&#xA;echo $(AssemblyName) $(Configuration) $(Platform) &gt; &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(Configuration).$(Platform)&quot;&#xD;&#xA;exit 0" />
+    <Exec Command="copy $(OutDir)\$(AssemblyName).dll &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\&quot;&#xD;&#xA;echo $(AssemblyName) $(Configuration) $(Platform) &gt; &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(Configuration).$(Platform)&quot;&#xD;&#xA;exit 0" />
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
