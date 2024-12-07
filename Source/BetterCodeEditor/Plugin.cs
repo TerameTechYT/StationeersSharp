@@ -113,7 +113,7 @@ public class Plugin : BaseUnityPlugin {
 
 internal struct Data {
     // Mod Data
-    public const string ModGuid = "BetterCodeEditor";
+    public const string ModGuid = "bettercodeeditor";
     public const string ModName = "BetterCodeEditor";
     public const string ModVersion = "1.0.0";
     public const ulong ModHandle = 0;
