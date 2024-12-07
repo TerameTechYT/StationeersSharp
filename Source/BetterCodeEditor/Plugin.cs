@@ -57,11 +57,6 @@ public class Plugin : BaseUnityPlugin {
             "Code Editor Line Length",
             InputSourceCode.LINE_LENGTH_LIMIT,
             "The length of the code editor lines");
-
-        Data.CodeEditorMaxFileSize = Config.Bind("Configurables",
-            "Code Max File Size",
-            InputSourceCode.MAX_FILE_SIZE,
-            "The maximum number of bytes in your code.");
     }
 
     public static async UniTask OnBaseLoaded() {
