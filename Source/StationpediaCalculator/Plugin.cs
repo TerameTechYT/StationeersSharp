@@ -9,14 +9,15 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using System;
 using UnityEngine.SceneManagement;
+using StationeersMods.Interface;
 
 #endregion
 
 namespace StationpediaCalculator;
 
-[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
+[StationeersMod(Data.ModGuid, Data.ModName, Data.ModVersion)]
 [BepInProcess("rocketstation.exe")]
-public class Plugin : BaseUnityPlugin {
+public class Plugin : ModBehaviour {
     public static Plugin Instance {
         get; private set;
     }
@@ -25,8 +26,9 @@ public class Plugin : BaseUnityPlugin {
         get; private set;
     }
 
-    [UsedImplicitly]
-    public void Awake() {
+    public override void OnLoaded(ContentHandler contentHandler) {
+        base.OnLoaded(contentHandler);
+
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
 

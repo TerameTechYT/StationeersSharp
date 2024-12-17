@@ -9,18 +9,18 @@ using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
 using System;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using StationeersMods.Interface;
 
 #endregion
 
 namespace BetterCodeEditor;
 
-[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
+[StationeersMod(Data.ModGuid, Data.ModName, Data.ModVersion)]
 // https://steamcommunity.com/sharedfiles/filedetails/?id=3265272725
 [BepInIncompatibility("awa.shark.plugin.MoreLinesCodeMod")]
 [BepInProcess("rocketstation.exe")]
-public class Plugin : BaseUnityPlugin {
+public class Plugin : ModBehaviour {
     public static Plugin Instance {
         get; private set;
     }
@@ -29,8 +29,9 @@ public class Plugin : BaseUnityPlugin {
         get; private set;
     }
 
-    [UsedImplicitly]
-    public void Awake() {
+    public override void OnLoaded(ContentHandler contentHandler) {
+        base.OnLoaded(contentHandler);
+
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
 
@@ -133,8 +134,8 @@ internal struct Data {
 
     public static ConfigEntry<int> CodeEditorLines;
     public static ConfigEntry<int> CodeEditorLineLength;
-    public static int BytesPerLine => InputSourceCode.MAX_FILE_SIZE / InputSourceCode.MAX_LINES;
 
+    public static int BytesPerLine => InputSourceCode.MAX_FILE_SIZE / InputSourceCode.MAX_LINES;
     public static int MaxFileSize => BytesPerLine * (CodeEditorLines?.Value ?? InputSourceCode.MAX_LINES);
     public static int MaxLines => CodeEditorLines?.Value ?? InputSourceCode.MAX_LINES;
     public static int MaxLineLength => CodeEditorLineLength?.Value ?? InputSourceCode.LINE_LENGTH_LIMIT;
