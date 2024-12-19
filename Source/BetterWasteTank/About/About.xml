@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Better Waste Tank [StationeersMods]</Name>
+  <Author>vinus</Author>
+  <Version>1.3.8</Version>
+  <Description>
+    [h1]Better Waste Tank[/h1]
+    [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
+    See: https://github.com/jixxed/StationeersMods
+
+    Improves the wastetank by making the suit use the full potential of the canisters capacity.
+    Changes heating affect by lowering the amount of waste that goes into the waste tank when cooling the suit by 3 times.    
+
+    The new max pressure of the waste tank is (TankMaxPressure - 101)    
+    Regular Canister: (10132.5 - 101) = 10031.5kpa
+    Smart Canister: (20265 - 10) = 20164kpa
+    High Volume Canister: (25331 - 101) = 25130kpa
+
+    you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+    https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+  </Description>
+  <WorkshopHandle>3071913936</WorkshopHandle>
+  <Tags>
+    <Tag>Mod</Tag>
+    <Tag>BepInEx</Tag>
+    <Tag>StationeersMods</Tag>
+  </Tags>
+</ModMetadata>

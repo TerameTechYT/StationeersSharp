@@ -17,9 +17,6 @@ using StationeersMods.Interface;
 namespace BetterCodeEditor;
 
 [StationeersMod(Data.ModGuid, Data.ModName, Data.ModVersion)]
-// https://steamcommunity.com/sharedfiles/filedetails/?id=3265272725
-[BepInIncompatibility("awa.shark.plugin.MoreLinesCodeMod")]
-[BepInProcess("rocketstation.exe")]
 public class Plugin : ModBehaviour {
     public static Plugin Instance {
         get; private set;
@@ -34,7 +31,7 @@ public class Plugin : ModBehaviour {
 
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
-
+        //awa.shark.plugin.MoreLinesCodeMod
         this.LoadConfiguration();
 
         Instance = this;
@@ -60,7 +57,7 @@ public class Plugin : ModBehaviour {
             "The length of the code editor lines");
     }
 
-    public static async UniTask OnBaseLoaded() {
+    public async UniTask OnBaseLoaded() {
         // Wait until game has loaded into main menu
         await UniTask.WaitUntil(() => MainMenu.Instance.IsVisible);
 

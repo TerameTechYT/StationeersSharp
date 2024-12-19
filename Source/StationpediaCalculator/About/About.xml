@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Stationpedia Calculator [StationeersMods]</Name>
+  <Author>vinus</Author>
+  <Version>1.0.7</Version>
+  <Description>
+    [h1]Stationpedia Calculator[/h1]
+    [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
+    See: https://github.com/jixxed/StationeersMods
+
+    Demonstration Link: https://youtu.be/Bjh0wN31I_M
+    A fully capable calculator built straight into the stationpedia.
+    Can do many functions and equations!
+    (cos, sin, tan, acos, asin, atan, floor, ceiling, abs, pow, exp, sqrt)
+    
+    you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+    https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+  </Description>
+  <WorkshopHandle>3305312105</WorkshopHandle>
+  <Tags>
+    <Tag>Mod</Tag>
+    <Tag>BepInEx</Tag>
+    <Tag>StationeersMods</Tag>
+  </Tags>
+</ModMetadata>

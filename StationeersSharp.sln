@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{F6C6F376-4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{50E1B1AF-F60D-4EEB-B52F-16EB28081E79}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
 		Stationeers.VS.props = Stationeers.VS.props
 		Stationeers.VS.References.props = Stationeers.VS.References.props
 	EndProjectSection

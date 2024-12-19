@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Better Code Editor [StationeersMods]</Name>
+  <Author>vinus</Author>
+  <Version>1.0.0</Version>
+  <Description>
+    [h1]Better Code Editor[/h1]
+    [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
+    See: https://github.com/jixxed/StationeersMods
+    
+    you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+    https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+  </Description>
+  <WorkshopHandle>3234916147</WorkshopHandle>
+  <Tags>
+    <Tag>Mod</Tag>
+    <Tag>BepInEx</Tag>
+    <Tag>StationeersMods</Tag>
+  </Tags>
+</ModMetadata>

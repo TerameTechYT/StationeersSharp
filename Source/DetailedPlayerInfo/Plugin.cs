@@ -18,7 +18,6 @@ using StationeersMods.Interface;
 namespace DetailedPlayerInfo;
 
 [StationeersMod(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInProcess("rocketstation.exe")]
 public class Plugin : ModBehaviour {
     public static Plugin Instance {
         get; private set;

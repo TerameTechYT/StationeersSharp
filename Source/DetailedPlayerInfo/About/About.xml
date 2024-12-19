@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Detailed Player Info [StationeersMods]</Name>
+  <Author>vinus</Author>
+  <Version>1.6.0</Version>
+  <Description>
+    [h1]Detailed Player Info[/h1]
+    [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
+    See: https://github.com/jixxed/StationeersMods
+
+    [h2] Info Display Changes:[/h2]
+    Makes the info windows on the bottom right more informal by untruncating the numbers it displays.
+    You can also quickly enable between viewing celsius and kelvin temperatures by holding "K" ingame.
+    [i] also fixed a small bug with the day counter being "0" when you first enter a world.[/i]
+    
+    [h2] FPS Counter Features:[/h2]
+    FPS Text is now "*FPS* / *Cap* FPS"
+    FPS Cap will now actually be set (on caps below 60) and will not render numbers above the cap.
+    FPS Counter is a bit shorter due to removal of latency.
+    
+    [h2] Battery and Filter Warning Percentages:[/h2]
+    There is now percentages on battery and filter status alerts.
+    You can now close your suit window for less screen clutter!!
+    
+    you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+    https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+  </Description>
+  <WorkshopHandle>3071950159</WorkshopHandle>
+  <Tags>
+    <Tag>Mod</Tag>
+    <Tag>BepInEx</Tag>
+    <Tag>StationeersMods</Tag>
+  </Tags>
+</ModMetadata>

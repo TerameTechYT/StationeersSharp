@@ -16,7 +16,6 @@ using StationeersMods.Interface;
 namespace StationpediaCalculator;
 
 [StationeersMod(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInProcess("rocketstation.exe")]
 public class Plugin : ModBehaviour {
     public static Plugin Instance {
         get; private set;

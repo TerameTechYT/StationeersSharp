@@ -7,7 +7,6 @@ using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
-using JetBrains.Annotations;
 using System;
 using UnityEngine.SceneManagement;
 using StationeersMods.Interface;
@@ -17,8 +16,6 @@ using StationeersMods.Interface;
 namespace BetterWasteTank;
 
 [StationeersMod(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInProcess("rocketstation.exe")]
-[BepInProcess("rocketstation_DedicatedServer.exe")]
 public class Plugin : ModBehaviour {
     public static Plugin Instance {
         get; private set;

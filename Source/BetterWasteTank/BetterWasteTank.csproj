@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>BetterWasteTank</AssemblyName>
-    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <ModName>BetterWasteTank</ModName>
+    <AssemblyName>$(ModName)</AssemblyName>
+    <RootNamespace>$(ModName)</RootNamespace>
 
     <AnalysisLevel>latest-all</AnalysisLevel>
     <LangVersion>latest</LangVersion>
@@ -17,9 +17,6 @@
     <RepositoryUrl>https://github.com/TerameTechYT/StationeersSharp</RepositoryUrl>
     <PackageLicenseFile>..\..\LICENSE.md</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-
-    <BaseOutputPath>..\..\Build\</BaseOutputPath>
-    <BaseIntermediateOutputPath>..\..\Objects\</BaseIntermediateOutputPath>
 
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>x64;x86</Platforms>
@@ -40,11 +37,14 @@
     <Compile Include="..\GlobalSuppressions.cs" />
   </ItemGroup>
 
+
   <!-- Import Stationeers VS properties - paths etc. -->
   <Import Project="$(SolutionDir)Stationeers.VS.props" />
 
   <!-- Import Game/Unity DLL references -->
   <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
+
+
 
   <ItemGroup>
     <None Update="README.md">
@@ -53,11 +53,24 @@
     </None>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(OutDir)\$(AssemblyName).dll &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\&quot;&#xD;&#xA;echo $(AssemblyName) $(Configuration) $(Platform) &gt; &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(Configuration).$(Platform)&quot;&#xD;&#xA;exit 0" />
-  </Target>
+  <ItemGroup>
+    <CopyItemsGameData Include="$(ProjectDir)\GameData\**\*.*" />
+    <CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
+  </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="del &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\$(AssemblyName).dll&quot;&#xD;&#xA;del &quot;$(StationeersDocumentsDirectory)\mods\$(AssemblyName)\*.x*&quot;&#xD;&#xA;exit 0" />
+  <Target Name="AfterBuild">
+    <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
+    <Copy SourceFiles="$(ProjectDir)\Mod.info"
+      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName).info"
+      ContinueOnError="false" />
+    <Copy SourceFiles="$(OutDir)\$(ModName).dll"
+      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName).dll"
+      ContinueOnError="true" />
+    <Copy SourceFiles="@(CopyItemsGameData)"
+      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)"
+      ContinueOnError="true" />
+    <Copy SourceFiles="@(CopyItemsAbout)"
+      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)"
+      ContinueOnError="true" />
   </Target>
 </Project>

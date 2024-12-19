@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>External Suit Reader [StationeersMods]</Name>
+  <Author>vinus</Author>
+  <Version>1.3.9</Version>
+  <Description>
+    [h1]External Suit Reader[/h1]
+    [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
+    See: https://github.com/jixxed/StationeersMods
+
+    Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.
+    RatioOxygenOutput = Oxygen
+    RatioLiquidOxygenOutput = LiquidOxygen
+    RatioNitrogenOutput = Nitrogen
+    RatioLiquidNitrogenOutput = LiquidNitrogen
+    RatioCarbonDioxideOutput = CarbonDioxide
+    RatioLiquidCarbonDioxideOutput = LiquidCarbonDioxide
+    RatioVolatilesOutput = Volatiles
+    RatioLiquidVolatilesOutput = LiquidVolatiles
+    RatioPollutantOutput = Pollutant
+    RatioLiquidPollutantOutput = LiquidPollutant
+    RatioNitrousOxideOutput = NitrousOxide
+    RatioLiquidNitrousOxideOutput = LiquidNitrousOxide
+    RatioSteamOutput = Steam
+    RatioWaterOutput = Water
+    RatioWaterOutput2 = PollutedWater (there isnt a RatioPollutedWaterOutput for some reason)
+
+    you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+    https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+  </Description>
+  <WorkshopHandle>3071985478</WorkshopHandle>
+  <Tags>
+    <Tag>Mod</Tag>
+    <Tag>BepInEx</Tag>
+    <Tag>StationeersMods</Tag>
+  </Tags>
+</ModMetadata>

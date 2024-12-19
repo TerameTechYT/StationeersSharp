@@ -1,0 +1,6 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<BaseOutputPath>$(SolutionDir)Build\</BaseOutputPath>
+		<BaseIntermediateOutputPath>$(SolutionDir)Objects\</BaseIntermediateOutputPath>
+	</PropertyGroup>
+</Project>
