@@ -1,6 +1,8 @@
 ﻿#region
 
 using Assets.Scripts;
+using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Objects.Motherboards;
 using Assets.Scripts.UI;
 using BepInEx;
 using BepInEx.Bootstrap;
@@ -8,6 +10,7 @@ using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 #endregion
@@ -119,4 +122,22 @@ internal struct Data {
         public AlreadyLoadedException() {
         }
     }
+
+    public static readonly Dictionary<LogicType, Chemistry.GasType> LogicPairs = new() {
+        { LogicType.RatioOxygenOutput, Chemistry.GasType.Oxygen },
+        { LogicType.RatioLiquidOxygenOutput, Chemistry.GasType.LiquidOxygen },
+        { LogicType.RatioNitrogenOutput, Chemistry.GasType.Nitrogen },
+        { LogicType.RatioLiquidNitrogenOutput, Chemistry.GasType.LiquidNitrogen },
+        { LogicType.RatioCarbonDioxideOutput, Chemistry.GasType.CarbonDioxide },
+        { LogicType.RatioLiquidCarbonDioxideOutput, Chemistry.GasType.LiquidCarbonDioxide },
+        { LogicType.RatioVolatilesOutput, Chemistry.GasType.Volatiles },
+        { LogicType.RatioLiquidVolatilesOutput, Chemistry.GasType.LiquidVolatiles },
+        { LogicType.RatioPollutantOutput, Chemistry.GasType.Pollutant },
+        { LogicType.RatioLiquidPollutantOutput, Chemistry.GasType.LiquidPollutant },
+        { LogicType.RatioNitrousOxideOutput, Chemistry.GasType.NitrousOxide },
+        { LogicType.RatioLiquidNitrousOxideOutput, Chemistry.GasType.LiquidNitrousOxide },
+        { LogicType.RatioSteamOutput, Chemistry.GasType.Steam },
+        { LogicType.RatioWaterOutput, Chemistry.GasType.Water },
+        { LogicType.RatioWaterOutput2, Chemistry.GasType.PollutedWater }
+    };
 }
