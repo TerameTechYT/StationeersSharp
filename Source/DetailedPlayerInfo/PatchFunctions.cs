@@ -24,15 +24,14 @@ public static class PatchFunctions {
     [HarmonyPrefix]
     public static bool WorldManagerUpdateFrameRate(ref TextMeshProUGUI ___FrameRate) {
         try {
-            return (Data.CustomFramerate?.Value ?? false) && Functions.EnableFrameCounter(ref ___FrameRate);
+            return (Data.CustomFramerate && Functions.EnableFrameCounter(ref ___FrameRate);
         }
         catch (Exception) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
             if (!_patches[currentMethod])
                 _patches[currentMethod] = true;
-            //ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-            //ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
+
             return true;
         }
     }
@@ -49,8 +48,6 @@ public static class PatchFunctions {
 
             if (!_patches[currentMethod])
                 _patches[currentMethod] = true;
-            //ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-            //ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
         }
     }
 
@@ -66,8 +63,6 @@ public static class PatchFunctions {
 
             if (!_patches[currentMethod])
                 _patches[currentMethod] = true;
-            //ConsoleWindow.PrintError($"[{Data.Name}]: Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-            //ConsoleWindow.PrintError($"[{Data.Name}]: {ex.Source}: {ex.Message.Trim()} {ex.StackTrace.Trim()}");
         }
     }
 }

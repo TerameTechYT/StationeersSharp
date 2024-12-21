@@ -46,37 +46,37 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.KelvinMode = Config.Bind("Keybinds",
+        Data.kelvinMode = Config.Bind("Keybinds",
             "Kelvin Mode",
             KeyCode.K,
             "Keybind that when pressed, changes the status temperatures to kelvin instead of celcius.");
 
-        Data.CustomFramerate = Config.Bind("Configurables",
+        Data.customFramerate = Config.Bind("Configurables",
             "CustomFramerate",
             true,
             "Should the framerate text only display FPS.");
 
-        Data.ChangeFontSize = Config.Bind("Configurables",
+        Data.changeFontSize = Config.Bind("Configurables",
             "ChangeFontSize",
             true,
             "Should the font size be changed.");
 
-        Data.ExtraInfoPower = Config.Bind("Configurables",
+        Data.extraInfoPower = Config.Bind("Configurables",
             "ExtraInfoPower",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.ExtraInfoFilter = Config.Bind("Configurables",
+        Data.extraInfoFilter = Config.Bind("Configurables",
             "ExtraInfoFilter",
             true,
             "Should a extra text label be placed next to the status like waste tank status.");
 
-        Data.NumberPrecision = Config.Bind("Configurables",
+        Data.numberPrecision = Config.Bind("Configurables",
             "NumberPrecision",
             2,
             "How many decimal points should be displayed on numbers.");
 
-        Data.FontSize = Config.Bind("Configurables",
+        Data.fontSize = Config.Bind("Configurables",
             "FontSize",
             21,
             "What font size should the labels be changed to.");
@@ -159,19 +159,27 @@ internal struct Data {
         }
     }
 
-    //Keycode
-    public static ConfigEntry<KeyCode> KelvinMode;
+    // Config
+    public static ConfigEntry<KeyCode> kelvinMode;
+    public static KeyCode KelvinMode => kelvinMode?.Value ?? KeyCode.K;
 
-    //Bools
-    public static ConfigEntry<bool> CustomFramerate;
-    public static ConfigEntry<bool> ChangeFontSize;
+    public static ConfigEntry<bool> customFramerate;
+    public static bool CustomFramerate => customFramerate?.Value ?? false;
 
-    public static ConfigEntry<bool> ExtraInfoPower;
-    public static ConfigEntry<bool> ExtraInfoFilter;
+    public static ConfigEntry<bool> changeFontSize;
+    public static bool ChangeFontSize => changeFontSize?.Value ?? false;
 
-    //Ints/Floats
-    public static ConfigEntry<int> NumberPrecision;
-    public static ConfigEntry<int> FontSize;
+    public static ConfigEntry<int> fontSize;
+    public static int FontSize => ChangeFontSize ? (fontSize?.Value ?? 21) : 21;
+
+    public static ConfigEntry<bool> extraInfoPower;
+    public static bool ExtraInfoPower => extraInfoPower?.Value ?? false;
+
+    public static ConfigEntry<bool> extraInfoFilter;
+    public static bool ExtraInfoFilter => extraInfoFilter?.Value ?? false;
+
+    public static ConfigEntry<int> numberPrecision;
+    public static int NumberPrecision => numberPrecision?.Value ?? 0;
 
     public const float TemperatureZero = 273.15f;
     public const float TemperatureOne = TemperatureZero + 1f;

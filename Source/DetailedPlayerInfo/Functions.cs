@@ -37,13 +37,9 @@ internal static class Functions {
     private static GameObject _filterTextPanel;
     private static TextMeshProUGUI _filterText;
 
-
     private static bool _kelvinMode;
 
     internal static bool ReadyToExecute(ref PlayerStateWindow window) {
-        bool checkBattery = Data.ExtraInfoPower?.Value ?? false;
-        bool checkFilter = Data.ExtraInfoFilter?.Value ?? false;
-
         return window != null && new List<bool> {
             GameManager.GameState == GameState.Running,
 
@@ -68,15 +64,15 @@ internal static class Functions {
             window.InfoJetpackPressureDeltaText != null,
             window.InfoJetpackThrust != null,
 
-            (!checkBattery && !checkFilter) || _wasteTextPanel != null,
+            (!Data.ExtraInfoFilter && !Data.ExtraInfoPower) || _wasteTextPanel != null,
 
-            !checkBattery || _batteryStatus != null,
-            !checkBattery || _batteryTextPanel != null,
-            !checkBattery || _batteryText != null,
+            !Data.ExtraInfoPower || _batteryStatus != null,
+            !Data.ExtraInfoPower || _batteryTextPanel != null,
+            !Data.ExtraInfoPower || _batteryText != null,
 
-            !checkFilter || _filterStatus != null,
-            !checkFilter || _filterTextPanel != null,
-            !checkFilter || _filterText != null
+            !Data.ExtraInfoFilter || _filterStatus != null,
+            !Data.ExtraInfoFilter || _filterTextPanel != null,
+            !Data.ExtraInfoFilter || _filterText != null
         }.All(boolean => boolean);
     }
 
@@ -135,16 +131,16 @@ internal static class Functions {
         _externalTempUnit = GameObject.Find(Data.ExternalTemperatureUnit).GetComponent<TextMeshProUGUI>();
 
         // Find object to be cloned later
-        if ((Data.ExtraInfoPower?.Value ?? false) || (Data.ExtraInfoFilter?.Value ?? false))
+        if ((Data.ExtraInfoPower) || (Data.ExtraInfoFilter))
             _wasteTextPanel = GameObject.Find(Data.WasteTextPanel);
 
-        if (Data.ExtraInfoPower?.Value ?? false) {
+        if (Data.ExtraInfoPower) {
             _batteryStatus = GameObject.Find(Data.BatteryStatus);
             _batteryTextPanel = Object.Instantiate(_wasteTextPanel, _batteryStatus.transform);
             _batteryText = _batteryTextPanel.GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        if (Data.ExtraInfoFilter?.Value ?? false) {
+        if (Data.ExtraInfoFilter) {
             _filterStatus = GameObject.Find(Data.FilterStatus);
             _filterTextPanel = Object.Instantiate(_wasteTextPanel, _filterStatus.transform);
             _filterText = _filterTextPanel.GetComponentInChildren<TextMeshProUGUI>();
@@ -155,7 +151,7 @@ internal static class Functions {
         if (!ReadyToExecute(ref window))
             return;
 
-        _kelvinMode = Input.GetKey(Data.KelvinMode?.Value ?? KeyCode.K);
+        _kelvinMode = Input.GetKey(Data.kelvinMode?.Value ?? KeyCode.K);
 
         // Suit stuff
         Assets.Scripts.Objects.Entities.Human human = window.Parent;
@@ -179,16 +175,14 @@ internal static class Functions {
         _internalTempUnit.text = _externalTempUnit.text = temperatureUnit;
 
         // Change battery percentage text
-        if ((Data.ExtraInfoPower?.Value ?? false) &&
-            (StatusUpdates.Instance.IsPowerCaution() || StatusUpdates.Instance.IsPowerCritical())) {
+        if (Data.ExtraInfoPower && (StatusUpdates.Instance.IsPowerCaution() || StatusUpdates.Instance.IsPowerCritical())) {
             float percentage = (suitBattery?.PowerRatio ?? 0f) * 100f;
 
             _batteryText.text = percentage.ToStringRounded() + "%";
         }
 
         // Change filter percentage text
-        if ((Data.ExtraInfoFilter?.Value ?? false) &&
-            (StatusUpdates.Instance.IsFilterCaution() || StatusUpdates.Instance.IsFilterCritical())) {
+        if (Data.ExtraInfoFilter && (StatusUpdates.Instance.IsFilterCaution() || StatusUpdates.Instance.IsFilterCritical())) {
             float ratio = Mathf.Min(filter1?.RemainingRatio ?? 10f,
                 filter2?.RemainingRatio ?? 10f,
                 filter3?.RemainingRatio ?? 10f,
@@ -207,11 +201,13 @@ internal static class Functions {
         float externalPressure = window._pressureExternal.ToFloat();
         string externalPressureText = externalPressure.ToStringPrecision();
         window.InfoExternalPressure.text = externalPressureText;
+        window.InfoExternalPressure.fontSize = Data.FontSize;
 
         // Suit Internal Pressure
         float internalPressure = window._pressureInternal.ToFloat();
         string internalPressureText = internalPressure.ToStringPrecision();
         window.InfoInternalPressure.text = internalPressureText;
+        window.InfoInternalPressure.fontSize = Data.FontSize;
 
         // Suit Pressure Setting
         float pressureSetting = suit?.OutputSetting ?? 0f;
@@ -232,7 +228,7 @@ internal static class Functions {
             ? "Nil"
             : externalTemperature.ToStringPrecision();
         window.InfoExternalTemperature.text = externalTemperatureText;
-
+        window.InfoExternalTemperature.fontSize = Data.FontSize;
 
         // Suit Internal Temperature
         float internalTemperature = _kelvinMode ? window._tempInternalK.ToFloat() : window._tempInternal;
@@ -240,39 +236,46 @@ internal static class Functions {
             ? "Nil"
             : internalTemperature.ToStringPrecision();
         window.InfoInternalTemperature.text = internalTemperatureText;
+        window.InfoInternalTemperature.fontSize = Data.FontSize;
 
         // Jetpack Delta Pressure
         float jetpackPressure = jetpackPropellant?.Pressure.ToFloat() ?? 0f;
         float pressureDelta = jetpackPressure - externalPressure;
         string pressureDeltaText = pressureDelta.ToStringPrecision();
         window.InfoJetpackPressureDeltaText.text = pressureDeltaText;
+        window.InfoJetpackPressureDeltaText.fontSize = Data.FontSize;
 
         // Jetpack Thrust Setting
         float jetpackSetting = jetpack?.OutputSetting ?? 0f;
         double jetpackSettingRounded = Math.Ceiling(jetpackSetting * 10f) * 5f;
         string jetpackSettingText = (int) jetpackSettingRounded + "%";
         window.InfoJetpackThrust.text = jetpackSettingText;
+        window.InfoJetpackThrust.fontSize = Data.FontSize;
 
         // Character Velocity
         float velocity = human.VelocityMagnitude;
         string velocityText = (velocity < 0.01f ? 0f : velocity).ToStringPrecision();
         window.InfoExternalVelocity.text = velocityText;
+        window.InfoExternalVelocity.fontSize = Data.FontSize;
 
         // Character Stun Damage
         float stunDamage = human.DamageState.Stun;
         string stunDamageText = stunDamage.ToStringPrecision();
         window.CognitionPercentage.text = stunDamageText;
+        window.CognitionPercentage.fontSize = Data.FontSize;
 
         // Character Toxin Damage
         float toxinDamage = human.DamageState.Toxic;
         string toxinDamageText = toxinDamage.ToStringPrecision();
         window.ToxinPercentage.text = toxinDamageText;
+        window.ToxinPercentage.fontSize = Data.FontSize;
 
         // Character Total Damage
         float totalDamage = human.DamageState.TotalRatio * 100f;
         float healthLeft = 100f - totalDamage;
         string healthLeftText = healthLeft.ToStringPrecision();
         window.HealthPercentage.text = healthLeftText;
+        window.HealthPercentage.fontSize = Data.FontSize;
 
         // Character Hunger Left
         float hunger = human.Nutrition;
@@ -281,6 +284,7 @@ internal static class Functions {
         float hungerLeft = hungerClamp * 100f;
         string hungerLeftText = hungerLeft.ToStringPrecision();
         window.HungerPercentage.text = hungerLeftText;
+        window.HungerPercentage.fontSize = Data.FontSize;
 
         // Character Hydration Left
         float hydration = human.Hydration;
@@ -289,37 +293,17 @@ internal static class Functions {
         float hydrationLeft = hydrationClamp * 100f;
         string hydrationLeftText = hydrationLeft.ToStringPrecision();
         window.HydrationPercentage.text = hydrationLeftText;
+        window.HydrationPercentage.fontSize = Data.FontSize;
 
         // Character Look Angle
         float eulerAnglesY = human.EntityRotation.eulerAngles.y;
         float orientation = (eulerAnglesY + 270f) % 360f;
         string orientationText = orientation.ToStringPrecision();
         window.NavigationText.text = orientationText;
-
-
-        if (Data.ChangeFontSize?.Value ?? false) {
-            int fontSize = Data.FontSize?.Value ?? 21;
-
-            window.NavigationText.fontSize = fontSize;
-            window.HydrationPercentage.fontSize = fontSize;
-            window.HungerPercentage.fontSize = fontSize;
-            window.HealthPercentage.fontSize = fontSize;
-            window.ToxinPercentage.fontSize = fontSize;
-            window.CognitionPercentage.fontSize = fontSize;
-            window.InfoExternalVelocity.fontSize = fontSize;
-            window.InfoJetpackPressureDeltaText.fontSize = fontSize;
-            window.InfoInternalTemperature.fontSize = fontSize;
-            window.InfoExternalTemperature.fontSize = fontSize;
-            window.InfoExternalPressure.fontSize = fontSize;
-            window.InfoInternalPressure.fontSize = fontSize;
-        }
+        window.NavigationText.fontSize = Data.FontSize;
     }
 }
 
 public static class Extensions {
-    public static string ToStringPrecision(this float value) {
-        int digits = Data.NumberPrecision?.Value ?? 2;
-
-        return Math.Round(value, digits).ToString();
-    }
+    public static string ToStringPrecision(this float value) => Math.Round(value, Data.NumberPrecision).ToString();
 }
