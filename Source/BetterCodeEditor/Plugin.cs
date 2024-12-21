@@ -46,12 +46,12 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.CodeEditorLines = Config.Bind("Configurables",
+        Data.codeEditorLines = Config.Bind("Configurables",
             "Code Editor Lines",
             InputSourceCode.MAX_LINES,
             "Number of lines in the code editor.");
 
-        Data.CodeEditorLineLength = Config.Bind("Configurables",
+        Data.codeEditorLineLength = Config.Bind("Configurables",
             "Code Editor Line Length",
             InputSourceCode.LINE_LENGTH_LIMIT,
             "The length of the code editor lines");
