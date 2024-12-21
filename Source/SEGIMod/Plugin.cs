@@ -154,7 +154,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "segimod";
     public const string ModName = "SEGIMod";
-    public const string ModVersion = "1.0.7";
+    public const string ModVersion = "1.0.9";
     public const ulong ModHandle = 3281346086;
 
     // Game Data

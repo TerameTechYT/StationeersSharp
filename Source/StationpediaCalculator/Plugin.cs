@@ -93,7 +93,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "stationpediacalculator";
     public const string ModName = "StationpediaCalculator";
-    public const string ModVersion = "1.0.7";
+    public const string ModVersion = "1.0.9";
     public const ulong ModHandle = 3305312105;
 
     // Game Data

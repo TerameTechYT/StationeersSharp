@@ -135,7 +135,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "detailedplayerinfo";
     public const string ModName = "DetailedPlayerInfo";
-    public const string ModVersion = "1.6.0";
+    public const string ModVersion = "1.6.2";
     public const ulong ModHandle = 3071950159;
 
     // Game Data
