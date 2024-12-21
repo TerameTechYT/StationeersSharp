@@ -18,7 +18,7 @@ using Util;
 
 namespace BetterCodeEditor;
 
-internal static class Functions {
+internal static class Extensions {
     internal static int ToIndex(this int value, bool index) => index ? value - 1 : value;
 
     internal static bool OpcodeIs(this CodeInstruction code, OpCode opcode) => code.opcode == opcode;
