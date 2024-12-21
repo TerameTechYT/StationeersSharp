@@ -60,9 +60,6 @@
 
   <Target Name="AfterBuild">
     <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
-    <Copy SourceFiles="$(ProjectDir)\Mod.info"
-      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName).info"
-      ContinueOnError="false" />
     <Copy SourceFiles="$(OutDir)\$(ModName).dll"
       DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName).dll"
       ContinueOnError="true" />
