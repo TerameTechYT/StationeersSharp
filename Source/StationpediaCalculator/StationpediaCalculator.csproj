@@ -67,6 +67,7 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
+    <Copy SourceFiles="$(TargetDir)\NCalc.dll" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
     <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
     <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
   </Target>
