@@ -63,7 +63,7 @@
   <Target Name="AfterBuild">
     <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
     <Copy SourceFiles="$(OutDir)\$(ModName).dll"
-      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName).dll"
+      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)"
       ContinueOnError="true" />
     <Copy SourceFiles="@(CopyItemsGameData)"
       DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)"
