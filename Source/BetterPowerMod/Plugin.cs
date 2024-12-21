@@ -47,29 +47,39 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.EnableSolarPanel = Config.Bind("Configurables",
+        Data.enableSolarPanel = Config.Bind("Configurables",
             "Solar Panel Patches",
             true,
             "Should the max power output be set to the worlds Solar Irradiance");
-        Data.EnableWindTurbine = Config.Bind("Configurables",
+        Data.enableWindTurbine = Config.Bind("Configurables",
             "Wind Turbine Patches",
             true,
             "Should the max power output be set higher based on the atmospheric pressure");
 
-        Data.EnableTurbine = Config.Bind("Configurables",
+        Data.enableTurbine = Config.Bind("Configurables",
             "Wall Turbine Patches",
             true,
             "Should the max power output be multipled by 10");
 
-        Data.EnableStirling = Config.Bind("Configurables",
+        Data.enableStirling = Config.Bind("Configurables",
             "Stirling Patches",
             true,
-            $"Should the max power output be set to {Data.TwentyKilowatts} like the gas fuel generator");
+            $"Should the max power output be changed to Stirling Energy Output");
 
-        Data.EnableFasterCharging = Config.Bind("Configurables",
+        Data.stirlingEnergy = Config.Bind("Configurables",
+            "Stirling Energy Output",
+            Data.TwentyKilowatts,
+            $"The max power output of the Stirling Engine");
+
+        Data.enableFasterCharging = Config.Bind("Configurables",
             "Charging Patches",
             true,
-            $"Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to {Data.TwoAndAHalfKilowatts}");
+            $"Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate");
+        
+        Data.fastChargeRate = Config.Bind("Configurables",
+            "Fast Charging Charging Rate",
+            Data.TwoAndAHalfKilowatts,
+            $"The max input power of the (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter)");
     }
 
     public async UniTask OnBaseLoaded() {
@@ -160,9 +170,29 @@ internal struct Data {
     public const float FiftyKilowatts = OneKilowatt * 50f;
     public const float OneHundredKilowatts = OneKilowatt * 100f;
 
-    public static ConfigEntry<bool> EnableSolarPanel;
-    public static ConfigEntry<bool> EnableWindTurbine;
-    public static ConfigEntry<bool> EnableTurbine;
-    public static ConfigEntry<bool> EnableStirling;
-    public static ConfigEntry<bool> EnableFasterCharging;
+    //
+    public static ConfigEntry<bool> enableSolarPanel;
+    public static bool EnableSolarPanel => enableSolarPanel?.Value ?? false;
+
+    //
+    public static ConfigEntry<bool> enableWindTurbine;
+    public static bool EnableWindTurbine => enableWindTurbine?.Value ?? false;
+
+    //
+    public static ConfigEntry<bool> enableTurbine;
+    public static bool EnableTurbine => enableTurbine?.Value ?? false;
+
+    //
+    public static ConfigEntry<bool> enableStirling;
+    public static bool EnableStirling => enableStirling?.Value ?? false;
+
+    public static ConfigEntry<float> stirlingEnergy;
+    public static float StirlingEnergy => stirlingEnergy?.Value ?? TwentyKilowatts;
+
+    //
+    public static ConfigEntry<bool> enableFasterCharging;
+    public static bool EnableFasterCharging => enableWindTurbine?.Value ?? false;
+
+    public static ConfigEntry<float> fastChargeRate;
+    public static float FastChargeRate => fastChargeRate?.Value ?? TwoAndAHalfKilowatts;
 }

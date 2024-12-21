@@ -20,7 +20,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.PowerGenerated), MethodType.Getter)]
     [HarmonyPostfix]
     public static void SolarPanelPowerGeneratedGetter(ref SolarPanel __instance, ref float __result) {
-        if (Data.EnableSolarPanel.Value && __instance != null)
+        if (Data.EnableSolarPanel && __instance != null)
             __result = Functions.GetPotentialSolarPowerGenerated(__instance);
     }
 
@@ -31,7 +31,7 @@ public static class PatchFunctions {
         if (GameManager.IsBatchMode)
             return; // exit as server will never be the one rendering tooltips
 
-        if (Data.EnableSolarPanel.Value && __instance != null)
+        if (Data.EnableSolarPanel && __instance != null)
             __result = Functions.GetSolarPanelTooltip(__instance, __result);
     }
 
@@ -43,7 +43,7 @@ public static class PatchFunctions {
         if (GameManager.IsBatchMode)
             return; // exit as server will never be the one rendering tooltips
 
-        if (Data.EnableWindTurbine.Value && __instance != null && __instance is WindTurbineGenerator generator)
+        if (Data.EnableWindTurbine && __instance != null && __instance is WindTurbineGenerator generator)
             __result = Functions.GetWindTurbineTooltip(generator);
     }
 
@@ -54,7 +54,7 @@ public static class PatchFunctions {
         if (GameManager.IsBatchMode)
             return; // exit as server will never be the one rendering the turbine (i think)
 
-        if (Data.EnableWindTurbine.Value && __instance != null) {
+        if (Data.EnableWindTurbine && __instance != null) {
             Transform bladesTransform = Traverse.Create(__instance).Field("bladesTransform").GetValue<Transform>();
 
             float RPM = Functions.GetWindTurbineRPM(__instance);
@@ -71,7 +71,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.GenerationRate), MethodType.Getter)]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorGenerationRateGetter(ref WindTurbineGenerator __instance, ref float __result) {
-        if (Data.EnableWindTurbine.Value && __instance != null && !__instance.HasRoom) {
+        if (Data.EnableWindTurbine && __instance != null && !__instance.HasRoom) {
             __result = Functions.GetPotentialWindPowerGenerated(__instance);
         }
     }
@@ -80,7 +80,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(TurbineGenerator), nameof(TurbineGenerator.GetGeneratedPower))]
     [HarmonyPostfix]
     public static void TurbineGeneratorGetGeneratedPower(ref TurbineGenerator __instance, ref float __result) {
-        if (Data.EnableTurbine.Value && __instance != null)
+        if (Data.EnableTurbine && __instance != null)
             __result *= 10f;
     }
 
@@ -88,31 +88,31 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(StirlingEngine), nameof(StirlingEngine.MaxPower), MethodType.Getter)]
     [HarmonyPostfix]
     public static void StirlingEngineMaxPowerGetter(ref StirlingEngine __instance, ref MoleEnergy __result) {
-        if (Data.EnableStirling.Value && __instance != null)
-            __result = new MoleEnergy(Data.TwentyKilowatts);
+        if (Data.EnableStirling && __instance != null)
+            __result = new MoleEnergy(Data.StirlingEnergy);
     }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(PowerTransmitterOmni), nameof(PowerTransmitterOmni.GetUsedPower))]
     [HarmonyPostfix]
     public static void PowerTransmitterOmniGetUsedPower(ref PowerTransmitterOmni __instance) {
-        if (Data.EnableFasterCharging.Value && __instance != null)
-            _ = Traverse.Create(__instance).Field("_maximumPowerUsage").SetValue(Data.TwoAndAHalfKilowatts);
+        if (Data.EnableFasterCharging && __instance != null)
+            _ = Traverse.Create(__instance).Field("_maximumPowerUsage").SetValue(Data.FastChargeRate);
     }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(AreaPowerControl), nameof(AreaPowerControl.GetUsedPower))]
     [HarmonyPostfix]
     public static void AreaPowerControlGetUsedPower(ref AreaPowerControl __instance) {
-        if (Data.EnableFasterCharging.Value && __instance != null)
-            __instance.BatteryChargeRate = Data.TwoAndAHalfKilowatts;
+        if (Data.EnableFasterCharging && __instance != null)
+            __instance.BatteryChargeRate = Data.FastChargeRate;
     }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(BatteryCellCharger), nameof(BatteryCellCharger.GetUsedPower))]
     [HarmonyPostfix]
     public static void BatteryCellChargerGetUsedPower(ref BatteryCellCharger __instance) {
-        if (Data.EnableFasterCharging.Value && __instance != null)
-            __instance.BatteryChargeRate = Data.TwoAndAHalfKilowatts;
+        if (Data.EnableFasterCharging && __instance != null)
+            __instance.BatteryChargeRate = Data.FastChargeRate;
     }
 }
