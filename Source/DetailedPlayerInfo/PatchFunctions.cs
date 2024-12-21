@@ -24,7 +24,7 @@ public static class PatchFunctions {
     [HarmonyPrefix]
     public static bool WorldManagerUpdateFrameRate(ref TextMeshProUGUI ___FrameRate) {
         try {
-            return (Data.CustomFramerate && Functions.EnableFrameCounter(ref ___FrameRate);
+            return (Data.CustomFramerate && Functions.EnableFrameCounter(ref ___FrameRate));
         }
         catch (Exception) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
