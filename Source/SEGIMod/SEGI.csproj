@@ -19,9 +19,6 @@
     <PackageLicenseFile>..\..\LICENSE.md</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
-    <BaseOutputPath>..\..\Build\</BaseOutputPath>
-    <BaseIntermediateOutputPath>..\..\Objects\</BaseIntermediateOutputPath>
-
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>x64;x86</Platforms>
     <DebugType>embedded</DebugType>
