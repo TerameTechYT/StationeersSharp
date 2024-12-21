@@ -18,22 +18,25 @@ public static class PatchFunctions {
     private static readonly Dictionary<MethodInfo, bool> _patches =
         typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
-
     [UsedImplicitly]
     [HarmonyPatch(typeof(WorldManager), "UpdateFrameRate")]
     [HarmonyPrefix]
     public static bool WorldManagerUpdateFrameRate(ref TextMeshProUGUI ___FrameRate) {
         try {
-            return (Data.CustomFramerate && Functions.EnableFrameCounter(ref ___FrameRate));
+            return Data.CustomFramerate && Functions.EnableFrameCounter(ref ___FrameRate);
         }
-        catch (Exception) {
+        catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod])
+            if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-            return true;
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError(ex);
+            }
         }
+
+        return true;
     }
 
     [UsedImplicitly]
@@ -43,11 +46,15 @@ public static class PatchFunctions {
         try {
             Functions.Initialize();
         }
-        catch (Exception) {
+        catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod])
+            if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError(ex);
+            }
         }
     }
 
@@ -58,11 +65,15 @@ public static class PatchFunctions {
         try {
             Functions.Update(ref __instance);
         }
-        catch (Exception) {
+        catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-            if (!_patches[currentMethod])
+            if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError(ex);
+            }
         }
     }
 }

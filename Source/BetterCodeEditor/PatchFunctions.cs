@@ -9,6 +9,8 @@ using Assets.Scripts.Objects.Electrical;
 using Assets.Scripts.Objects.Motherboards;
 using System;
 using Assets.Scripts.Util;
+using System.Linq;
+using System.Reflection;
 
 #endregion
 
@@ -16,35 +18,134 @@ namespace BetterCodeEditor;
 
 [HarmonyPatch]
 public static class PatchFunctions {
+    private static readonly Dictionary<MethodInfo, bool> _patches =
+    typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
+
     [UsedImplicitly]
     [HarmonyPatch(typeof(InputSourceCode), "HandleInput")]
     [HarmonyTranspiler]
-    public static IEnumerable<CodeInstruction> InputSourceCodeHandleInputTranspiler(IEnumerable<CodeInstruction> instructions) => instructions.ReplaceMaxLines(true).ReplaceMaxLineLength();
+    public static IEnumerable<CodeInstruction> InputSourceCodeHandleInputTranspiler(IEnumerable<CodeInstruction> instructions) {
+        try {
+            return instructions.ReplaceMaxLines(true).ReplaceMaxLineLength();
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError(ex);
+            }
+        }
+
+        return instructions;
+    }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(InputSourceCode), "RemoveLine")]
     [HarmonyTranspiler]
-    public static IEnumerable<CodeInstruction> InputSourceCodeRemoveLineTranspiler(IEnumerable<CodeInstruction> instructions) => instructions.ReplaceMaxLineLength();
+    public static IEnumerable<CodeInstruction> InputSourceCodeRemoveLineTranspiler(IEnumerable<CodeInstruction> instructions) {
+        try {
+            return instructions.ReplaceMaxLineLength();
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError(ex);
+            }
+        }
+
+        return instructions;
+    }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(InputSourceCode), "UpdateFileSize")]
     [HarmonyTranspiler]
-    public static IEnumerable<CodeInstruction> InputSourceCodeUpdateFileSizeTranspiler(IEnumerable<CodeInstruction> instructions) => instructions.ReplaceMaxFileSize();
+    public static IEnumerable<CodeInstruction> InputSourceCodeUpdateFileSizeTranspiler(IEnumerable<CodeInstruction> instructions) {
+        try {
+            return instructions.ReplaceMaxFileSize();
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError(ex);
+            }
+        }
+
+        return instructions;
+    }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(InputSourceCode), nameof(InputSourceCode.Initialize))]
     [HarmonyTranspiler]
-    public static IEnumerable<CodeInstruction> InputSourceCodeInitializeTranspiler(IEnumerable<CodeInstruction> instructions) => instructions.ReplaceMaxLines().ReplaceMaxLineLength();
+    public static IEnumerable<CodeInstruction> InputSourceCodeInitializeTranspiler(IEnumerable<CodeInstruction> instructions) {
+        try {
+            return instructions.ReplaceMaxLines().ReplaceMaxLineLength();
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError(ex);
+            }
+        }
+
+        return instructions;
+    }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(InputSourceCode), nameof(InputSourceCode.Copy))]
     [HarmonyTranspiler]
-    public static IEnumerable<CodeInstruction> InputSourceCodeCopyTranspiler(IEnumerable<CodeInstruction> instructions) => instructions.ReplaceMaxFileSize().ReplaceMaxLineLength();
+    public static IEnumerable<CodeInstruction> InputSourceCodeCopyTranspiler(IEnumerable<CodeInstruction> instructions) {
+        try {
+            return instructions.ReplaceMaxFileSize().ReplaceMaxLineLength();
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError(ex);
+            }
+        }
+
+        return instructions;
+    }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(InputSourceCode), nameof(InputSourceCode.Paste))]
     [HarmonyTranspiler]
-    public static IEnumerable<CodeInstruction> InputSourceCodePasteTranspiler(IEnumerable<CodeInstruction> instructions) => instructions.ReplaceMaxLineLength();
+    public static IEnumerable<CodeInstruction> InputSourceCodePasteTranspiler(IEnumerable<CodeInstruction> instructions) {
+        try {
+            return instructions.ReplaceMaxLineLength();
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError(ex);
+            }
+        }
+
+        return instructions;
+    }
 
     /*[UsedImplicitly]
     [HarmonyPatch(typeof(EditorLineOfCode), nameof(EditorLineOfCode.ReformatText), [typeof(string)])]
