@@ -11,14 +11,14 @@ using JetBrains.Annotations;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using StationeersMods.Interface;
 
 #endregion
 
 namespace DetailedPlayerInfo;
 
-[StationeersMod(Data.ModGuid, Data.ModName, Data.ModVersion)]
-public class Plugin : ModBehaviour {
+[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
+[BepInProcess(Data.ExecutableName)]
+public class Plugin : BaseUnityPlugin {
     public static Plugin Instance {
         get; private set;
     }
@@ -27,9 +27,8 @@ public class Plugin : ModBehaviour {
         get; private set;
     }
 
-    public override void OnLoaded(ContentHandler contentHandler) {
-        base.OnLoaded(contentHandler);
-
+    [UsedImplicitly]
+    public void Awake() {
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
 
@@ -137,6 +136,10 @@ internal struct Data {
     public const string ModName = "DetailedPlayerInfo";
     public const string ModVersion = "1.6.0";
     public const ulong ModHandle = 3071950159;
+
+    // Game Data
+    public const string ExecutableName = "rocketstation.exe";
+    public const string DSExecutableName = "rocketstation_DedicatedServer.exe";
 
     // Log Data
     internal enum Severity {

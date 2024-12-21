@@ -9,14 +9,16 @@ using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using System;
 using UnityEngine.SceneManagement;
-using StationeersMods.Interface;
+using JetBrains.Annotations;
 
 #endregion
 
 namespace BetterWasteTank;
 
-[StationeersMod(Data.ModGuid, Data.ModName, Data.ModVersion)]
-public class Plugin : ModBehaviour {
+[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
+[BepInProcess(Data.ExecutableName)]
+[BepInProcess(Data.DSExecutableName)]
+public class Plugin : BaseUnityPlugin {
     public static Plugin Instance {
         get; private set;
     }
@@ -25,9 +27,8 @@ public class Plugin : ModBehaviour {
         get; private set;
     }
 
-    public override void OnLoaded(ContentHandler contentHandler) {
-        base.OnLoaded(contentHandler);
-
+    [UsedImplicitly]
+    public void Awake() {
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
 
@@ -45,12 +46,12 @@ public class Plugin : ModBehaviour {
     }
 
     public void LoadConfiguration() {
-        Data.WasteCriticalRatio = Config.Bind("Configurables",
+        Data.wasteCriticalRatio = Config.Bind("Configurables",
             "Waste Critical Ratio",
             0.975f,
             "(0.0 to 1.0) Ratio when \"Waste Tank Critical!\" alarm goes off.");
 
-        Data.WasteCautionRatio = Config.Bind("Configurables",
+        Data.wasteCautionRatio = Config.Bind("Configurables",
             "Waste Caution Ratio",
             0.75f,
             "(0.0 to 1.0) Ratio when \"Waste Tank Caution\" alarm goes off.");
@@ -108,8 +109,12 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "betterwastetank";
     public const string ModName = "BetterWasteTank";
-    public const string ModVersion = "1.3.8";
+    public const string ModVersion = "1.4.0";
     public const ulong ModHandle = 3071913936;
+
+    // Game Data
+    public const string ExecutableName = "rocketstation.exe";
+    public const string DSExecutableName = "rocketstation_DedicatedServer.exe";
 
     // Log Data
     internal enum Severity {
@@ -129,6 +134,9 @@ internal struct Data {
         }
     }
 
-    public static ConfigEntry<float> WasteCriticalRatio;
-    public static ConfigEntry<float> WasteCautionRatio;
+    public static ConfigEntry<float> wasteCriticalRatio;
+    public static float WasteCriticalRatio = wasteCriticalRatio?.Value ?? 0.75f;
+
+    public static ConfigEntry<float> wasteCautionRatio;
+    public static float WasteCautionRatio = wasteCautionRatio?.Value ?? 0.975f;
 }
