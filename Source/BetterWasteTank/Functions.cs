@@ -14,10 +14,10 @@ namespace BetterWasteTank;
 
 internal static class Functions {
     [CanBeNull]
-    private static GasCanister GetWasteCanister([CanBeNull] Suit suit) => suit != null && suit.WasteTankSlot.Contains(out GasCanister canister) ? canister : null;
+    private static GasCanister GetWasteCanister(Suit suit) => suit.WasteTankSlot.Contains(out GasCanister canister) ? canister : null;
 
     [CanBeNull]
-    private static Suit GetSuit([CanBeNull] Human human) => human != null && human.SuitSlot.Contains(out Suit suit) ? suit : null;
+    private static Suit GetSuit(Human human) => human.SuitSlot.Contains(out Suit suit) ? suit : null;
 
     internal static float GetWasteMaxPressure(Suit suit) {
         GasCanister wasteCanister = GetWasteCanister(suit);
@@ -51,7 +51,7 @@ internal static class Functions {
         bool wasteNull = GetWasteNull(suit);
         bool overThreshold = pressure != 0f && maxPressure != 0f && pressure / maxPressure >= Data.WasteCriticalRatio;
 
-        return suit != null && (wasteBroken || wasteNull || overThreshold);
+        return wasteNull || wasteBroken || overThreshold;
     }
 
     internal static bool IsWasteCaution(Suit suit) {
@@ -60,7 +60,7 @@ internal static class Functions {
         bool overThreshold = pressure != 0f && maxPressure != 0f && pressure / maxPressure >= Data.WasteCautionRatio;
 
 
-        return suit != null && !IsWasteCritical(suit) && overThreshold;
+        return !IsWasteCritical(suit) && overThreshold;
     }
 
     internal static void UpdateIcons(ref TMP_Text wasteText, ref Human human) {
@@ -74,6 +74,6 @@ internal static class Functions {
         int fullRatio = pressure == 0f || maxPressure == 0f ? 0 : Mathf.RoundToInt(pressure / maxPressure);
         string text = $"{fullRatio}%";
 
-        wasteText?.SetText(text);
+        wasteText.SetText(text);
     }
 }
