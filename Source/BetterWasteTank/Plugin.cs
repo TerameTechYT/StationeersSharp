@@ -135,8 +135,8 @@ internal struct Data {
     }
 
     public static ConfigEntry<float> wasteCriticalRatio;
-    public static float WasteCriticalRatio = wasteCriticalRatio?.Value ?? 0.75f;
+    public static float WasteCriticalRatio => wasteCriticalRatio?.Value ?? 0.75f;
 
     public static ConfigEntry<float> wasteCautionRatio;
-    public static float WasteCautionRatio = wasteCautionRatio?.Value ?? 0.975f;
+    public static float WasteCautionRatio => wasteCautionRatio?.Value ?? 0.975f;
 }

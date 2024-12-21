@@ -49,7 +49,7 @@ internal static class Functions {
         float maxPressure = GetWasteMaxPressure(suit);
         bool wasteBroken = GetWasteBroken(suit);
         bool wasteNull = GetWasteNull(suit);
-        bool overThreshold = pressure != 0f && maxPressure != 0f && pressure / maxPressure >= (Data.WasteCriticalRatio?.Value ?? 0.975f);
+        bool overThreshold = pressure != 0f && maxPressure != 0f && pressure / maxPressure >= Data.WasteCriticalRatio;
 
         return suit != null && (wasteBroken || wasteNull || overThreshold);
     }
@@ -57,7 +57,7 @@ internal static class Functions {
     internal static bool IsWasteCaution(Suit suit) {
         float pressure = GetWastePressure(suit);
         float maxPressure = GetWasteMaxPressure(suit);
-        bool overThreshold = pressure != 0f && maxPressure != 0f && pressure / maxPressure >= (Data.WasteCautionRatio?.Value ?? 0.75f);
+        bool overThreshold = pressure != 0f && maxPressure != 0f && pressure / maxPressure >= Data.WasteCautionRatio;
 
 
         return suit != null && !IsWasteCritical(suit) && overThreshold;
