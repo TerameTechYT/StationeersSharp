@@ -16,6 +16,8 @@ using UnityEngine.SceneManagement;
 namespace BetterCodeEditor;
 
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
+// https://steamcommunity.com/sharedfiles/filedetails/?id=3265272725
+[BepInIncompatibility("awa.shark.plugin.MoreLinesCodeMod")]
 [BepInProcess(Data.ExecutableName)]
 [BepInProcess(Data.DSExecutableName)]
 public class Plugin : BaseUnityPlugin {
@@ -31,7 +33,6 @@ public class Plugin : BaseUnityPlugin {
     public void Awake() {
         if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
             throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
-        //awa.shark.plugin.MoreLinesCodeMod
         this.LoadConfiguration();
 
         Instance = this;
@@ -109,7 +110,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "bettercodeeditor";
     public const string ModName = "BetterCodeEditor";
-    public const string ModVersion = "1.0.0";
+    public const string ModVersion = "1.0.3";
     public const ulong ModHandle = 0;
 
     // Game Data
