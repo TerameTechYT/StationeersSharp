@@ -105,6 +105,7 @@ public class Plugin : BaseUnityPlugin {
         Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
     }
 
+    public static void LogError(Exception ex) => Log($"{ex.Source}: {ex.Message}", Data.Severity.Error);
     public static void LogError(string message) => Log(message, Data.Severity.Error);
     public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
     public static void LogInfo(string message) => Log(message, Data.Severity.Info);
