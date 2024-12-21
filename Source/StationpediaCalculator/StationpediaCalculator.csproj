@@ -64,17 +64,16 @@
     <CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="ILRepack" Version="2.0.36">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
   <Target Name="AfterBuild">
     <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
-    <Copy SourceFiles="$(OutDir)\$(ModName).dll" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName).dll" ContinueOnError="true" />
-    <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
-    <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutDir)\$(ModName).dll"
+      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName).dll"
+      ContinueOnError="true" />
+    <Copy SourceFiles="@(CopyItemsGameData)"
+      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)"
+      ContinueOnError="true" />
+    <Copy SourceFiles="@(CopyItemsAbout)"
+      DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)"
+      ContinueOnError="true" />
   </Target>
 </Project>
