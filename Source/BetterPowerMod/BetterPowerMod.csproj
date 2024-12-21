@@ -15,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/TerameTechYT/StationeersSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TerameTechYT/StationeersSharp</RepositoryUrl>
-    <PackageLicenseFile>..\..\LICENSE.md</PackageLicenseFile>
+    <PackageLicenseFile>$(SolutionDir)LICENSE.md</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
     <PlatformTarget>x64</PlatformTarget>
@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\GlobalSuppressions.cs" />
+    <Compile Include="$(SolutionDir)Source\GlobalSuppressions.cs" />
   </ItemGroup>
 
 
