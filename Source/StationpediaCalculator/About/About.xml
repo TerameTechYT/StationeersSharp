@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Name>Stationpedia Calculator [StationeersMods]</Name>
   <Author>vinus</Author>
-  <Version>1.0.7</Version>
+  <Version>1.0.0</Version>
   <Description>
     [h1]Stationpedia Calculator[/h1]
     [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.

@@ -11,7 +11,6 @@
     you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
     https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
   </Description>
-  <WorkshopHandle>3234916147</WorkshopHandle>
   <Tags>
     <Tag>Mod</Tag>
     <Tag>BepInEx</Tag>
