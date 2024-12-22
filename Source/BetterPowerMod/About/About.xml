@@ -7,6 +7,7 @@
     [h1]Better Power Mod[/h1]
     [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
     See: https://github.com/jixxed/StationeersMods
+    [i]previously known as: ActualSolarIrriadiance[/i]
 
     Fixes the max wattage (500w) of solar panels.
     Adds info about the solar panels position to tooltip.
@@ -18,7 +19,13 @@
     you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
     https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
   </Description>
+  <InGameDescription>
+    <![CDATA[<size="30"><color=#ffa500> Better Power Mod </color></size>
+<b>WARNING:</b> <color=#ff0000>This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.</color>
+See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u></b>.
+]]>
   <WorkshopHandle>3234916147</WorkshopHandle>
+  </InGameDescription>
   <Tags>
     <Tag>Mod</Tag>
     <Tag>BepInEx</Tag>

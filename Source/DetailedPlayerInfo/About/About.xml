@@ -26,6 +26,12 @@
     https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
   </Description>
   <WorkshopHandle>3071950159</WorkshopHandle>
+  <InGameDescription>
+    <![CDATA[<size="30"><color=#ffa500> Detailed Player Info </color></size>
+<b>WARNING:</b> <color=#ff0000>This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.</color>
+See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u></b>.
+]]>
+  </InGameDescription>
   <Tags>
     <Tag>Mod</Tag>
     <Tag>BepInEx</Tag>
