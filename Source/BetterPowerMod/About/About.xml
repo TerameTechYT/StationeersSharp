@@ -24,8 +24,8 @@
 <b>WARNING:</b> <color=#ff0000>This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.</color>
 See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u></b>.
 ]]>
-  <WorkshopHandle>3234916147</WorkshopHandle>
   </InGameDescription>
+  <WorkshopHandle>3234916147</WorkshopHandle>
   <Tags>
     <Tag>Mod</Tag>
     <Tag>BepInEx</Tag>
