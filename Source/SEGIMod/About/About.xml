@@ -25,5 +25,23 @@
 See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u></b>.
 ]]>
   </InGameDescription>
-  <Tags />
+  <Tags>
+    <Tag>Mod</Tag>
+    <Tag>BepInEx</Tag>
+    <Tag>StationeersMods</Tag>
+  </Tags>
+
+
+  <Dependencies>
+    <!-- StationeersLibrary -->
+    <Mod>
+      <Id>3389867429</Id>
+    </Mod>
+  </Dependencies>
+  <LoadAfter>
+    <!-- StationeersLibrary -->
+    <Mod>
+      <Id>3389867429</Id>
+    </Mod>
+  </LoadAfter>
 </ModMetadata>
