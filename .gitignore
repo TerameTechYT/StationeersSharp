@@ -22,3 +22,6 @@ Objects/
 !Build/x86/Release/*.dll
 !Build/x86/Debug/*.dll
 !Build/x86/Debug/*.pdb
+
+#temporary
+/Source/LoulanRevived/**/*.*
