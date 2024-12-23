@@ -39,8 +39,7 @@ internal static class Functions {
 
     private static bool _kelvinMode;
 
-    internal static bool ReadyToExecute(ref PlayerStateWindow window) {
-        return window != null && new List<bool> {
+    internal static bool ReadyToExecute(ref PlayerStateWindow window) => window != null && new List<bool> {
             GameManager.GameState == GameState.Running,
 
             _internalTempUnit != null,
@@ -74,7 +73,6 @@ internal static class Functions {
             !Data.ExtraInfoFilter || _filterTextPanel != null,
             !Data.ExtraInfoFilter || _filterText != null
         }.All(boolean => boolean);
-    }
 
     internal static T1 CatchAndReturnDefault<T1, T2>(T1 fallbackValue, Func<T1> action) where T2 : Exception {
         if (action == null)
@@ -131,7 +129,7 @@ internal static class Functions {
         _externalTempUnit = GameObject.Find(Data.ExternalTemperatureUnit).GetComponent<TextMeshProUGUI>();
 
         // Find object to be cloned later
-        if ((Data.ExtraInfoPower) || (Data.ExtraInfoFilter))
+        if (Data.ExtraInfoPower || Data.ExtraInfoFilter)
             _wasteTextPanel = GameObject.Find(Data.WasteTextPanel);
 
         if (Data.ExtraInfoPower) {

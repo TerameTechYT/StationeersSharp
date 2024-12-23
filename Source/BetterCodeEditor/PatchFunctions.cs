@@ -2,13 +2,9 @@
 
 using Assets.Scripts.UI;
 using HarmonyLib;
-using System.Collections.Generic;
 using JetBrains.Annotations;
-using Assets.Scripts;
-using Assets.Scripts.Objects.Electrical;
-using Assets.Scripts.Objects.Motherboards;
 using System;
-using Assets.Scripts.Util;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 

@@ -49,7 +49,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.SolarInfo))]
     [HarmonyPostfix]
     public static void SolarPanelSolarInfo(ref SolarPanel __instance, ref string __result) {
-        if (!Data.EnableSolarPanel || GameManager.IsBatchMode  || __instance == null)
+        if (!Data.EnableSolarPanel || GameManager.IsBatchMode || __instance == null)
             return; // exit as server will never be the one rendering tooltips
 
         try {
@@ -99,7 +99,7 @@ public static class PatchFunctions {
 
         try {
 
-            
+
             Transform bladesTransform = Traverse.Create(__instance).Field("bladesTransform").GetValue<Transform>();
 
             float RPM = Functions.GetWindTurbineRPM(__instance);

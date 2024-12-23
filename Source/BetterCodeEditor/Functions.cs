@@ -1,18 +1,9 @@
 ﻿#region
 
 using Assets.Scripts.UI;
-using Cysharp.Threading.Tasks;
 using HarmonyLib;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection.Emit;
-using System.Text;
-using System.Threading;
-using TMPro;
-using UI.Tooltips;
-using UnityEngine;
-using Util;
 
 #endregion
 

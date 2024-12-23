@@ -6,7 +6,6 @@ using Assets.Scripts.Objects.Entities;
 using Assets.Scripts.Objects.Items;
 using JetBrains.Annotations;
 using TMPro;
-using UnityEngine;
 
 #endregion
 

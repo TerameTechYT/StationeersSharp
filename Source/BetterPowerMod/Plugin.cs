@@ -75,7 +75,7 @@ public class Plugin : BaseUnityPlugin {
             "Charging Patches",
             true,
             $"Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate");
-        
+
         Data.fastChargeRate = Config.Bind("Configurables",
             "Fast Charging Charging Rate",
             Data.TwoAndAHalfKilowatts,

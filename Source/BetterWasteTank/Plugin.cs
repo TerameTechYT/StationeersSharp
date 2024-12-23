@@ -7,9 +7,9 @@ using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
+using JetBrains.Annotations;
 using System;
 using UnityEngine.SceneManagement;
-using JetBrains.Annotations;
 
 #endregion
 
