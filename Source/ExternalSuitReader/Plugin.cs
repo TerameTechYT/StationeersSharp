@@ -68,7 +68,7 @@ public class Plugin : BaseUnityPlugin {
         Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
     }
 
-    public static void LogError(Exception ex) => Log($"{ex.Source}: {ex.Message}", Data.Severity.Error);
+    public static void LogError(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Data.Severity.Error);
     public static void LogError(string message) => Log(message, Data.Severity.Error);
     public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
     public static void LogInfo(string message) => Log(message, Data.Severity.Info);
@@ -98,7 +98,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "externalsuitreader";
     public const string ModName = "ExternalSuitReader";
-    public const string ModVersion = "1.3.9";
+    public const string ModVersion = "1.4.0";
     public const ulong ModHandle = 3071985478;
 
     // Game Data
