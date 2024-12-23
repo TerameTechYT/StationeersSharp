@@ -17,6 +17,7 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Style", "IDE0060:Remove unused parameter")]
 [assembly: SuppressMessage("Style", "IDE0058:Expression value is never used")]
 
+[assembly: SuppressMessage("Design", "CA1998:Async method lacks 'await' operators and will run synchronously")]
 [assembly: SuppressMessage("Design", "CA1051:Do not declare visible instance fields")]
 [assembly: SuppressMessage("Design", "CA1034:Nested types should not be visible")]
 [assembly: SuppressMessage("Design", "CA1065:Do not raise exceptions in unexpected locations")]
