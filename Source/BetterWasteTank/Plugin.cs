@@ -48,12 +48,12 @@ public class Plugin : BaseUnityPlugin {
     public void LoadConfiguration() {
         Data.wasteCriticalRatio = Config.Bind("Configurables",
             "Waste Critical Ratio",
-            0.975f,
+            0.975,
             "(0.0 to 1.0) Ratio when \"Waste Tank Critical!\" alarm goes off.");
 
         Data.wasteCautionRatio = Config.Bind("Configurables",
             "Waste Caution Ratio",
-            0.75f,
+            0.75,
             "(0.0 to 1.0) Ratio when \"Waste Tank Caution\" alarm goes off.");
     }
 
@@ -79,7 +79,7 @@ public class Plugin : BaseUnityPlugin {
         Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
     }
 
-    public static void LogError(Exception ex) => Log($"{ex.Source}: {ex.Message}", Data.Severity.Error);
+    public static void LogError(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Data.Severity.Error);
     public static void LogError(string message) => Log(message, Data.Severity.Error);
     public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
     public static void LogInfo(string message) => Log(message, Data.Severity.Info);
@@ -109,7 +109,7 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "betterwastetank";
     public const string ModName = "BetterWasteTank";
-    public const string ModVersion = "1.4.0";
+    public const string ModVersion = "1.4.1";
     public const ulong ModHandle = 3071913936;
 
     // Game Data
@@ -134,9 +134,9 @@ internal struct Data {
         }
     }
 
-    public static ConfigEntry<float> wasteCriticalRatio;
-    public static float WasteCriticalRatio => wasteCriticalRatio?.Value ?? 0.75f;
+    public static ConfigEntry<double> wasteCriticalRatio;
+    public static double WasteCriticalRatio => wasteCriticalRatio?.Value ?? 0.75;
 
-    public static ConfigEntry<float> wasteCautionRatio;
-    public static float WasteCautionRatio => wasteCautionRatio?.Value ?? 0.975f;
+    public static ConfigEntry<double> wasteCautionRatio;
+    public static double WasteCautionRatio => wasteCautionRatio?.Value ?? 0.975;
 }

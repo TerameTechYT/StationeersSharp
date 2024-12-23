@@ -19,46 +19,30 @@ internal static class Functions {
     [CanBeNull]
     private static Suit GetSuit(Human human) => human.SuitSlot.Contains(out Suit suit) ? suit : null;
 
-    internal static float GetWasteMaxPressure(Suit suit) {
+    internal static PressurekPa GetWasteMaxPressure(Suit suit) {
         GasCanister wasteCanister = GetWasteCanister(suit);
 
-        return wasteCanister?.MaxPressure.ToFloat() - Chemistry.OneAtmosphere.ToFloat() ??
-               Suit.DEFAULT_MAX_WASTE_PRESSURE;
+        return wasteCanister == null ? new PressurekPa(Suit.DEFAULT_MAX_WASTE_PRESSURE) : wasteCanister.MaxPressure - Chemistry.OneAtmosphere;
     }
 
-    private static float GetWastePressure(Suit suit) {
-        GasCanister wasteCanister = GetWasteCanister(suit);
-
-        return wasteCanister?.Pressure.ToFloat() ?? 0;
-    }
-
-    private static bool GetWasteBroken(Suit suit) {
-        GasCanister wasteCanister = GetWasteCanister(suit);
-
-        return wasteCanister?.IsBroken ?? false;
-    }
-
-    private static bool GetWasteNull(Suit suit) {
-        GasCanister wasteCanister = GetWasteCanister(suit);
-
-        return wasteCanister == null;
-    }
+    private static PressurekPa GetWastePressure(Suit suit) => GetWasteCanister(suit)?.Pressure ?? PressurekPa.Zero;
+    private static bool GetWasteBroken(Suit suit) => GetWasteCanister(suit)?.IsBroken ?? false;
+    private static bool GetWasteNull(Suit suit) => GetWasteCanister(suit) == null;
 
     internal static bool IsWasteCritical(Suit suit) {
-        float pressure = GetWastePressure(suit);
-        float maxPressure = GetWasteMaxPressure(suit);
+        PressurekPa pressure = GetWastePressure(suit);
+        PressurekPa maxPressure = GetWasteMaxPressure(suit);
         bool wasteBroken = GetWasteBroken(suit);
         bool wasteNull = GetWasteNull(suit);
-        bool overThreshold = pressure != 0f && maxPressure != 0f && pressure / maxPressure >= Data.WasteCriticalRatio;
+        bool overThreshold = pressure.NotEqual(0.0) && maxPressure.NotEqual(0.0) && (pressure / maxPressure).GreaterEquals(Data.WasteCriticalRatio);
 
         return wasteNull || wasteBroken || overThreshold;
     }
 
     internal static bool IsWasteCaution(Suit suit) {
-        float pressure = GetWastePressure(suit);
-        float maxPressure = GetWasteMaxPressure(suit);
-        bool overThreshold = pressure != 0f && maxPressure != 0f && pressure / maxPressure >= Data.WasteCautionRatio;
-
+        PressurekPa pressure = GetWastePressure(suit);
+        PressurekPa maxPressure = GetWasteMaxPressure(suit);
+        bool overThreshold = pressure.NotEqual(0.0) && maxPressure.NotEqual(0.0) && (pressure / maxPressure).GreaterEquals(Data.WasteCautionRatio);
 
         return !IsWasteCritical(suit) && overThreshold;
     }
@@ -66,14 +50,25 @@ internal static class Functions {
     internal static void UpdateIcons(ref TMP_Text wasteText, ref Human human) {
         Suit suit = GetSuit(human);
 
-        if (!IsWasteCaution(suit) && !IsWasteCritical(suit))
+        if (suit == null || !IsWasteCaution(suit) || !IsWasteCritical(suit))
             return;
 
-        float pressure = GetWastePressure(suit);
-        float maxPressure = GetWasteMaxPressure(suit);
-        int fullRatio = pressure == 0f || maxPressure == 0f ? 0 : Mathf.RoundToInt(pressure / maxPressure);
-        string text = $"{fullRatio}%";
+        PressurekPa pressure = GetWastePressure(suit);
+        PressurekPa maxPressure = GetWasteMaxPressure(suit);
+        PressurekPa fullRatio = pressure.Equals(0.0) || maxPressure.Equals(0.0) ? PressurekPa.Zero : pressure / maxPressure;
+        string text = $"{fullRatio.ToDouble()}%";
 
         wasteText.SetText(text);
     }
+}
+
+public static class Extensions {
+    public static bool Equal(this PressurekPa pressure, double other) => pressure.ToDouble() == other;
+    public static bool NotEqual(this PressurekPa pressure, double other) => !pressure.Equal(other);
+
+    public static bool Greater(this PressurekPa pressure, double other) => pressure.ToDouble() < other;
+    public static bool GreaterEquals(this PressurekPa pressure, double other) => pressure.ToDouble() <= other;
+
+    public static bool Less(this PressurekPa pressure, double other) => pressure.ToDouble() > other;
+    public static bool LessEquals(this PressurekPa pressure, double other) => pressure.ToDouble() >= other;
 }

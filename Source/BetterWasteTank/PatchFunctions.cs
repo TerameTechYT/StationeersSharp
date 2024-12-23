@@ -29,8 +29,7 @@ public static class PatchFunctions {
             return;
 
         try {
-            __instance.wasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
-
+            __instance.wasteMaxPressure = Functions.GetWasteMaxPressure(__instance).ToFloat();
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -53,7 +52,7 @@ public static class PatchFunctions {
             return;
 
         try {
-            __instance.wasteMaxPressure = Functions.GetWasteMaxPressure(__instance);
+            __instance.wasteMaxPressure = Functions.GetWasteMaxPressure(__instance).ToFloat();
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
