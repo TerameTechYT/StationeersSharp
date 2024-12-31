@@ -65,9 +65,9 @@ public static class Extensions {
     public static bool Equal(this PressurekPa pressure, double other) => pressure.ToDouble() == other;
     public static bool NotEqual(this PressurekPa pressure, double other) => !pressure.Equal(other);
 
-    public static bool Greater(this PressurekPa pressure, double other) => pressure.ToDouble() < other;
-    public static bool GreaterEquals(this PressurekPa pressure, double other) => pressure.ToDouble() <= other;
+    public static bool Greater(this PressurekPa pressure, double other) => pressure.ToDouble() > other;
+    public static bool GreaterEquals(this PressurekPa pressure, double other) => pressure.ToDouble() >= other;
 
-    public static bool Less(this PressurekPa pressure, double other) => pressure.ToDouble() > other;
-    public static bool LessEquals(this PressurekPa pressure, double other) => pressure.ToDouble() >= other;
+    public static bool Less(this PressurekPa pressure, double other) => pressure.ToDouble() < other;
+    public static bool LessEquals(this PressurekPa pressure, double other) => pressure.ToDouble() <= other;
 }
