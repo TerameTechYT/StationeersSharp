@@ -20,13 +20,13 @@ public static class PatchFunctions {
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.CanLogicRead))]
-    [HarmonyPrefix]
-    public static bool AdvancedSuitCanLogicRead(AdvancedSuit __instance, ref bool __result, LogicType logicType) {
+    [HarmonyPostfix]
+    public static void AdvancedSuitCanLogicRead(AdvancedSuit __instance, ref bool __result, LogicType logicType) {
         if (__instance == null)
-            return true;
+            return;
 
         try {
-            __result = Functions.CanLogicRead(logicType);
+            __result = __result || Functions.CanLogicRead(logicType);
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -38,20 +38,18 @@ public static class PatchFunctions {
                 Plugin.LogError(ex);
             }
         }
-
-        return false;
     }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.GetLogicValue))]
-    [HarmonyPrefix]
-    public static bool AdvancedSuitGetLogicValue(AdvancedSuit __instance, ref double __result, LogicType logicType) {
+    [HarmonyPostfix]
+    public static void AdvancedSuitGetLogicValue(AdvancedSuit __instance, ref double __result, LogicType logicType) {
         if (__instance == null)
-            return true;
+            return;
 
         try {
             if (!Functions.CanLogicRead(logicType))
-                return true;
+                return;
 
             __result = Functions.GetLogicValue(__instance, logicType);
         }
@@ -65,7 +63,5 @@ public static class PatchFunctions {
                 Plugin.LogError(ex);
             }
         }
-
-        return false;
     }
 }
