@@ -10,6 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Usage", "CA2243:Attribute string literals should parse correctly")]
 
+[assembly: SuppressMessage("Naming", "CA1720:Identifier contains type name")]
 [assembly: SuppressMessage("Naming", "CA1708:Identifiers should differ by more than case")]
 [assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
 
