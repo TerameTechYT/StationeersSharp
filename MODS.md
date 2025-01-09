@@ -6,6 +6,10 @@
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.<br>
 > [More Details](/Source/BetterWasteTank)<br>
 
+### Better Water Combustor (BWC)
+> Makes H2/Water combustor will no longer have micromoles of hot water that will flow into your condensation valves.
+> [More Details](/Source/BetterWaterCombustor)<br>
+
 ### Detailed Player Info (DPI):
 > Makes the info windows on the bottom right more informal by untruncating the numbers it displays.<br>
 > [More Details](/Source/DetailedPlayerInfo)<br>
