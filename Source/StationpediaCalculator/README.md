@@ -1,4 +1,4 @@
-## Downloads [here](https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release)
+## Downloads [here](/Build/x64/Release)
 
 ### StationpediaCalculator (SC):
 > Demonstration Link: [Youtube](https://youtu.be/Bjh0wN31I_M) <br>

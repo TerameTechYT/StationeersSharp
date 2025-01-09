@@ -1,4 +1,4 @@
-## Downloads [here](https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release)
+## Downloads [here](/Build/x64/Release)
 
 ### Sonic Ether Global Illumination (SEGI):
 > **Full credits to Erdoy for the original port to Stationeers.Addons!!!**<br>
