@@ -19,6 +19,10 @@
       <HintPath>$(StationeersModsDirectory)\StationeersMods.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="StationeersMods.Plugin">
+      <HintPath>$(StationeersModsDirectory)\StationeersMods.Plugin.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="StationeersMods.Cecil">
       <HintPath>$(StationeersModsDirectory)\StationeersMods.Cecil.dll</HintPath>
       <Private>False</Private>
