@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Better Water Combustor [StationeersMods]</Name>
+  <Author>vinus</Author>
+  <Version>1.0.0</Version>
+  <Description>
+    [h1]Better Water Combustor[/h1]
+    [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
+    See: https://github.com/jixxed/StationeersMods
+    
+    Makes H2/Water combustor will no longer have micromoles of hot water that will flow into your condensation valves.
+    This does not remove any water, you will still get 100% of the water you produce, however it will be added to the combustor as steam instead of liquid water.
+
+    you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+    https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+  </Description>
+  <InGameDescription>
+    <![CDATA[<size="30"><color=#ffa500> Better Water Combustor </color></size>
+<b>WARNING:</b> <color=#ff0000>This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.</color>
+See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u></b>.
+]]>
+  </InGameDescription>
+  <WorkshopHandle>3404201609</WorkshopHandle>
+  <Tags>
+    <Tag>Mod</Tag>
+    <Tag>BepInEx</Tag>
+    <Tag>StationeersMods</Tag>
+  </Tags>
+</ModMetadata>
