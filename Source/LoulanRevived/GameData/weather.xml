@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+   <WeatherEvent Id="LoulanDustStorm">
+      <Name Value="Dust Storm"/>
+      <ParticleId Value="DustStorm"/>
+      <CoolDown Min="3" Max="12"/> <!-- Days -->
+      <StartDelay Min="120" Max="900"/>
+      <Duration Min="120" Max="600"/>
+      <Fog>
+         <Color r="0.6415094" g="0.4853544" b="0.4145603" a="1"/>
+      </Fog>
+
+      <TemperatureOffset>
+         <Day Value="20"/>
+         <Night Value="10"/>
+      </TemperatureOffset>
+
+      <SolarRatio Value="0.1"/>
+      <WindStrength Value="15"/>
+
+      <MovementSpeedMultiplier Value ="0.1"/>
+      <DamageMultiplier Value="1"/>
+
+      <Direction Value="North"/>
+      <Direction Value="East"/>
+      <Direction Value="South"/>
+      <Direction Value="West"/>
+      <Shell1Sound Value="WindShell1"/>
+      <Shell2Sound Value="WindShell2"/>
+      <Shell3Sound Value="WindShell3"/>
+      <Shell4Sound Value="WindShell4"/>
+   </WeatherEvent>
+</GameData>

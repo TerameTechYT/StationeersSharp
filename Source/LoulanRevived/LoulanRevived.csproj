@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ModName>LoulanRevived</ModName>
+    <AssemblyName>$(ModName)</AssemblyName>
+    <RootNamespace>$(ModName)</RootNamespace>
+
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>none</ErrorReport>
+
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/TerameTechYT/StationeersSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TerameTechYT/StationeersSharp</RepositoryUrl>
+    <PackageLicenseFile>..\..\LICENSE.md</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <BaseOutputPath>..\..\Build\</BaseOutputPath>
+    <BaseIntermediateOutputPath>..\..\Objects\</BaseIntermediateOutputPath>
+
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x64;x86</Platforms>
+    <DebugType>embedded</DebugType>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\GlobalSuppressions.cs" />
+  </ItemGroup>
+
+  <!-- Import Stationeers VS properties - paths etc. -->
+  <Import Project="$(SolutionDir)Stationeers.VS.props" />
+
+  <!-- Import Game/Unity DLL references -->
+  <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <CopyItemsGameData Include="$(ProjectDir)\GameData\**\*.*" />
+    <CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
+    <CopyItemsTextures Include="$(ProjectDir)\Textures\**\*.*" />
+    <CopyItemsIncidents Include="$(ProjectDir)\Incidents\**\*.*" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
+    <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
+    <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
+    <Copy SourceFiles="@(CopyItemsTextures)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\Textures\%(RecursiveDir)" ContinueOnError="true" />
+    <Copy SourceFiles="@(CopyItemsIncidents)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\Incidents\%(RecursiveDir)" ContinueOnError="true" />
+  </Target>
+</Project>

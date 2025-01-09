@@ -1,0 +1,4170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Composition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Things>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1077</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>0</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1078</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>2</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1079</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>4</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>18.0274639</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1082</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>0</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1083</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>2</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>-2</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1081</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>-2</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1080</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>0</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1131</ReferenceId>
+      <PrefabName>StructureFrameCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-4</x>
+        <y>4</y>
+        <z>4</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>0.5</y>
+        <z>0.5</z>
+        <w>0.5</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>90</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1138</ReferenceId>
+      <PrefabName>StructureCompositeWindowIron</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-3</x>
+        <y>6</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>-0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>270</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>56.91401</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>2</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1084</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>2</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>-1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1088</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>4</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>69.83327</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1222</ReferenceId>
+      <PrefabName>StructureWallGeometryCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>7</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-3.09086232E-08</x>
+        <y>0.7071068</y>
+        <z>-0.7071068</z>
+        <w>-3.09086232E-08</w>
+        <eulerAngles>
+          <x>90</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1091</ReferenceId>
+      <PrefabName>StructureLadder</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>2</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1128</ReferenceId>
+      <PrefabName>StructureFrameSide</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>4</y>
+        <z>4</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>0.5</y>
+        <z>0.5</z>
+        <w>0.5</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>90</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1137</ReferenceId>
+      <PrefabName>StructureCompositeWindowIron</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>6</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>2</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1129</ReferenceId>
+      <PrefabName>StructureFrameSide</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>4</y>
+        <z>4</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>0.5</y>
+        <z>0.5</z>
+        <w>0.5</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>90</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>51.1418381</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1132</ReferenceId>
+      <PrefabName>StructureFrameCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-4</x>
+        <y>4</y>
+        <z>-2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0.7071068</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>90</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1238</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>6</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>1.37678782E-07</x>
+        <y>-0.7071068</y>
+        <z>-0.7071068</z>
+        <w>-1.37678782E-07</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>179.999985</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1126</ReferenceId>
+      <PrefabName>StructureFrameSide</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-4</x>
+        <y>4</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0.7071068</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>90</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1240</ReferenceId>
+      <PrefabName>StructureCableCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>5</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-0.499998569</x>
+        <y>-0.5000015</y>
+        <z>-0.5000015</z>
+        <w>0.499998569</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>269.999664</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1239</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>5.5</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>1.37678782E-07</x>
+        <y>-0.7071068</y>
+        <z>-0.7071068</z>
+        <w>-1.37678782E-07</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>179.999985</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1125</ReferenceId>
+      <PrefabName>StructureFrameSide</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>4</y>
+        <z>-2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>0.5</y>
+        <z>-0.5</z>
+        <w>-0.5</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>270</y>
+          <z>90</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1127</ReferenceId>
+      <PrefabName>StructureFrameSide</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-4</x>
+        <y>4</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0.7071068</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>90</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>27.0427418</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1140</ReferenceId>
+      <PrefabName>StructureCompositeWindowIron</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>6</y>
+        <z>-1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+        <w>-4.371139E-08</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>2</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1237</ReferenceId>
+      <PrefabName>StructureCableCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>6.5</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>2.24502128E-06</x>
+        <y>0.7071068</y>
+        <z>-0.7071068</z>
+        <w>2.24502128E-06</w>
+        <eulerAngles>
+          <x>90</x>
+          <y>179.999634</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="DoorSaveData">
+      <ReferenceId>1168</ReferenceId>
+      <PrefabName>StructureGlassDoor</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-3</x>
+        <y>6</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Open</StateName>
+          <State>1</State>
+        </State>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>1</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>1</State>
+        </State>
+        <State>
+          <StateName>Mode</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Access</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>14.0154552</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>2</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <Setting>0</Setting>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1145</ReferenceId>
+      <PrefabName>StructureCompositeWindowIron</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-3</x>
+        <y>6</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>2</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1146</ReferenceId>
+      <PrefabName>StructureCompositeWindowIron</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>6</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+        <w>-4.371139E-08</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>2</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="MachineSaveData">
+      <ReferenceId>1231</ReferenceId>
+      <PrefabName>StructureAreaPowerControl</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-0.5</x>
+        <y>6.5</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-8.195637E-08</x>
+        <y>1</y>
+        <z>-5.67517E-08</z>
+        <w>-4.37113918E-08</w>
+        <eulerAngles>
+          <x>6.503266E-06</x>
+          <y>180</y>
+          <z>-9.391509E-06</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>1</State>
+        </State>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Mode</StateName>
+          <State>2</State>
+        </State>
+        <State>
+          <StateName>Open</StateName>
+          <State>1</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Button1</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Button2</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Button3</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Access</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <MachineState>0</MachineState>
+      <GoalPressure>101.325</GoalPressure>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1155</ReferenceId>
+      <PrefabName>StructureWallPaddingThin</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>1</x>
+        <y>6</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1241</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>5</y>
+        <z>2.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>1.49011669E-07</x>
+        <y>1.49011669E-07</y>
+        <z>0.7071068</z>
+        <w>-0.7071068</w>
+        <eulerAngles>
+          <x>-2.41483776E-05</x>
+          <y>0</y>
+          <z>270</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1199</ReferenceId>
+      <PrefabName>StructureLockerSmall</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0.5</x>
+        <y>5</y>
+        <z>2.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+        <w>-4.371139E-08</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Open</StateName>
+          <State>1</State>
+        </State>
+        <State>
+          <StateName>Access</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>9</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="BatteryCellSaveData">
+      <ReferenceId>1234</ReferenceId>
+      <PrefabName>ItemBatteryCellNuclear</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-0.4031641</x>
+        <y>6.384979</y>
+        <z>2.87004471</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-8.886053E-08</x>
+        <y>0.707106769</y>
+        <z>-0.7071069</z>
+        <w>2.70432885E-08</w>
+        <eulerAngles>
+          <x>90</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Mode</StateName>
+          <State>5</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <ParentReferenceId>1231</ParentReferenceId>
+      <ParentSlotId>0</ParentSlotId>
+      <Dragged>false</Dragged>
+      <DraggedInteractionIndex>0</DraggedInteractionIndex>
+      <DragOffset>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </DragOffset>
+      <Velocity>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Velocity>
+      <AngularVelocity>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </AngularVelocity>
+      <HealthCurrent>0</HealthCurrent>
+      <PowerStored>2251290</PowerStored>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1225</ReferenceId>
+      <PrefabName>StructureWallGeometryCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>7</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>0.5</y>
+        <z>-0.5</z>
+        <w>0.5</w>
+        <eulerAngles>
+          <x>90</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1173</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>6</y>
+        <z>5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1174</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-4</x>
+        <y>6</y>
+        <z>5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1175</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-5</x>
+        <y>6</y>
+        <z>4</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>-0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>270</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1176</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-5</x>
+        <y>6</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>-0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>270</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1177</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-5</x>
+        <y>6</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>-0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>270</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1233</ReferenceId>
+      <PrefabName>StructureWallPaddingThin</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>6</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1186</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>5</y>
+        <z>4</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-3.09086232E-08</x>
+        <y>-0.7071068</y>
+        <z>-0.7071068</z>
+        <w>3.09086232E-08</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>75.84718</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1187</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-4</x>
+        <y>5</y>
+        <z>4</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-3.09086232E-08</x>
+        <y>-0.7071068</y>
+        <z>-0.7071068</z>
+        <w>3.09086232E-08</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>84.29596</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1188</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-4</x>
+        <y>5</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-3.09086232E-08</x>
+        <y>-0.7071068</y>
+        <z>-0.7071068</z>
+        <w>3.09086232E-08</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>104.511948</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1189</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-4</x>
+        <y>5</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-3.09086232E-08</x>
+        <y>-0.7071068</y>
+        <z>-0.7071068</z>
+        <w>3.09086232E-08</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1195</ReferenceId>
+      <PrefabName>StructureBench</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2.5</x>
+        <y>5</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>9</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="DynamicThingSaveData">
+      <ReferenceId>1198</ReferenceId>
+      <PrefabName>ApplianceMicrowave</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2.40655375</x>
+        <y>5.63</y>
+        <z>2.254611</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-0</x>
+        <y>0.7071068</y>
+        <z>-0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>-0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Open</StateName>
+          <State>1</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>9</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <ParentReferenceId>1195</ParentReferenceId>
+      <ParentSlotId>1</ParentSlotId>
+      <Dragged>false</Dragged>
+      <DraggedInteractionIndex>0</DraggedInteractionIndex>
+      <DragOffset>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </DragOffset>
+      <Velocity>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Velocity>
+      <AngularVelocity>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </AngularVelocity>
+      <HealthCurrent>0</HealthCurrent>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1212</ReferenceId>
+      <PrefabName>StructureWallGeometryCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>7</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.7071068</x>
+        <y>0</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>90</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1213</ReferenceId>
+      <PrefabName>StructureWallGeometryCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>7</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-0.5</x>
+        <y>0.5</y>
+        <z>-0.5</z>
+        <w>-0.5</w>
+        <eulerAngles>
+          <x>90</x>
+          <y>270</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1227</ReferenceId>
+      <PrefabName>StructureCompositeWindowIron</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>6</y>
+        <z>-1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-2.98023188E-08</x>
+        <y>2.98023188E-08</y>
+        <z>0.7071067</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-4.82967243E-06</x>
+          <y>4.07111E-13</y>
+          <z>89.99999</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1242</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>5</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>1.49011669E-07</x>
+        <y>1.49011669E-07</y>
+        <z>0.7071068</z>
+        <w>-0.7071068</w>
+        <eulerAngles>
+          <x>-2.41483776E-05</x>
+          <y>0</y>
+          <z>270</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1243</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>5</y>
+        <z>1.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>1.49011669E-07</x>
+        <y>1.49011669E-07</y>
+        <z>0.7071068</z>
+        <w>-0.7071068</w>
+        <eulerAngles>
+          <x>-2.41483776E-05</x>
+          <y>0</y>
+          <z>270</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1246</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1.5</x>
+        <y>5</y>
+        <z>1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>2.10734363E-08</x>
+        <y>0.7071066</y>
+        <z>-2.10734115E-08</z>
+        <w>0.707106948</w>
+        <eulerAngles>
+          <x>3.41509462E-06</x>
+          <y>89.99997</y>
+          <z>1.221333E-12</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1286</ReferenceId>
+      <PrefabName>StructureWallPaddingThin</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>6</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+        <w>-4.371139E-08</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1252</ReferenceId>
+      <PrefabName>StructureCableCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2.5</x>
+        <y>5</y>
+        <z>1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-2.6341587E-07</x>
+        <y>1</y>
+        <z>-3.888047E-06</z>
+        <w>1.27116818E-05</w>
+        <eulerAngles>
+          <x>0.000445537</x>
+          <y>179.99855</y>
+          <z>-3.01908985E-05</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1284</ReferenceId>
+      <PrefabName>StructureCableCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>5</y>
+        <z>1.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-6.12437952E-06</x>
+        <y>0.7071248</y>
+        <z>-5.60283524E-06</z>
+        <w>-0.707088768</w>
+        <eulerAngles>
+          <x>0.000950237154</x>
+          <y>269.99707</y>
+          <z>-4.228415E-05</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1250</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2.5</x>
+        <y>5</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>2.10734228E-07</x>
+        <y>2.38418536E-07</y>
+        <z>1</z>
+        <w>-4.3711438E-08</w>
+        <eulerAngles>
+          <x>-2.73207534E-05</x>
+          <y>2.41483631E-05</y>
+          <z>180</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1330</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating3</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>5</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>-0.5</y>
+        <z>-0.5</z>
+        <w>-0.5</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1257</ReferenceId>
+      <PrefabName>StructureCableCorner3</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>5</y>
+        <z>1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1358</ReferenceId>
+      <PrefabName>StructureFrame</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>4</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>-1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1271</ReferenceId>
+      <PrefabName>StructureCableCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0.5</x>
+        <y>7</y>
+        <z>-1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>6.595983E-06</x>
+        <y>-2.03549862E-05</y>
+        <z>-3.58247462E-07</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>0.0007558431</x>
+          <y>-0.00233250973</y>
+          <z>-4.106752E-05</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>36</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1272</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>7</y>
+        <z>-1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>0.5</y>
+        <z>0.5</z>
+        <w>0.5</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>90</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>36</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1323</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>7</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-3.09086232E-08</x>
+        <y>-0.7071068</y>
+        <z>-0.7071068</z>
+        <w>3.09086232E-08</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1274</ReferenceId>
+      <PrefabName>StructureCableJunction</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-0.5</x>
+        <y>7</y>
+        <z>-1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>36</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1281</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1.5</x>
+        <y>5</y>
+        <z>-0.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>2.10734363E-08</x>
+        <y>0.7071066</y>
+        <z>-2.10734115E-08</z>
+        <w>0.707106948</w>
+        <eulerAngles>
+          <x>3.41509462E-06</x>
+          <y>89.99997</y>
+          <z>1.221333E-12</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1282</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>5</y>
+        <z>-0.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>2.10734363E-08</x>
+        <y>0.7071066</y>
+        <z>-2.10734115E-08</z>
+        <w>0.707106948</w>
+        <eulerAngles>
+          <x>3.41509462E-06</x>
+          <y>89.99997</y>
+          <z>1.221333E-12</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1283</ReferenceId>
+      <PrefabName>StructureCableJunction</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2.5</x>
+        <y>5</y>
+        <z>-0.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1285</ReferenceId>
+      <PrefabName>StructureCableJunction</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>5</y>
+        <z>1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1287</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating3</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>5</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>-0.5</y>
+        <z>-0.5</z>
+        <w>-0.5</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1288</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating3</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>5</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>-0.5</y>
+        <z>-0.5</z>
+        <w>-0.5</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1329</ReferenceId>
+      <PrefabName>StructureCableJunction</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2.5</x>
+        <y>5</y>
+        <z>0.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>54</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1290</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>5</y>
+        <z>4</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-3.09086232E-08</x>
+        <y>-0.7071068</y>
+        <z>-0.7071068</z>
+        <w>3.09086232E-08</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1291</ReferenceId>
+      <PrefabName>StructureCompositeFloorGrating</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>7</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-3.09086232E-08</x>
+        <y>-0.7071068</y>
+        <z>-0.7071068</z>
+        <w>3.09086232E-08</w>
+        <eulerAngles>
+          <x>270</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Lock</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>0</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1314</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>7</y>
+        <z>1.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>1.82372241E-14</x>
+        <y>1</y>
+        <z>-2.98023224E-08</z>
+        <w>3.13916473E-07</w>
+        <eulerAngles>
+          <x>3.41509462E-06</x>
+          <y>179.999969</y>
+          <z>1.01777755E-12</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>34</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1311</ReferenceId>
+      <PrefabName>StructureCableCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2.5</x>
+        <y>7</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>5.602838E-06</x>
+        <y>0.7070885</y>
+        <z>-6.12437725E-06</z>
+        <w>0.7071251</w>
+        <eulerAngles>
+          <x>0.00095023727</x>
+          <y>89.99703</y>
+          <z>-4.228415E-05</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>34</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1295</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>1</x>
+        <y>6</y>
+        <z>4</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1296</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>6</y>
+        <z>5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+        <w>-4.371139E-08</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1297</ReferenceId>
+      <PrefabName>StructureChair</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-0.5</x>
+        <y>5</y>
+        <z>2.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+        <w>-4.371139E-08</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>9</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1298</ReferenceId>
+      <PrefabName>StructureLadder</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>6</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1299</ReferenceId>
+      <PrefabName>StructureLadderEnd</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0</x>
+        <y>8</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1301</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>1</x>
+        <y>8</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>-0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>270</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1305</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-3</x>
+        <y>8</y>
+        <z>0</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1306</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-3</x>
+        <y>8</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0.7071068</y>
+        <z>0</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1307</ReferenceId>
+      <PrefabName>StructureRailing</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>8</y>
+        <z>3</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+        <w>-4.371139E-08</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1309</ReferenceId>
+      <PrefabName>StructureComputer</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>7</y>
+        <z>2.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>1</y>
+        <z>0</z>
+        <w>-4.371139E-08</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>180</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States>
+        <State>
+          <StateName>Open</StateName>
+          <State>1</State>
+        </State>
+        <State>
+          <StateName>OnOff</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Powered</StateName>
+          <State>0</State>
+        </State>
+        <State>
+          <StateName>Error</StateName>
+          <State>1</State>
+        </State>
+      </States>
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1313</ReferenceId>
+      <PrefabName>StructureCableJunction</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>7</y>
+        <z>2</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>34</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1321</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1.5</x>
+        <y>7</y>
+        <z>-1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.4999999</x>
+        <y>-0.5000001</y>
+        <z>-0.5000001</z>
+        <w>0.4999999</w>
+        <eulerAngles>
+          <x>-2.39056626E-05</x>
+          <y>270</y>
+          <z>270</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>36</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1322</ReferenceId>
+      <PrefabName>StructureCableJunction</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-1</x>
+        <y>7</y>
+        <z>-1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.5</x>
+        <y>0.5</y>
+        <z>0.5</z>
+        <w>0.5</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>90</y>
+          <z>90</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>36</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="ConsumableSaveData">
+      <ReferenceId>1336</ReferenceId>
+      <PrefabName>ItemTomatoSoup</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>0.49986577</x>
+        <y>6.377839</y>
+        <z>2.44426441</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.270598024</x>
+        <y>0.65328145</y>
+        <z>-0.653281569</z>
+        <w>-0.270598024</w>
+        <eulerAngles>
+          <x>45.0000076</x>
+          <y>270</y>
+          <z>90.00001</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>-1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <ParentReferenceId>1199</ParentReferenceId>
+      <ParentSlotId>1</ParentSlotId>
+      <Dragged>false</Dragged>
+      <DraggedInteractionIndex>0</DraggedInteractionIndex>
+      <DragOffset>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </DragOffset>
+      <Velocity>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Velocity>
+      <AngularVelocity>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </AngularVelocity>
+      <HealthCurrent>0</HealthCurrent>
+      <Quantity>1</Quantity>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1349</ReferenceId>
+      <PrefabName>StructureCableCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>1</x>
+        <y>3</y>
+        <z>1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.499990463</x>
+        <y>-0.5000186</y>
+        <z>-0.5000098</z>
+        <w>0.499981165</w>
+        <eulerAngles>
+          <x>-0.00325117</x>
+          <y>269.998962</y>
+          <z>269.999969</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>51</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1351</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>1</x>
+        <y>4</y>
+        <z>0.5</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>1</x>
+        <y>-4.37113634E-08</y>
+        <z>-4.01339264E-07</z>
+        <w>5.960465E-08</w>
+        <eulerAngles>
+          <x>6.830188E-06</x>
+          <y>180.000046</y>
+          <z>180</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>51</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1352</ReferenceId>
+      <PrefabName>StructureCableCorner</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>1</x>
+        <y>4</y>
+        <z>1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>0.707105637</x>
+        <y>0.707107961</y>
+        <z>-2.460059E-05</z>
+        <w>1.08831355E-05</w>
+        <eulerAngles>
+          <x>0.00287519372</x>
+          <y>180.001114</y>
+          <z>89.99981</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>51</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="CableSaveSaveData">
+      <ReferenceId>1353</ReferenceId>
+      <PrefabName>StructureCableStraight</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>1</x>
+        <y>3.5</y>
+        <z>1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>1.37678782E-07</x>
+        <y>0.7071068</y>
+        <z>-0.7071068</z>
+        <w>1.37678782E-07</w>
+        <eulerAngles>
+          <x>90</x>
+          <y>179.999985</y>
+          <z>0</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>18.9147911</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>0</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+      <CableNetworkId>51</CableNetworkId>
+    </ThingSaveData>
+    <ThingSaveData xsi:type="StructureSaveData">
+      <ReferenceId>1357</ReferenceId>
+      <PrefabName>StructureCompositeWindowIron</PrefabName>
+      <CustomName />
+      <WorldPosition>
+        <x>-2</x>
+        <y>6</y>
+        <z>-1</z>
+      </WorldPosition>
+      <WorldRotation>
+        <x>-2.98023188E-08</x>
+        <y>2.98023188E-08</y>
+        <z>0.7071067</z>
+        <w>0.7071068</w>
+        <eulerAngles>
+          <x>-4.82967243E-06</x>
+          <y>4.07111E-13</y>
+          <z>89.99999</z>
+        </eulerAngles>
+      </WorldRotation>
+      <States />
+      <IsCustomName>false</IsCustomName>
+      <CustomColorIndex>1</CustomColorIndex>
+      
+      <Reagents />
+      <Indestructable>false</Indestructable>
+      <DamageState>
+        <Brute>0</Brute>
+        <Burn>0</Burn>
+        <Oxygen>0</Oxygen>
+        <Hydration>0</Hydration>
+        <Starvation>0</Starvation>
+        <Toxic>0</Toxic>
+        <Radiation>0</Radiation>
+        <Stun>0</Stun>
+      </DamageState>
+      <CurrentBuildState>1</CurrentBuildState>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </ThingSaveData>
+  </Things>
+  <Atmosphere>
+    <AtmosphereSaveData>
+      <Position>
+        <x>-2</x>
+        <y>6</y>
+        <z>0</z>
+      </Position>
+      <Oxygen>0.131</Oxygen>
+      <Nitrogen>0.27</Nitrogen>
+      <CarbonDioxide>8.656</CarbonDioxide>
+      <Volatiles>0</Volatiles>
+      <Chlorine>0.05839586</Chlorine>
+      <Water>0</Water>
+      <NitrousOxide>0</NitrousOxide>
+      <Energy>74037.31</Energy>
+      <Volume>8000</Volume>
+      <Direction>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Direction>
+      <NetworkReferenceId>0</NetworkReferenceId>
+      <ThingReferenceId>0</ThingReferenceId>
+      <CleanBurnRate>0</CleanBurnRate>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </AtmosphereSaveData>
+    <AtmosphereSaveData>
+      <Position>
+        <x>0</x>
+        <y>2</y>
+        <z>0</z>
+      </Position>
+      <Oxygen>0.131</Oxygen>
+      <Nitrogen>0.27</Nitrogen>
+      <CarbonDioxide>8.656</CarbonDioxide>
+      <Volatiles>0</Volatiles>
+      <Chlorine>0.05839586</Chlorine>
+      <Water>0</Water>
+      <NitrousOxide>0</NitrousOxide>
+      <Energy>74037.41</Energy>
+      <Volume>8000</Volume>
+      <Direction>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Direction>
+      <NetworkReferenceId>0</NetworkReferenceId>
+      <ThingReferenceId>0</ThingReferenceId>
+      <CleanBurnRate>0</CleanBurnRate>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </AtmosphereSaveData>
+    <AtmosphereSaveData>
+      <Position>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Position>
+      <Oxygen>0.06537207</Oxygen>
+      <Nitrogen>0.134736329</Nitrogen>
+      <CarbonDioxide>4.319547</CarbonDioxide>
+      <Volatiles>0</Volatiles>
+      <Chlorine>0.0291409027</Chlorine>
+      <Water>0</Water>
+      <NitrousOxide>0</NitrousOxide>
+      <Energy>36946.44</Energy>
+      <Volume>3992.1875</Volume>
+      <Direction>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Direction>
+      <NetworkReferenceId>0</NetworkReferenceId>
+      <ThingReferenceId>0</ThingReferenceId>
+      <CleanBurnRate>0</CleanBurnRate>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </AtmosphereSaveData>
+    <AtmosphereSaveData>
+      <Position>
+        <x>0</x>
+        <y>-2</y>
+        <z>2</z>
+      </Position>
+      <Oxygen>0.02008496</Oxygen>
+      <Nitrogen>0.0413964875</Nitrogen>
+      <CarbonDioxide>1.32714069</CarbonDioxide>
+      <Volatiles>0</Volatiles>
+      <Chlorine>0.008953271</Chlorine>
+      <Water>0</Water>
+      <NitrousOxide>0</NitrousOxide>
+      <Energy>11389.3008</Energy>
+      <Volume>1226.5625</Volume>
+      <Direction>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Direction>
+      <NetworkReferenceId>0</NetworkReferenceId>
+      <ThingReferenceId>0</ThingReferenceId>
+      <CleanBurnRate>0</CleanBurnRate>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </AtmosphereSaveData>
+    <AtmosphereSaveData>
+      <Position>
+        <x>-2</x>
+        <y>-2</y>
+        <z>0</z>
+      </Position>
+      <Oxygen>0.028720215</Oxygen>
+      <Nitrogen>0.0591943376</Nitrogen>
+      <CarbonDioxide>1.89772654</CarbonDioxide>
+      <Volatiles>0</Volatiles>
+      <Chlorine>0.0128026074</Chlorine>
+      <Water>0</Water>
+      <NitrousOxide>0</NitrousOxide>
+      <Energy>16286.7979</Energy>
+      <Volume>1753.90625</Volume>
+      <Direction>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Direction>
+      <NetworkReferenceId>0</NetworkReferenceId>
+      <ThingReferenceId>0</ThingReferenceId>
+      <CleanBurnRate>0</CleanBurnRate>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </AtmosphereSaveData>
+    <AtmosphereSaveData>
+      <Position>
+        <x>-2</x>
+        <y>-2</y>
+        <z>2</z>
+      </Position>
+      <Oxygen>0.0201489255</Oxygen>
+      <Nitrogen>0.04152832</Nitrogen>
+      <CarbonDioxide>1.33136725</CarbonDioxide>
+      <Volatiles>0</Volatiles>
+      <Chlorine>0.008981785</Chlorine>
+      <Water>0</Water>
+      <NitrousOxide>0</NitrousOxide>
+      <Energy>11338.13</Energy>
+      <Volume>1230.46875</Volume>
+      <Direction>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </Direction>
+      <NetworkReferenceId>0</NetworkReferenceId>
+      <ThingReferenceId>0</ThingReferenceId>
+      <CleanBurnRate>0</CleanBurnRate>
+      <MothershipReferenceId>0</MothershipReferenceId>
+    </AtmosphereSaveData>
+  </Atmosphere>
+ <Rooms/>
+</Composition>

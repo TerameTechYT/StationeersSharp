@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>English</Name>
+  <Code>EN</Code>
+  <Font>font_english</Font>
+  <Interface>
+    <Record>
+      <Key>Loulan</Key>
+      <Value>Loulan</Value>
+    </Record>
+    <Record>
+      <Key>DefaultStartConditionLoulan</Key>
+      <Value>Loulan Barebones</Value>
+    </Record>
+  </Interface>
+</Language>

@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <WorldSettings>
+    <World Id="Loulan">
+      <Name Key="Loulan" />
+      <Description Key="LoulanShortDesc" />
+      <Rating Value="Challenging" Color="Orange" />
+      <PreviewButton Path="LoulanRevived/Textures/preview_loulan.png" Format="RGB24" />
+
+      <StartCondition Id="LoulanDefault" IsDefault="true" />
+      <StartCondition Id="LoulanBrutal" />
+
+      <WorldObjective Id="ManufacturingBasics" />
+      <WorldObjective Id="Stations" />
+      <WorldObjective Id="Trading" />
+      <WorldObjective Id="Concepts" />
+
+      <SunPrefabName>MagmaSun</SunPrefabName>
+      <SkyBoxMaterialName>LoulanSky</SkyBoxMaterialName>
+      <AmbienceSound>Loulan</AmbienceSound>
+      <TerrainPrefabName>TerrainLoulan</TerrainPrefabName>
+      <MaxSunIntensity>1</MaxSunIntensity>
+      <Gravity>-3.7</Gravity>
+      <SizeOfWorld>10</SizeOfWorld>
+      <WorldOreDensity>0.0005</WorldOreDensity>
+      <BedrockLevel>-40</BedrockLevel>
+
+      <CelestialConstants BodyScale="1" SkyboxScale="1">
+        <TimeOffset Days="0" Hours="0" Minutes="0" Seconds="600" />
+      </CelestialConstants>
+
+      <PrimaryBody Id="Janus" SolarConstant="907" />
+      <PlayableBody Id="Loulan" Parent="Janus" Latitude="0" Longitude="0" />
+      <TerrainGenerationFeatureSettings>
+        <isEnabled>true</isEnabled>
+        <BigTileSize>50</BigTileSize>
+        <GridSize>0</GridSize>
+        <CustomFeatureVoxel />
+        <CustomFeatureIncident>
+          <IncidentFeature>
+            <Type>33</Type>
+            <MaxPerTile>1</MaxPerTile>
+            <SpawnChance>1600</SpawnChance>
+            <IsRepeating>false</IsRepeating>
+            <MaxDelay>0</MaxDelay>
+            <MinDelay>0</MinDelay>
+            <CanLaunchOutsideTile>true</CanLaunchOutsideTile>
+            <Serialize>false</Serialize>
+            <RequiresHumanInTile>false</RequiresHumanInTile>
+            <RunOnTileEnter>true</RunOnTileEnter>
+            <ContainStructures>true</ContainStructures>
+          </IncidentFeature>
+        </CustomFeatureIncident>
+      </TerrainGenerationFeatureSettings>
+
+      <Skybox>
+        <PlanetPrefab>
+          <Name>Janus</Name>
+          <Position>
+            <x>0</x>
+            <y>0</y>
+            <z>0</z>
+          </Position>
+          <Rotation>
+            <x>0</x>
+            <y>0</y>
+            <z>0</z>
+          </Rotation>
+          <Scale>
+            <x>1170</x>
+            <y>1170</y>
+            <z>1170</z>
+          </Scale>
+        </PlanetPrefab>
+      </Skybox>
+
+      <CelestialBodies>
+        <Body Id="Loulan" Parent="Janus">
+          <TidalLocking x="-0.371" y="0.643" z="0" />
+        </Body>
+
+        <RockyBody Id="Vulcan" Parent="Janus" RadiusKm="10452" CanOccult="false">
+          <FixedRotation x="0.4" y="1" z="0" Speed="90" />
+        </RockyBody>
+
+        <RockyBody Id="Erebus" Parent="Vulcan" RadiusKm="2634" CanOccult="false" Scale="0.028">
+          <Emissive Value="1.6" />
+          <Texture Path="Textures/mercury_diffuse.png" />
+          <Normal Path="Textures/mercury_normal.png" />
+          <TidalLocking x="0.0269" y="0.9996" z="0" />
+        </RockyBody>
+
+        <RockyBody Id="Prometheus" Parent="Vulcan" RadiusKm="1812" CanOccult="false" Scale="0.028">
+          <Emissive Value="1.8" />
+          <Texture Path="Textures/mercury_diffuse.png" />
+          <Normal Path="Textures/mercury_normal.png" />
+          <TidalLocking x="0.0269" y="0.9996" z="0" />
+        </RockyBody>
+
+        <Sprite Id="Acheron" Magnitude="0.6">
+          <Material Minimum="0.3" />
+        </Sprite>
+
+        <Sprite Id="Styx" Magnitude="0.9">
+          <Material Minimum="0.2" />
+        </Sprite>
+
+        <Sprite Id="Lethos" Magnitude="1.1">
+          <Material Minimum="0.15" />
+        </Sprite>
+      </CelestialBodies>
+
+      <SpaceMap Id="VulcanSpaceMap" />
+
+      <PreviewScene>
+        <CameraPosition>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
+        </CameraPosition>
+        <CameraRotation>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
+        </CameraRotation>
+        <SunRotation>
+          <x>39.282</x>
+          <y>137.448</y>
+          <z>207.378</z>
+        </SunRotation>
+        <SunPrefab>SpaceSun (UnityEngine.Light)</SunPrefab>
+        <AtmosphericScattering>false</AtmosphericScattering>
+        <LensFlare>true</LensFlare>
+        <LensFlareIntensity>0</LensFlareIntensity>
+        <SkyBoxMaterial>Starfield Skybox</SkyBoxMaterial>
+        <Prefabs>
+          <Prefab>
+            <Name>Blackhole</Name>
+            <Position>
+              <x>-47.723</x>
+              <y>99.302</y>
+              <z>427.792</z>
+            </Position>
+            <Rotation>
+              <x>335.193</x>
+              <y>4.38</y>
+              <z>348.65</z>
+            </Rotation>
+            <Scale>
+              <x>43.94</x>
+              <y>43.94</y>
+              <z>43.94</z>
+            </Scale>
+          </Prefab>
+          <Prefab>
+            <Name>Loulan</Name>
+            <Position>
+              <x>48.677</x>
+              <y>-14.198</y>
+              <z>190.492</z>
+            </Position>
+            <Rotation>
+              <x>90</x>
+              <y>0</y>
+              <z>0</z>
+            </Rotation>
+            <Scale>
+              <x>35.779</x>
+              <y>35.779</y>
+              <z>35.779</z>
+            </Scale>
+          </Prefab>
+          <Prefab>
+            <Name>UIVulcan</Name>
+            <Position>
+              <x>-62.723</x>
+              <y>-14.198</y>
+              <z>1149.792</z>
+            </Position>
+            <Rotation>
+              <x>90</x>
+              <y>0</y>
+              <z>0</z>
+            </Rotation>
+            <Scale>
+              <x>12.01</x>
+              <y>12.01</y>
+              <z>12.01</z>
+            </Scale>
+          </Prefab>
+          <Prefab>
+            <Name>MiscPlanet</Name>
+            <Position>
+              <x>-79.736</x>
+              <y>-306.915</y>
+              <z>996.792</z>
+            </Position>
+            <Rotation>
+              <x>75.229</x>
+              <y>270</y>
+              <z>270</z>
+            </Rotation>
+            <Scale>
+              <x>11.471</x>
+              <y>11.471</y>
+              <z>11.471</z>
+            </Scale>
+          </Prefab>
+          <Prefab>
+            <Name>UIMimas</Name>
+            <Position>
+              <x>-147.197</x>
+              <y>-247.864</y>
+              <z>989.351</z>
+            </Position>
+            <Rotation>
+              <x>75.229</x>
+              <y>270</y>
+              <z>299.577</z>
+            </Rotation>
+            <Scale>
+              <x>35.779</x>
+              <y>35.779</y>
+              <z>35.779</z>
+            </Scale>
+          </Prefab>
+          <Prefab>
+            <Name>SpaceAsteroid</Name>
+            <Position>
+              <x>246.39</x>
+              <y>84.423</y>
+              <z>375.792</z>
+            </Position>
+            <Rotation>
+              <x>27.281</x>
+              <y>270</y>
+              <z>270</z>
+            </Rotation>
+            <Scale>
+              <x>35.779</x>
+              <y>35.779</y>
+              <z>35.779</z>
+            </Scale>
+          </Prefab>
+          <Prefab>
+            <Name>SpaceAsteroid</Name>
+            <Position>
+              <x>37.057</x>
+              <y>-17.016</y>
+              <z>89.702</z>
+            </Position>
+            <Rotation>
+              <x>15.004</x>
+              <y>293.053</y>
+              <z>328.686</z>
+            </Rotation>
+            <Scale>
+              <x>4.047</x>
+              <y>4.047</y>
+              <z>4.047</z>
+            </Scale>
+          </Prefab>
+        </Prefabs>
+      </PreviewScene>
+
+      <WeatherEvent Id="LoulanDustStorm" FirstStormDelay="7"/>
+      <GlobalAtmosphere>
+        <Temperature>
+          <Key Time="0" Value="278.15" InTangent="0" OutTangent="0" InWeight="0.333333343"
+            OutWeight="0.333333343" WeightedMode="None" />
+          <Key Time="45" Value="293.15" InTangent="0" OutTangent="0" InWeight="0.333333343"
+            OutWeight="0.333333343" WeightedMode="None" />
+          <Key Time="90" Value="278.15" InTangent="0" OutTangent="0" InWeight="0.333333343"
+            OutWeight="0.333333343" WeightedMode="None" />
+          <Key Time="135" Value="270" InTangent="0" OutTangent="0" InWeight="0.333333343"
+            OutWeight="0.333333343" WeightedMode="None" />
+          <Key Time="180" Value="278" InTangent="0" OutTangent="0" InWeight="0.333333343"
+            OutWeight="0.333333343" WeightedMode="None" />
+        </Temperature>
+
+        <Gas>
+          <Gas Type="Nitrogen" Quantity="150" />
+          <Gas Type="Oxygen" Quantity="350" />
+          <Gas Type="CarbonDioxide" Quantity="60" />
+          <Gas Type="Pollutant" Quantity="0.05" />
+        </Gas>
+      </GlobalAtmosphere>
+
+      <AtmosphericScattering>true</AtmosphericScattering>
+      <AtmosphericScatteringData>
+        <RayleighColorRampColorKey>
+          <GradientColorKey>
+            <color>
+              <r>0.7075472</r>
+              <g>0.0033374948</g>
+              <b>0.0169891734</b>
+              <a>1</a>
+            </color>
+            <time>0.00588998245</time>
+          </GradientColorKey>
+          <GradientColorKey>
+            <color>
+              <r>0.8396226</r>
+              <g>0.5202368</g>
+              <b>0</b>
+              <a>1</a>
+            </color>
+            <time>1</time>
+          </GradientColorKey>
+        </RayleighColorRampColorKey>
+        <RayleighColorRampAlphaKey>
+          <GradientAlphaKey>
+            <alpha>1</alpha>
+            <time>0</time>
+          </GradientAlphaKey>
+          <GradientAlphaKey>
+            <alpha>1</alpha>
+            <time>1</time>
+          </GradientAlphaKey>
+        </RayleighColorRampAlphaKey>
+        <RayleighColorRampMode>Blend</RayleighColorRampMode>
+        <WorldRayleighColorIntensity>1</WorldRayleighColorIntensity>
+        <WorldRayleighDensity>1200</WorldRayleighDensity>
+        <WorldRayleighExtinctionFactor>0.82</WorldRayleighExtinctionFactor>
+        <WorldRayleighIndirectScatter>0.4</WorldRayleighIndirectScatter>
+        <WorldMieColorIntensity>1.3</WorldMieColorIntensity>
+        <MieColorRampColorKey>
+          <GradientColorKey>
+            <color>
+              <r>0</r>
+              <g>0</g>
+              <b>0</b>
+              <a>1</a>
+            </color>
+            <time>0</time>
+          </GradientColorKey>
+          <GradientColorKey>
+            <color>
+              <r>1</r>
+              <g>0.07450981</g>
+              <b>0</b>
+              <a>1</a>
+            </color>
+            <time>1</time>
+          </GradientColorKey>
+        </MieColorRampColorKey>
+        <MieColorRampAlphaKey>
+          <GradientAlphaKey>
+            <alpha>1</alpha>
+            <time>0</time>
+          </GradientAlphaKey>
+          <GradientAlphaKey>
+            <alpha>1</alpha>
+            <time>1</time>
+          </GradientAlphaKey>
+        </MieColorRampAlphaKey>
+        <MieColorRampMode>Blend</MieColorRampMode>
+        <WorldMieDensity>2.07</WorldMieDensity>
+        <WorldMieExtinctionFactor>1</WorldMieExtinctionFactor>
+        <WorldMiePhaseAnisotropy>0.57</WorldMiePhaseAnisotropy>
+        <WorldNearScatterPush>5.2</WorldNearScatterPush>
+        <WorldNormalDistance>1000</WorldNormalDistance>
+        <HeightRayleighColor>
+          <r>0.5471698</r>
+          <g>0.04909691</g>
+          <b>0</b>
+          <a>1</a>
+        </HeightRayleighColor>
+        <HeightRayleighIntensity>1</HeightRayleighIntensity>
+        <HeightRayleighDensity>42.3</HeightRayleighDensity>
+        <HeightMieDensity>15.99</HeightMieDensity>
+        <HeightExtinctionFactor>0</HeightExtinctionFactor>
+        <HeightSeaLevel>108.19</HeightSeaLevel>
+        <HeightDistance>80</HeightDistance>
+        <HeightPlaneShift>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
+        </HeightPlaneShift>
+        <HeightNearScatterPush>10.8</HeightNearScatterPush>
+        <HeightNormalDistance>1000</HeightNormalDistance>
+        <UseOcclusion>false</UseOcclusion>
+        <OcclusionBias>0</OcclusionBias>
+        <OcclusionBiasIndirect>0.8</OcclusionBiasIndirect>
+        <OcclusionBiasClouds>0.1</OcclusionBiasClouds>
+        <OcclusionDownscale>x2</OcclusionDownscale>
+        <OcclusionSamples>x64</OcclusionSamples>
+        <OcclusionDepthFixup>true</OcclusionDepthFixup>
+        <OcclusionDepthThreshold>25</OcclusionDepthThreshold>
+        <OcclusionFullSky>true</OcclusionFullSky>
+        <OcclusionBiasSkyRayleigh>0.2</OcclusionBiasSkyRayleigh>
+        <OcclusionBiasSkyMie>0.4</OcclusionBiasSkyMie>
+        <WorldScaleExponent>1</WorldScaleExponent>
+        <ForcePerPixel>false</ForcePerPixel>
+        <ForcePostEffect>false</ForcePostEffect>
+      </AtmosphericScatteringData>
+
+
+      <AmbientLighting>
+        <Sky r="0.1911765" g="0.1552097" b="0.1419766" />
+        <Equator r="0.08823532" g="0.05644465" b="0.05644465" />
+        <Ground r="0.02941179" g="0.02941179" b="0.02941179" />
+      </AmbientLighting>
+
+      <NoTerrainLod>true</NoTerrainLod>
+
+      <Clutter>
+        <ClutterXmlData>
+          <PrefabName>RockLoulan</PrefabName>
+          <MinScale>0.6</MinScale>
+          <MaxScale>1</MaxScale>
+          <Weighting>10</Weighting>
+          <MaxAngle>40</MaxAngle>
+          <Probability>0.008</Probability>
+          <MaxRotationAngle>
+            <x>0</x>
+            <y>0</y>
+            <z>0</z>
+          </MaxRotationAngle>
+        </ClutterXmlData>
+      </Clutter>
+
+      <CustomTerrainParameters>
+        <Parameter>
+          <TwoDimensions>true</TwoDimensions>
+          <Frequency>0.03</Frequency>
+          <Amplitude>2</Amplitude>
+          <Size>0</Size>
+        </Parameter>
+        <Parameter>
+          <TwoDimensions>true</TwoDimensions>
+          <Frequency>0.01</Frequency>
+          <Amplitude>2.8</Amplitude>
+          <Size>4</Size>
+        </Parameter>
+      </CustomTerrainParameters>
+
+      <MineablesOverride>
+        <MineableData>
+          <DisplayName>Iron</DisplayName>
+          <OrePrefabName>ItemIronOre</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreIron</VisualizerPrefabName>
+          <Rarity>35</Rarity>
+          <MiningTime>1</MiningTime>
+          <VoxelType>Iron</VoxelType>
+          <MaxDropQuantity>6</MaxDropQuantity>
+          <MinDropQuantity>3</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>50</MinVeinAttempts>
+          <MaxVeinAttempts>100</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Ice</DisplayName>
+          <OrePrefabName>ItemIce</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreIce</VisualizerPrefabName>
+          <Rarity>5</Rarity>
+          <MiningTime>2</MiningTime>
+          <VoxelType>Ice</VoxelType>
+          <MaxDropQuantity>10</MaxDropQuantity>
+          <MinDropQuantity>5</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>30</MinVeinAttempts>
+          <MaxVeinAttempts>50</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Oxite</DisplayName>
+          <OrePrefabName>ItemOxite</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreOxite</VisualizerPrefabName>
+          <Rarity>5</Rarity>
+          <MiningTime>2</MiningTime>
+          <VoxelType>Oxite</VoxelType>
+          <MaxDropQuantity>10</MaxDropQuantity>
+          <MinDropQuantity>5</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>50</MinVeinAttempts>
+          <MaxVeinAttempts>80</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Volatiles</DisplayName>
+          <OrePrefabName>ItemVolatiles</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreVolatiles</VisualizerPrefabName>
+          <Rarity>5</Rarity>
+          <MiningTime>2</MiningTime>
+          <VoxelType>Volatiles</VoxelType>
+          <MaxDropQuantity>10</MaxDropQuantity>
+          <MinDropQuantity>5</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>50</MinVeinAttempts>
+          <MaxVeinAttempts>100</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Gold</DisplayName>
+          <OrePrefabName>ItemGoldOre</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreGold</VisualizerPrefabName>
+          <Rarity>10</Rarity>
+          <MiningTime>5</MiningTime>
+          <VoxelType>Gold</VoxelType>
+          <MaxDropQuantity>4</MaxDropQuantity>
+          <MinDropQuantity>2</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>40</MinVeinAttempts>
+          <MaxVeinAttempts>60</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Coal</DisplayName>
+          <OrePrefabName>ItemCoalOre</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreCoal</VisualizerPrefabName>
+          <Rarity>25</Rarity>
+          <MiningTime>3</MiningTime>
+          <VoxelType>Coal</VoxelType>
+          <MaxDropQuantity>5</MaxDropQuantity>
+          <MinDropQuantity>2</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>60</MinVeinAttempts>
+          <MaxVeinAttempts>90</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Copper</DisplayName>
+          <OrePrefabName>ItemCopperOre</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreCopper</VisualizerPrefabName>
+          <Rarity>25</Rarity>
+          <MiningTime>2</MiningTime>
+          <VoxelType>Copper</VoxelType>
+          <MaxDropQuantity>5</MaxDropQuantity>
+          <MinDropQuantity>3</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>60</MinVeinAttempts>
+          <MaxVeinAttempts>80</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Uranium</DisplayName>
+          <OrePrefabName>ItemUraniumOre</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreUranium</VisualizerPrefabName>
+          <Rarity>1</Rarity>
+          <MiningTime>5</MiningTime>
+          <VoxelType>Uranium</VoxelType>
+          <MaxDropQuantity>3</MaxDropQuantity>
+          <MinDropQuantity>2</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>20</MinVeinAttempts>
+          <MaxVeinAttempts>40</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Silver</DisplayName>
+          <OrePrefabName>ItemSilverOre</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreSilver</VisualizerPrefabName>
+          <Rarity>10</Rarity>
+          <MiningTime>5</MiningTime>
+          <VoxelType>Silver</VoxelType>
+          <MaxDropQuantity>10</MaxDropQuantity>
+          <MinDropQuantity>5</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>20</MinVeinAttempts>
+          <MaxVeinAttempts>40</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Nickel</DisplayName>
+          <OrePrefabName>ItemNickelOre</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreNickel</VisualizerPrefabName>
+          <Rarity>8</Rarity>
+          <MiningTime>5</MiningTime>
+          <VoxelType>Nickel</VoxelType>
+          <MaxDropQuantity>10</MaxDropQuantity>
+          <MinDropQuantity>5</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>20</MinVeinAttempts>
+          <MaxVeinAttempts>40</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Lead</DisplayName>
+          <OrePrefabName>ItemLeadOre</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreLead</VisualizerPrefabName>
+          <Rarity>3</Rarity>
+          <MiningTime>5</MiningTime>
+          <VoxelType>Lead</VoxelType>
+          <MaxDropQuantity>10</MaxDropQuantity>
+          <MinDropQuantity>5</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>20</MinVeinAttempts>
+          <MaxVeinAttempts>40</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Silicon</DisplayName>
+          <OrePrefabName>ItemSiliconOre</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreSilicon</VisualizerPrefabName>
+          <Rarity>15</Rarity>
+          <MiningTime>4</MiningTime>
+          <VoxelType>Silicon</VoxelType>
+          <MaxDropQuantity>6</MaxDropQuantity>
+          <MinDropQuantity>3</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>30</MinVeinAttempts>
+          <MaxVeinAttempts>50</MaxVeinAttempts>
+        </MineableData>
+        <MineableData>
+          <DisplayName>Nitrice</DisplayName>
+          <OrePrefabName>ItemNitrice</OrePrefabName>
+          <VisualizerPrefabName>AsteroidOreNitrice</VisualizerPrefabName>
+          <Rarity>3</Rarity>
+          <MiningTime>2</MiningTime>
+          <VoxelType>Nitrice</VoxelType>
+          <MaxDropQuantity>10</MaxDropQuantity>
+          <MinDropQuantity>5</MinDropQuantity>
+          <VeinSize>1</VeinSize>
+          <MinVeinAttempts>50</MinVeinAttempts>
+          <MaxVeinAttempts>80</MaxVeinAttempts>
+        </MineableData>
+      </MineablesOverride>
+      <TraderFrequencyOverride />
+    </World>
+  </WorldSettings>
+</GameData>

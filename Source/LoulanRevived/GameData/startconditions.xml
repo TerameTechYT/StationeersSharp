@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <StartCondition Id="LoulanDefault">
+        <!-- Condition Settings -->
+        <Name Key="DefaultStartCondition" />
+        <Description Key="DefaultStartConditionDescription" />
+        <PreviewButton Path="Interface/button_starting_standard.png" />
+
+        <!-- Game Conditions -->
+        <!-- <Spawn Id="LoulanLander" Event="NewWorld" /> -->
+
+        <!-- Player Conditions -->
+        <Spawn Id="LanderCapsuleSmall" Event="NewPlayer" />
+        <Spawn Id="LoulanNewPlayer" Event="NewPlayerKit" />
+        <Spawn Id="LoulanRespawnPlayer" Event="RespawnPlayerKit" />
+    </StartCondition>
+
+    <StartCondition Id="LoulanBrutal">
+        <!-- Condition Settings -->
+        <Name Key="BrutalStartCondition" />
+        <Description Key="BrutalStartConditionDescription" />
+        <PreviewButton Path="Interface/button_starting_brutal.png" />
+
+        <!-- Game Conditions -->
+        <!-- <Spawn Id="BrutalCrate" Event="NewWorld" /> -->
+
+        <!-- Player Conditions -->
+        <Spawn Id="LanderCapsuleSmall" Event="NewPlayer" />
+        <Spawn Id="LoulanNewPlayer" Event="NewPlayerKit" />
+        <Spawn Id="LoulanRespawnPlayer" Event="RespawnPlayerKit" />
+    </StartCondition>
+
+    <Spawn Id="LoulanLander">
+        <DynamicThing Id="Lander" ExpandInStartScreen="true">
+            <SpawnPosition Rule="Radial" />
+            <Color Id="Red" />
+            <Spawn Id="WaterTank" />
+            <Spawn Id="FuelTankInsulated" />
+            <Spawn Id="ConstructionSupplies" />
+            <Spawn Id="ElectricalSupplies" />
+            <Spawn Id="SurvivalSupplies" />
+            <Spawn Id="HydroponicsSupplies" />
+        </DynamicThing>
+    </Spawn>
+
+    <Spawn Id="LoulanBasePackage">
+        <Item Id="ItemResidentialPackage">
+            <Name Value="Base Package" />
+            <Item Id="ItemIronFrames">
+                <Quantity Value="10" />
+            </Item>
+            <Item Id="ItemIronSheets">
+                <Quantity Value="22" />
+            </Item>
+            <Item Id="ItemKitDoor">
+                <Quantity Value="2" />
+            </Item>
+        </Item>
+    </Spawn>
+
+    <Spawn Id="LoulanNewPlayer">
+        <Spawn Id="LoulanHuman">
+            <Species Id="Human" />
+        </Spawn>
+
+        <Spawn Id="LoulanRobot">
+            <Species Id="Robot" />
+        </Spawn>
+
+        <Spawn Id="LoulanZrilian">
+            <Species Id="Zrilian" />
+        </Spawn>
+    </Spawn>
+
+    <!--                              -->
+    <!-- Emergency Respawn Conditions -->
+    <!--                              -->
+
+    <Spawn Id="LoulanRespawnPlayer">
+        <!-- Easy and Creative Respawn -->
+        <Spawn Id="LoulanHuman">
+            <Species Id="Human" />
+            <Difficulty Id="Easy" Compare="EqualOrLess" />
+        </Spawn>
+
+        <Spawn Id="LoulanRobot">
+            <Species Id="Robot" />
+            <Difficulty Id="Easy" Compare="EqualOrLess" />
+        </Spawn>
+
+        <Spawn Id="LoulanZrilian">
+            <Species Id="Zrilian" />
+            <Difficulty Id="Easy" Compare="EqualOrLess" />
+        </Spawn>
+
+        <!-- Normal Respawn -->
+        <Spawn Id="LoulanRespawnHuman">
+            <Species Id="Human" />
+            <Difficulty Id="Normal" Compare="Equal" />
+        </Spawn>
+
+        <Spawn Id="LoulanRespawnZrilian">
+            <Species Id="Zrilian" />
+            <Difficulty Id="Normal" Compare="Equal" />
+        </Spawn>
+
+        <Item Id="ItemBatteryCellLarge" SlotId="Battery">
+            <Charge State="Full" />
+            <Species Id="Robot" />
+            <Difficulty Id="Normal" Compare="EqualOrLess" />
+        </Item>
+
+        <!-- Stationeer Respawn -->
+        <!--      No Suit       -->
+        <Item Id="ItemBatteryCell" SlotId="Battery">
+            <Charge State="Full" />
+            <Species Id="Robot" />
+            <Difficulty Id="Stationeer" Compare="Equal" />
+        </Item>
+    </Spawn>
+
+    <!--                                                  -->
+    <!-- Emergency Suit, Jetpack, and Toolbelt Conditions -->
+    <!--                                                  -->
+
+    <Spawn Id="LoulanRespawnHuman">
+        <Spawn Id="EmergencyToolbelt" />
+    </Spawn>
+
+    <Spawn Id="LoulanRespawnZrilian">
+        <Item Id="ItemEmergencySpaceHelmet" SlotId="Helmet" />
+        <Item Id="ItemEmergencyEvaSuit" SlotId="Suit">
+            <Item Id="ItemBatteryCellLarge" SlotId="LifeSupport">
+                <Charge State="Full" />
+            </Item>
+            <Item Id="ItemGasCanisterEmpty" SlotId="AirTank">
+                <Name Value="Canister (Volatiles)" />
+                <Color Id="White" />
+                <Gas Type="Volatiles" Moles="150" Celsius="20" />
+            </Item>
+            <Item Id="ItemGasCanisterEmpty" SlotId="WasteTank">
+                <Name Value="Canister (Waste)" />
+                <Color Id="Brown" />
+            </Item>
+            <Item Id="ItemGasFilterNitrousOxideL" SlotId="Filter" />
+        </Item>
+        <Spawn Id="EmergencyToolbelt" />
+    </Spawn>
+
+    <!--                                        -->
+    <!-- Suit, Jetpack, and Toolbelt Conditions -->
+    <!--                                        -->
+
+    <Spawn Id="LoulanToolbelt">
+        <Item Id="ItemToolBelt" SlotId="Belt">
+            <Item Id="ItemWeldingTorch" SlotId="Tool">
+                <Item Id="ItemGasCanisterEmpty" SlotId="GasCanister">
+                    <Name Value="Canister (Fuel)" />
+                    <Color Id="Orange" />
+                    <Gas Type="Oxygen" Moles="50" Celsius="20" />
+                    <Gas Type="Volatiles" Moles="100" Celsius="20" />
+                </Item>
+            </Item>
+            <Item Id="ItemDrill" SlotId="Tool">
+                <Item Id="ItemBatteryCell" SlotId="Battery">
+                    <Charge State="Full" />
+                </Item>
+            </Item>
+            <Item Id="ItemAngleGrinder" SlotId="Tool">
+                <Item Id="ItemBatteryCell" SlotId="Battery">
+                    <Charge State="Full" />
+                </Item>
+            </Item>
+            <Item Id="ItemCableCoil" SlotId="Tool">
+                <Quantity Value="50" />
+            </Item>
+            <Item Id="ItemWrench" SlotId="Tool" />
+            <Item Id="ItemCrowbar" SlotId="Tool" />
+            <Item Id="ItemWireCutters" SlotId="Tool" />
+            <Item Id="ItemScrewdriver" SlotId="Tool" />
+        </Item>
+    </Spawn>
+
+    <Spawn Id="LoulanJetpack">
+        <Item Id="ItemHardBackpack" SlotId="Back">
+            <Item Id="ItemPillHeal" />
+            <Item Id="ItemMiningBelt">
+                <Item Id="ItemPickaxe" SlotId="Tool" />
+            </Item>
+            <Item Id="ItemRoadFlare">
+                <Quantity Value="20" />
+            </Item>
+            <Spawn Id="ProductionPackage" />
+            <Spawn Id="SolarPowerPackage" />
+            <Spawn Id="LoulanBasePackage" />
+        </Item>
+    </Spawn>
+
+    <Spawn Id="LoulanJumpsuit">
+        <Item Id="UniformOrangeJumpSuit" SlotId="Uniform">
+            <Item Id="ItemTomatoSoup" />
+            <Item Id="ItemWaterBottle">
+                <Percent Value="100" />
+            </Item>
+            <Item Id="ItemCreditCard" SlotId="CreditCard">
+                <Quantity Value="200" />
+            </Item>
+        </Item>
+    </Spawn>
+
+    <Spawn Id="LoulanRobot">
+        <Item Id="ItemBatteryCellLarge" SlotId="Battery">
+            <Charge State="Full" />
+        </Item>
+        <Spawn Id="LoulanJetpack" />
+        <Spawn Id="LoulanToolbelt" />
+    </Spawn>
+
+    <Spawn Id="LoulanHuman">
+        <Item Id="ItemDuctTape" SlotIndex="1" />
+        <Item Id="ItemWearLamp" SlotId="Helmet">
+            <Item Id="ItemBatteryCell" SlotId="Battery">
+                <Charge State="Full" />
+            </Item>
+        </Item>
+        <Spawn Id="LoulanJetpack" />
+        <Spawn Id="LoulanJumpsuit" />
+        <Spawn Id="LoulanToolbelt" />
+    </Spawn>
+
+    <Spawn Id="LoulanZrilian">
+        <Item Id="ItemDuctTape" SlotIndex="1" />
+        <Item Id="ItemSpaceHelmet" SlotId="Helmet" />
+        <Item Id="ItemEvaSuit" SlotId="Suit">
+            <Item Id="ItemBatteryCellLarge" SlotId="LifeSupport">
+                <Charge State="Full" />
+            </Item>
+            <Item Id="ItemGasCanisterEmpty" SlotId="AirTank">
+                <Name Value="Canister (Volatiles)" />
+                <Color Id="Red" />
+                <Gas Type="Volatiles" Moles="150" Celsius="20" />
+            </Item>
+            <Item Id="ItemGasCanisterEmpty" SlotId="WasteTank">
+                <Name Value="Canister (Waste)" />
+                <Color Id="Green" />
+            </Item>
+            <Item Id="ItemGasFilterNitrousOxideM" SlotId="Filter" />
+            <Item Id="ItemGasFilterPollutants" SlotId="Filter" />
+            <Item Id="ItemGasFilterPollutants" SlotId="Filter" />
+        </Item>
+        <Spawn Id="LoulanJetpack" />
+        <Spawn Id="LoulanJumpsuit" />
+        <Spawn Id="LoulanToolbelt" />
+    </Spawn>
+</GameData>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MissionData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<MissionDisplayEndingScreen>False</MissionDisplayEndingScreen>
+	<MissionUsingGrid>True</MissionUsingGrid>
+    <Type>33</Type>
+	<MissionStages>
+		<MissionStage>
+			<StartingEventActions>
+				<EventAction>
+                    <Type>LoadCompositionEvent</Type>
+                    <Parameters>
+                        <Parameter>BrokenHydroponicsOutpost03</Parameter> <!-- File to load within the compostiions folder -->
+                        <Parameter>True</Parameter> <!-- If composition should place on terrain -->
+                        <Parameter>False</Parameter> <!-- Include atmosphere -->
+                        <Parameter>0</Parameter> <!-- x --> <!-- Offset before placing on terrain -->
+                        <Parameter>0</Parameter> <!-- y -->
+                        <Parameter>0</Parameter> <!-- z -->
+                        <Parameter>0</Parameter> <!-- x --> <!-- Offset after placing on terrain -->
+                        <Parameter>0</Parameter> <!-- y -->
+                        <Parameter>0</Parameter> <!-- z -->
+                        <Parameter>False</Parameter> <!-- The debug alert message -->
+                    </Parameters>
+                </EventAction>
+			</StartingEventActions>
+			<StageTasks>
+			  	<StageTask>	
+					<Type>TimerEvent</Type>
+					<Parameters>
+						<Parameter>1</Parameter>
+					</Parameters>
+		  		</StageTask>
+		  	</StageTasks>
+		</MissionStage>
+	</MissionStages>  
+</MissionData>
+
+

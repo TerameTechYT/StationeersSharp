@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <CelestialBodies>
+        <CelestialBody Id="Loulan">
+            <Orbit SemiMajorAxisAu="0.897" Period="397" Inclination="5.31" Eccentricity="0.0135" LongitudeOfAscendingNode="13.556" ArgumentOfPeriapsis="-17.462" />
+            <Color r="0.3" g="0.7" b="0.4" />
+
+            <LongitudeAtEpoch>281.127</LongitudeAtEpoch>
+        </CelestialBody>
+    </CelestialBodies>
+</GameData>
