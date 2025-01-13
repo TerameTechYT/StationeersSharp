@@ -16,6 +16,7 @@
 
 ### External Suit Reader (ESR):
 > Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.<br>
+> and more!<br>
 > [More Details](/Source/ExternalSuitReader)<br>
 
 ### Sonic Ether Global Illumination (SEGI):
