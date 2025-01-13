@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <ModName>BetterPowerMod</ModName>
+    <ModName>BetterLocalization</ModName>
     <AssemblyName>$(ModName)</AssemblyName>
     <RootNamespace>$(ModName)</RootNamespace>
 
@@ -15,7 +16,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/TerameTechYT/StationeersSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TerameTechYT/StationeersSharp</RepositoryUrl>
-    <PackageLicenseFile>$(SolutionDir)LICENSE.md</PackageLicenseFile>
+    <PackageLicenseFile>..\..\LICENSE.md</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
     <PlatformTarget>x64</PlatformTarget>
@@ -35,17 +36,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="$(SolutionDir)Source\GlobalSuppressions.cs" />
+    <Compile Include="..\GlobalSuppressions.cs" />
   </ItemGroup>
-
 
   <!-- Import Stationeers VS properties - paths etc. -->
   <Import Project="$(SolutionDir)Stationeers.VS.props" />
 
   <!-- Import Game/Unity DLL references -->
   <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
-
-
 
   <ItemGroup>
     <None Update="README.md">

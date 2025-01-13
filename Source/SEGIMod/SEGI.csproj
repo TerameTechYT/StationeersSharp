@@ -23,6 +23,7 @@
     <Platforms>x64;x86</Platforms>
     <DebugType>embedded</DebugType>
     <WarningLevel>4</WarningLevel>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
