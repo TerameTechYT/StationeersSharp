@@ -1,6 +1,5 @@
 #region
 
-using System;
 using UnityEngine;
 using Resources = SEGI.Properties.Resources;
 

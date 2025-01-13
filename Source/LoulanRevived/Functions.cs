@@ -1,15 +1,10 @@
-﻿using Assets.Scripts;
-using Assets.Scripts.Inventory;
-using Assets.Scripts.Util;
+﻿#region
+
 using Cysharp.Threading.Tasks;
-using HarmonyLib;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
 using System.Security.Cryptography;
 using UnityEngine;
+
+#endregion
 
 namespace LoulanRevived;
 

@@ -1,10 +1,7 @@
 ﻿#region
 
-using Assets.Scripts;
-using Assets.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using NCalc;
-using System.Collections.Generic;
 using UnityObject = UnityEngine.Object;
 
 #endregion

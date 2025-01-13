@@ -1,14 +1,6 @@
 ﻿#region
 
-using Assets.Scripts;
-using Assets.Scripts.Localization2;
-using Assets.Scripts.Objects;
-using Assets.Scripts.Objects.Electrical;
-using Assets.Scripts.Util;
-using Objects;
-using System.Text;
 using UnityEngine;
-using Weather;
 
 #endregion
 

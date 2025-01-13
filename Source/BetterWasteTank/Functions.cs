@@ -1,10 +1,5 @@
 #region
 
-using Assets.Scripts.Atmospherics;
-using Assets.Scripts.Objects.Clothing;
-using Assets.Scripts.Objects.Entities;
-using Assets.Scripts.Objects.Items;
-using JetBrains.Annotations;
 using TMPro;
 
 #endregion

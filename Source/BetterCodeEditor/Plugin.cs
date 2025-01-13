@@ -1,15 +1,8 @@
 ﻿#region
 
-using Assets.Scripts;
-using Assets.Scripts.UI;
-using BepInEx;
-using BepInEx.Bootstrap;
-using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
-using HarmonyLib;
-using JetBrains.Annotations;
-using System;
 using UnityEngine.SceneManagement;
+using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
 
@@ -60,7 +53,7 @@ public class Plugin : BaseUnityPlugin {
 
     public async UniTask OnBaseLoaded() {
         // Wait until game has loaded into main menu
-        await UniTask.WaitUntil(() => MainMenu.Instance.IsVisible);
+        await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
         LogInfo("is installed.");

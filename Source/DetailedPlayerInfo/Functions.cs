@@ -1,20 +1,9 @@
 ﻿#region
 
-using Assets.Scripts;
-using Assets.Scripts.GridSystem;
-using Assets.Scripts.Inventory;
-using Assets.Scripts.Objects.Clothing;
-using Assets.Scripts.Objects.Items;
-using Assets.Scripts.Serialization;
-using Assets.Scripts.UI;
-using Assets.Scripts.Util;
 using Cysharp.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using UnityObject = UnityEngine.Object;
 
 #endregion
 
@@ -134,13 +123,13 @@ internal static class Functions {
 
         if (Data.ExtraInfoPower) {
             _batteryStatus = GameObject.Find(Data.BatteryStatus);
-            _batteryTextPanel = Object.Instantiate(_wasteTextPanel, _batteryStatus.transform);
+            _batteryTextPanel = UnityObject.Instantiate(_wasteTextPanel, _batteryStatus.transform);
             _batteryText = _batteryTextPanel.GetComponentInChildren<TextMeshProUGUI>();
         }
 
         if (Data.ExtraInfoFilter) {
             _filterStatus = GameObject.Find(Data.FilterStatus);
-            _filterTextPanel = Object.Instantiate(_wasteTextPanel, _filterStatus.transform);
+            _filterTextPanel = UnityObject.Instantiate(_wasteTextPanel, _filterStatus.transform);
             _filterText = _filterTextPanel.GetComponentInChildren<TextMeshProUGUI>();
         }
     }

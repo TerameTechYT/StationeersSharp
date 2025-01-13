@@ -1,3 +1,8 @@
-﻿namespace BetterWaterCombustor;
+﻿#region
 
-public static class Functions {}
+#endregion
+
+namespace BetterWaterCombustor;
+
+public static class Functions {
+}

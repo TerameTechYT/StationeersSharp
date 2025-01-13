@@ -1,17 +1,5 @@
 ﻿#region
 
-using Assets.Scripts;
-using Assets.Scripts.Atmospherics;
-using Assets.Scripts.Objects;
-using Assets.Scripts.Objects.Electrical;
-using Assets.Scripts.Objects.Pipes;
-using HarmonyLib;
-using JetBrains.Annotations;
-using Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 #endregion
