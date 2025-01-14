@@ -39,39 +39,34 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.enableSolarPanel = Config.Bind("Configurables",
-            "Solar Panel Patches",
+        Data.enableSolarPanel = Config.Bind(new ConfigDefinition("Configurables", "Solar Panel Patches"),
             true,
-            "Should the max power output be set to the worlds Solar Irradiance");
-        Data.enableWindTurbine = Config.Bind("Configurables",
-            "Wind Turbine Patches",
+            new ConfigDescription("Should the max power output be set to the worlds Solar Irradiance"));
+        Data.enableWindTurbine = Config.Bind(new ConfigDefinition("Configurables", "Wind Turbine Patches"),
             true,
-            "Should the max power output be set higher based on the atmospheric pressure");
+            new ConfigDescription("Should the max power output be set higher based on the atmospheric pressure"));
 
-        Data.enableTurbine = Config.Bind("Configurables",
-            "Wall Turbine Patches",
+        Data.enableTurbine = Config.Bind(new ConfigDefinition("Configurables", "Wall Turbine Patches"),
             true,
-            "Should the max power output be multipled by 10");
+            new ConfigDescription("Should the max power output be multipled by 10"));
 
-        Data.enableStirling = Config.Bind("Configurables",
-            "Stirling Patches",
+        Data.enableStirling = Config.Bind(new ConfigDefinition("Configurables", "Stirling Patches"),
             true,
-            $"Should the max power output be changed to Stirling Energy Output");
+            new ConfigDescription($"Should the max power output be changed to Stirling Energy Output"));
 
-        Data.stirlingEnergy = Config.Bind("Configurables",
-            "Stirling Energy Output",
+        Data.stirlingEnergy = Config.Bind(new ConfigDefinition("Configurables", "Stirling Energy Output"),
             Data.TwentyKilowatts,
-            $"The max power output of the Stirling Engine");
+            new ConfigDescription("The max power output of the Stirling Engine",
+            new AcceptableValueRange<float>(Data.EightKilowatts, Data.TwentyKilowatts)));
 
-        Data.enableFasterCharging = Config.Bind("Configurables",
-            "Charging Patches",
+        Data.enableFasterCharging = Config.Bind(new ConfigDefinition("Configurables", "Charging Patches"),
             true,
-            $"Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate");
+            new ConfigDescription("Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate"));
 
-        Data.fastChargeRate = Config.Bind("Configurables",
-            "Fast Charging Charging Rate",
+        Data.fastChargeRate = Config.Bind(new ConfigDefinition("Configurables", "Fast Charging Charging Rate"),
             Data.TwoAndAHalfKilowatts,
-            $"The max input power of the (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter)");
+            new ConfigDescription("The max input power of the (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter)",
+            new AcceptableValueRange<float>(1f, Data.FiveKilowatts)));
     }
 
     public async UniTask OnBaseLoaded() {
@@ -79,7 +74,7 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        LogInfo("is installed.");
+        LogInfo($"{Data.ModVersion} is installed.");
 
         SetModVersion();
     }
@@ -102,7 +97,7 @@ public class Plugin : BaseUnityPlugin {
     public static void LogInfo(string message) => Log(message, Data.Severity.Info);
 
     private static void Log(string message, Data.Severity severity) {
-        string newMessage = $"[{Data.ModName} - v{Data.ModVersion}]: {message}";
+        string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
             case Data.Severity.Error: {
@@ -151,17 +146,23 @@ internal struct Data {
         }
     }
 
-    public static List<string> IgnoredPrefabs => [
+    public static List<string> IgnoredSolarPanelPrefabs => [
         "StructureSolarPanelFlat", "StructureSolarPanel45",
         "StructureSolarPanelFlatReinforced", "StructureSolarPanel45Reinforced"
     ];
 
     public const float OneKilowatt = 1000f;
-    public const float FiveKilowatts = OneKilowatt * 5f;
+    public const float TwoKilowatts = OneKilowatt * 2f;
     public const float TwoAndAHalfKilowatts = OneKilowatt * 2.5f;
-    public const float TwentyKilowatts = OneKilowatt * 20f;
-    public const float FiftyKilowatts = OneKilowatt * 50f;
-    public const float OneHundredKilowatts = OneKilowatt * 100f;
+    public const float FiveKilowatts = OneKilowatt * 5f;
+    public const float EightKilowatts = OneKilowatt * 8f;
+
+    public const float TenKilowatts = FiveKilowatts * 2f;
+
+    public const float TwentyKilowatts = TenKilowatts * 2f;
+    public const float FiftyKilowatts = TenKilowatts * 5f;
+
+    public const float OneHundredKilowatts = FiftyKilowatts * 2f;
 
     //
     public static ConfigEntry<bool> enableSolarPanel;

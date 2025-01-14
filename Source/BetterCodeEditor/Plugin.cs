@@ -56,7 +56,7 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        LogInfo("is installed.");
+        LogInfo($"{Data.ModVersion} is installed.");
 
         SetModVersion();
     }
@@ -79,7 +79,7 @@ public class Plugin : BaseUnityPlugin {
     public static void LogInfo(string message) => Log(message, Data.Severity.Info);
 
     private static void Log(string message, Data.Severity severity) {
-        string newMessage = $"[{Data.ModName} - v{Data.ModVersion}]: {message}";
+        string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
             case Data.Severity.Error: {

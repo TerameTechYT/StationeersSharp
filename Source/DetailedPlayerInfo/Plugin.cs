@@ -39,40 +39,35 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.kelvinMode = Config.Bind("Keybinds",
-            "Kelvin Mode",
+        Data.kelvinMode = Config.Bind(new ConfigDefinition("Keybinds", "Kelvin Mode"),
             KeyCode.K,
-            "Keybind that when pressed, changes the status temperatures to kelvin instead of celcius.");
+            new ConfigDescription("Keybind that when pressed, changes the status temperatures to kelvin instead of celcius."));
 
-        Data.customFramerate = Config.Bind("Configurables",
-            "CustomFramerate",
+        Data.customFramerate = Config.Bind(new ConfigDefinition("Configurables", "CustomFramerate"),
             true,
-            "Should the framerate text only display FPS.");
+            new ConfigDescription("Should the framerate text only display FPS."));
 
-        Data.changeFontSize = Config.Bind("Configurables",
-            "ChangeFontSize",
+        Data.changeFontSize = Config.Bind(new ConfigDefinition("Configurables", "ChangeFontSize"),
             true,
-            "Should the font size be changed.");
+            new ConfigDescription("Should the font size be changed."));
 
-        Data.extraInfoPower = Config.Bind("Configurables",
-            "ExtraInfoPower",
+        Data.extraInfoPower = Config.Bind(new ConfigDefinition("Configurables", "ExtraInfoPower"),
             true,
-            "Should a extra text label be placed next to the status like waste tank status.");
+            new ConfigDescription("Should a extra text label be placed next to the status like waste tank status."));
 
-        Data.extraInfoFilter = Config.Bind("Configurables",
-            "ExtraInfoFilter",
+        Data.extraInfoFilter = Config.Bind(new ConfigDefinition("Configurables", "ExtraInfoFilter"),
             true,
-            "Should a extra text label be placed next to the status like waste tank status.");
+            new ConfigDescription("Should a extra text label be placed next to the status like waste tank status."));
 
-        Data.numberPrecision = Config.Bind("Configurables",
-            "NumberPrecision",
+        Data.numberPrecision = Config.Bind(new ConfigDefinition("Configurables", "NumberPrecision"),
             2,
-            "How many decimal points should be displayed on numbers.");
+            new ConfigDescription("How many decimal points should be displayed on numbers.",
+            new AcceptableValueRange<int>(1, 4)));
 
-        Data.fontSize = Config.Bind("Configurables",
-            "FontSize",
+        Data.fontSize = Config.Bind(new ConfigDefinition("Configurables", "FontSize"),
             21,
-            "What font size should the labels be changed to.");
+            new ConfigDescription("What font size should the labels be changed to.",
+            new AcceptableValueRange<int>(14, 28)));
     }
 
 
@@ -81,7 +76,7 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        LogInfo("is installed.");
+        LogInfo($"{Data.ModVersion} is installed.");
 
         SetModVersion();
     }
@@ -104,7 +99,7 @@ public class Plugin : BaseUnityPlugin {
     public static void LogInfo(string message) => Log(message, Data.Severity.Info);
 
     private static void Log(string message, Data.Severity severity) {
-        string newMessage = $"[{Data.ModName} - v{Data.ModVersion}]: {message}";
+        string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
             case Data.Severity.Error: {

@@ -39,7 +39,7 @@ internal static class Functions {
     }
 
     internal static string GetSolarPanelTooltip(SolarPanel panel, string text) {
-        if (!Data.IgnoredPrefabs.Contains(panel.PrefabName)) {
+        if (!Data.IgnoredSolarPanelPrefabs.Contains(panel.PrefabName)) {
             double vertical = panel.Vertical * panel.MaximumVertical;
             double horizontal = panel.Horizontal * panel.MaximumHorizontal;
 
