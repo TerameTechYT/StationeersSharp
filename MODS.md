@@ -7,7 +7,7 @@
 > [More Details](/Source/BetterWasteTank)<br>
 
 ### Better Water Combustor (BWC)
-> Makes H2/Water combustor will no longer have micromoles of hot water that will flow into your condensation valves.
+> Makes H2/Water combustor will no longer have micromoles of hot water that will flow into your condensation valves.<br>
 > [More Details](/Source/BetterWaterCombustor)<br>
 
 ### Detailed Player Info (DPI):
