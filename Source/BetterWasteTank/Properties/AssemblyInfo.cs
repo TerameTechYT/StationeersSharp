@@ -1,5 +1,4 @@
 ﻿using BetterWasteTank;
-using System.Reflection;
 
 [assembly: AssemblyTitle(Data.ModName)]
 [assembly: AssemblyDescription(Data.ModGuid)]

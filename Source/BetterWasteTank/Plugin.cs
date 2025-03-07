@@ -1,7 +1,5 @@
 ﻿#region
 
-using Cysharp.Threading.Tasks;
-using UnityEngine.SceneManagement;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
@@ -9,8 +7,8 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 namespace BetterWasteTank;
 
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInProcess(Data.ExecutableName)]
-[BepInProcess(Data.DSExecutableName)]
+[BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
+[BepInProcess(Constants.HEADLESS_EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {
     public static Plugin Instance {
         get; private set;
@@ -22,32 +20,40 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
-        if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
-            throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
+        if (Utilities.IsLoaded(Data.ModGuid)) {
+            throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
+        }
 
-        LoadConfiguration();
+        this.LoadConfiguration();
 
-        Instance = this;
-        HarmonyInstance = new Harmony(Data.ModGuid);
-        HarmonyInstance.PatchAll();
+        Plugin.Instance = this;
+        Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
+        Plugin.HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
-            if (scene.name == "Base")
+            if (scene.name == Constants.BASE_SCENE_NAME) {
                 OnBaseLoaded().Forget();
+            }
         };
     }
 
     public void LoadConfiguration() {
-        Data.wasteCriticalRatio = Config.Bind("Configurables",
-            "Waste Critical Ratio",
+        Data.wasteCriticalRatio = Config.Bind(new ConfigDefinition("Configurables", "Waste Critical Ratio"),
             0.975,
-            "(0.0 to 1.0) Ratio when \"Waste Tank Critical!\" alarm goes off.");
+            new ConfigDescription("Ratio when \"Waste Tank Critical!\" alarm goes off.", new AcceptableValueRange<double>(0.0, 1.0)));
 
-        Data.wasteCautionRatio = Config.Bind("Configurables",
-            "Waste Caution Ratio",
+        Data.wasteCautionRatio = Config.Bind(new ConfigDefinition("Configurables", "Waste Caution Ratio"),
             0.75,
-            "(0.0 to 1.0) Ratio when \"Waste Tank Caution\" alarm goes off.");
+            new ConfigDescription("Ratio when \"Waste Tank Caution\" alarm goes off.", new AcceptableValueRange<double>(0.0, 1.0)));
+
+        /*Data.airCriticalRatio = Config.Bind(new ConfigDefinition("Configurables", "Air Critical Ratio"),
+            0.15,
+            new ConfigDescription("Ratio when \"Air Tank Critical!\" alarm goes off.", new AcceptableValueRange<double>(0.0, 1.0)));
+
+        Data.airCautionRatio = Config.Bind(new ConfigDefinition("Configurables", "Air Caution Ratio"),
+            0.30,
+            new ConfigDescription("Ratio when \"Air Tank Caution\" alarm goes off.", new AcceptableValueRange<double>(0.0, 1.0)));*/
     }
 
     public async UniTask OnBaseLoaded() {
@@ -55,45 +61,44 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        LogInfo("is installed.");
+        LogInfo($"{Data.ModVersion} is installed.");
 
-        SetModVersion();
+        Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }
 
-    private void SetModVersion() {
-        ModData mod = WorkshopMenu.ModsConfig.Mods.Find((mod) => mod.GetAboutData().WorkshopHandle == Data.ModHandle);
-        if (mod == null) {
-            return;
-        }
+    public static void LogException(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Severity.Error);
+    public static void LogError(string message) => Log(message, Severity.Error);
+    public static void LogWarning(string message) => Log(message, Severity.Warning);
+    public static void LogInfo(string message) => Log(message, Severity.Info);
 
-        ModAbout aboutData = mod.GetAboutData();
-        aboutData.Version = Data.ModVersion;
-
-        Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
+#if DEBUG
+    public static void LogDebug(string message) => Log(message, Severity.Debug);
+#else
+    public static void LogDebug(string message) {
     }
+#endif
 
-    public static void LogError(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Data.Severity.Error);
-    public static void LogError(string message) => Log(message, Data.Severity.Error);
-    public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
-    public static void LogInfo(string message) => Log(message, Data.Severity.Info);
-
-    private static void Log(string message, Data.Severity severity) {
-        string newMessage = $"[{Data.ModName} - v{Data.ModVersion}]: {message}";
+    private static void Log(string message, Severity severity) {
+        string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
-            case Data.Severity.Error: {
+            case Severity.Error: {
                 ConsoleWindow.PrintError(newMessage);
                 break;
             }
-            case Data.Severity.Warning: {
+            case Severity.Warning: {
                 ConsoleWindow.PrintAction(newMessage);
                 break;
             }
-            case Data.Severity.Info:
-            default: {
+            case Severity.Info: {
                 ConsoleWindow.Print(newMessage);
                 break;
             }
+            default:
+            case Severity.Debug: {
+                Debug.Log(newMessage);
+            }
+            break;
         }
     }
 }
@@ -102,34 +107,19 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "betterwastetank";
     public const string ModName = "BetterWasteTank";
-    public const string ModVersion = "1.4.1";
+    public const string ModVersion = "1.5.0";
     public const ulong ModHandle = 3071913936;
 
-    // Game Data
-    public const string ExecutableName = "rocketstation.exe";
-    public const string DSExecutableName = "rocketstation_DedicatedServer.exe";
-
-    // Log Data
-    internal enum Severity {
-        Error,
-        Warning,
-        Info
-    }
-
-    public sealed class AlreadyLoadedException : Exception {
-        public AlreadyLoadedException(string message) : base(message) {
-        }
-
-        public AlreadyLoadedException(string message, Exception innerException) : base(message, innerException) {
-        }
-
-        public AlreadyLoadedException() {
-        }
-    }
-
+    // Config Data
     public static ConfigEntry<double> wasteCriticalRatio;
     public static double WasteCriticalRatio => wasteCriticalRatio?.Value ?? 0.75;
 
     public static ConfigEntry<double> wasteCautionRatio;
     public static double WasteCautionRatio => wasteCautionRatio?.Value ?? 0.975;
+
+    public static ConfigEntry<double> airCautionRatio;
+    public static double AirCautionRatio => airCautionRatio?.Value ?? 0.30;
+
+    public static ConfigEntry<double> airCriticalRatio;
+    public static double AirCriticalRatio => airCriticalRatio?.Value ?? 0.15;
 }

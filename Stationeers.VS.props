@@ -18,11 +18,58 @@
 	</PropertyGroup>
 
   <ItemGroup>
+    <!-- Extra File Compilations -->
+    <Compile Include="$(SolutionDir)Source\StationeersLibrary/**/*.cs" />
+
+    <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
+
+    <!-- README -->
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>$(SolutionDir)</PackagePath>
+    </None>
+
+    <Using Include="StationeersLibrary" />
+    <Using Include="StationeersLibrary.Enums" />
+    <Using Include="StationeersLibrary.Exceptions" />
+
+
     <!-- System -->
     <Using Include="JetBrains.Annotations" />
+
+    <Using Include="System" />
+    
+    <Using Include="System.Linq" />
+
     <Using Include="System.Text" />
+    <Using Include="System.Xml" />
+    <Using Include="System.Xml.Linq" />
+    <Using Include="System.Xml.Serialization" />
+    
     <Using Include="System.Reflection" />
     <Using Include="System.Reflection.Emit" />
+    
+    <Using Include="System.Collections" />
+    <Using Include="System.Collections.Generic" />
+
+    <Using Include="System.Runtime" />
+    <Using Include="System.Runtime.CompilerServices" />
+    
+    <!-- Cysharp -->
+    <Using Include="Cysharp" />
+    <Using Include="Cysharp.Threading" />
+    <Using Include="Cysharp.Threading.Tasks" />
+    <Using Include="Cysharp.Threading.Tasks.Linq" />
+    
+    <!-- UnityEngine -->
+    <Using Include="UnityEngine" />
+    <Using Include="UnityEngine.SceneManagement" />
+
 
     <!-- Assembly-CSharp -->
     <Using Include="Assets.Features.AtmosphericScattering.Code" />
@@ -95,7 +142,6 @@
     <Using Include="Networking.Lobbies" />
     <Using Include="Networking.Servers" />
     <Using Include="Networks" />
-    <Using Include="Obi" />
     <Using Include="Objects" />
     <Using Include="Objects.Electrical" />
     <Using Include="Objects.Items" />

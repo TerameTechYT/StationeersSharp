@@ -1,6 +1,5 @@
 ﻿#region
 
-using Cysharp.Threading.Tasks;
 using NCalc;
 using UnityObject = UnityEngine.Object;
 
@@ -16,22 +15,24 @@ internal static class Functions {
             Data.CalculatorItem.gameObject.SetActive(false);
         }
         else {
-            string result = "";
+            object result = "";
             try {
-                result = expression.Evaluate().ToString();
+                result = expression.Evaluate();
             }
-            catch (EvaluationException) { } // only catch EvaluationExceptions
+            catch (EvaluationException) { } // only catch EvaluationException
+
+            string text = result?.ToString() ?? "invalid";
 
             Data.CalculatorItem.gameObject.SetActive(true);
             Data.CalculatorItem.transform.SetSiblingIndex(0);
 
-            Data.CalculatorItem.InsertTitle.text = result;
+            Data.CalculatorItem.InsertTitle.text = text;
             Data.CalculatorItem.InsertImage.sprite = Stationpedia.Instance.ImportantSearchImage;
             Data.CalculatorItem.SetSpecial();
 
             Data.CalculatorItem.InsertsButton.onClick.AddListener(async () => {
                 Stationpedia.Instance.BaseAnimator.SetBool("Copied", true);
-                GameManager.Clipboard = result;
+                GameManager.Clipboard = text;
                 await UniTask.Delay(750);
                 Stationpedia.Instance.ResetClipboardNotification();
             });

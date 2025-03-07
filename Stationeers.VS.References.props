@@ -12,6 +12,12 @@
     <Reference Include="BepInEx.Harmony">
       <HintPath>$(BIECoreDirectory)\BepInEx.Harmony.dll</HintPath>
       <Private>False</Private>
+    </Reference>    
+    
+    <!-- Harmony DLL's -->
+    <Reference Include="0Harmony">
+      <HintPath>$(BIECoreDirectory)\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
 
     <!-- Stationeers.Mods DLL's -->
@@ -33,13 +39,6 @@
     </Reference>
     <Reference Include="StationeersMods.Shared">
       <HintPath>$(StationeersModsDirectory)\StationeersMods.Shared.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-
-
-    <!-- Harmony DLL's -->
-    <Reference Include="0Harmony">
-      <HintPath>$(BIECoreDirectory)\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
 
@@ -327,6 +326,10 @@
       <HintPath>$(StationeersManagedDirectory)\UnityEngine.UIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>$(StationeersManagedDirectory)\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.UmbraModule">
       <HintPath>$(StationeersManagedDirectory)\UnityEngine.UmbraModule.dll</HintPath>
       <Private>False</Private>
@@ -355,7 +358,7 @@
       <HintPath>$(StationeersManagedDirectory)\UnityEngine.VRModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEUnityEngine.WindModulengine">
+    <Reference Include="UnityEngine.WindModule">
       <HintPath>$(StationeersManagedDirectory)\UnityEngine.WindModule.dll</HintPath>
       <Private>False</Private>
     </Reference>

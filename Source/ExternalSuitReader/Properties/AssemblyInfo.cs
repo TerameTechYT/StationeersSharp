@@ -1,5 +1,4 @@
 ﻿using ExternalSuitReader;
-using System.Reflection;
 
 [assembly: AssemblyTitle(Data.ModName)]
 [assembly: AssemblyDescription(Data.ModGuid)]

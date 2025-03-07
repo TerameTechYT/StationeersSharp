@@ -1,6 +1,5 @@
 #region
 
-using UnityEngine;
 using Resources = SEGI.Properties.Resources;
 
 #endregion
@@ -204,17 +203,21 @@ public class SEGI : MonoBehaviour {
         get {
             long v = 0;
 
-            if (sunDepthTexture != null)
+            if (sunDepthTexture != null) {
                 v += sunDepthTexture.width * sunDepthTexture.height * 16;
+            }
 
-            if (previousGIResult != null)
+            if (previousGIResult != null) {
                 v += previousGIResult.width * previousGIResult.height * 16 * 4;
+            }
 
-            if (previousCameraDepth != null)
+            if (previousCameraDepth != null) {
                 v += previousCameraDepth.width * previousCameraDepth.height * 32;
+            }
 
-            if (integerVolume != null)
+            if (integerVolume != null) {
                 v += integerVolume.width * integerVolume.height * integerVolume.volumeDepth * 32;
+            }
 
             if (volumeTextures != null) {
                 for (int i = 0; i < volumeTextures.Length; i++) {
@@ -230,14 +233,17 @@ public class SEGI : MonoBehaviour {
                      secondaryIrradianceVolume.volumeDepth * 16 * 4;
             }
 
-            if (volumeTextureB != null)
+            if (volumeTextureB != null) {
                 v += volumeTextureB.width * volumeTextureB.height * volumeTextureB.volumeDepth * 16 * 4;
+            }
 
-            if (dummyVoxelTextureAAScaled != null)
+            if (dummyVoxelTextureAAScaled != null) {
                 v += dummyVoxelTextureAAScaled.width * dummyVoxelTextureAAScaled.height * 8;
+            }
 
-            if (dummyVoxelTextureFixed != null)
+            if (dummyVoxelTextureFixed != null) {
                 v += dummyVoxelTextureFixed.width * dummyVoxelTextureFixed.height * 8;
+            }
 
             float vram = v / 8388608.0f;
 

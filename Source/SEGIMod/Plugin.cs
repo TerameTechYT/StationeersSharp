@@ -1,8 +1,5 @@
 ﻿#region
 
-using Cysharp.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
@@ -10,7 +7,7 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 namespace SEGI;
 
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInProcess(Data.ExecutableName)]
+[BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {
     public static Plugin Instance {
         get; private set;
@@ -26,23 +23,27 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
-        if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
-            throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
+        if (Utilities.IsLoaded(Data.ModGuid)) {
+            throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
+        }
 
-        LoadConfiguration();
+        this.LoadConfiguration();
 
-        Instance = this;
-        HarmonyInstance = new Harmony(Data.ModGuid);
-        HarmonyInstance.PatchAll();
+        Plugin.Instance = this;
+        Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
+        Plugin.HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
-            if (scene.name == "Base")
+            if (scene.name == Constants.BASE_SCENE_NAME) {
                 OnBaseLoaded().Forget();
+            }
         };
     }
 
     public void LoadConfiguration() {
+        Data.Enabled = Config.Bind("General", "Enabled", true, "true or false");
+
         // Voxel
         Data.VoxelResolution = Config.Bind("Voxel", "Resolution", SEGI.VoxelResolution.High, "High or Low");
         Data.HalfResolution = Config.Bind("Voxel", "Half Resolution", true, "true or false");
@@ -94,51 +95,46 @@ public class Plugin : BaseUnityPlugin {
         // Print version after main menu is visible
         LogInfo($"{Data.ModVersion} is installed.");
 
-        SetModVersion();
+        Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
 
-        EnableSEGI();
-    }
-
-    public static void EnableSEGI() {
         SEGIGameObject = GameObject.Find("SEGIManager") ?? new GameObject("SEGIManager");
-        _ = SEGIGameObject.AddComponent<SEGIManager>();
+        SEGIGameObject.AddComponent<SEGIManager>();
         DontDestroyOnLoad(SEGIGameObject);
     }
 
-    private void SetModVersion() {
-        ModData mod = WorkshopMenu.ModsConfig.Mods.Find((mod) => mod.GetAboutData().WorkshopHandle == Data.ModHandle);
-        if (mod == null) {
-            return;
-        }
+    public static void LogError(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Severity.Error);
+    public static void LogError(string message) => Log(message, Severity.Error);
+    public static void LogWarning(string message) => Log(message, Severity.Warning);
+    public static void LogInfo(string message) => Log(message, Severity.Info);
 
-        ModAbout aboutData = mod.GetAboutData();
-        aboutData.Version = Data.ModVersion;
-
-        Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
+#if DEBUG
+    public static void LogDebug(string message) => Log(message, Severity.Debug);
+#else
+    public static void LogDebug(string message) {
     }
+#endif
 
-    public static void LogError(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Data.Severity.Error);
-    public static void LogError(string message) => Log(message, Data.Severity.Error);
-    public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
-    public static void LogInfo(string message) => Log(message, Data.Severity.Info);
-
-    private static void Log(string message, Data.Severity severity) {
+    private static void Log(string message, Severity severity) {
         string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
-            case Data.Severity.Error: {
+            case Severity.Error: {
                 ConsoleWindow.PrintError(newMessage);
                 break;
             }
-            case Data.Severity.Warning: {
+            case Severity.Warning: {
                 ConsoleWindow.PrintAction(newMessage);
                 break;
             }
-            case Data.Severity.Info:
-            default: {
+            case Severity.Info: {
                 ConsoleWindow.Print(newMessage);
                 break;
             }
+            default:
+            case Severity.Debug: {
+                Debug.Log(newMessage);
+            }
+            break;
         }
     }
 }
@@ -147,30 +143,10 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "segimod";
     public const string ModName = "SEGIMod";
-    public const string ModVersion = "1.1.0";
+    public const string ModVersion = "1.2.0";
     public const ulong ModHandle = 3281346086;
 
-    // Game Data
-    public const string ExecutableName = "rocketstation.exe";
-    public const string DSExecutableName = "rocketstation_DedicatedServer.exe";
-
-    // Log Data
-    internal enum Severity {
-        Error,
-        Warning,
-        Info
-    }
-
-    public sealed class AlreadyLoadedException : Exception {
-        public AlreadyLoadedException(string message) : base(message) {
-        }
-
-        public AlreadyLoadedException(string message, Exception innerException) : base(message, innerException) {
-        }
-
-        public AlreadyLoadedException() {
-        }
-    }
+    public static ConfigEntry<bool> Enabled;
 
     // Voxel
     public static ConfigEntry<SEGI.VoxelResolution> VoxelResolution;

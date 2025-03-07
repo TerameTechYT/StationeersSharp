@@ -13,8 +13,9 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(Stationpedia), "ForceSearch")]
     [HarmonyPostfix]
     public static void StationpediaForceSearch(ref Stationpedia __instance, string searchText) {
-        if (Stationpedia.Instance == null || Data.CalculatorItem == null || string.IsNullOrEmpty(searchText))
+        if (Stationpedia.Instance == null || Data.CalculatorItem == null || string.IsNullOrEmpty(searchText)) {
             return;
+        }
 
         try {
             Functions.CalculateSearch(searchText);
@@ -35,15 +36,17 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(Stationpedia), "AddSearchInsertsToPool")]
     [HarmonyPostfix]
     public static void StationpediaAddSearchInsertsToPool(ref Stationpedia __instance, int numToAdd) {
-        if (Stationpedia.Instance == null)
+        if (Stationpedia.Instance == null) {
             return;
+        }
 
         try {
             Traverse traverse = Traverse.Create(Stationpedia.Instance);
             List<SPDAListItem> list = traverse.Field("_SPDASearchInserts").GetValue<List<SPDAListItem>>();
 
-            if (list == null)
+            if (list == null) {
                 return;
+            }
 
             Functions.CreateCalculator(ref list);
         }

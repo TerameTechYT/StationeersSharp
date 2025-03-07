@@ -1,8 +1,5 @@
 ﻿#region
 
-using Cysharp.Threading.Tasks;
-using System.Collections;
-
 #endregion
 
 namespace LoulanRevived;
@@ -16,8 +13,9 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WorldManager), "LoadGameDataAsync")]
     [HarmonyPostfix]
     public static void WorldManagerLoadGameDataAsync(ref WorldManager __instance) {
-        if (!Data.SpawnWrecks || __instance == null)
+        if (!Data.SpawnWrecks || __instance == null) {
             return;
+        }
 
         try {
             Functions.LoadIncidents(ref __instance);
@@ -29,7 +27,7 @@ public static class PatchFunctions {
                 _patches[currentMethod] = true;
 
                 Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                Plugin.LogError(ex);
+                Plugin.LogException(ex);
             }
         }
     }
@@ -64,8 +62,9 @@ public static class PatchFunctions {
     [HarmonyPrefix]
     public static bool TileSystemDelayIncident(ref TileSystem __instance, ref IEnumerator __result,
         TileData tileData, Incident incident, int delay, WorldManager.TerrainFeatureIncident relatedValues) {
-        if (!Data.SpawnWrecks || __instance == null || tileData == null || incident == null || relatedValues == null)
+        if (!Data.SpawnWrecks || __instance == null || tileData == null || incident == null || relatedValues == null) {
             return false;
+        }
 
         try {
             __result = Functions.DelayIncidentAsync(__instance, tileData, incident, delay, relatedValues).ToCoroutine();
@@ -78,7 +77,7 @@ public static class PatchFunctions {
                 _patches[currentMethod] = true;
 
                 Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                Plugin.LogError(ex);
+                Plugin.LogException(ex);
             }
         }
         return false;

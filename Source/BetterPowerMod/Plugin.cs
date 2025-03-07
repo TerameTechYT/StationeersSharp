@@ -1,7 +1,5 @@
 ﻿#region
 
-using Cysharp.Threading.Tasks;
-using UnityEngine.SceneManagement;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
@@ -9,8 +7,9 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 namespace BetterPowerMod;
 
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInProcess(Data.ExecutableName)]
-[BepInProcess(Data.DSExecutableName)]
+[BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
+
+[BepInProcess(Constants.HEADLESS_EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {
     public static Plugin Instance {
         get; private set;
@@ -22,19 +21,21 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
-        if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
-            throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
+        if (Utilities.IsLoaded(Data.ModGuid)) {
+            throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
+        }
 
-        LoadConfiguration();
+        this.LoadConfiguration();
 
-        Instance = this;
-        HarmonyInstance = new Harmony(Data.ModGuid);
-        HarmonyInstance.PatchAll();
+        Plugin.Instance = this;
+        Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
+        Plugin.HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
-            if (scene.name == "Base")
+            if (scene.name == Constants.BASE_SCENE_NAME) {
                 OnBaseLoaded().Forget();
+            }
         };
     }
 
@@ -55,18 +56,18 @@ public class Plugin : BaseUnityPlugin {
             new ConfigDescription($"Should the max power output be changed to Stirling Energy Output"));
 
         Data.stirlingEnergy = Config.Bind(new ConfigDefinition("Configurables", "Stirling Energy Output"),
-            Data.TwentyKilowatts,
+            Constants.TWENTY_KILOWATTS,
             new ConfigDescription("The max power output of the Stirling Engine",
-            new AcceptableValueRange<float>(Data.EightKilowatts, Data.TwentyKilowatts)));
+            new AcceptableValueRange<float>(Constants.EIGHT_KILOWATTS, Constants.TWENTY_FIVE_KILOWATTS)));
 
         Data.enableFasterCharging = Config.Bind(new ConfigDefinition("Configurables", "Charging Patches"),
             true,
             new ConfigDescription("Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate"));
 
         Data.fastChargeRate = Config.Bind(new ConfigDefinition("Configurables", "Fast Charging Charging Rate"),
-            Data.TwoAndAHalfKilowatts,
+            Constants.TWO_POINT_FIVE_KILOWATTS,
             new ConfigDescription("The max input power of the (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter)",
-            new AcceptableValueRange<float>(1f, Data.FiveKilowatts)));
+            new AcceptableValueRange<float>(1f, Constants.FIVE_KILOWATTS)));
     }
 
     public async UniTask OnBaseLoaded() {
@@ -76,43 +77,42 @@ public class Plugin : BaseUnityPlugin {
         // Print version after main menu is visible
         LogInfo($"{Data.ModVersion} is installed.");
 
-        SetModVersion();
+        Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }
 
-    private void SetModVersion() {
-        ModData mod = WorkshopMenu.ModsConfig.Mods.Find((mod) => mod.GetAboutData().WorkshopHandle == Data.ModHandle);
-        if (mod == null) {
-            return;
-        }
+    public static void LogException(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Severity.Error);
+    public static void LogError(string message) => Log(message, Severity.Error);
+    public static void LogWarning(string message) => Log(message, Severity.Warning);
+    public static void LogInfo(string message) => Log(message, Severity.Info);
 
-        ModAbout aboutData = mod.GetAboutData();
-        aboutData.Version = Data.ModVersion;
-
-        Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
+#if DEBUG
+    public static void LogDebug(string message) => Log(message, Severity.Debug);
+#else
+    public static void LogDebug(string message) {
     }
+#endif
 
-    public static void LogError(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Data.Severity.Error);
-    public static void LogError(string message) => Log(message, Data.Severity.Error);
-    public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
-    public static void LogInfo(string message) => Log(message, Data.Severity.Info);
-
-    private static void Log(string message, Data.Severity severity) {
+    private static void Log(string message, Severity severity) {
         string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
-            case Data.Severity.Error: {
+            case Severity.Error: {
                 ConsoleWindow.PrintError(newMessage);
                 break;
             }
-            case Data.Severity.Warning: {
+            case Severity.Warning: {
                 ConsoleWindow.PrintAction(newMessage);
                 break;
             }
-            case Data.Severity.Info:
-            default: {
+            case Severity.Info: {
                 ConsoleWindow.Print(newMessage);
                 break;
             }
+            default:
+            case Severity.Debug: {
+                Debug.Log(newMessage);
+            }
+            break;
         }
     }
 }
@@ -121,48 +121,13 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "betterpowermod";
     public const string ModName = "BetterPowerMod";
-    public const string ModVersion = "1.1.7";
+    public const string ModVersion = "1.2.0";
     public const ulong ModHandle = 3234916147;
-
-    // Game Data
-    public const string ExecutableName = "rocketstation.exe";
-    public const string DSExecutableName = "rocketstation_DedicatedServer.exe";
-
-    // Log Data
-    internal enum Severity {
-        Error,
-        Warning,
-        Info
-    }
-
-    public sealed class AlreadyLoadedException : Exception {
-        public AlreadyLoadedException(string message) : base(message) {
-        }
-
-        public AlreadyLoadedException(string message, Exception innerException) : base(message, innerException) {
-        }
-
-        public AlreadyLoadedException() {
-        }
-    }
 
     public static List<string> IgnoredSolarPanelPrefabs => [
         "StructureSolarPanelFlat", "StructureSolarPanel45",
         "StructureSolarPanelFlatReinforced", "StructureSolarPanel45Reinforced"
     ];
-
-    public const float OneKilowatt = 1000f;
-    public const float TwoKilowatts = OneKilowatt * 2f;
-    public const float TwoAndAHalfKilowatts = OneKilowatt * 2.5f;
-    public const float FiveKilowatts = OneKilowatt * 5f;
-    public const float EightKilowatts = OneKilowatt * 8f;
-
-    public const float TenKilowatts = FiveKilowatts * 2f;
-
-    public const float TwentyKilowatts = TenKilowatts * 2f;
-    public const float FiftyKilowatts = TenKilowatts * 5f;
-
-    public const float OneHundredKilowatts = FiftyKilowatts * 2f;
 
     //
     public static ConfigEntry<bool> enableSolarPanel;
@@ -181,12 +146,12 @@ internal struct Data {
     public static bool EnableStirling => enableStirling?.Value ?? false;
 
     public static ConfigEntry<float> stirlingEnergy;
-    public static float StirlingEnergy => stirlingEnergy?.Value ?? TwentyKilowatts;
+    public static float StirlingEnergy => stirlingEnergy?.Value ?? Constants.TWENTY_KILOWATTS;
 
     //
     public static ConfigEntry<bool> enableFasterCharging;
     public static bool EnableFasterCharging => enableWindTurbine?.Value ?? false;
 
     public static ConfigEntry<float> fastChargeRate;
-    public static float FastChargeRate => fastChargeRate?.Value ?? TwoAndAHalfKilowatts;
+    public static float FastChargeRate => fastChargeRate?.Value ?? Constants.TWO_POINT_FIVE_KILOWATTS;
 }

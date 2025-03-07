@@ -1,68 +1,24 @@
 #region
 
-using TMPro;
-
 #endregion
 
 namespace BetterWasteTank;
 
 internal static class Functions {
-    [CanBeNull]
-    private static GasCanister GetWasteCanister(Suit suit) => suit.WasteTankSlot.Contains(out GasCanister canister) ? canister : null;
+    internal static Suit GetSuit(Human human) => human.SuitSlot.Contains(out Suit suit) ? suit : null;
 
-    [CanBeNull]
-    private static Suit GetSuit(Human human) => human.SuitSlot.Contains(out Suit suit) ? suit : null;
+    internal static double GetCanisterRatio(GasCanister canister) => canister == null ? 0.0 : canister.Pressure.ToDouble() / canister.MaxPressure.ToDouble();
+    internal static double GetCanisterMax(GasCanister canister) => canister == null ? 10132.5f : canister.MaxPressure.ToDouble();
 
-    internal static PressurekPa GetWasteMaxPressure(Suit suit) {
-        GasCanister wasteCanister = GetWasteCanister(suit);
+    internal static bool IsWasteCritical(Suit suit) => IsWasteCritical(suit.WasteTank);
+    internal static bool IsWasteCritical(GasCanister canister) => canister == null || GetCanisterRatio(canister) >= Data.WasteCriticalRatio;
 
-        return wasteCanister == null ? new PressurekPa(Suit.DEFAULT_MAX_WASTE_PRESSURE) : wasteCanister.MaxPressure - Chemistry.OneAtmosphere;
-    }
+    internal static bool IsWasteCaution(Suit suit) => IsWasteCaution(suit.WasteTank);
+    internal static bool IsWasteCaution(GasCanister canister) => canister != null && GetCanisterRatio(canister) >= Data.WasteCautionRatio;
 
-    private static PressurekPa GetWastePressure(Suit suit) => GetWasteCanister(suit)?.Pressure ?? PressurekPa.Zero;
-    private static bool GetWasteBroken(Suit suit) => GetWasteCanister(suit)?.IsBroken ?? false;
-    private static bool GetWasteNull(Suit suit) => GetWasteCanister(suit) == null;
+    /*internal static bool IsAirCritical(Suit suit) => IsAirCritical(suit.AirTank);
+    internal static bool IsAirCritical(GasCanister canister) => canister == null || GetCanisterRatio(canister) < Data.AirCriticalRatio;
 
-    internal static bool IsWasteCritical(Suit suit) {
-        PressurekPa pressure = GetWastePressure(suit);
-        PressurekPa maxPressure = GetWasteMaxPressure(suit);
-        bool wasteBroken = GetWasteBroken(suit);
-        bool wasteNull = GetWasteNull(suit);
-        bool overThreshold = pressure.NotEqual(0.0) && maxPressure.NotEqual(0.0) && (pressure / maxPressure).GreaterEquals(Data.WasteCriticalRatio);
-
-        return wasteNull || wasteBroken || overThreshold;
-    }
-
-    internal static bool IsWasteCaution(Suit suit) {
-        PressurekPa pressure = GetWastePressure(suit);
-        PressurekPa maxPressure = GetWasteMaxPressure(suit);
-        bool overThreshold = pressure.NotEqual(0.0) && maxPressure.NotEqual(0.0) && (pressure / maxPressure).GreaterEquals(Data.WasteCautionRatio);
-
-        return !IsWasteCritical(suit) && overThreshold;
-    }
-
-    internal static void UpdateIcons(ref TMP_Text wasteText, ref Human human) {
-        Suit suit = GetSuit(human);
-
-        if (suit == null || !IsWasteCaution(suit) || !IsWasteCritical(suit))
-            return;
-
-        PressurekPa pressure = GetWastePressure(suit);
-        PressurekPa maxPressure = GetWasteMaxPressure(suit);
-        PressurekPa fullRatio = pressure.Equals(0.0) || maxPressure.Equals(0.0) ? PressurekPa.Zero : pressure / maxPressure;
-        string text = $"{fullRatio.ToDouble()}%";
-
-        wasteText.SetText(text);
-    }
-}
-
-public static class Extensions {
-    public static bool Equal(this PressurekPa pressure, double other) => pressure.ToDouble() == other;
-    public static bool NotEqual(this PressurekPa pressure, double other) => !pressure.Equal(other);
-
-    public static bool Greater(this PressurekPa pressure, double other) => pressure.ToDouble() > other;
-    public static bool GreaterEquals(this PressurekPa pressure, double other) => pressure.ToDouble() >= other;
-
-    public static bool Less(this PressurekPa pressure, double other) => pressure.ToDouble() < other;
-    public static bool LessEquals(this PressurekPa pressure, double other) => pressure.ToDouble() <= other;
+    internal static bool IsAirCaution(Suit suit) => IsAirCaution(suit.AirTank);
+    internal static bool IsAirCaution(GasCanister canister) => canister != null && GetCanisterRatio(canister) < Data.AirCautionRatio;*/
 }

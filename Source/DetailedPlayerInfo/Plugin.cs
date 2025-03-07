@@ -1,8 +1,5 @@
 ﻿#region
 
-using Cysharp.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
@@ -10,7 +7,7 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 namespace DetailedPlayerInfo;
 
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInProcess(Data.ExecutableName)]
+[BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {
     public static Plugin Instance {
         get; private set;
@@ -22,26 +19,40 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
-        if (Chainloader.PluginInfos.TryGetValue(Data.ModGuid, out _))
-            throw new Data.AlreadyLoadedException($"Mod {Data.ModName} ({Data.ModGuid}) - {Data.ModVersion} has already been loaded!");
+        if (Utilities.IsLoaded(Data.ModGuid)) {
+            throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
+        }
 
-        LoadConfiguration();
+        this.LoadConfiguration();
 
-        Instance = this;
-        HarmonyInstance = new Harmony(Data.ModGuid);
-        HarmonyInstance.PatchAll();
+        Plugin.Instance = this;
+        Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
+        Plugin.HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
         // Thx jixxed for awesome code :)
-        SceneManager.sceneLoaded += (scene, sceneMode) => {
-            if (scene.name == "Base")
+        SceneManager.sceneLoaded += (scene, _) => {
+            if (scene.name == Constants.BASE_SCENE_NAME) {
                 OnBaseLoaded().Forget();
+            }
         };
     }
 
     public void LoadConfiguration() {
-        Data.kelvinMode = Config.Bind(new ConfigDefinition("Keybinds", "Kelvin Mode"),
-            KeyCode.K,
-            new ConfigDescription("Keybind that when pressed, changes the status temperatures to kelvin instead of celcius."));
+        Data.preferredPressureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Pressure Unit"),
+            PressureUnit.Pascal,
+            new ConfigDescription("Will change most things to use this unit of measurement."));
+
+        Data.preferredTemperatureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Temperature Unit"),
+            TemperatureUnit.Celcius,
+            new ConfigDescription("Will change most things to use this unit of measurement."));
+
+        Data.preferredVolumeUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Volume Unit"),
+            VolumeUnit.Liter,
+            new ConfigDescription("Will change most things to use this unit of measurement."));
+
+        Data.preferredVelocityUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Velocity Unit"),
+            VelocityUnit.Meters,
+            new ConfigDescription("Will change most things to use this unit of measurement."));
 
         Data.customFramerate = Config.Bind(new ConfigDefinition("Configurables", "CustomFramerate"),
             true,
@@ -78,43 +89,42 @@ public class Plugin : BaseUnityPlugin {
         // Print version after main menu is visible
         LogInfo($"{Data.ModVersion} is installed.");
 
-        SetModVersion();
+        Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }
 
-    private void SetModVersion() {
-        ModData mod = WorkshopMenu.ModsConfig.Mods.Find((mod) => mod.GetAboutData().WorkshopHandle == Data.ModHandle);
-        if (mod == null) {
-            return;
-        }
+    public static void LogException(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Severity.Error);
+    public static void LogError(string message) => Log(message, Severity.Error);
+    public static void LogWarning(string message) => Log(message, Severity.Warning);
+    public static void LogInfo(string message) => Log(message, Severity.Info);
 
-        ModAbout aboutData = mod.GetAboutData();
-        aboutData.Version = Data.ModVersion;
-
-        Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
+#if DEBUG
+    public static void LogDebug(string message) => Log(message, Severity.Debug);
+#else
+    public static void LogDebug(string message) {
     }
+#endif
 
-    public static void LogError(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Data.Severity.Error);
-    public static void LogError(string message) => Log(message, Data.Severity.Error);
-    public static void LogWarning(string message) => Log(message, Data.Severity.Warning);
-    public static void LogInfo(string message) => Log(message, Data.Severity.Info);
-
-    private static void Log(string message, Data.Severity severity) {
+    private static void Log(string message, Severity severity) {
         string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
-            case Data.Severity.Error: {
+            case Severity.Error: {
                 ConsoleWindow.PrintError(newMessage);
                 break;
             }
-            case Data.Severity.Warning: {
+            case Severity.Warning: {
                 ConsoleWindow.PrintAction(newMessage);
                 break;
             }
-            case Data.Severity.Info:
-            default: {
+            case Severity.Info: {
                 ConsoleWindow.Print(newMessage);
                 break;
             }
+            default:
+            case Severity.Debug: {
+                Debug.Log(newMessage);
+            }
+            break;
         }
     }
 }
@@ -123,34 +133,21 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "detailedplayerinfo";
     public const string ModName = "DetailedPlayerInfo";
-    public const string ModVersion = "1.6.3";
+    public const string ModVersion = "1.7.0";
     public const ulong ModHandle = 3071950159;
 
-    // Game Data
-    public const string ExecutableName = "rocketstation.exe";
-    public const string DSExecutableName = "rocketstation_DedicatedServer.exe";
-
-    // Log Data
-    internal enum Severity {
-        Error,
-        Warning,
-        Info
-    }
-
-    public sealed class AlreadyLoadedException : Exception {
-        public AlreadyLoadedException(string message) : base(message) {
-        }
-
-        public AlreadyLoadedException(string message, Exception innerException) : base(message, innerException) {
-        }
-
-        public AlreadyLoadedException() {
-        }
-    }
-
     // Config
-    public static ConfigEntry<KeyCode> kelvinMode;
-    public static KeyCode KelvinMode => kelvinMode?.Value ?? KeyCode.K;
+    public static ConfigEntry<PressureUnit> preferredPressureUnit;
+    public static PressureUnit PreferredPressureUnit => preferredPressureUnit?.Value ?? PressureUnit.Pascal;
+
+    public static ConfigEntry<TemperatureUnit> preferredTemperatureUnit;
+    public static TemperatureUnit PreferredTemperatureUnit => preferredTemperatureUnit?.Value ?? TemperatureUnit.Celcius;
+
+    public static ConfigEntry<VolumeUnit> preferredVolumeUnit;
+    public static VolumeUnit PreferredVolumeUnit => preferredVolumeUnit?.Value ?? VolumeUnit.Liter;
+
+    public static ConfigEntry<VelocityUnit> preferredVelocityUnit;
+    public static VelocityUnit PreferredVelocityUnit => preferredVelocityUnit?.Value ?? VelocityUnit.Meters;
 
     public static ConfigEntry<bool> customFramerate;
     public static bool CustomFramerate => customFramerate?.Value ?? false;
@@ -170,31 +167,23 @@ internal struct Data {
     public static ConfigEntry<int> numberPrecision;
     public static int NumberPrecision => numberPrecision?.Value ?? 0;
 
-    public const float TemperatureZero = 273.15f;
-    public const float TemperatureOne = TemperatureZero + 1f;
-    public const float TemperatureTwenty = TemperatureZero + 20f;
-    public const float TemperatureThirty = TemperatureZero + 30f;
-    public const float TemperatureFifty = TemperatureZero + 50f;
-
-    public const float TemperatureMinimumSafe = TemperatureZero;
-    public const float TemperatureMaximumSafe = TemperatureFifty;
-
-    public const float TemperatureMinimum = 1f;
-    public const float TemperatureMaximum = 80000f;
-
-    public const float PressureAtmosphere = 101.325f;
-
-    public const float PressureMinimumSafe = 273.15f;
-    public const float PressureMaximumSafe = 607.94995f;
-
-    public const float PressureMinimum = 0f;
-    public const float PressureMaximum = 1000000f;
-
     public const string ExternalTemperatureUnit =
         "GameCanvas/PanelStatusInfo/PanelExternalNavigation/PanelExternal/PanelTemp/ValueTemp/TextUnitTemp";
 
     public const string InternalTemperatureUnit =
         "GameCanvas/PanelStatusInfo/PanelVerticalGroup/Internals/PanelInternal/PanelTemp/ValueTemp/TextUnitTemp";
+
+    public const string ExternalPressureUnit =
+        "GameCanvas/PanelStatusInfo/PanelExternalNavigation/PanelExternal/PanelPressure/TextUnitPressure";
+
+    public const string InternalPressureUnit =
+        "GameCanvas/PanelStatusInfo/PanelVerticalGroup/Internals/PanelInternal/PanelPressure/TextUnitPressure";
+
+    public const string JetpackPressureUnit =
+    "GameCanvas/PanelStatusInfo/PanelVerticalGroup/PanelJetpack/PanelPressureDelta/TextUnitPressure";
+
+    public const string NavagationVelocityUnit =
+        "GameCanvas/PanelStatusInfo/PanelExternalNavigation/PanelExternal/PanelNavigation/PanelVelocity/ValueVelocity/TextUnitVelocity";
 
     public const string WasteTextPanel =
         "GameCanvas/StatusIcons/Waste/Panel";

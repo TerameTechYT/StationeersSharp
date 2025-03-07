@@ -1,7 +1,5 @@
 ﻿#region
 
-using UnityEngine;
-
 #endregion
 
 namespace BetterPowerMod;

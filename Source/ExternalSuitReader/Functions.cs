@@ -1,26 +1,38 @@
 ﻿#region
 
-using Assets.Scripts.Atmospherics;
-using Assets.Scripts.Objects.Clothing;
-using Assets.Scripts.Objects.Motherboards;
-using System;
-
 #endregion
 
 namespace ExternalSuitReader;
 
 internal static class Functions {
-    internal static bool CanLogicRead(LogicType logicType) => Data.LogicPairs.TryGetValue(logicType, out _) || logicType == LogicType.TotalMolesOutput;
+    internal static bool CanLogicRead(LogicType logicType) => Data.LogicReadDictionary.ContainsKey(logicType);
+    internal static bool CanLogicWrite(LogicType logicType) => Data.LogicWriteDictionary.ContainsKey(logicType);
 
-    internal static double GetLogicValue(AdvancedSuit suit, LogicType logicType) {
-        if (suit.HasAtmosphere && suit.HasReadableAtmosphere) {
-            if (Data.LogicPairs.TryGetValue(logicType, out Chemistry.GasType gasType))
-                return Convert.ToDouble(suit.WorldAtmosphere.GetGasTypeRatio(gasType));
+    internal static double GetLogicValue(AdvancedSuit suit, LogicType logicType) => Data.LogicReadDictionary[logicType].Invoke(suit);
+    internal static void WriteLogicValue(AdvancedSuit suit, LogicType logicType, double value) => Data.LogicWriteDictionary[logicType].Invoke(suit, value);
 
-            if (logicType == LogicType.TotalMolesOutput)
-                return Convert.ToDouble(suit.WorldAtmosphere.TotalMoles);
+    internal static double GetSuitChannel(long referenceId, int channel) => !Data.AllAdvancedSuits.TryGetValue(referenceId, out List<DoubleReference> channels) ? 0.0 : channels[channel].Value;
+
+    internal static void SetSuitChannel(long referenceId, int channel, double value) {
+        if (Data.AllAdvancedSuits.TryGetValue(referenceId, out List<DoubleReference> channels)) {
+            channels[channel].Value = value;
+        }
+    }
+}
+
+[XmlInclude(typeof(SuitSaveData))]
+public class AdvancedSuitSaveData(List<DoubleReference> channels) : SuitSaveData {
+    [XmlElement]
+    [XmlArrayItem("Channel")]
+    public List<DoubleReference> Channels = channels;
+
+    public static AdvancedSuitSaveData Create(ThingSaveData reference, List<DoubleReference> channels) {
+        if (reference is AdvancedSuitSaveData data) {
+            data.Channels = channels;
+
+            return data;
         }
 
-        return 0.0;
+        return null;
     }
 }

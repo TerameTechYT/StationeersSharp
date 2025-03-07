@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <ModName>StationpediaCalculator</ModName>
@@ -25,50 +25,28 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="bin\**" />
-    <Compile Remove="obj\**" />
-    <EmbeddedResource Remove="bin\**" />
-    <EmbeddedResource Remove="obj\**" />
-    <None Remove="bin\**" />
-    <None Remove="obj\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="$(SolutionDir)Source\GlobalSuppressions.cs" />
-  </ItemGroup>
-
-
   <!-- Import Stationeers VS properties - paths etc. -->
   <Import Project="$(SolutionDir)Stationeers.VS.props" />
 
   <!-- Import Game/Unity DLL references -->
   <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
-
-
-
-  <ItemGroup>
-    <Reference Include="NCalc">
-      <HintPath>..\..\Build\x64\Release\NCalc.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
+  
   <ItemGroup>
     <CopyItemsGameData Include="$(ProjectDir)\GameData\**\*.*" />
     <CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="NCalc">
+      <HintPath>NCalc.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
-    <Copy SourceFiles="$(TargetDir)\NCalc.dll" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
+    <Copy SourceFiles="$(ProjectDir)\NCalc.dll" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
     <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
     <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
   </Target>
