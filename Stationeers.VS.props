@@ -2,14 +2,11 @@
 	<PropertyGroup>
 		<!-- Change this to the path to your Stationeers Directory -->
 		<StationeersDirectory>D:\SteamLibrary\steamapps\common\Stationeers</StationeersDirectory>
-		
-		<!-- Change this to the path to your Stationeers Documents Directory -->
-		<StationeersDocumentsDirectory>C:\Users\vivien\Documents\My Games\Stationeers</StationeersDocumentsDirectory>
 
 		<!-- Do Not Change Anything Below -->
 		<StationeersManagedDirectory>$(StationeersDirectory)\rocketstation_Data\Managed</StationeersManagedDirectory>
-
-		<BIEDirectory>$(StationeersDirectory)\BepInEx</BIEDirectory>
+    <StationeersDocumentsDirectory>C:\Users\%username%\Documents\My Games\Stationeers</StationeersDocumentsDirectory>
+    <BIEDirectory>$(StationeersDirectory)\BepInEx</BIEDirectory>
 		<BIECoreDirectory>$(BIEDirectory)\core</BIECoreDirectory>
 		<BIEPatchersDirectory>$(BIEDirectory)\patchers</BIEPatchersDirectory>
 		<BIEluginsDirectory>$(BIEDirectory)\plugins</BIEluginsDirectory>
