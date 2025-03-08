@@ -5,7 +5,7 @@
 
 		<!-- Do Not Change Anything Below -->
 		<StationeersManagedDirectory>$(StationeersDirectory)\rocketstation_Data\Managed</StationeersManagedDirectory>
-    <StationeersDocumentsDirectory>C:\Users\%username%\Documents\My Games\Stationeers</StationeersDocumentsDirectory>
+    <StationeersDocumentsDirectory>C:\Users\$(username)\Documents\My Games\Stationeers</StationeersDocumentsDirectory>
     <BIEDirectory>$(StationeersDirectory)\BepInEx</BIEDirectory>
 		<BIECoreDirectory>$(BIEDirectory)\core</BIECoreDirectory>
 		<BIEPatchersDirectory>$(BIEDirectory)\patchers</BIEPatchersDirectory>
