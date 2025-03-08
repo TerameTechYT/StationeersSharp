@@ -9,9 +9,9 @@
     <BIEDirectory>$(StationeersDirectory)\BepInEx</BIEDirectory>
 		<BIECoreDirectory>$(BIEDirectory)\core</BIECoreDirectory>
 		<BIEPatchersDirectory>$(BIEDirectory)\patchers</BIEPatchersDirectory>
-		<BIEluginsDirectory>$(BIEDirectory)\plugins</BIEluginsDirectory>
+		<BIEPluginsDirectory>$(BIEDirectory)\plugins</BIEPluginsDirectory>
 
-		<StationeersModsDirectory>$(BIEluginsDirectory)\StationeersMods</StationeersModsDirectory>
+		<StationeersModsDirectory>$(BIEPluginsDirectory)\StationeersMods</StationeersModsDirectory>
 	</PropertyGroup>
 
   <ItemGroup>
