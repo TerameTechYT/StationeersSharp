@@ -13,13 +13,19 @@ public static class PatchFunctions {
     [HarmonyPrefix]
     public static bool PrefabLoadAll() {
         try {
-            AdvancedTablet tabletPrefab = WorldManager.Instance.SourcePrefabs.Find((thing) => thing is AdvancedTablet) as AdvancedTablet;
+            AdvancedTablet tabletPrefab = WorldManager.Instance.SourcePrefabs.Find((thing) => thing.PrefabName == Data.AdvancedTabletPrefabName) as AdvancedTablet;
+            if (tabletPrefab == null) {
+                return true;
+            }
+
+            Plugin.LogDebug($"Found {Data.AdvancedTabletPrefabName} Prefab!");
             tabletPrefab.AllowSelfUse = true;
 
             Slot template = tabletPrefab.Slots.Find((slot) => slot.Type == Slot.Class.Cartridge);
             for (int i = 0; i < Data.AdditionalTabletSlots; i++) {
                 tabletPrefab.Slots.Add(Functions.CloneSlot(template));
             }
+            Plugin.LogDebug($"Added {Data.AdditionalTabletSlots} slots to {Data.AdvancedTabletPrefabName} Prefab");
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -36,6 +42,46 @@ public static class PatchFunctions {
     }
 
     [UsedImplicitly]
+    [HarmonyPatch(typeof(AdvancedTablet), nameof(AdvancedTablet.DeserializeSave))]
+    [HarmonyPostfix]
+    public static void AdvancedTabletDeserializeSave(ref AdvancedTablet __instance, ThingSaveData savedData) => Traverse.Create(__instance).Method("GetCartridge").GetValue();
+
+    [UsedImplicitly]
+    [HarmonyPatch(typeof(AdvancedTablet), nameof(AdvancedTablet.InteractWith))]
+    [HarmonyPrefix]
+    public static bool AdvancedTabletInteractWith(ref AdvancedTablet __instance, ref Thing.DelayedActionInstance __result, ref int ___currentCartSlot, Interactable interactable, Interaction interaction, bool doAction = true) {
+        if (__instance == null || interactable == null || !doAction) {
+            return true;
+        }
+
+        try {
+            switch (interactable.Action) {
+                case InteractableType.Button1: {
+                    ___currentCartSlot = Functions.GetTabletCartridgeSlot(ref __instance, ___currentCartSlot, true);
+                } break;
+                case InteractableType.Button2: {
+                    ___currentCartSlot = Functions.GetTabletCartridgeSlot(ref __instance, ___currentCartSlot, false);
+                } break;
+                default: {
+                    Plugin.LogDebug($"Ignoring action type {interactable.Action}");
+                    break;
+                }
+            }
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogException(ex);
+            }
+        }
+        return true;
+    }
+
+    /*[UsedImplicitly]
     [HarmonyPatch(typeof(Item), nameof(Item.OnUsePrimary))]
     [HarmonyPrefix]
     public static bool ItemOnUsePrimary(Item __instance, Vector3 targetLocation, Quaternion targetRotation, ulong steamId, bool authoringMode) {
@@ -62,7 +108,7 @@ public static class PatchFunctions {
         }
 
         return true;
-    }
+    }*/
 
     /*[UsedImplicitly]
     [HarmonyPatch(typeof(AtmosAnalyser), "GetScannedAtmosphere")]

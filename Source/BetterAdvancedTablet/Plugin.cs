@@ -60,7 +60,13 @@ public class Plugin : BaseUnityPlugin {
     public static void LogError(string message) => Log(message, Severity.Error);
     public static void LogWarning(string message) => Log(message, Severity.Warning);
     public static void LogInfo(string message) => Log(message, Severity.Info);
+
+#if DEBUG
     public static void LogDebug(string message) => Log(message, Severity.Debug);
+#else
+    public static void LogDebug(string message) {
+    }
+#endif
 
     private static void Log(string message, Severity severity) {
         string newMessage = $"[{Data.ModName}]: {message}";
@@ -80,7 +86,7 @@ public class Plugin : BaseUnityPlugin {
             }
             default:
             case Severity.Debug: {
-                Debug.Log(newMessage);
+                ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
             } break;
         }
     }
@@ -92,6 +98,9 @@ internal struct Data {
     public const string ModName = "BetterAdvancedTablet";
     public const string ModVersion = "1.0.0";
     public const ulong ModHandle = 0;
+
+    //
+    public const string AdvancedTabletPrefabName = "ItemAdvancedTablet";
 
     /*public const string NextCartridge = "Next Cartridge";
     public const string PrevCartridge = "Previous Cartridge";*/

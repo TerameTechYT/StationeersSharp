@@ -1,8 +1,6 @@
-﻿
+﻿#region
 
-
-
-using SimpleSpritePacker;
+#endregion
 
 namespace BetterAdvancedTablet;
 
@@ -39,10 +37,48 @@ public static class Functions {
         advancedTablet.InteractWith(interactable, interaction);
     }
 
+    internal static int GetTabletCartridgeSlot(ref AdvancedTablet advancedTablet, int currentCartSlot, bool next) {
+        int result = currentCartSlot;
+
+        if (next) {
+            for (int i = currentCartSlot; i <= currentCartSlot + advancedTablet.CartridgeSlots.Count - 1; i++) {
+                int slot = (i + 1) % advancedTablet.CartridgeSlots.Count;
+
+                if (advancedTablet.CartridgeSlots[slot].IsNotEmpty()) {
+                    result = currentCartSlot;
+                    Plugin.LogDebug($"Next Cartridge not empty, returning {result}");
+
+                    break;
+                }
+
+                result = slot;
+            }
+        } else {
+            for (int i = currentCartSlot; i >= currentCartSlot - advancedTablet.CartridgeSlots.Count + 1; i++) {
+                int slot = (i - 1) % advancedTablet.CartridgeSlots.Count;
+                if (slot < 0) {
+                    slot += advancedTablet.CartridgeSlots.Count;
+                }
+
+                if (advancedTablet.CartridgeSlots[slot].IsNotEmpty()) {
+                    result = currentCartSlot;
+                    Plugin.LogDebug($"Previous Cartridge not empty, returning {result}");
+
+                    break;
+                }
+
+                result = slot;
+            }
+        }
+
+        Plugin.LogDebug($"returning {result}");
+        return result;
+    }
+
     internal static Atmosphere GetScannedAtmosphere(ref AtmosAnalyser analyzer, ref string selectedText) {
         Thing cursorThing = CursorManager.CursorThing;
 
-        if (cursorThing == null || cursorThing.RootParent && cursorThing.RootParent.HasAuthority) {
+        if (cursorThing == null || (cursorThing.RootParent && cursorThing.RootParent.HasAuthority)) {
             return analyzer.WorldAtmosphere;
         }
 
@@ -70,12 +106,12 @@ public static class Functions {
             Atmosphere totalAtmosphere = new();
             totalAtmosphere.Thing = human;
 
-            if (human.HelmetSlot.Contains<GasMask>(out GasMask mask) && mask.HasReadableAtmosphere) {
+            if (human.HelmetSlot.Contains(out GasMask mask) && mask.HasReadableAtmosphere) {
                 totalAtmosphere.Add(mask.InternalAtmosphere.GasMixture);
                 totalAtmosphere.Volume += mask.InternalAtmosphere.Volume;
             }
 
-            if (human.SuitSlot.Contains<Suit>(out Suit suit) && suit.HasReadableAtmosphere) {
+            if (human.SuitSlot.Contains(out Suit suit) && suit.HasReadableAtmosphere) {
                 totalAtmosphere.Add(suit.InternalAtmosphere.GasMixture);
                 totalAtmosphere.Volume += suit.InternalAtmosphere.Volume;
             }
