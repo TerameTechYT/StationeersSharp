@@ -122,7 +122,7 @@ public class Plugin : BaseUnityPlugin {
             }
             default:
             case Severity.Debug: {
-                Debug.Log(newMessage);
+                ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
             }
             break;
         }

@@ -22,7 +22,7 @@ public static class PatchFunctions {
         }
 
         try {
-            return Functions.EnableFrameCounter(ref ___FrameRate);
+            Functions.EnableFrameCounter(ref ___FrameRate);
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -84,7 +84,7 @@ public static class PatchFunctions {
         }
     }
 
-    [UsedImplicitly]
+    /*[UsedImplicitly]
     [HarmonyPriority(Priority.Last)]
     [HarmonyPatch(typeof(AtmosAnalyser), "PrepareText")]
     [HarmonyPostfix]
@@ -106,9 +106,9 @@ public static class PatchFunctions {
                 Plugin.LogException(ex);
             }
         }
-    }
+    }*/
     
-    [UsedImplicitly]
+    /*[UsedImplicitly]
     [HarmonyPatch(typeof(AtmosAnalyser), "SetHash")]
     [HarmonyPrefix]
     public static bool AtmosAnalyserSetHash(ref AtmosAnalyser __instance, Mole mole, Atmosphere atmos, string volumeTextColor, ref Dictionary<int, GasItem> ____moleDisplay) {
@@ -136,7 +136,7 @@ public static class PatchFunctions {
         }
 
         return false;
-    }
+    }*/
 
     /*[UsedImplicitly]
     [HarmonyPatch(typeof(AtmosphericsManager), nameof(AtmosphericsManager.DisplayBasicAtmosphere), [typeof(Atmosphere), typeof(StringBuilder), typeof(Pipe.ContentType)])]

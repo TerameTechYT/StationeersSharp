@@ -11,6 +11,20 @@ using UnityObject = UnityEngine.Object;
 
 namespace DetailedPlayerInfo;
 
+public static class Extensions {
+    public static string ToStringPrecision(this float value) => value.ToPrecision().ToString();
+    public static string ToStringPrecision(this PressurekPa value) => value.ToPrecision().ToString();
+    public static string ToStringPrecision(this TemperatureKelvin value) => value.ToPrecision().ToString();
+    public static string ToStringPrecision(this VolumeLitres value) => value.ToPrecision().ToString();
+    public static string ToStringPrecision(this MoleQuantity value) => value.ToPrecision().ToString();
+
+    public static float ToPrecision(this float value) => (float) Math.Round(value, Data.NumberPrecision);
+    public static float ToPrecision(this PressurekPa value) => value.ToFloat().ToPrecision();
+    public static float ToPrecision(this TemperatureKelvin value) => value.ToFloat().ToPrecision();
+    public static float ToPrecision(this VolumeLitres value) => value.ToFloat().ToPrecision();
+    public static float ToPrecision(this MoleQuantity value) => value.ToFloat().ToPrecision();
+}
+
 internal static class Functions {
     // temperature text objects
     private static TextMeshProUGUI _internalTempUnit;
@@ -33,57 +47,27 @@ internal static class Functions {
     private static GameObject _filterTextPanel;
     private static TextMeshProUGUI _filterText;
 
-    internal static T1 CatchAndReturnDefault<T1, T2>(T1 fallbackValue, Func<T1> action) where T2 : Exception {
-        if (action == null) {
-            return fallbackValue;
-        }
-
-        try {
-            return action();
-        }
-        catch (T2) {
-            return fallbackValue;
-        }
-    }
-
     internal static async UniTaskVoid FrameCounterUpdate(TextMeshProUGUI frameText) {
         while (Settings.CurrentData.ShowFps && frameText != null) {
-            const int maxFrames = 9999;
-            const int minFrames = 30;
-
-            int framesCap = CatchAndReturnDefault<int, FormatException>(maxFrames,
-                () => int.Parse(Settings.CurrentData.FrameLock).Clamp(minFrames, maxFrames));
-            float frames = (1f / Time.smoothDeltaTime).Clamp(0, framesCap);
-
-            frameText.text = string.Concat([
-                frames.ToStringPrecision(),
-                Settings.CurrentData.FrameLock == "Off" ? string.Empty : " / ",
-                Settings.CurrentData.FrameLock == "Off" ? string.Empty : Settings.CurrentData.FrameLock,
-                " FPS"
-            ]);
+            int framesCap = Utilities.CatchAndReturnDefault<int, FormatException>(60, () => int.Parse(Settings.CurrentData.FrameLock));
+            float frames = (1f / Time.unscaledDeltaTime).Clamp(0, framesCap);
+            string framelock = Settings.CurrentData.FrameLock == "Off" ? string.Empty : $" / {Settings.CurrentData.FrameLock}";
+            frameText.text = $"{frames.ToPrecision()}{framelock} FPS";
 
             // Hide counter when no ui mode is enabled
             frameText.transform.parent.gameObject.SetActive(InventoryManager.ShowUi);
 
-            if (!GameManager.IsBatchMode && GameManager.GameState != GameState.Running) {
-                Application.targetFrameRate = Settings.CurrentData.FrameLock != "Off" ? framesCap : maxFrames;
+            if (GameManager.GameState != GameState.Running) {
+                Application.targetFrameRate = Settings.CurrentData.FrameLock != "Off" ? framesCap : -1;
             }
 
             await UniTask.NextFrame();
         }
     }
 
-    internal static bool EnableFrameCounter(ref TextMeshProUGUI frameCounter) {
-        if (frameCounter == null) {
-            return true;
-        }
-
+    internal static void EnableFrameCounter(ref TextMeshProUGUI frameCounter) {
         frameCounter.transform.parent.gameObject.SetActive(Settings.CurrentData.ShowFps);
-        if (Settings.CurrentData.ShowFps) {
-            FrameCounterUpdate(frameCounter).Forget();
-        }
-
-        return false;
+        FrameCounterUpdate(frameCounter).Forget();
     }
 
     internal static void Initialize() {
@@ -113,7 +97,7 @@ internal static class Functions {
     }
 
     internal static void Update(ref PlayerStateWindow window) {
-        if (GameManager.GameState != GameState.Running) {
+        if (GameManager.GameState != GameState.Running || window == null) {
             return;
         }
 
@@ -141,32 +125,34 @@ internal static class Functions {
 
         // Change battery percentage text
         if (Data.ExtraInfoPower && (StatusUpdates.Instance.IsPowerCaution() || StatusUpdates.Instance.IsPowerCritical())) {
-            float percentage = (suitBattery?.PowerRatio ?? 0f) * 100f;
+            float ratio = suitBattery?.PowerRatio ?? 0f;
+            float percentage = ratio * 100f;
 
-            _batteryText.text = percentage.ToStringRounded() + "%";
+            _batteryText.text = $"{percentage.ToStringRounded()}%";
         }
 
         // Change filter percentage text
         if (Data.ExtraInfoFilter && (StatusUpdates.Instance.IsFilterCaution() || StatusUpdates.Instance.IsFilterCritical())) {
-            float ratio = Mathf.Min(filter1?.RemainingRatio ?? 10f,
-                filter2?.RemainingRatio ?? 10f,
-                filter3?.RemainingRatio ?? 10f,
-                filter4?.RemainingRatio ?? 10f);
+            float[] filterRatios = [filter1?.RemainingRatio ?? -1f, filter2?.RemainingRatio ?? -1f, filter3?.RemainingRatio ?? -1f, filter4?.RemainingRatio ?? -1f];
+            float filterRatio = Mathf.Min(filterRatios.Where((value) => value != -1f).ToArray());
+            float percentage = filterRatio * 100f;
 
-            float filterRatio = ratio == 10f ? 0f : ratio * 100f;
-
-            _filterText.text = filterRatio.ToStringRounded() + "%";
+            _filterText.text = $"{percentage.ToStringRounded()}%";
         }
 
         // Suit External Pressure
-        float externalPressure = suit?.WorldAtmosphere?.PressureGassesAndLiquids.ToFloat() ?? 0f;
-        string externalPressureText = externalPressure.ToPreferredUnit(Data.PreferredPressureUnit).ToStringPrecision();
+        float externalPressure = window._pressureExternal.ToFloat();
+        string externalPressureText = externalPressure == 0
+            ? "None"
+            : externalPressure.ToPreferredUnit(Data.PreferredPressureUnit).ToStringPrecision();
         window.InfoExternalPressure.text = externalPressureText;
         window.InfoExternalPressure.fontSize = Data.FontSize;
 
         // Suit Internal Pressure
-        float internalPressure = suit?.InternalAtmosphere?.PressureGassesAndLiquids.ToFloat() ?? 0f;
-        string internalPressureText = internalPressure.ToPreferredUnit(Data.PreferredPressureUnit).ToStringPrecision();
+        float internalPressure = window._pressureInternal.ToFloat();
+        string internalPressureText = internalPressure == 0
+            ? "None"
+            : internalPressure.ToPreferredUnit(Data.PreferredPressureUnit).ToStringPrecision();
         window.InfoInternalPressure.text = internalPressureText;
         window.InfoInternalPressure.fontSize = Data.FontSize;
 
@@ -176,7 +162,7 @@ internal static class Functions {
         window.InfoInternalPressureSetting.text = pressureSettingText;
 
         // Suit External Temperature
-        float externalTemperature = suit?.WorldAtmosphere?.Temperature.ToFloat() ?? 0f;
+        float externalTemperature = window._tempExternalK.ToFloat();
         string externalTemperatureText = externalTemperature.IsKelvinNil()
             ? "Nil"
             : externalTemperature.ToPreferredUnit(Data.PreferredTemperatureUnit).ToStringPrecision();
@@ -184,7 +170,7 @@ internal static class Functions {
         window.InfoExternalTemperature.fontSize = Data.FontSize;
 
         // Suit Internal Temperature
-        float internalTemperature = suit?.InternalAtmosphere?.Temperature.ToFloat() ?? 0f;
+        float internalTemperature = window._tempInternalK.ToFloat();
         string internalTemperatureText = internalTemperature.IsKelvinNil()
             ? "Nil"
             : internalTemperature.ToPreferredUnit(Data.PreferredTemperatureUnit).ToStringPrecision();
@@ -192,21 +178,21 @@ internal static class Functions {
         window.InfoInternalTemperature.fontSize = Data.FontSize;
 
         // Suit Temperature Setting
-        float temperatureSetting = (suit?.OutputTemperature.ToFloat() ?? 0f).ToPreferredUnit(Data.PreferredTemperatureUnit);
-        string temperatureSettingText = temperatureSetting.ToStringPrecision();
+        float temperatureSetting = suit?.OutputTemperature.ToFloat() ?? 0f;
+        string temperatureSettingText = temperatureSetting.ToPreferredUnit(Data.PreferredTemperatureUnit).ToStringPrecision();
         window.InfoInternalTemperatureSetting.text = temperatureSettingText;
 
         // Jetpack Delta Pressure
-        float jetpackPressure = (jetpackPropellant?.Pressure.ToFloat() ?? 0f).ToPreferredUnit(Data.PreferredPressureUnit);
+        float jetpackPressure = jetpackPropellant?.Pressure.ToFloat() ?? 0f;
         float pressureDelta = jetpackPressure - externalPressure;
-        string pressureDeltaText = pressureDelta.ToStringPrecision();
+        string pressureDeltaText = pressureDelta.ToPreferredUnit(Data.PreferredTemperatureUnit).ToStringPrecision();
         window.InfoJetpackPressureDeltaText.text = pressureDeltaText;
         window.InfoJetpackPressureDeltaText.fontSize = Data.FontSize;
 
         // Jetpack Thrust Setting
         float jetpackSetting = jetpack?.OutputSetting ?? 0f;
         int jetpackSettingRounded = Mathf.CeilToInt(jetpackSetting * 10f) * 5;
-        string jetpackSettingText = jetpackSettingRounded + "%";
+        string jetpackSettingText = $"{jetpackSettingRounded}%";
         window.InfoJetpackThrust.text = jetpackSettingText;
 
         // Character Velocity
@@ -254,7 +240,7 @@ internal static class Functions {
 
         // Character Look Angle
         float eulerAnglesY = human?.EntityRotation.eulerAngles.y ?? 0f;
-        float orientation = (eulerAnglesY + 270f) % 360f;
+        float orientation = (eulerAnglesY + 180f) % 360f;
         string orientationText = orientation.ToStringPrecision();
         window.NavigationText.text = orientationText;
         window.NavigationText.fontSize = Data.FontSize;
@@ -365,29 +351,4 @@ internal static class Functions {
             StringManager.DisplayKeyValue(stringBuilder, GameStrings.LiquidsVolume, none);
         }
     }
-}
-
-public static class Extensions2 {
-    public static string ToStringPrefix(this float value, string unit = "", string color = "") => value.ToStringPrefix(unit, color);
-    public static string ToStringPrefix(this PressurekPa value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
-    public static string ToStringPrefix(this TemperatureKelvin value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
-    public static string ToStringPrefix(this VolumeLitres value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
-    public static string ToStringPrefix(this MoleQuantity value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
-
-    public static string ToStringPrefix(this PressurekPa value, string unit = "") => value.ToFloat().ToStringPrefix(unit);
-    public static string ToStringPrefix(this TemperatureKelvin value, string unit = "") => value.ToFloat().ToStringPrefix(unit);
-    public static string ToStringPrefix(this VolumeLitres value, string unit = "") => value.ToFloat().ToStringPrefix(unit);
-    public static string ToStringPrefix(this MoleQuantity value, string unit = "") => value.ToFloat().ToStringPrefix(unit);
-
-    public static string ToStringPrecision(this float value) => value.ToPrecision().ToString();
-    public static string ToStringPrecision(this PressurekPa value) => value.ToPrecision().ToString();
-    public static string ToStringPrecision(this TemperatureKelvin value) => value.ToPrecision().ToString();
-    public static string ToStringPrecision(this VolumeLitres value) => value.ToPrecision().ToString();
-    public static string ToStringPrecision(this MoleQuantity value) => value.ToPrecision().ToString();
-
-    public static float ToPrecision(this float value) => (float) Math.Round(value, Data.NumberPrecision);
-    public static float ToPrecision(this PressurekPa value) => value.ToFloat().ToPrecision();
-    public static float ToPrecision(this TemperatureKelvin value) => value.ToFloat().ToPrecision();
-    public static float ToPrecision(this VolumeLitres value) => value.ToFloat().ToPrecision();
-    public static float ToPrecision(this MoleQuantity value) => value.ToFloat().ToPrecision();
 }
