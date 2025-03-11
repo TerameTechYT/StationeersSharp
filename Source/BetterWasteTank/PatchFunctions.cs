@@ -57,6 +57,30 @@ public static class PatchFunctions {
         }
     }
 
+    [UsedImplicitly]
+    [HarmonyPatch(typeof(StatusUpdates), "HandleIconUpdates")]
+    [HarmonyPostfix]
+    public static void StatusUpdatesIsWasteCritical(ref StatusUpdates __instance, ref Suit ____suit) {
+        if (__instance == null || ____suit == null || ____suit.ParentEntity == null) {
+            return;
+        }
+
+        try {
+            __instance.TextWaste.text = $"{Mathf.FloorToInt(Functions.GetCanisterFullRatio(____suit.WasteTank))}%";
+            __instance.TextWaste.text = $"{Mathf.FloorToInt(Functions.GetCanisterMoles(____suit.AirTank, ____suit.ParentEntity.SpeciesClass))}%";
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogException(ex);
+            }
+        }
+    }
+
     // alarm patches
     [UsedImplicitly]
     [HarmonyPatch(typeof(StatusUpdates), nameof(StatusUpdates.IsWasteCritical))]

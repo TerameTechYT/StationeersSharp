@@ -129,4 +129,7 @@ internal struct Data {
 
     public static ConfigEntry<float> airCriticalMoles;
     public static float AirCriticalMoles => airCriticalMoles?.Value ?? 0.15f;
+
+    internal static float AirTankMolesCritical => Human.MolesPerMinute.ToFloat() * AirCriticalMoles;
+    internal static float AirTankMolesCaution => Human.MolesPerMinute.ToFloat() * AirCautionMoles;
 }
