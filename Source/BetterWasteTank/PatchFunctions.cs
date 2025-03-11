@@ -66,7 +66,7 @@ public static class PatchFunctions {
         }
 
         try {
-            __instance.TextWaste.text = $"{Mathf.FloorToInt(Functions.GetCanisterFullRatio(____suit.WasteTank)) * 100f}%";
+            __instance.TextWaste.text = $"{Mathf.FloorToInt(Functions.GetCanisterFullRatio(____suit.WasteTank) * 100f)}%";
             __instance.TextWaste.text = $"{Mathf.FloorToInt(Functions.GetCanisterMoles(____suit.AirTank, ____suit.ParentEntity.SpeciesClass) / Data.AirCautionMoles * 100f)}%";
         }
         catch (Exception ex) {
