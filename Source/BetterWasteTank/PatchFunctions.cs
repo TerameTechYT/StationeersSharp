@@ -19,7 +19,7 @@ public static class PatchFunctions {
         }
 
         try {
-            __instance.wasteMaxPressure = (float) Functions.GetCanisterMax(__instance.WasteTank);
+            __instance.wasteMaxPressure = Functions.GetCanisterMax(__instance.WasteTank);
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -43,7 +43,7 @@ public static class PatchFunctions {
         }
 
         try {
-            suit.wasteMaxPressure = (float) Functions.GetCanisterMax(suit.WasteTank);
+            suit.wasteMaxPressure = Functions.GetCanisterMax(suit.WasteTank);
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -58,12 +58,11 @@ public static class PatchFunctions {
     }
 
     // alarm patches
-
     [UsedImplicitly]
     [HarmonyPatch(typeof(StatusUpdates), nameof(StatusUpdates.IsWasteCritical))]
     [HarmonyPrefix]
     public static bool StatusUpdatesIsWasteCritical(ref bool __result, ref Suit ____suit) {
-        if (____suit == null) {
+        if (____suit == null || ____suit.ParentEntity == null) {
             __result = false;
             return false;
         }
@@ -89,7 +88,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(StatusUpdates), nameof(StatusUpdates.IsWasteCaution))]
     [HarmonyPrefix]
     public static bool StatusUpdatesIsWasteCaution(ref bool __result, ref Suit ____suit) {
-        if (____suit == null) {
+        if (____suit == null || ____suit.ParentEntity == null) {
             __result = false;
             return false;
         }
@@ -111,17 +110,17 @@ public static class PatchFunctions {
         return false;
     }
 
-    /*[UsedImplicitly]
+    [UsedImplicitly]
     [HarmonyPatch(typeof(StatusUpdates), nameof(StatusUpdates.IsAirTankCritical))]
     [HarmonyPrefix]
     public static bool StatusUpdatesIsAirTankCritical(ref bool __result, ref Suit ____suit) {
-        if (____suit == null) {
+        if (____suit == null || ____suit.ParentEntity == null) {
             __result = false;
             return false;
         }
 
         try {
-            __result = Functions.IsAirCritical(____suit);
+            __result = Functions.IsAirCritical(____suit, ____suit.ParentEntity.SpeciesClass);
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -130,7 +129,7 @@ public static class PatchFunctions {
                 _patches[currentMethod] = true;
 
                 Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                Plugin.LogError(ex);
+                Plugin.LogException(ex);
             }
         }
 
@@ -141,13 +140,13 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(StatusUpdates), nameof(StatusUpdates.IsAirTankCaution))]
     [HarmonyPrefix]
     public static bool StatusUpdatesIsAirTankCaution(ref bool __result, ref Suit ____suit) {
-        if (____suit == null) {
+        if (____suit == null || ____suit.ParentEntity == null) {
             __result = false;
             return false;
         }
 
         try {
-            __result = Functions.IsAirCaution(____suit);
+            __result = Functions.IsAirCaution(____suit, ____suit.ParentEntity.SpeciesClass);
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -156,12 +155,12 @@ public static class PatchFunctions {
                 _patches[currentMethod] = true;
 
                 Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                Plugin.LogError(ex);
+                Plugin.LogException(ex);
             }
         }
 
         return false;
-    }*/
+    }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(StatusUpdates), "GetPercentageString")]

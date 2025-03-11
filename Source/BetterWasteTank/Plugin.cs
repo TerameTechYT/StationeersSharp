@@ -40,20 +40,24 @@ public class Plugin : BaseUnityPlugin {
 
     public void LoadConfiguration() {
         Data.wasteCriticalRatio = Config.Bind(new ConfigDefinition("Configurables", "Waste Critical Ratio"),
-            0.975,
-            new ConfigDescription("Ratio when \"Waste Tank Critical!\" alarm goes off.", new AcceptableValueRange<double>(0.0, 1.0)));
+            0.975f,
+            new ConfigDescription("Ratio when \"Waste Tank Critical!\" alarm goes off.", new AcceptableValueRange<float>(0.0f, 1.0f)));
 
         Data.wasteCautionRatio = Config.Bind(new ConfigDefinition("Configurables", "Waste Caution Ratio"),
-            0.75,
-            new ConfigDescription("Ratio when \"Waste Tank Caution\" alarm goes off.", new AcceptableValueRange<double>(0.0, 1.0)));
+            0.75f,
+            new ConfigDescription("Ratio when \"Waste Tank Caution\" alarm goes off.", new AcceptableValueRange<float>(0.0f, 1.0f)));
 
-        /*Data.airCriticalRatio = Config.Bind(new ConfigDefinition("Configurables", "Air Critical Ratio"),
-            0.15,
-            new ConfigDescription("Ratio when \"Air Tank Critical!\" alarm goes off.", new AcceptableValueRange<double>(0.0, 1.0)));
+        Data.airCountOnlyBreathable = Config.Bind(new ConfigDefinition("Configurables", "Air Count Only Breathable"),
+            true,
+            new ConfigDescription("Should Air Tank warnings count moles of only breathable gas or total moles"));
 
-        Data.airCautionRatio = Config.Bind(new ConfigDefinition("Configurables", "Air Caution Ratio"),
-            0.30,
-            new ConfigDescription("Ratio when \"Air Tank Caution\" alarm goes off.", new AcceptableValueRange<double>(0.0, 1.0)));*/
+        Data.airCriticalMoles = Config.Bind(new ConfigDefinition("Configurables", "Air Critical Moles"),
+            12.5f,
+            new ConfigDescription("Quantity of moles when \"Air Tank Critical!\" alarm goes off. (this number will be multiplied by how many moles a human breathes per tick)"));
+
+        Data.airCautionMoles = Config.Bind(new ConfigDefinition("Configurables", "Air Caution Moles"),
+            30f,
+            new ConfigDescription("Quanitity of moles when \"Air Tank Caution\" alarm goes off. (this number will be multiplied by how many moles a human breathes per tick)"));
     }
 
     public async UniTask OnBaseLoaded() {
@@ -96,7 +100,7 @@ public class Plugin : BaseUnityPlugin {
             }
             default:
             case Severity.Debug: {
-                Debug.Log(newMessage);
+                ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
             }
             break;
         }
@@ -111,15 +115,18 @@ internal struct Data {
     public const ulong ModHandle = 3071913936;
 
     // Config Data
-    public static ConfigEntry<double> wasteCriticalRatio;
-    public static double WasteCriticalRatio => wasteCriticalRatio?.Value ?? 0.75;
+    public static ConfigEntry<float> wasteCriticalRatio;
+    public static float WasteCriticalRatio => wasteCriticalRatio?.Value ?? 0.75f;
 
-    public static ConfigEntry<double> wasteCautionRatio;
-    public static double WasteCautionRatio => wasteCautionRatio?.Value ?? 0.975;
+    public static ConfigEntry<float> wasteCautionRatio;
+    public static float WasteCautionRatio => wasteCautionRatio?.Value ?? 0.975f;
 
-    public static ConfigEntry<double> airCautionRatio;
-    public static double AirCautionRatio => airCautionRatio?.Value ?? 0.30;
+    public static ConfigEntry<bool> airCountOnlyBreathable;
+    public static bool AirCountOnlyBreathable => airCountOnlyBreathable?.Value ?? false;
 
-    public static ConfigEntry<double> airCriticalRatio;
-    public static double AirCriticalRatio => airCriticalRatio?.Value ?? 0.15;
+    public static ConfigEntry<float> airCautionMoles;
+    public static float AirCautionMoles => airCautionMoles?.Value ?? 0.30f;
+
+    public static ConfigEntry<float> airCriticalMoles;
+    public static float AirCriticalMoles => airCriticalMoles?.Value ?? 0.15f;
 }
