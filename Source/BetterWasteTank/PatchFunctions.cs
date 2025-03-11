@@ -66,8 +66,8 @@ public static class PatchFunctions {
         }
 
         try {
-            __instance.TexAirTank.text = $"{Mathf.FloorToInt(Functions.GetCanisterFullRatio(____suit.WasteTank) * 100f)}%";
-            __instance.TextWaste.text = $"{Mathf.FloorToInt(Functions.GetCanisterMoles(____suit.AirTank, ____suit.ParentEntity.SpeciesClass) / Data.AirCautionMoles * 100f)}%";
+            __instance.TextWaste.text = $"{Mathf.FloorToInt(Functions.GetCanisterFullRatio(____suit.WasteTank) * 100f)}%";
+            __instance.TexAirTank.text = $"{Mathf.FloorToInt(Functions.GetCanisterMoles(____suit.AirTank, ____suit.ParentEntity.SpeciesClass) / Data.AirCautionMoles * 100f)}%";
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
