@@ -52,11 +52,11 @@ public class Plugin : BaseUnityPlugin {
             new ConfigDescription("Should Air Tank warnings count moles of only breathable gas or total moles"));
 
         Data.airCriticalMoles = Config.Bind(new ConfigDefinition("Configurables", "Air Critical Moles"),
-            12.5f,
+            7.5f,
             new ConfigDescription("Quantity of moles when \"Air Tank Critical!\" alarm goes off. (this number will be multiplied by how many moles a human breathes per tick)"));
 
         Data.airCautionMoles = Config.Bind(new ConfigDefinition("Configurables", "Air Caution Moles"),
-            30f,
+            50f,
             new ConfigDescription("Quanitity of moles when \"Air Tank Caution\" alarm goes off. (this number will be multiplied by how many moles a human breathes per tick)"));
     }
 
@@ -125,10 +125,10 @@ internal struct Data {
     public static bool AirCountOnlyBreathable => airCountOnlyBreathable?.Value ?? false;
 
     public static ConfigEntry<float> airCautionMoles;
-    public static float AirCautionMoles => airCautionMoles?.Value ?? 0.30f;
+    public static float AirCautionMoles => airCautionMoles?.Value ?? 7.5f;
 
     public static ConfigEntry<float> airCriticalMoles;
-    public static float AirCriticalMoles => airCriticalMoles?.Value ?? 0.15f;
+    public static float AirCriticalMoles => airCriticalMoles?.Value ?? 50f;
 
     internal static float AirTankMolesCritical => Human.MolesPerMinute.ToFloat() * AirCriticalMoles;
     internal static float AirTankMolesCaution => Human.MolesPerMinute.ToFloat() * AirCautionMoles;
