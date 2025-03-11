@@ -6,59 +6,7 @@ namespace ExternalSuitReader;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    private static readonly Dictionary<MethodInfo, bool> _patches =
-        typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
-
-    [UsedImplicitly]
-    [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.Awake))]
-    [HarmonyPostfix]
-    public static void AdvancedSuitAwake(ref AdvancedSuit __instance) {
-        if (__instance == null) {
-            return;
-        }
-
-        try {
-            List<DoubleReference> channels = [];
-            for (int i = 0; i < Data.ChannelCount; i++) {
-                channels.Add(new DoubleReference(0.0));
-            }
-
-            Data.AllAdvancedSuits.Add(__instance.ReferenceId, channels);
-        }
-        catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                Plugin.LogException(ex);
-            }
-        }
-    }
-
-    [UsedImplicitly]
-    [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.OnDestroy))]
-    [HarmonyPostfix]
-    public static void AdvancedSuitOnDestroy(ref AdvancedSuit __instance) {
-        if (__instance == null) {
-            return;
-        }
-
-        try {
-            Data.AllAdvancedSuits.Remove(__instance.ReferenceId);
-        }
-        catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                Plugin.LogException(ex);
-            }
-        }
-    }
+    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.CanLogicRead))]
@@ -110,8 +58,58 @@ public static class PatchFunctions {
         }
     }
 
-    // savedata manipulation
-    [UsedImplicitly]
+    /*[UsedImplicitly]
+    [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.Awake))]
+    [HarmonyPostfix]
+    public static void AdvancedSuitAwake(ref AdvancedSuit __instance) {
+        if (__instance == null) {
+            return;
+        }
+
+        try {
+            List<DoubleReference> channels = [];
+            for (int i = 0; i < Data.ChannelCount; i++) {
+                channels.Add(new DoubleReference(0.0));
+            }
+
+            Data.AllAdvancedSuits.Add(__instance.ReferenceId, channels);
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogException(ex);
+            }
+        }
+    }*/
+
+    /*[UsedImplicitly]
+    [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.OnDestroy))]
+    [HarmonyPostfix]
+    public static void AdvancedSuitOnDestroy(ref AdvancedSuit __instance) {
+        if (__instance == null) {
+            return;
+        }
+
+        try {
+            Data.AllAdvancedSuits.Remove(__instance.ReferenceId);
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogException(ex);
+            }
+        }
+    }*/
+
+    /*[UsedImplicitly]
     [HarmonyPatch(typeof(Suit), nameof(Suit.SerializeSave))]
     [HarmonyPostfix]
     public static void AdvancedSuitSerializeSave(ref Suit __instance, ref ThingSaveData __result) {
@@ -136,9 +134,9 @@ public static class PatchFunctions {
                 Plugin.LogException(ex);
             }
         }
-    }
+    }*/
 
-    [UsedImplicitly]
+    /*[UsedImplicitly]
     [HarmonyPatch(typeof(Suit), nameof(Suit.DeserializeSave))]
     [HarmonyPostfix]
     public static void AdvancedSuitDeserializeSave(ref Suit __instance, ref ThingSaveData savedData) {
@@ -167,11 +165,9 @@ public static class PatchFunctions {
                 Plugin.LogException(ex);
             }
         }
-    }
+    }*/
 
-    /* idk if any of this below is required
-    // binary writing
-    [UsedImplicitly]
+    /*[UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.SerializeOnJoin))]
     [HarmonyPostfix]
     public static void AdvancedSuitSerializeOnJoin(ref AdvancedSuit __instance, ref RocketBinaryWriter writer) {
