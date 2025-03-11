@@ -52,7 +52,7 @@ internal static class Functions {
     internal static async UniTaskVoid FrameCounterUpdate(TextMeshProUGUI frameText) {
         while (Settings.CurrentData.ShowFps && frameText != null) {
             int framesCap = Utilities.CatchAndReturnDefault<int, FormatException>(60, () => int.Parse(Settings.CurrentData.FrameLock));
-            float frames = (1f / Time.unscaledDeltaTime).Clamp(0, framesCap);
+            float frames = (1f / smoothUnscaledDeltaTime).Clamp(0, framesCap);
             string framelock = Settings.CurrentData.FrameLock == "Off" ? string.Empty : $" / {Settings.CurrentData.FrameLock}";
             frameText.text = $"{frames.ToPrecision()}{framelock} FPS";
 
