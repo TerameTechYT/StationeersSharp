@@ -13,14 +13,6 @@ public static class StringExtensions {
     public static string ToStringPrefix(this MoleQuantity value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
 }
 
-public static class SpeciesExtensions {
-    public static Chemistry.GasType GetSpeciesAirType(this SpeciesClass species) => species switch {
-        SpeciesClass.Human => Chemistry.GasType.Oxygen,
-        SpeciesClass.Zrilian => Chemistry.GasType.Volatiles,
-        _ => Chemistry.GasType.Undefined,
-    };
-}
-
 public static class UnitExtensions {
     public static bool IsKelvinNil(this float value) => value <= Constants.MINIMUM_KELVIN;
     public static bool IsKelvinNil(this TemperatureKelvin value) => value.ToFloat().IsKelvinNil();

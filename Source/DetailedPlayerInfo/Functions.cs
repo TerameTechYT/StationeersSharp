@@ -47,6 +47,8 @@ internal static class Functions {
     private static GameObject _filterTextPanel;
     private static TextMeshProUGUI _filterText;
 
+    private static float smoothUnscaledDeltaTime;
+
     internal static async UniTaskVoid FrameCounterUpdate(TextMeshProUGUI frameText) {
         while (Settings.CurrentData.ShowFps && frameText != null) {
             int framesCap = Utilities.CatchAndReturnDefault<int, FormatException>(60, () => int.Parse(Settings.CurrentData.FrameLock));
@@ -71,6 +73,8 @@ internal static class Functions {
     }
 
     internal static void Initialize() {
+        smoothUnscaledDeltaTime = Time.unscaledDeltaTime;
+
         _internalTempUnit = GameObject.Find(Data.InternalTemperatureUnit).GetComponent<TextMeshProUGUI>();
         _externalTempUnit = GameObject.Find(Data.ExternalTemperatureUnit).GetComponent<TextMeshProUGUI>();
 
@@ -97,6 +101,9 @@ internal static class Functions {
     }
 
     internal static void Update(ref PlayerStateWindow window) {
+        // smooth with lerp to reduce frame counter jitter
+        smoothUnscaledDeltaTime = Mathf.Lerp(smoothUnscaledDeltaTime, Time.unscaledDeltaTime, 0.1f);
+
         if (GameManager.GameState != GameState.Running || window == null) {
             return;
         }

@@ -23,6 +23,12 @@ public static class Utilities {
         Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);
     }
 
+    public static Chemistry.GasType GetSpeciesAirType(SpeciesClass species) => species switch {
+        SpeciesClass.Human => Chemistry.GasType.Oxygen,
+        SpeciesClass.Zrilian => Chemistry.GasType.Volatiles,
+        _ => Chemistry.GasType.Undefined,
+    };
+
     public static string GetTemperatureSymbol(TemperatureUnit unit) => unit switch {
         TemperatureUnit.Fahrenheit => Constants.FAHRENHEIT_SYMBOL,
         TemperatureUnit.Kelvin => Constants.KELVIN_SYMBOL,
