@@ -29,6 +29,19 @@ public static class Utilities {
         _ => Constants.CELCIUS_SYMBOL,
     };
 
+    internal static TValue CatchAndReturnDefault<TValue, TException>(TValue fallbackValue, Func<TValue> action) where TException : Exception {
+        if (action == null) {
+            return fallbackValue;
+        }
+
+        try {
+            return action();
+        }
+        catch (TException) {
+            return fallbackValue;
+        }
+    }
+
     public static string GetPressureSymbol(PressureUnit unit, bool pascal = false) => unit switch {
         PressureUnit.Bar => Constants.BAR_SYMBOL,
         PressureUnit.PSI => Constants.POUNDS_PER_SQUARE_INCH_SYMBOL,

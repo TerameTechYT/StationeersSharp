@@ -4,7 +4,24 @@
 
 namespace StationeersLibrary;
 
-public static class Extensions {
+public static class StringExtensions {
+    public static string ToStringPrefix(this double value, string unit = "", string color = "") => value.ToStringPrefix(unit, color);
+    public static string ToStringPrefix(this float value, string unit = "", string color = "") => value.ToStringPrefix(unit, color);
+    public static string ToStringPrefix(this PressurekPa value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
+    public static string ToStringPrefix(this TemperatureKelvin value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
+    public static string ToStringPrefix(this VolumeLitres value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
+    public static string ToStringPrefix(this MoleQuantity value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
+}
+
+public static class SpeciesExtensions {
+    public static Chemistry.GasType GetSpeciesAirType(this SpeciesClass species) => species switch {
+        SpeciesClass.Human => Chemistry.GasType.Oxygen,
+        SpeciesClass.Zrilian => Chemistry.GasType.Volatiles,
+        _ => Chemistry.GasType.Undefined,
+    };
+}
+
+public static class UnitExtensions {
     public static bool IsKelvinNil(this float value) => value <= Constants.MINIMUM_KELVIN;
     public static bool IsKelvinNil(this TemperatureKelvin value) => value.ToFloat().IsKelvinNil();
 
@@ -100,6 +117,8 @@ public static class Extensions {
     public static float LiterToImperialGallon(this VolumeLitres liter) => liter.ToFloat().LiterToImperialGallon();
     public static float LiterToUSGallon(this VolumeLitres liter) => liter.ToFloat().LiterToUSGallon();
     public static float LiterToCubicInch(this VolumeLitres liter) => liter.ToFloat().LiterToCubicInch();
+
+    public static float PartialMoles(this Atmosphere atmosphere, Chemistry.GasType gasType) => atmosphere.TotalMoles.ToFloat() * atmosphere.GetGasTypeRatio(gasType);
 
     public static float ToPreferredUnit(this float value, TemperatureUnit unit) => unit switch {
         TemperatureUnit.Celcius => value.KelvinToCelcius(),
