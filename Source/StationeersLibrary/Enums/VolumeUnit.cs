@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace StationeersLibrary.Enums;
+﻿namespace StationeersLibrary.Enums;
 
 public enum VolumeUnit {
     Liter,
