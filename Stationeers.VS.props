@@ -65,6 +65,7 @@
     
     <!-- UnityEngine -->
     <Using Include="UnityEngine" />
+    <Using Include="UnityEngine.Rendering" />
     <Using Include="UnityEngine.SceneManagement" />
 
 
