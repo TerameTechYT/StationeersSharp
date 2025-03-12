@@ -223,9 +223,9 @@ public class SEGI : MonoBehaviour {
                 filterMode = FilterMode.Bilinear,
                 autoGenerateMips = false,
                 useMipMap = false,
-                hideFlags = HideFlags.HideAndDontSave
             };
             volumeTextures[i].Create();
+            volumeTextures[i].hideFlags = HideFlags.HideAndDontSave;
         }
 
         if (volumeTextureB) {
@@ -239,9 +239,9 @@ public class SEGI : MonoBehaviour {
             filterMode = FilterMode.Bilinear,
             autoGenerateMips = false,
             useMipMap = false,
-            hideFlags = HideFlags.HideAndDontSave
         };
         volumeTextureB.Create();
+        volumeTextureB.hideFlags = HideFlags.HideAndDontSave;
 
         if (secondaryIrradianceVolume) {
             CleanupTexture(ref secondaryIrradianceVolume);
@@ -255,9 +255,9 @@ public class SEGI : MonoBehaviour {
             autoGenerateMips = false,
             useMipMap = false,
             antiAliasing = 1,
-            hideFlags = HideFlags.HideAndDontSave
         };
         secondaryIrradianceVolume.Create();
+        secondaryIrradianceVolume.hideFlags = HideFlags.HideAndDontSave;
 
         if (integerVolume) {
             CleanupTexture(ref integerVolume);
@@ -271,6 +271,7 @@ public class SEGI : MonoBehaviour {
             hideFlags = HideFlags.HideAndDontSave
         };
         integerVolume.Create();
+        integerVolume.hideFlags = HideFlags.HideAndDontSave;
 
         ResizeDummyTexture();
     }
@@ -280,19 +281,17 @@ public class SEGI : MonoBehaviour {
             CleanupTexture(ref dummyVoxelTextureAAScaled);
         }
 
-        dummyVoxelTextureAAScaled = new RenderTexture(DummyVoxelResolution, DummyVoxelResolution, 0, RenderTextureFormat.R8) {
-            hideFlags = HideFlags.HideAndDontSave
-        };
+        dummyVoxelTextureAAScaled = new RenderTexture(DummyVoxelResolution, DummyVoxelResolution, 0, RenderTextureFormat.R8);
         dummyVoxelTextureAAScaled.Create();
+        dummyVoxelTextureAAScaled.hideFlags = HideFlags.HideAndDontSave;
 
         if (dummyVoxelTextureFixed) {
             CleanupTexture(ref dummyVoxelTextureFixed);
         }
 
-        dummyVoxelTextureFixed = new RenderTexture((int) Data.VoxelResolution, (int) Data.VoxelResolution, 0, RenderTextureFormat.R8) {
-            hideFlags = HideFlags.HideAndDontSave
-        };
+        dummyVoxelTextureFixed = new RenderTexture((int) Data.VoxelResolution, (int) Data.VoxelResolution, 0, RenderTextureFormat.R8);
         dummyVoxelTextureFixed.Create();
+        dummyVoxelTextureFixed.hideFlags = HideFlags.HideAndDontSave;
     }
 
     private void Init() {
@@ -388,10 +387,9 @@ public class SEGI : MonoBehaviour {
         sunDepthTexture = new RenderTexture(sunShadowResolution, sunShadowResolution, 16, RenderTextureFormat.RHalf, RenderTextureReadWrite.Linear) {
             wrapMode = TextureWrapMode.Clamp,
             filterMode = FilterMode.Point,
-            hideFlags = HideFlags.HideAndDontSave
         };
         sunDepthTexture.Create();
-
+        sunDepthShader.hideFlags = HideFlags.HideAndDontSave;
         //Create the volume textures
         CreateVolumeTextures();
 
@@ -494,9 +492,9 @@ public class SEGI : MonoBehaviour {
             filterMode = FilterMode.Bilinear,
             useMipMap = true,
             autoGenerateMips = false,
-            hideFlags = HideFlags.HideAndDontSave
         };
         previousGIResult.Create();
+        previousGIResult.hideFlags = HideFlags.HideAndDontSave;
 
         if (previousCameraDepth) {
             CleanupTexture(ref previousCameraDepth);
@@ -505,9 +503,9 @@ public class SEGI : MonoBehaviour {
         previousCameraDepth = new RenderTexture(width, height, 0, RenderTextureFormat.RFloat, RenderTextureReadWrite.Linear) {
             wrapMode = TextureWrapMode.Clamp,
             filterMode = FilterMode.Bilinear,
-            hideFlags = HideFlags.HideAndDontSave
         };
         previousCameraDepth.Create();
+        previousCameraDepth.hideFlags = HideFlags.HideAndDontSave;
     }
 
     private void ResizeSunShadowBuffer() {
@@ -518,9 +516,9 @@ public class SEGI : MonoBehaviour {
         sunDepthTexture = new RenderTexture(sunShadowResolution, sunShadowResolution, 16, RenderTextureFormat.RHalf, RenderTextureReadWrite.Linear) {
             wrapMode = TextureWrapMode.Clamp,
             filterMode = FilterMode.Point,
-            hideFlags = HideFlags.HideAndDontSave
         };
         sunDepthTexture.Create();
+        sunDepthShader.hideFlags = HideFlags.HideAndDontSave;
     }
 
     [UsedImplicitly]

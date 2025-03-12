@@ -267,7 +267,12 @@ public class Plugin : BaseUnityPlugin {
     }
 
     private void ConfigChanged(object sender, SettingChangedEventArgs e) {
-        Plugin.LogInfo($"SEGI will use approximately {SEGIManager.SEGIInstance?.VRamUsage ?? -1f}mb of vram");
+        if (e.ChangedSetting.Definition.Key == "Enabled") {
+            Plugin.LogInfo($"SEGI is now {(Data.Enabled ? "Enabled" : "Disabled")}");
+        }
+        else {
+            Plugin.LogInfo($"SEGI will use approximately {SEGIManager.SEGIInstance?.VRamUsage ?? -1f}mb of vram");
+        }
     }
 
     public async UniTask OnBaseLoaded() {
