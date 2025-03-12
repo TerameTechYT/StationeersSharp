@@ -39,8 +39,8 @@ internal static class Functions {
             double horizontal = panel.Horizontal * panel.MaximumHorizontal;
 
             StringBuilder stringBuilder = new();
-            stringBuilder.AppendLine($"Vertical {vertical.ToStringPrefix(Constants.DEGREE_SYMBOL, "yellow")}");
-            stringBuilder.AppendLine($"Horizontal {horizontal.ToStringPrefix(Constants.DEGREE_SYMBOL, "yellow")}");
+            stringBuilder.AppendLine($"Vertical {vertical.ToStringPrefix("degrees", "yellow")}");
+            stringBuilder.AppendLine($"Horizontal {horizontal.ToStringPrefix("degrees", "yellow")}");
             stringBuilder.Append(text);
             return stringBuilder.ToString();
         }
