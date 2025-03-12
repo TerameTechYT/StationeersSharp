@@ -22,6 +22,8 @@ public static class Constants {
     public const string STARTING_CONDITIONS_PAGE = "StartingConditions";
     public const string TUTORIALS_PAGE = "TutorialScenarios";
 
+    public const string DEGREE_SYMBOL = "°";
+
     // UNITS
     public const string FAHRENHEIT_SYMBOL = "°F";
     public const string CELCIUS_SYMBOL = "°C";
