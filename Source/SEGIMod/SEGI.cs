@@ -303,7 +303,7 @@ public class SEGI : MonoBehaviour {
         voxelizationShader = Bundle.LoadAsset<Shader>("SEGIVoxelizeScene");
         voxelTracingShader = Bundle.LoadAsset<Shader>("SEGITraceScene");
 
-        material ??= new Material(Bundle.LoadAsset<Shader>("SEGI")) {
+        material = new Material(Bundle.LoadAsset<Shader>("SEGI")) {
             hideFlags = HideFlags.HideAndDontSave
         };
 
@@ -313,7 +313,7 @@ public class SEGI : MonoBehaviour {
         attachedCamera.depthTextureMode |= DepthTextureMode.MotionVectors;
 
         //Find the proxy shadow rendering camera if it exists
-        shadowCameraGameObject ??= GameObject.Find("SEGI_SHADOWCAM") ?? new GameObject("SEGI_SHADOWCAM") {
+        shadowCameraGameObject = GameObject.Find("SEGI_SHADOWCAM") ?? new GameObject("SEGI_SHADOWCAM") {
             hideFlags = HideFlags.HideAndDontSave
         };
 
@@ -336,7 +336,7 @@ public class SEGI : MonoBehaviour {
         }
 
         //Create the proxy camera objects responsible for rendering the scene to voxelize the scene. If they already exist, destroy them
-        voxelCameraGameObject ??= GameObject.Find("SEGI_VOXEL_CAMERA") ?? new GameObject("SEGI_VOXEL_CAMERA") {
+        voxelCameraGameObject = GameObject.Find("SEGI_VOXEL_CAMERA") ?? new GameObject("SEGI_VOXEL_CAMERA") {
             hideFlags = HideFlags.HideAndDontSave
         };
 
@@ -357,11 +357,11 @@ public class SEGI : MonoBehaviour {
             voxelCamera.useOcclusionCulling = false;
         }
 
-        leftViewPoint ??= GameObject.Find("SEGI_LEFT_VOXEL_VIEW") ?? new GameObject("SEGI_LEFT_VOXEL_VIEW") {
+        leftViewPoint = GameObject.Find("SEGI_LEFT_VOXEL_VIEW") ?? new GameObject("SEGI_LEFT_VOXEL_VIEW") {
             hideFlags = HideFlags.HideAndDontSave
         };
 
-        topViewPoint ??= GameObject.Find("SEGI_TOP_VOXEL_VIEW") ?? new GameObject("SEGI_TOP_VOXEL_VIEW") {
+        topViewPoint = GameObject.Find("SEGI_TOP_VOXEL_VIEW") ?? new GameObject("SEGI_TOP_VOXEL_VIEW") {
             hideFlags = HideFlags.HideAndDontSave
         };
 
