@@ -271,7 +271,7 @@ public class Plugin : BaseUnityPlugin {
             Plugin.LogInfo($"SEGI is now {(Data.Enabled ? "Enabled" : "Disabled")}");
         }
         else {
-            Plugin.LogInfo($"SEGI will use approximately {SEGIManager.SEGIInstance?.VRamUsage ?? -1f}mb of vram");
+            Plugin.LogInfo($"SEGI will use approximately {SEGIManager.SEGIInstance?.VRamUsage ?? -1f}kb of vram");
         }
     }
 
