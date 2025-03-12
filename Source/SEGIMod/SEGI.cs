@@ -16,13 +16,8 @@ public class SEGI : MonoBehaviour {
     [Serializable]
     [Flags]
     public enum VoxelResolution {
-        Potato = 32,
-        VeryLow = 64,
-        Low = 128,
-        Medium = 256,
-        High = 512,
-        VeryHigh = 1024,
-        Ultra = 2048,
+        Medium = 128,
+        High = 256,
     }
 
     public bool sphericalSkylight;
