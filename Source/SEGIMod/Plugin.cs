@@ -42,50 +42,232 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.Enabled = Config.Bind("General", "Enabled", true, "true or false");
+        Data.enabled = Config.Bind(
+            new ConfigDefinition("General", "Enabled"),
+            true
+        );
 
         // Voxel
-        Data.VoxelResolution = Config.Bind("Voxel", "Resolution", SEGI.VoxelResolution.High, "High or Low");
-        Data.HalfResolution = Config.Bind("Voxel", "Half Resolution", true, "true or false");
-        Data.VoxelSpaceSize = Config.Bind("Voxel", "Space Size", 25f, "1.0 to 100.0");
-        Data.VoxelAntiAliasing = Config.Bind("Voxel", "Anti Aliasing", true, "true or false");
+        Data.voxelResolution = Config.Bind(
+            new ConfigDefinition("Voxel", "Resolution"),
+            SEGI.VoxelResolution.High
+        );
+
+        Data.halfResolution = Config.Bind(
+            new ConfigDefinition("Voxel", "Half Resolution"),
+            true
+        );
+
+        Data.voxelSpaceSize = Config.Bind(
+            new ConfigDefinition("Voxel", "Space Size"),
+            25f,
+            new ConfigDescription("1.0 to 100.0",
+            new AcceptableValueRange<float>(1f, 100f)
+        ));
+
+        Data.voxelAntiAliasing = Config.Bind(
+            new ConfigDefinition("Voxel", "Anti Aliasing"),
+            true
+        );
+
 
         // Occlusion
-        Data.InnerOcclusionLayers = Config.Bind("Occlusion", "Inner Occlusion Layers", 1, "0 to 2");
-        Data.OcclusionPower = Config.Bind("Occlusion", "Occlusion Power", 1f, "0.001 to 4.0");
-        Data.OcclusionStrenth = Config.Bind("Occlusion", "Occlusion Strenth", 1f, "0.0 to 4.0");
-        Data.SecondaryOcclusionStrenth = Config.Bind("Occlusion", "Secondary Occlusion Strenth", 1f, "0.1 to 4.0");
-        Data.NearOcclusionStrenth = Config.Bind("Occlusion", "Near Occlusion Strenth", 0.5f, "0 to 4.0");
-        Data.FarOcclusionStrenth = Config.Bind("Occlusion", "Far Occlusion Strenth", 1f, "0.1 to 4.0");
-        Data.FarthestOcclusionStrenth = Config.Bind("Occlusion", "Farthest Occlusion Strenth", 1f, "0.1 to 4.0");
+        Data.innerOcclusionLayers = Config.Bind(
+            new ConfigDefinition("Occlusion", "Inner Occlusion Layers"),
+            1,
+            new ConfigDescription("0 to 2",
+            new AcceptableValueRange<int>(0, 2)
+        ));
+
+        Data.occlusionPower = Config.Bind(
+            new ConfigDefinition("Occlusion", "Occlusion Power"),
+            1f,
+            new ConfigDescription("0.001 to 4.0",
+            new AcceptableValueRange<float>(0.001f, 4f)
+        ));
+
+        Data.occlusionStrength = Config.Bind(
+            new ConfigDefinition("Occlusion", "Occlusion Strenth"),
+            1f,
+            new ConfigDescription("0.0 to 4.0",
+            new AcceptableValueRange<float>(0f, 4f)
+        ));
+
+        Data.secondaryOcclusionStrength = Config.Bind(
+            new ConfigDefinition("Occlusion", "Secondary Occlusion Strenth"),
+            1f,
+            new ConfigDescription("0.1 to 4.0",
+            new AcceptableValueRange<float>(0.1f, 4f)
+        ));
+
+        Data.nearOcclusionStrength = Config.Bind(
+            new ConfigDefinition("Occlusion", "Near Occlusion Strenth"),
+            0.5f,
+            new ConfigDescription("0 to 4.0",
+            new AcceptableValueRange<float>(0f, 4f)
+        ));
+
+        Data.farOcclusionStrength = Config.Bind(
+            new ConfigDefinition("Occlusion", "Far Occlusion Strenth"),
+            1f,
+            new ConfigDescription("0.1 to 4.0",
+            new AcceptableValueRange<float>(0.1f, 4f)
+        ));
+
+        Data.farthestOcclusionStrength = Config.Bind(
+            new ConfigDefinition("Occlusion", "Farthest Occlusion Strenth"),
+            1f,
+            new ConfigDescription("0.1 to 4.0",
+            new AcceptableValueRange<float>(0.1f, 4f)
+        ));
 
         // Reflection
-        Data.DoReflections = Config.Bind("Refections", "Do Reflections", true, "true or false");
-        Data.InfiniteBounces = Config.Bind("Refections", "Infinite Bounces", true, "true or false");
-        Data.ReflectionSteps = Config.Bind("Refections", "Reflection Steps", 32, "12 to 128");
-        Data.ReflectionOcclusionPower = Config.Bind("Refections", "Reflection Occlusion Power", 1f, "0.001 to 4.0");
-        Data.SecondaryBounceGain = Config.Bind("Refections", "Secondary Bounce Gain", 0.75f, "0.1 to 4.0");
-        Data.SkyReflectionIntensity = Config.Bind("Refections", "Sky Reflection Intensity", 0.5f, "0.0 to 1.0f");
+        Data.doReflections = Config.Bind(
+            new ConfigDefinition("Refections", "Do Reflections"),
+            true
+        );
+
+        Data.infiniteBounces = Config.Bind(
+            new ConfigDefinition("Refections", "Infinite Bounces"),
+            true
+        );
+
+        Data.reflectionSteps = Config.Bind(
+            new ConfigDefinition("Refections", "Reflection Steps"),
+            32,
+            new ConfigDescription("12 to 128",
+            new AcceptableValueRange<int>(12, 128)
+        ));
+
+        Data.reflectionOcclusionPower = Config.Bind(
+            new ConfigDefinition("Refections", "Reflection Occlusion Power"),
+            1f,
+            new ConfigDescription("0.001 to 4.0",
+            new AcceptableValueRange<float>(0.001f, 4f)
+         ));
+
+        Data.secondaryBounceGain = Config.Bind(
+            new ConfigDefinition("Refections", "Secondary Bounce Gain"),
+            0.75f,
+            new ConfigDescription("0.1 to 4.0",
+            new AcceptableValueRange<float>(0.1f, 4f)
+        ));
+
+        Data.skyReflectionIntensity = Config.Bind(
+            new ConfigDefinition("Refections", "Sky Reflection Intensity"),
+            0.5f,
+            new ConfigDescription("0.0 to 1.0f",
+            new AcceptableValueRange<float>(0f, 1f)
+        ));
+
+        Data.skyIntensity = Config.Bind(
+            new ConfigDefinition("Refections", "Sky Intensity"),
+            1f,
+            new ConfigDescription("0 to 8.0",
+            new AcceptableValueRange<float>(0f, 8f)
+        ));
+
+        Data.softSunlight = Config.Bind(
+            new ConfigDefinition("Refections", "Soft Sunlight"),
+            1f,
+            new ConfigDescription("0 to 16.0",
+            new AcceptableValueRange<float>(0f, 16f)
+        ));
 
         // Cones
-        Data.Cones = Config.Bind("Cones", "Cones", 6, "1 to 128");
-        Data.SecondaryCones = Config.Bind("Cones", "Secondary Cones", 3, "3 to 16");
-        Data.ConeTraceSteps = Config.Bind("Cones", "Cone Trace Steps", 14, "1 to 32");
-        Data.ConeTraceBias = Config.Bind("Cones", "Cone Trace Bias", 1f, "0.0 to 4.0");
-        Data.ConeLength = Config.Bind("Cones", "Cone Length", 1f, "0.1 to 2.0");
-        Data.ConeWidth = Config.Bind("Cones", "Cone Width", 2.25f, "0.5 to 6.0");
+        Data.cones = Config.Bind(
+            new ConfigDefinition("Cones", "Cones"),
+            6,
+            new ConfigDescription("1 to 128",
+            new AcceptableValueRange<int>(1, 128)
+        ));
+
+        Data.secondaryCones = Config.Bind(
+            new ConfigDefinition("Cones", "Secondary Cones"),
+            3,
+            new ConfigDescription("3 to 16",
+            new AcceptableValueRange<int>(3, 16)
+        ));
+
+        Data.coneTraceSteps = Config.Bind(
+            new ConfigDefinition("Cones", "Cone Trace Steps"),
+            14,
+            new ConfigDescription("1 to 32",
+            new AcceptableValueRange<int>(1, 32)
+        ));
+
+        Data.coneTraceBias = Config.Bind(
+            new ConfigDefinition("Cones", "Cone Trace Bias"),
+            1f,
+            new ConfigDescription("0.0 to 4.0",
+            new AcceptableValueRange<float>(0f, 4f)
+        ));
+
+        Data.coneLength = Config.Bind(
+            new ConfigDefinition("Cones", "Cone Length"),
+            1f,
+            new ConfigDescription("0.1 to 2.0",
+            new AcceptableValueRange<float>(0.1f, 2f)
+        ));
+
+        Data.coneWidth = Config.Bind(
+            new ConfigDefinition("Cones", "Cone Width"),
+            2.25f,
+            new ConfigDescription("0.5 to 6.0",
+            new AcceptableValueRange<float>(0.5f, 6f)
+        ));
 
         // Light
-        Data.NearLightGain = Config.Bind("Light", "Near Light Gain", 1f, "0.0 to 4.0");
-        Data.GIGain = Config.Bind("Light", "Global Illumination Gain", 0.5f, "0.0 to 4.0");
-        Data.ShadowSpaceSize = Config.Bind("Light", "Shadow Space Size", 1f, "1.0 to 100.0");
+        Data.nearLightGain = Config.Bind(
+            new ConfigDefinition("Light", "Near Light Gain"),
+            1f,
+            new ConfigDescription("0.0 to 4.0",
+            new AcceptableValueRange<float>(0f, 8f)
+        ));
+
+        Data.giGain = Config.Bind(
+            new ConfigDefinition("Light", "Global Illumination Gain"),
+            0.5f,
+            new ConfigDescription("0.0 to 4.0",
+            new AcceptableValueRange<float>(0f, 8f)
+        ));
+
+        Data.shadowSpaceSize = Config.Bind(
+            new ConfigDefinition("Light", "Shadow Space Size"),
+            1f,
+            new ConfigDescription("1.0 to 100.0",
+            new AcceptableValueRange<float>(0f, 100f)
+        ));
+
 
         // Sampling & Filtering
-        Data.GaussianMipFilter = Config.Bind("Sampling & Filtering", "Gaussian Mip Filter", true, "true or false");
-        Data.UseBilateralFiltering =
-            Config.Bind("Sampling & Filtering", "Use Bilateral Filtering", true, "true or false");
-        Data.StochasticSampling = Config.Bind("Sampling & Filtering", "Stochastic Sampling", true, "true or false");
-        Data.TemporalBlendWeight = Config.Bind("Sampling & Filtering", "Temporal Blend Weight", 0.1f, "0.01 to 1.0");
+        Data.gaussianMipFilter = Config.Bind(
+            new ConfigDefinition("Sampling & Filtering", "Gaussian Mip Filter"),
+            true
+        );
+
+        Data.useBilateralFiltering = Config.Bind(
+            new ConfigDefinition("Sampling & Filtering", "Use Bilateral Filtering"),
+            true
+        );
+
+        Data.stochasticSampling = Config.Bind(
+            new ConfigDefinition("Sampling & Filtering", "Stochastic Sampling"),
+            true
+        );
+
+        Data.temporalBlendWeight = Config.Bind(
+            new ConfigDefinition("Sampling & Filtering", "Temporal Blend Weight"),
+            0.1f,
+            new ConfigDescription("0.01 to 1.0",
+            new AcceptableValueRange<float>(0.01f, 1f)
+        ));
+
+        Config.SettingChanged += this.ConfigChanged;
+    }
+
+    private void ConfigChanged(object sender, SettingChangedEventArgs e) {
+        Plugin.LogInfo($"SEGI will use approximately {SEGIManager.SEGIInstance?.VRamUsage ?? -1f}mb of vram");
     }
 
     public async UniTask OnBaseLoaded() {
@@ -93,13 +275,13 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        LogInfo($"{Data.ModVersion} is installed.");
+        Plugin.LogInfo($"{Data.ModVersion} is installed.");
 
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
 
-        SEGIGameObject = GameObject.Find("SEGIManager") ?? new GameObject("SEGIManager");
-        SEGIGameObject.AddComponent<SEGIManager>();
-        DontDestroyOnLoad(SEGIGameObject);
+        Plugin.SEGIGameObject = GameObject.Find("SEGIManager") ?? new GameObject("SEGIManager");
+        Plugin.SEGIGameObject.AddComponent<SEGIManager>();
+        GameObject.DontDestroyOnLoad(SEGIGameObject);
     }
 
     public static void LogError(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Severity.Error);
@@ -143,50 +325,114 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "segimod";
     public const string ModName = "SEGIMod";
-    public const string ModVersion = "1.2.0";
+    public const string ModVersion = "1.3.0";
     public const ulong ModHandle = 3281346086;
 
-    public static ConfigEntry<bool> Enabled;
+    public static ConfigEntry<bool> enabled;
+    public static bool Enabled = enabled?.Value ?? false;
 
     // Voxel
-    public static ConfigEntry<SEGI.VoxelResolution> VoxelResolution;
-    public static ConfigEntry<bool> HalfResolution;
-    public static ConfigEntry<float> VoxelSpaceSize;
-    public static ConfigEntry<bool> VoxelAntiAliasing;
+    public static ConfigEntry<SEGI.VoxelResolution> voxelResolution;
+    public static SEGI.VoxelResolution VoxelResolution => voxelResolution?.Value ?? SEGI.VoxelResolution.High;
+
+    public static ConfigEntry<bool> halfResolution;
+    public static bool HalfResolution => halfResolution?.Value ?? false;
+
+    public static ConfigEntry<float> voxelSpaceSize;
+    public static float VoxelSpaceSize => voxelSpaceSize?.Value ?? 25f;
+
+    public static ConfigEntry<bool> voxelAntiAliasing;
+    public static bool VoxelAntiAliasing => voxelAntiAliasing?.Value ?? false;
 
     // Occlusion
-    public static ConfigEntry<int> InnerOcclusionLayers;
-    public static ConfigEntry<float> OcclusionPower;
-    public static ConfigEntry<float> OcclusionStrenth;
-    public static ConfigEntry<float> SecondaryOcclusionStrenth;
-    public static ConfigEntry<float> NearOcclusionStrenth;
-    public static ConfigEntry<float> FarOcclusionStrenth;
-    public static ConfigEntry<float> FarthestOcclusionStrenth;
+    public static ConfigEntry<int> innerOcclusionLayers;
+    public static int InnerOcclusionLayers => innerOcclusionLayers?.Value ?? 1;
+
+    public static ConfigEntry<float> occlusionPower;
+    public static float OcclusionPower => occlusionPower?.Value ?? 1f;
+
+    public static ConfigEntry<float> occlusionStrength;
+    public static float OcclusionStrength => occlusionStrength?.Value ?? 1f;
+
+    public static ConfigEntry<float> secondaryOcclusionStrength;
+    public static float SecondaryOcclusionStrength => secondaryOcclusionStrength?.Value ?? 1f;
+
+    public static ConfigEntry<float> nearOcclusionStrength;
+    public static float NearOcclusionStrength => nearOcclusionStrength?.Value ?? 0.5f;
+
+    public static ConfigEntry<float> farOcclusionStrength;
+    public static float FarOcclusionStrength => farOcclusionStrength?.Value ?? 1f;
+
+    public static ConfigEntry<float> farthestOcclusionStrength;
+    public static float FarthestOcclusionStrength => farthestOcclusionStrength?.Value ?? 1f;
+
 
     // Reflections
-    public static ConfigEntry<bool> DoReflections;
-    public static ConfigEntry<bool> InfiniteBounces;
-    public static ConfigEntry<int> ReflectionSteps;
-    public static ConfigEntry<float> ReflectionOcclusionPower;
-    public static ConfigEntry<float> SecondaryBounceGain;
-    public static ConfigEntry<float> SkyReflectionIntensity;
+    public static ConfigEntry<bool> doReflections;
+    public static bool DoReflections => doReflections?.Value ?? true;
+
+    public static ConfigEntry<bool> infiniteBounces;
+    public static bool InfiniteBounces => infiniteBounces?.Value ?? false;
+
+    public static ConfigEntry<int> reflectionSteps;
+    public static int ReflectionSteps => reflectionSteps?.Value ?? 32;
+
+    public static ConfigEntry<float> reflectionOcclusionPower;
+    public static float ReflectionOcclusionPower => reflectionOcclusionPower?.Value ?? 1f;
+
+    public static ConfigEntry<float> secondaryBounceGain;
+    public static float SecondaryBounceGain => secondaryBounceGain?.Value ?? 0.75f;
+
+    public static ConfigEntry<float> skyReflectionIntensity;
+    public static float SkyReflectionIntensity => skyReflectionIntensity?.Value ?? 0.25f;
+
+    public static ConfigEntry<float> skyIntensity;
+    public static float SkyIntensity => skyIntensity?.Value ?? 1f;
+
+    public static ConfigEntry<float> softSunlight;
+    public static float SoftSunlight => skyIntensity?.Value ?? 0f;
 
     // Cones
-    public static ConfigEntry<int> Cones;
-    public static ConfigEntry<int> SecondaryCones;
-    public static ConfigEntry<int> ConeTraceSteps;
-    public static ConfigEntry<float> ConeTraceBias;
-    public static ConfigEntry<float> ConeLength;
-    public static ConfigEntry<float> ConeWidth;
+    public static ConfigEntry<int> cones;
+    public static int Cones => cones?.Value ?? 6;
+
+    public static ConfigEntry<int> secondaryCones;
+    public static int SecondaryCones => secondaryCones?.Value ?? 3;
+
+    public static ConfigEntry<int> coneTraceSteps;
+    public static int ConeTraceSteps => coneTraceSteps?.Value ?? 14;
+
+    public static ConfigEntry<float> coneTraceBias;
+    public static float ConeTraceBias => coneTraceBias?.Value ?? 1f;
+
+    public static ConfigEntry<float> coneLength;
+    public static float ConeLength => coneLength?.Value ?? 1f;
+
+    public static ConfigEntry<float> coneWidth;
+    public static float ConeWidth => coneWidth?.Value ?? 2.25f;
+
 
     // Light
-    public static ConfigEntry<float> NearLightGain;
-    public static ConfigEntry<float> GIGain;
-    public static ConfigEntry<float> ShadowSpaceSize;
+    public static ConfigEntry<float> nearLightGain;
+    public static float NearLightGain => nearLightGain?.Value ?? 1f;
+
+    public static ConfigEntry<float> giGain;
+    public static float GIGain => giGain?.Value ?? 0.5f;
+
+    public static ConfigEntry<float> shadowSpaceSize;
+    public static float ShadowSpaceSize => shadowSpaceSize?.Value ?? 1f;
+
 
     // Sampling & Filtering
-    public static ConfigEntry<bool> GaussianMipFilter;
-    public static ConfigEntry<bool> UseBilateralFiltering;
-    public static ConfigEntry<bool> StochasticSampling;
-    public static ConfigEntry<float> TemporalBlendWeight;
+    public static ConfigEntry<bool> gaussianMipFilter;
+    public static bool GaussianMipFilter => gaussianMipFilter?.Value ?? true;
+
+    public static ConfigEntry<bool> useBilateralFiltering;
+    public static bool UseBilateralFiltering => useBilateralFiltering?.Value ?? true;
+
+    public static ConfigEntry<bool> stochasticSampling;
+    public static bool StochasticSampling => stochasticSampling?.Value ?? true;
+
+    public static ConfigEntry<float> temporalBlendWeight;
+    public static float TemporalBlendWeight => temporalBlendWeight?.Value ?? 0.1f;
 }
