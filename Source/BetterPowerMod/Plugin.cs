@@ -40,34 +40,56 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
-        Data.enableSolarPanel = Config.Bind(new ConfigDefinition("Configurables", "Solar Panel Patches"),
+        Data.enableSolarPanel = Config.Bind(
+            new ConfigDefinition("Configurables", "Solar Panel Patches"),
             true,
-            new ConfigDescription("Should the max power output be set to the worlds Solar Irradiance"));
-        Data.enableWindTurbine = Config.Bind(new ConfigDefinition("Configurables", "Wind Turbine Patches"),
-            true,
-            new ConfigDescription("Should the max power output be set higher based on the atmospheric pressure"));
+            new ConfigDescription("Should the max power output be set to the worlds Solar Irradiance"
+        ));
 
-        Data.enableTurbine = Config.Bind(new ConfigDefinition("Configurables", "Wall Turbine Patches"),
+        Data.enableWindTurbine = Config.Bind(
+            new ConfigDefinition("Configurables", "Wind Turbine Patches"),
             true,
-            new ConfigDescription("Should the max power output be multipled by 10"));
+            new ConfigDescription("Should the max power output be set higher based on the atmospheric pressure")
+        );
 
-        Data.enableStirling = Config.Bind(new ConfigDefinition("Configurables", "Stirling Patches"),
+        Data.enableTurbine = Config.Bind(
+            new ConfigDefinition("Configurables", "Wall Turbine Patches"),
             true,
-            new ConfigDescription($"Should the max power output be changed to Stirling Energy Output"));
+            new ConfigDescription("Should the max power output be multipled by 10")
+         );
 
-        Data.stirlingEnergy = Config.Bind(new ConfigDefinition("Configurables", "Stirling Energy Output"),
+        Data.enableStirling = Config.Bind(
+            new ConfigDefinition("Configurables", "Stirling Patches"),
+            true,
+            new ConfigDescription($"Should the max power output be changed to Stirling Energy Output")
+        );
+
+        Data.stirlingEnergy = Config.Bind(
+            new ConfigDefinition("Configurables", "Stirling Energy Output"),
             Constants.TWENTY_KILOWATTS,
             new ConfigDescription("The max power output of the Stirling Engine",
-            new AcceptableValueRange<float>(Constants.EIGHT_KILOWATTS, Constants.TWENTY_FIVE_KILOWATTS)));
+            new AcceptableValueRange<float>(Constants.EIGHT_KILOWATTS, Constants.TWENTY_FIVE_KILOWATTS)
+        ));
 
-        Data.enableFasterCharging = Config.Bind(new ConfigDefinition("Configurables", "Charging Patches"),
+        Data.enableFasterCharging = Config.Bind(
+            new ConfigDefinition("Configurables", "Charging Patches"),
             true,
-            new ConfigDescription("Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate"));
+            new ConfigDescription("Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate")
+        );
 
-        Data.fastChargeRate = Config.Bind(new ConfigDefinition("Configurables", "Fast Charging Charging Rate"),
+        Data.fastChargeRate = Config.Bind(
+            new ConfigDefinition("Configurables", "Fast Charging Charging Rate"),
             Constants.TWO_POINT_FIVE_KILOWATTS,
             new ConfigDescription("The max input power of the (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter)",
-            new AcceptableValueRange<float>(1f, Constants.FIVE_KILOWATTS)));
+            new AcceptableValueRange<float>(1f, Constants.FIVE_KILOWATTS)
+        ));
+
+        Data.turbineMultiplier = Config.Bind(
+            new ConfigDefinition("Configurables", "Turbine Power Multiplier"),
+            10f,
+            new ConfigDescription("The power output on the Turbine Generator (not wind turbine, the one that looks like a wall)",
+            new AcceptableValueRange<float>(1f, 25f)
+        ));
     }
 
     public async UniTask OnBaseLoaded() {
@@ -154,4 +176,7 @@ internal struct Data {
 
     public static ConfigEntry<float> fastChargeRate;
     public static float FastChargeRate => fastChargeRate?.Value ?? Constants.TWO_POINT_FIVE_KILOWATTS;
+
+    public static ConfigEntry<float> turbineMultiplier;
+    public static float TurbineMultiplier => turbineMultiplier?.Value ?? 10f;
 }

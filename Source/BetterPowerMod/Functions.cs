@@ -14,7 +14,7 @@ internal static class Functions {
         }
 
         float noise = WindTurbineGenerator.GetNoise(generator.NoiseIntensity);
-        float value = Mathf.Max(0, Mathf.Clamp(pressure, 1f, 100f) * noise);
+        float value = Mathf.Max(0, Mathf.Clamp(pressure, 1f, Constants.ONE_ATMOSPHERE_PRESSURE_KPA) * noise);
 
         return WeatherManager.IsWeatherEventRunning && WeatherManager.CurrentWeatherEvent != null ? WeatherManager.CurrentWeatherEvent.WindStrength * value : value;
     }
@@ -23,11 +23,8 @@ internal static class Functions {
 
     internal static PassiveTooltip GetWindTurbineTooltip(WindTurbineGenerator generator) {
         StringBuilder stringBuilder = new();
-
-        _ = stringBuilder.AppendLine(
-            $"{GameStrings.GeneratingPower} {generator.GenerationRate.ToStringPrefix("W", "yellow")}");
-
-        _ = stringBuilder.AppendLine($"Speed {GetWindTurbineRPM(generator).ToStringPrefix("RPM", "yellow")}");
+        stringBuilder.AppendLine($"{GameStrings.GeneratingPower} {generator.GenerationRate.ToStringPrefix("W", "yellow")}");
+        stringBuilder.AppendLine($"Speed {GetWindTurbineRPM(generator).ToStringPrefix("RPM", "yellow")}");
 
         return new PassiveTooltip() {
             Title = generator.DisplayName,
@@ -42,8 +39,8 @@ internal static class Functions {
             double horizontal = panel.Horizontal * panel.MaximumHorizontal;
 
             StringBuilder stringBuilder = new();
-            stringBuilder.AppendLine($"Vertical {vertical.ToStringPrefix("Deg", "yellow")}");
-            stringBuilder.AppendLine($"Horizontal {horizontal.ToStringPrefix("Deg", "yellow")}");
+            stringBuilder.AppendLine($"Vertical {vertical.ToStringPrefix(Constants.DEGREE_SYMBOL, "yellow")}");
+            stringBuilder.AppendLine($"Horizontal {horizontal.ToStringPrefix(Constants.DEGREE_SYMBOL, "yellow")}");
             stringBuilder.Append(text);
             return stringBuilder.ToString();
         }

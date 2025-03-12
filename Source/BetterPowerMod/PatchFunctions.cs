@@ -6,14 +6,13 @@ namespace BetterPowerMod;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    private static readonly Dictionary<MethodInfo, bool> _patches =
-        typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
+    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.PowerGenerated), MethodType.Getter)]
     [HarmonyPostfix]
     public static void SolarPanelPowerGeneratedGetter(ref SolarPanel __instance, ref float __result) {
-        if (!Data.EnableSolarPanel || __instance == null) {
+        if (!Data.EnableSolarPanel || __instance == null || __instance.IsBroken) {
             return;
         }
 
@@ -36,7 +35,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.SolarInfo))]
     [HarmonyPostfix]
     public static void SolarPanelSolarInfo(ref SolarPanel __instance, ref string __result) {
-        if (!Data.EnableSolarPanel || GameManager.IsBatchMode || __instance == null) {
+        if (!Data.EnableSolarPanel || GameManager.IsBatchMode || __instance == null || __instance.IsBroken) {
             return; // exit as server will never be the one rendering tooltips
         }
 
@@ -58,9 +57,8 @@ public static class PatchFunctions {
     [UsedImplicitly]
     [HarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
     [HarmonyPostfix]
-    public static void DeviceGetPassiveTooltip(ref Device __instance, ref PassiveTooltip __result,
-        Collider hitCollider) {
-        if (!Data.EnableWindTurbine || GameManager.IsBatchMode || __instance == null || __instance is not WindTurbineGenerator generator) {
+    public static void DeviceGetPassiveTooltip(ref Device __instance, ref PassiveTooltip __result, Collider hitCollider) {
+        if (GameManager.IsBatchMode || !Data.EnableWindTurbine || __instance == null || __instance.IsBroken || __instance is not WindTurbineGenerator generator) {
             return; // exit as server will never be the one rendering tooltips
         }
 
@@ -83,13 +81,11 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WindTurbineGenerator), "SetTurbineRotationSpeed")]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorSetTurbineRotationSpeed(ref WindTurbineGenerator __instance, float speed) {
-        if (GameManager.IsBatchMode || !Data.EnableWindTurbine || __instance == null) {
+        if (GameManager.IsBatchMode || !Data.EnableWindTurbine || __instance == null || __instance.IsBroken) {
             return; // exit as server will never be the one rendering the turbine (i think)
         }
 
         try {
-
-
             Transform bladesTransform = Traverse.Create(__instance).Field("bladesTransform").GetValue<Transform>();
 
             float RPM = Functions.GetWindTurbineRPM(__instance);
@@ -116,7 +112,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.GenerationRate), MethodType.Getter)]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorGenerationRateGetter(ref WindTurbineGenerator __instance, ref float __result) {
-        if (!Data.EnableWindTurbine || __instance == null || __instance.HasRoom) {
+        if (!Data.EnableWindTurbine || __instance == null || __instance.IsBroken) {
             return;
         }
 
@@ -139,12 +135,12 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(TurbineGenerator), nameof(TurbineGenerator.GetGeneratedPower))]
     [HarmonyPostfix]
     public static void TurbineGeneratorGetGeneratedPower(ref TurbineGenerator __instance, ref float __result) {
-        if (!Data.EnableTurbine || __instance == null) {
+        if (!Data.EnableTurbine || __instance == null || __instance.IsBroken) {
             return;
         }
 
         try {
-            __result *= 10f;
+            __result *= Data.TurbineMultiplier;
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -162,7 +158,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(StirlingEngine), nameof(StirlingEngine.MaxPower), MethodType.Getter)]
     [HarmonyPostfix]
     public static void StirlingEngineMaxPowerGetter(ref StirlingEngine __instance, ref MoleEnergy __result) {
-        if (!Data.EnableStirling || __instance == null) {
+        if (!Data.EnableStirling || __instance == null || __instance.IsBroken) {
             return;
         }
 
@@ -185,12 +181,12 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(PowerTransmitterOmni), nameof(PowerTransmitterOmni.GetUsedPower))]
     [HarmonyPostfix]
     public static void PowerTransmitterOmniGetUsedPower(ref PowerTransmitterOmni __instance) {
-        if (!Data.EnableFasterCharging || __instance == null) {
+        if (!Data.EnableFasterCharging || __instance == null || __instance.IsBroken) {
             return;
         }
 
         try {
-            _ = Traverse.Create(__instance).Field("_maximumPowerUsage").SetValue(Data.FastChargeRate);
+            Traverse.Create(__instance).Field("_maximumPowerUsage").SetValue(Data.FastChargeRate);
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -208,7 +204,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(AreaPowerControl), nameof(AreaPowerControl.GetUsedPower))]
     [HarmonyPostfix]
     public static void AreaPowerControlGetUsedPower(ref AreaPowerControl __instance) {
-        if (!Data.EnableFasterCharging || __instance == null) {
+        if (!Data.EnableFasterCharging || __instance == null || __instance.IsBroken) {
             return;
         }
 
@@ -231,7 +227,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(BatteryCellCharger), nameof(BatteryCellCharger.GetUsedPower))]
     [HarmonyPostfix]
     public static void BatteryCellChargerGetUsedPower(ref BatteryCellCharger __instance) {
-        if (!Data.EnableFasterCharging || __instance == null) {
+        if (!Data.EnableFasterCharging || __instance == null || __instance.IsBroken) {
             return;
         }
 
