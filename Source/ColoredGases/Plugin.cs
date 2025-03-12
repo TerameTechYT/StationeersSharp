@@ -7,6 +7,8 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 namespace ColoredGases;
 
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
+// https://steamcommunity.com/sharedfiles/filedetails/?id=3021353906
+[BepInIncompatibility("com.ihatetn931.ColoredGasses")]
 [BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
 [BepInProcess(Constants.HEADLESS_EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {
