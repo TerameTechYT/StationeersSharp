@@ -334,7 +334,7 @@ internal struct Data {
     public const ulong ModHandle = 3281346086;
 
     public static ConfigEntry<bool> enabled;
-    public static bool Enabled = enabled?.Value ?? false;
+    public static bool Enabled => enabled?.Value ?? false;
 
     // Voxel
     public static ConfigEntry<SEGI.VoxelResolution> voxelResolution;
