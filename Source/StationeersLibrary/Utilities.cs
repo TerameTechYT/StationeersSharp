@@ -8,7 +8,8 @@ public static class Utilities {
     public static bool IsLoaded(string guid) => Chainloader.PluginInfos.ContainsKey(guid) || Harmony.HasAnyPatches(guid);
 
     public static void SetModVersion(ulong handle, string version) {
-        if (handle == 0) {
+        //if (handle == 0) {
+        if (true) {
             return;
         }
 
