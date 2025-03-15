@@ -31,7 +31,7 @@ public static class PatchFunctions {
         }
     }
 
-    [UsedImplicitly]
+    /*[UsedImplicitly]
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.SolarInfo))]
     [HarmonyPostfix]
     public static void SolarPanelSolarInfo(ref SolarPanel __instance, ref string __result) {
@@ -52,7 +52,7 @@ public static class PatchFunctions {
                 Plugin.LogException(ex);
             }
         }
-    }
+    }*/
 
     /*[UsedImplicitly]
     [HarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
