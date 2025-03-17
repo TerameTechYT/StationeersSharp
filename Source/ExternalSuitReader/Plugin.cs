@@ -98,17 +98,6 @@ internal struct Data {
     public static ConfigEntry<bool> enableExperimentalSaving;
     public static bool EnableExperimentalSaving => enableExperimentalSaving?.Value ?? false;
 
-    public sealed class AlreadyLoadedException : Exception {
-        public AlreadyLoadedException(string message) : base(message) {
-        }
-
-        public AlreadyLoadedException(string message, Exception innerException) : base(message, innerException) {
-        }
-
-        public AlreadyLoadedException() {
-        }
-    }
-
     /*
      * Base Allowed Logic Types:
      * 
