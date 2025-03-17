@@ -1,4 +1,4 @@
-﻿using Template;
+﻿using BetterHydroponics;
 using System.Reflection;
 
 [assembly: AssemblyTitle(Data.ModName)]

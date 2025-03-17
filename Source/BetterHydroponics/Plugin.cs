@@ -4,9 +4,11 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
 
-namespace Template;
+namespace BetterHydroponics;
 
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
+// https://steamcommunity.com/sharedfiles/filedetails/?id=3428763681
+//[BepInIncompatibility("")]
 [BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
 [BepInProcess(Constants.HEADLESS_EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {
@@ -90,8 +92,29 @@ public class Plugin : BaseUnityPlugin {
 
 internal struct Data {
     // Mod Data
-    public const string ModGuid = "template";
-    public const string ModName = "Template";
+    public const string ModGuid = "betterhydroponics";
+    public const string ModName = "BetterHydroponics";
     public const string ModVersion = "1.0.0";
     public const ulong ModHandle = 0;
+
+    public static readonly Dictionary<LogicSlotType, Func<Plant, int, double>> LogicSlotReadDictionary = new() {
+        { LogicSlotType.Temperature, (plant, slotId) => plant?.PlantStatus.TemperatureEfficiency ?? 0.0},
+        { LogicSlotType.Pressure, (plant, slotId) => plant?.PlantStatus.PressureEfficiency ?? 0.0},
+        { LogicSlotType.PressureAir, (plant, slotId) => plant?.PlantStatus.BreathingEfficiency ?? 0.0},
+        { LogicSlotType.Volume, (plant, slotId) => plant?.PlantStatus.HydrationEfficiency ?? 0.0},
+        { LogicSlotType.Charge, (plant, slotId) => plant?.PlantStatus.LightEfficiency ?? 0.0},
+        { LogicSlotType.Mode, (plant, slotId) => plant?.PlantRecord.Age ?? 0.0},
+    };
+
+    public static readonly Dictionary<LogicType, Func<Plant, double>> LogicReadDictionary = new() {
+        { LogicType.TemperatureSetting, (plant) => plant?.PlantStatus.TemperatureEfficiency ?? 0.0 },
+        { LogicType.PressureEfficiency, (plant) => plant?.PlantStatus.PressureEfficiency ?? 0.0 },
+        { LogicType.PressureSetting, (plant) => plant?.PlantStatus.BreathingEfficiency ?? 0.0 },
+        { LogicType.RatioWaterInput, (plant) => plant?.PlantStatus.HydrationEfficiency ?? 0.0 },
+        { LogicType.Charge, (plant) => plant?.PlantStatus.LightEfficiency ?? 0.0 },
+        { LogicType.Setting, (plant) => plant?.PlantRecord.LightStress ?? 0.0 },
+        { LogicType.SettingInput, (plant) => plant?.PlantRecord.TimeLitRatio ?? 0.0 },
+        { LogicType.SettingOutput, (plant) => plant?.PlantRecord.TimeDarknessRatio ?? 0.0 },
+        { LogicType.Time, (plant) => plant?.PlantRecord.Age ?? 0.0 },
+    };
 }

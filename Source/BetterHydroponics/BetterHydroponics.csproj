@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <ModName>Template</ModName>
+    <ModName>BetterHydroponics</ModName>
     <AssemblyName>$(ModName)</AssemblyName>
     <RootNamespace>$(ModName)</RootNamespace>
 
