@@ -103,7 +103,10 @@ internal struct Data {
         { LogicSlotType.PressureAir, (plant, slotId) => plant?.PlantStatus.BreathingEfficiency ?? 0.0},
         { LogicSlotType.Volume, (plant, slotId) => plant?.PlantStatus.HydrationEfficiency ?? 0.0},
         { LogicSlotType.Charge, (plant, slotId) => plant?.PlantStatus.LightEfficiency ?? 0.0},
-        { LogicSlotType.Mode, (plant, slotId) => plant?.PlantRecord.Age ?? 0.0},
+        { LogicSlotType.On, (plant, slotId) => plant?.PlantRecord.Age ?? 0.0},
+        { LogicSlotType.Lock, (plant, slotId) => plant?.PlantRecord.LightStress ?? 0.0},
+        { LogicSlotType.Open, (plant, slotId) => plant?.PlantRecord.TimeLitRatio ?? 0.0},
+        { LogicSlotType.Mode, (plant, slotId) => plant?.PlantRecord.TimeDarknessRatio ?? 0.0},
     };
 
     public static readonly Dictionary<LogicType, Func<Plant, double>> LogicReadDictionary = new() {
