@@ -8,6 +8,8 @@
     [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
     See: https://github.com/jixxed/StationeersMods
 
+    This mod adds no extra functionality by itself, it is a library for all of my mods.
+
     you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
     https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
   </Description>
