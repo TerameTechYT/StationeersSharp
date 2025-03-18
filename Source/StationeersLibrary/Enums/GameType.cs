@@ -5,7 +5,7 @@
 namespace StationeersLibrary.Enums;
 
 [Flags]
-internal enum GameType {
+public enum GameType {
     None = 0,
     Client,
     Headless,

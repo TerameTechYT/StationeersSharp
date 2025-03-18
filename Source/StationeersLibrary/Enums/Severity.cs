@@ -4,7 +4,7 @@
 
 namespace StationeersLibrary.Enums;
 
-internal enum Severity {
+public enum Severity {
     Debug,
     Info,
     Warning,

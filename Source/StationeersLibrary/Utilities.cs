@@ -36,7 +36,7 @@ public static class Utilities {
         _ => Constants.CELCIUS_SYMBOL,
     };
 
-    internal static TValue CatchAndReturnDefault<TValue, TException>(TValue fallbackValue, Func<TValue> action) where TException : Exception {
+    public static TValue CatchAndReturnDefault<TValue, TException>(TValue fallbackValue, Func<TValue> action) where TException : Exception {
         if (action == null) {
             return fallbackValue;
         }

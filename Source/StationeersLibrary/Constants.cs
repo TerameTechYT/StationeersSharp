@@ -5,6 +5,18 @@
 namespace StationeersLibrary;
 
 public static class Constants {
+    //
+    public const string STATIONEERS_LIBRARY_NAME = Data.ModName;
+    public const string STATIONEERS_LIBRARY_VERSION = Data.ModVersion;
+    public const string STATIONEERS_LIBRARY_GUID = Data.ModGuid;
+    public const ulong STATIONEERS_LIBRARY_HANDLE = Data.ModHandle;
+
+    // LOG
+    public const string LOG_FILE = $"{STATIONEERS_LIBRARY_NAME}.log";
+    public static string LOG_PATH => Path.Combine(Paths.BepInExRootPath, LOG_FILE);
+
+    public const bool DEBUG_MODE = true;
+
     // FILE NAMES
     public const string CLIENT_EXECUTABLE_NAME = "rocketstation.exe";
     public const string HEADLESS_EXECUTABLE_NAME = "rocketstation_DedicatedServer.exe";
