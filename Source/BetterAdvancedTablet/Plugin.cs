@@ -38,7 +38,7 @@ public class Plugin : BaseUnityPlugin {
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
             if (scene.name == Constants.BASE_SCENE_NAME) {
-                OnBaseLoaded().Forget();
+                this.OnBaseLoaded().Forget();
             }
         };
     }

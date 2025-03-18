@@ -39,7 +39,7 @@ public class Plugin : BaseUnityPlugin {
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
             if (scene.name == Constants.BASE_SCENE_NAME) {
-                OnBaseLoaded().Forget();
+                this.OnBaseLoaded().Forget();
             }
         };
     }
@@ -58,7 +58,7 @@ public class Plugin : BaseUnityPlugin {
         );
     }
 
-    public static async UniTask OnBaseLoaded() {
+    public async UniTask OnBaseLoaded() {
         // Wait until game has loaded into main menu
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
