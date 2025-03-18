@@ -32,7 +32,6 @@
     </None>
 
     <Using Include="StationeersLibrary" />
-    <Using Include="StationeersLibrary.Logging" />
     <Using Include="StationeersLibrary.Enums" />
     <Using Include="StationeersLibrary.Exceptions" />
 
