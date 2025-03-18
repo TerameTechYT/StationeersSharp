@@ -1,4 +1,20 @@
-### BetterPowerMod (BPM):
+### Better Advanced Tablet (BAD):
+> Adds new slots to Advanced Tablet, and more!<br>
+> [More Details](/Source/betterAdvancedTablet)<br>
+
+### Better Code Editor (BCE):
+> Adds more lines to code editor.<br>
+> [More Details](/Source/BetterCodeEditor)<br>
+
+### Better Hydroponics (BH):
+> Adds more readable logic values to hydroponics devices.<br>
+> [More Details](/Source/BetterHydroponics)<br>
+
+### Better Start Screen (BSS):
+> TODO<br>
+> [More Details](/Source/BetterstartScreen)<br>
+
+### Better Power Mod (BPM):
 > Fixes the max wattage (500w) of solar panels, and much more!<br>
 > [More Details](/Source/BetterPowerMod)<br>
 
@@ -27,7 +43,7 @@
 > [sonicether SEGI](https://github.com/sonicether/SEGI)<br>
 > [More Details](/Source/SEGIMod)<br>
 
-### StationpediaCalculator (SC):
+### Stationpedia Calculator (SC):
 > Demonstration Link: On [Youtube](https://youtu.be/Bjh0wN31I_M) <br>
 > A fully capable calculator built straight into the stationpedia!<br>
 > [More Details](/Source/StationpediaCalculator)<br>
