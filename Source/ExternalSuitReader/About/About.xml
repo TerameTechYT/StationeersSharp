@@ -8,11 +8,6 @@
     [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
     See: https://github.com/jixxed/StationeersMods
 
-    [h1]!!!! WARNING !!!![/h1]
-    [i]saving is disabled by default, however you can enable it in the mod config menu. without saving, all channels are initalized at a default value of 0[/i]
-    [b][u]this mod has changes for allowing ic10 scripts to write to Channel0-7, the mod has to modify save data in order to save it.[/u][/b]
-    [b][u]this may or may not cause save corruption, so be warned. if you dont use saving it will be fine.[/u][/b]
-
     Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.
     There are also many new things able to read and write to.
 
@@ -41,4 +36,16 @@ See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u><
     <Tag>BepInEx</Tag>
     <Tag>StationeersMods</Tag>
   </Tags>
+
+  <Dependencies>
+    <Mod>3389894703</Mod>
+  </Dependencies>
+
+  <LoadBefore>
+
+  </LoadBefore>
+
+  <LoadAfter>
+    <Mod>3389894703</Mod>
+  </LoadAfter>
 </ModMetadata>

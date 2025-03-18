@@ -37,4 +37,16 @@ See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u><
     <Tag>BepInEx</Tag>
     <Tag>StationeersMods</Tag>
   </Tags>
+
+  <Dependencies>
+    <Mod>3389894703</Mod>
+  </Dependencies>
+
+  <LoadBefore>
+
+  </LoadBefore>
+
+  <LoadAfter>
+    <Mod>3389894703</Mod>
+  </LoadAfter>
 </ModMetadata>

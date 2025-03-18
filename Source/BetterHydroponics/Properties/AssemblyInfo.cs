@@ -1,5 +1,4 @@
 ﻿using BetterHydroponics;
-using System.Reflection;
 
 [assembly: AssemblyTitle(Data.ModName)]
 [assembly: AssemblyDescription(Data.ModGuid)]
