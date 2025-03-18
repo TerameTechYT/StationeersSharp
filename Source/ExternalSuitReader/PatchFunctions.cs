@@ -9,6 +9,15 @@ public static class PatchFunctions {
     private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
     [UsedImplicitly]
+    [HarmonyFinalizer]
+    public static Exception PatchFinalizer(Exception __exception) {
+        Plugin.LogException(__exception);
+
+        // suppress all patch exceptions
+        return null;
+    }
+
+    [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.CanLogicRead))]
     [HarmonyPostfix]
     public static void AdvancedSuitCanLogicRead(ref AdvancedSuit __instance, ref bool __result, LogicType logicType) {
