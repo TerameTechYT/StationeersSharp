@@ -37,6 +37,10 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\StationeersLibrary\StationeersLibrary.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Reference Include="NCalc">
       <HintPath>NCalc.dll</HintPath>
       <Private>false</Private>

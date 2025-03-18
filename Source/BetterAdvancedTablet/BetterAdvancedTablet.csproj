@@ -36,6 +36,10 @@
     <CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StationeersLibrary\StationeersLibrary.csproj" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
