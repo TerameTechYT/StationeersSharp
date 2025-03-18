@@ -1,7 +1,6 @@
 ## Downloads [here](/Build/x64/Release)
 
 ## BetterWasteTank:
-### Waste Tank Changes
 > Improves the wastetank by making the suit use the full potential of the canisters capacity. <br><br>
 > Changes heating affect by lowering the amount of waste that goes into the waste tank when cooling the suit by 3 times. <br><br>
 > The new max pressure of the waste tank is (*TankMaxPressure* - 101) <br><br>

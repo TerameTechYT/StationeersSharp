@@ -1,6 +1,6 @@
 ## Downloads [here](/Build/x64/Release)
 
-### BetterPowerMod:
+### Better Power Mod:
 > Fixes the max wattage (500w) of solar panels.<br>
 > They are now set to your planets irradiance level, or the max wattage of your cable.<br>
 > Wind turbines now have a higher max output and a new tooltip.<br>
