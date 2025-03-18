@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <!-- Extra File Compilations -->
-    <Compile Include="$(SolutionDir)Source\StationeersLibrary/**/*.cs" />
+    <Compile Include="$(SolutionDir)Source\GlobalSuppressions.cs" />
 
     <Compile Remove="bin\**" />
     <Compile Remove="obj\**" />
@@ -32,6 +32,7 @@
     </None>
 
     <Using Include="StationeersLibrary" />
+    <Using Include="StationeersLibrary.Logging" />
     <Using Include="StationeersLibrary.Enums" />
     <Using Include="StationeersLibrary.Exceptions" />
 
