@@ -9,15 +9,6 @@ public static class PatchFunctions {
     private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
     [UsedImplicitly]
-    [HarmonyFinalizer]
-    public static Exception PatchFinalizer(Exception __exception) {
-        Plugin.LogException(__exception);
-
-        // suppress all patch exceptions
-        return null;
-    }
-
-    [UsedImplicitly]
     [HarmonyPatch(typeof(AtmosphericsManager), "Emit")]
     [HarmonyPrefix]
     public static bool AtmosphericsManagerEmitAirVisualizerParticles(List<Atmosphere> targetContainer, ParticleSystem emitter, Vector3 particleAtmosphereSpawnOffset, Predicate<Atmosphere> emitCondition, bool localSpace = false) {

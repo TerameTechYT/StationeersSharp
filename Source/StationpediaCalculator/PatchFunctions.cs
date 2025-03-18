@@ -9,15 +9,6 @@ public static class PatchFunctions {
     private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
     [UsedImplicitly]
-    [HarmonyFinalizer]
-    public static Exception PatchFinalizer(Exception __exception) {
-        Plugin.LogException(__exception);
-
-        // suppress all patch exceptions
-        return null;
-    }
-
-    [UsedImplicitly]
     [HarmonyPatch(typeof(Stationpedia), "ForceSearch")]
     [HarmonyPostfix]
     public static void StationpediaForceSearch(ref Stationpedia __instance, string searchText) {
