@@ -58,10 +58,12 @@ public static class PatchFunctions {
             switch (interactable.Action) {
                 case InteractableType.Button1: {
                     ___currentCartSlot = Functions.GetTabletCartridgeSlot(ref __instance, ___currentCartSlot, true);
-                } break;
+                }
+                break;
                 case InteractableType.Button2: {
                     ___currentCartSlot = Functions.GetTabletCartridgeSlot(ref __instance, ___currentCartSlot, false);
-                } break;
+                }
+                break;
                 default: {
                     Plugin.LogDebug($"Ignoring action type {interactable.Action}");
                     break;

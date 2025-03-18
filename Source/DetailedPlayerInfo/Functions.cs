@@ -1,9 +1,5 @@
 ﻿#region
 
-using Assets.Scripts.Objects;
-using Assets.Scripts.Objects.Items;
-using Assets.Scripts.Util;
-using System;
 using TMPro;
 using UnityObject = UnityEngine.Object;
 
@@ -300,7 +296,7 @@ internal static class Functions {
         string volume = mole.Volume.ToStringPrefix(Utilities.GetVolumeSymbol(Data.PreferredVolumeUnit));
         moleDisplay.Volume = $"<color={volumeTextColor}>{volume}</color>";
 
-        string percent = ((mole.Quantity / atmosphere.TotalMoles) * 100f).ToStringPrecision();
+        string percent = (mole.Quantity / atmosphere.TotalMoles * 100f).ToStringPrecision();
         moleDisplay.Percent = $"{percent}%";
 
         GasItem.StateSymbolType stateSymbolType = GasItem.StateSymbolType.none;

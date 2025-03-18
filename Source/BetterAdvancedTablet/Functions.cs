@@ -53,7 +53,8 @@ public static class Functions {
 
                 result = slot;
             }
-        } else {
+        }
+        else {
             for (int i = currentCartSlot; i >= currentCartSlot - advancedTablet.CartridgeSlots.Count + 1; i++) {
                 int slot = (i - 1) % advancedTablet.CartridgeSlots.Count;
                 if (slot < 0) {
@@ -103,8 +104,9 @@ public static class Functions {
         }
 
         if (cursorThing is Human human) {
-            Atmosphere totalAtmosphere = new();
-            totalAtmosphere.Thing = human;
+            Atmosphere totalAtmosphere = new() {
+                Thing = human
+            };
 
             if (human.HelmetSlot.Contains(out GasMask mask) && mask.HasReadableAtmosphere) {
                 totalAtmosphere.Add(mask.InternalAtmosphere.GasMixture);

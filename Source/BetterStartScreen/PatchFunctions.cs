@@ -1,4 +1,5 @@
 ﻿namespace BetterStartScreen;
 
 [HarmonyPatch]
-public static class PatchFunctions {}
+public static class PatchFunctions {
+}

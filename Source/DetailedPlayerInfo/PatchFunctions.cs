@@ -1,7 +1,5 @@
 ﻿#region
 
-using Assets.Scripts.Atmospherics;
-using SimpleSpritePacker;
 using TMPro;
 
 #endregion
@@ -107,7 +105,7 @@ public static class PatchFunctions {
             }
         }
     }*/
-    
+
     /*[UsedImplicitly]
     [HarmonyPatch(typeof(AtmosAnalyser), "SetHash")]
     [HarmonyPrefix]

@@ -1,5 +1,6 @@
 ﻿#region
 
+using static BepInEx.BepInDependency;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
@@ -7,6 +8,7 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 namespace SEGI;
 
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
+[BepInDependency(Constants.STATIONEERS_LIBRARY_GUID, DependencyFlags.HardDependency)]
 [BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {
     public static Plugin Instance {
@@ -289,41 +291,11 @@ public class Plugin : BaseUnityPlugin {
         GameObject.DontDestroyOnLoad(SEGIGameObject);
     }
 
-    public static void LogError(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Severity.Error);
-    public static void LogError(string message) => Log(message, Severity.Error);
-    public static void LogWarning(string message) => Log(message, Severity.Warning);
-    public static void LogInfo(string message) => Log(message, Severity.Info);
-
-#if DEBUG
-    public static void LogDebug(string message) => Log(message, Severity.Debug);
-#else
-    public static void LogDebug(string message) {
-    }
-#endif
-
-    private static void Log(string message, Severity severity) {
-        string newMessage = $"[{Data.ModName}]: {message}";
-
-        switch (severity) {
-            case Severity.Error: {
-                ConsoleWindow.PrintError(newMessage);
-                break;
-            }
-            case Severity.Warning: {
-                ConsoleWindow.PrintAction(newMessage);
-                break;
-            }
-            case Severity.Info: {
-                ConsoleWindow.Print(newMessage);
-                break;
-            }
-            default:
-            case Severity.Debug: {
-                ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
-            }
-            break;
-        }
-    }
+    public static void LogException(Exception ex) => StationeersLog.LogException(Data.ModName, ex);
+    public static void LogError(string message) => StationeersLog.LogError(Data.ModName, message);
+    public static void LogWarning(string message) => StationeersLog.LogWarning(Data.ModName, message);
+    public static void LogInfo(string message) => StationeersLog.LogInfo(Data.ModName, message);
+    public static void LogDebug(string message) => StationeersLog.LogDebug(Data.ModName, message);
 }
 
 internal struct Data {

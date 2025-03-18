@@ -10,7 +10,7 @@ internal static class Functions {
     internal static float GetCanisterFullRatio(GasCanister canister) => canister == null ? 0.0f : (canister.Pressure / canister.MaxPressure).ToFloat();
     internal static float GetCanisterDelta(GasCanister canister) => canister == null ? 0.0f : (canister.MaxPressure - canister.Pressure).ToFloat();
     internal static float GetCanisterMax(GasCanister canister) => canister == null ? 10132.5f : canister.MaxPressure.ToFloat();
-    internal static float GetCanisterMoles(GasCanister canister, Chemistry.GasType gasType) => canister == null ? 10132.5f : canister.InternalAtmosphere.GetMoles(gasType);
+    internal static float GetCanisterMoles(GasCanister canister, Chemistry.GasType gasType) => canister == null ? 0.0f : canister.InternalAtmosphere.GetMoles(gasType);
     internal static float GetCanisterMoles(GasCanister canister, SpeciesClass species) => GetCanisterMoles(canister, Utilities.GetSpeciesAirType(species));
 
     internal static bool IsWasteCritical(Suit suit) => IsWasteCritical(suit.WasteTank);

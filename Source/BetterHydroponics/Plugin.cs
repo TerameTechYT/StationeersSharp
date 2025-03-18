@@ -1,5 +1,6 @@
 ﻿#region
 
+using static BepInEx.BepInDependency;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
@@ -9,6 +10,7 @@ namespace BetterHydroponics;
 [BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
 // https://steamcommunity.com/sharedfiles/filedetails/?id=3428763681
 //[BepInIncompatibility("")]
+[BepInDependency(Constants.STATIONEERS_LIBRARY_GUID, DependencyFlags.HardDependency)]
 [BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
 [BepInProcess(Constants.HEADLESS_EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {
@@ -54,40 +56,11 @@ public class Plugin : BaseUnityPlugin {
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }
 
-    public static void LogException(Exception ex) => Log($"[{ex.Source} - {ex.StackTrace}]: {ex.Message}", Severity.Error);
-    public static void LogError(string message) => Log(message, Severity.Error);
-    public static void LogWarning(string message) => Log(message, Severity.Warning);
-    public static void LogInfo(string message) => Log(message, Severity.Info);
-    
-#if DEBUG
-    public static void LogDebug(string message) => Log(message, Severity.Debug);
-#else
-    public static void LogDebug(string message) {
-    }
-#endif
-
-    private static void Log(string message, Severity severity) {
-        string newMessage = $"[{Data.ModName}]: {message}";
-
-        switch (severity) {
-            case Severity.Error: {
-                ConsoleWindow.PrintError(newMessage);
-                break;
-            }
-            case Severity.Warning: {
-                ConsoleWindow.PrintAction(newMessage);
-                break;
-            }
-            case Severity.Info: {
-                ConsoleWindow.Print(newMessage);
-                break;
-            }
-            default:
-            case Severity.Debug: {
-                ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
-            } break;
-        }
-    }
+    public static void LogException(Exception ex) => StationeersLog.LogException(Data.ModName, ex);
+    public static void LogError(string message) => StationeersLog.LogError(Data.ModName, message);
+    public static void LogWarning(string message) => StationeersLog.LogWarning(Data.ModName, message);
+    public static void LogInfo(string message) => StationeersLog.LogInfo(Data.ModName, message);
+    public static void LogDebug(string message) => StationeersLog.LogDebug(Data.ModName, message);
 }
 
 internal struct Data {
@@ -97,7 +70,7 @@ internal struct Data {
     public const string ModVersion = "1.0.0";
     public const ulong ModHandle = 0;
 
-    public static readonly Dictionary<LogicSlotType, Func<Plant, int, double>> LogicSlotReadDictionary = new() {
+    public static readonly Dictionary<LogicSlotType, Func<Plant, int, double>> PlantReadDictionary = new() {
         { LogicSlotType.Temperature, (plant, slotId) => plant?.PlantStatus.TemperatureEfficiency ?? 0.0},
         { LogicSlotType.Pressure, (plant, slotId) => plant?.PlantStatus.PressureEfficiency ?? 0.0},
         { LogicSlotType.PressureAir, (plant, slotId) => plant?.PlantStatus.BreathingEfficiency ?? 0.0},
@@ -109,7 +82,7 @@ internal struct Data {
         { LogicSlotType.Mode, (plant, slotId) => plant?.PlantRecord.TimeDarknessRatio ?? 0.0},
     };
 
-    public static readonly Dictionary<LogicType, Func<Plant, double>> LogicReadDictionary = new() {
+    /*public static readonly Dictionary<LogicType, Func<Plant, double>> LogicReadDictionary = new() {
         { LogicType.TemperatureSetting, (plant) => plant?.PlantStatus.TemperatureEfficiency ?? 0.0 },
         { LogicType.PressureEfficiency, (plant) => plant?.PlantStatus.PressureEfficiency ?? 0.0 },
         { LogicType.PressureSetting, (plant) => plant?.PlantStatus.BreathingEfficiency ?? 0.0 },
@@ -119,5 +92,5 @@ internal struct Data {
         { LogicType.SettingInput, (plant) => plant?.PlantRecord.TimeLitRatio ?? 0.0 },
         { LogicType.SettingOutput, (plant) => plant?.PlantRecord.TimeDarknessRatio ?? 0.0 },
         { LogicType.Time, (plant) => plant?.PlantRecord.Age ?? 0.0 },
-    };
+    };*/
 }

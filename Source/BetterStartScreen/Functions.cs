@@ -1,3 +1,4 @@
 ﻿namespace BetterStartScreen;
 
-public static class Functions {}
+public static class Functions {
+}
