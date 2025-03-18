@@ -1,5 +1,6 @@
 ﻿#region
 
+using HarmonyLib.Tools;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
@@ -30,6 +31,7 @@ public class Plugin : BaseUnityPlugin {
         this.LoadConfiguration();
 
         Plugin.Instance = this;
+        HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
