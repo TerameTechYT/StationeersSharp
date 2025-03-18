@@ -11,11 +11,11 @@ public static class Constants {
     public const string STATIONEERS_LIBRARY_GUID = Data.ModGuid;
     public const ulong STATIONEERS_LIBRARY_HANDLE = Data.ModHandle;
 
-    // LOG
-    public const string LOG_FILE = $"{STATIONEERS_LIBRARY_NAME}.log";
-    public static string LOG_PATH => Path.Combine(Paths.BepInExRootPath, LOG_FILE);
-
+#if DEBUG
     public const bool DEBUG_MODE = true;
+#else
+    public const bool DEBUG_MODE = false;
+#endif
 
     // FILE NAMES
     public const string CLIENT_EXECUTABLE_NAME = "rocketstation.exe";
@@ -137,8 +137,4 @@ public static class Constants {
 
     public const float MINIMUM_PRESSURE_KPA = 0f;
     public const float MAXIMUM_PRESSURE_KPA = 1000000f;
-
-    // non constants below
-
-    public static string GAME_VERSION => GameManager.GetGameVersion();
 }

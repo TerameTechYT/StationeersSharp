@@ -19,6 +19,10 @@ public class Plugin : BaseUnityPlugin {
         get; private set;
     }
 
+    public static ManualLogSource LoggerInstance {
+        get => Instance.Logger;
+    }
+
     public static GameObject SEGIGameObject {
         get; private set;
     }
@@ -282,7 +286,7 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        Plugin.LogInfo($"{Data.ModVersion} is installed.");
+        Plugin.LogInfo($"v{Data.ModVersion} is installed.");
 
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
 
@@ -291,11 +295,43 @@ public class Plugin : BaseUnityPlugin {
         GameObject.DontDestroyOnLoad(SEGIGameObject);
     }
 
-    public static void LogException(Exception ex) => StationeersLog.LogException(Data.ModName, ex);
-    public static void LogError(string message) => StationeersLog.LogError(Data.ModName, message);
-    public static void LogWarning(string message) => StationeersLog.LogWarning(Data.ModName, message);
-    public static void LogInfo(string message) => StationeersLog.LogInfo(Data.ModName, message);
-    public static void LogDebug(string message) => StationeersLog.LogDebug(Data.ModName, message);
+    public static void LogException(Exception ex) => Plugin.Log($"[{ex?.Source} - {ex?.StackTrace}]: {ex?.Message}", Severity.Error);
+    public static void LogError(string message) => Plugin.Log(message, Severity.Error);
+    public static void LogWarning(string message) => Plugin.Log(message, Severity.Warning);
+    public static void LogInfo(string message) => Plugin.Log(message, Severity.Info);
+    public static void LogDebug(string message) {
+        if (Constants.DEBUG_MODE) {
+            Plugin.Log(message, Severity.Debug);
+        }
+    }
+
+    private static void Log(string message, Severity severity) {
+        string newMessage = $"[{Data.ModName}]: {message}";
+
+        switch (severity) {
+            case Severity.Error: {
+                Plugin.LoggerInstance.LogError(message);
+                ConsoleWindow.PrintError(newMessage);
+                break;
+            }
+            case Severity.Warning: {
+                Plugin.LoggerInstance.LogWarning(message);
+                ConsoleWindow.PrintAction(newMessage);
+                break;
+            }
+            case Severity.Info: {
+                Plugin.LoggerInstance.LogInfo(message);
+                ConsoleWindow.Print(newMessage);
+                break;
+            }
+            default:
+            case Severity.Debug: {
+                Plugin.LoggerInstance.LogDebug(message);
+                ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
+            }
+            break;
+        }
+    }
 }
 
 internal struct Data {
