@@ -2,6 +2,8 @@
 
 #endregion
 
+using static System.Net.WebRequestMethods;
+
 namespace StationeersLibrary;
 
 public static class Constants {
@@ -16,6 +18,21 @@ public static class Constants {
 #else
     public const bool DEBUG_MODE = false;
 #endif
+
+    // REPO
+    public const string GITHUB_URL = "https://github.com";
+    public const string REPOSITORY_OWNER = "TerameTechYT";
+    public const string REPOSITORY_NAME = "StationeersSharp";
+
+    public const string REPOSITORY_OWNER_URL = $"{GITHUB_URL}/{REPOSITORY_OWNER}";
+    public const string REPOSITORY_URL = $"{REPOSITORY_OWNER_URL}/{REPOSITORY_NAME}";
+    public const string REPOSITORY_ISSUES_URL = $"{REPOSITORY_URL}/issues";
+    public const string REPOSITORY_ISSUES_NEW_URL = $"{REPOSITORY_ISSUES_URL}/new";
+
+    // FILE PATHS
+    public static string DOCUMENTS_FOLDER => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+    public static string MY_GAMES_FOLDER => Path.Combine(DOCUMENTS_FOLDER, "My Games");
+    public static string STATIONEERS_DOCUMENTS_FOLDER => Path.Combine(MY_GAMES_FOLDER, "Stationeers");
 
     // FILE NAMES
     public const string CLIENT_EXECUTABLE_NAME = "rocketstation.exe";

@@ -1,5 +1,6 @@
 ﻿#region
 
+using HarmonyLib.Tools;
 using static BepInEx.BepInDependency;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
@@ -21,27 +22,34 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public static ManualLogSource LoggerInstance {
-        get => Instance.Logger;
+        get => Plugin.Instance.Logger;
     }
 
     [UsedImplicitly]
     public void Awake() {
+        Plugin.LogDebug("Mod Started.");
         if (Utilities.IsLoaded(Data.ModGuid)) {
             throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
         }
 
+        Plugin.LogDebug("Loading configuration.");
         this.LoadConfiguration();
 
         Plugin.Instance = this;
+        HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
-        Plugin.HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
-        // Thx jixxed for awesome code :)
-        SceneManager.sceneLoaded += (scene, _) => {
-            if (scene.name == Constants.BASE_SCENE_NAME) {
-                this.OnBaseLoaded().Forget();
-            }
-        };
+        Plugin.LogDebug($"Harmony patch starting.");
+        try {
+            Plugin.HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+        }
+        catch (HarmonyException ex) {
+            Plugin.LogException(ex);
+            Plugin.LogError($"Harmony failed to patch! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+        }
+        finally {
+            Plugin.LogDebug($"Harmony patch finished.");
+        }
     }
 
     public void LoadConfiguration() {

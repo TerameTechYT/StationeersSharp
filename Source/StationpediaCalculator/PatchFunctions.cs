@@ -25,7 +25,7 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
                 Plugin.LogException(ex);
             }
         }
@@ -55,7 +55,7 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
                 Plugin.LogException(ex);
             }
         }
