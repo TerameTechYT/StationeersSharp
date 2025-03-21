@@ -13,13 +13,11 @@
 
     Reading gas ratios is shown in the mod thumbnail.
 
-    other stuff:
-    you can read the total moles of the external atmosphere you are in. (use [b]TotalMolesOutput[/b])
-    you can read the prefabhash of the object you are looking at. (use [b]TargetPrefabHash[/b])
-    you can read the position of the object you are looking at. (use [b]TargetX, TargetY, TargetZ[/b])
-    you can read the passed day number. (use [b]Time[/b])
-    you can read the battery charge ratio directly. (use [b]Charge[/b])
-
+    [b]TotalMolesOutput[/b]: reads TotalMoles of external atmosphere.
+    [b]TargetPrefabHash[/b]: reads the PrefabHash of the object your looking at.
+    [b]TargetX, TargetY, TargetZ[/b]: reads the position of the object your looking at.
+    [b]Time[/b]: reads the current day counter.
+    [b]Charge[/b]: reads the battery charge ratio.
 
     you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
     https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
