@@ -32,7 +32,9 @@ See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u><
   </Tags>
 
   <Dependencies>
-    <Mod>3389894703</Mod>
+    <Mod>
+      <Id>3389894703</Id>
+    </Mod>
   </Dependencies>
 
   <LoadBefore>
@@ -40,6 +42,8 @@ See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u><
   </LoadBefore>
 
   <LoadAfter>
-    <Mod>3389894703</Mod>
+    <Mod>
+      <Id>3389894703</Id>
+    </Mod>
   </LoadAfter>
 </ModMetadata>

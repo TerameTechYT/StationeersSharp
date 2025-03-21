@@ -31,7 +31,9 @@ See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u><
   </Dependencies>
 
   <LoadBefore>
-    <Mod>1</Mod>
+    <Mod>
+      <Id>1</Id>
+    </Mod>
   </LoadBefore>
 
   <LoadAfter>
