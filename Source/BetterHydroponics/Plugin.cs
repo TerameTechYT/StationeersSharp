@@ -112,7 +112,7 @@ internal struct Data {
     public const string ModGuid = "betterhydroponics";
     public const string ModName = "BetterHydroponics";
     public const string ModVersion = "1.0.0";
-    public const ulong ModHandle = 0;
+    public const ulong ModHandle = 3449149492;
 
     public static readonly Dictionary<LogicSlotType, Func<Plant, int, double>> PlantReadDictionary = new() {
         { LogicSlotType.Temperature, (plant, slotId) => plant?.PlantStatus.TemperatureEfficiency ?? 0.0},
