@@ -78,23 +78,23 @@ public class Plugin : BaseUnityPlugin {
 
         switch (severity) {
             case Severity.Error: {
-                Plugin.LoggerInstance.LogError(message);
+                Plugin.LoggerInstance?.LogError(message);
                 ConsoleWindow.PrintError(newMessage);
                 break;
             }
             case Severity.Warning: {
-                Plugin.LoggerInstance.LogWarning(message);
+                Plugin.LoggerInstance?.LogWarning(message);
                 ConsoleWindow.PrintAction(newMessage);
                 break;
             }
             case Severity.Info: {
-                Plugin.LoggerInstance.LogInfo(message);
+                Plugin.LoggerInstance?.LogInfo(message);
                 ConsoleWindow.Print(newMessage);
                 break;
             }
             default:
             case Severity.Debug: {
-                Plugin.LoggerInstance.LogDebug(message);
+                Plugin.LoggerInstance?.LogDebug(message);
                 ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
             }
             break;
