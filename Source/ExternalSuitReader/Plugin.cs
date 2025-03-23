@@ -24,15 +24,15 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
+        Plugin.Instance = this;
+
         Plugin.LogDebug("Mod Started.");
         if (Utilities.IsLoaded(Data.ModGuid)) {
             throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
         }
 
-        Plugin.LogDebug("Loading configuration.");
         this.LoadConfiguration();
 
-        Plugin.Instance = this;
         HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
@@ -56,14 +56,23 @@ public class Plugin : BaseUnityPlugin {
         };
     }
 
-    private void LoadConfiguration() => Data.enableExperimentalSaving = Config.Bind(new ConfigDefinition("Configurables", "Enable Experimental Saving"), false);
+    private void LoadConfiguration() {
+        Plugin.LogDebug("Loading configuration.");
+
+        Data.enableExperimentalSaving = Config.Bind(
+            new ConfigDefinition("Configurables", "Enable Experimental Saving"),
+            false
+        );
+
+        Plugin.LogDebug("Loaded configuration.");
+    }
 
     public async UniTask OnBaseLoaded() {
         // Wait until game has loaded into main menu
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        LogInfo($"v{Data.ModVersion} is installed.");
+        Plugin.LogInfo($"v{Data.ModVersion} is installed.");
 
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }

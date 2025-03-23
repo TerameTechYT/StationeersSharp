@@ -23,15 +23,15 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
+        Plugin.Instance = this;
+
         Plugin.LogDebug("Mod Started.");
         if (Utilities.IsLoaded(Data.ModGuid)) {
             throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
         }
 
-        Plugin.LogDebug("Loading configuration.");
         this.LoadConfiguration();
 
-        Plugin.Instance = this;
         HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
@@ -56,6 +56,8 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
+        Plugin.LogDebug("Loading configuration.");
+
         Data.preferredPressureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Pressure Unit"),
             PressureUnit.Pascal,
             new ConfigDescription("Will change most things to use this unit of measurement."));
@@ -97,6 +99,8 @@ public class Plugin : BaseUnityPlugin {
             21,
             new ConfigDescription("What font size should the labels be changed to.",
             new AcceptableValueRange<int>(14, 28)));
+
+        Plugin.LogDebug("Loaded configuration.");
     }
 
 
@@ -105,7 +109,7 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        LogInfo($"v{Data.ModVersion} is installed.");
+        Plugin.LogInfo($"v{Data.ModVersion} is installed.");
 
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }

@@ -26,15 +26,15 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
+        Plugin.Instance = this;
+
         Plugin.LogDebug("Mod Started.");
         if (Utilities.IsLoaded(Data.ModGuid)) {
             throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
         }
 
-        Plugin.LogDebug("Loading configuration.");
         this.LoadConfiguration();
 
-        Plugin.Instance = this;
         HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
@@ -52,6 +52,8 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
+        Plugin.LogDebug("Loading configuration.");
+
         Data.codeEditorLines = Config.Bind("Configurables",
             "Code Editor Lines",
             InputSourceCode.MAX_LINES,
@@ -61,6 +63,8 @@ public class Plugin : BaseUnityPlugin {
             "Code Editor Line Length",
             InputSourceCode.LINE_LENGTH_LIMIT,
             "The length of the code editor lines");
+
+        Plugin.LogDebug("Loaded configuration.");
     }
 
     public async UniTask OnBaseLoaded() {

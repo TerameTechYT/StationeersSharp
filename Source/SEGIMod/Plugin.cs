@@ -27,15 +27,15 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
+        Plugin.Instance = this;
+
         Plugin.LogDebug("Mod Started.");
         if (Utilities.IsLoaded(Data.ModGuid)) {
             throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
         }
 
-        Plugin.LogDebug("Loading configuration.");
         this.LoadConfiguration();
 
-        Plugin.Instance = this;
         HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
@@ -60,6 +60,8 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
+        Plugin.LogDebug("Loading configuration.");
+
         Data.enabled = Config.Bind(
             new ConfigDefinition("General", "Enabled"),
             true
@@ -282,6 +284,8 @@ public class Plugin : BaseUnityPlugin {
         ));
 
         Config.SettingChanged += this.ConfigChanged;
+
+        Plugin.LogDebug("Loaded configuration.");
     }
 
     private void ConfigChanged(object sender, SettingChangedEventArgs e) {

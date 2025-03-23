@@ -24,15 +24,15 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
+        Plugin.Instance = this;
+
         Plugin.LogDebug("Mod Started.");
         if (Utilities.IsLoaded(Data.ModGuid)) {
             throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
         }
 
-        Plugin.LogDebug("Loading configuration.");
         this.LoadConfiguration();
 
-        Plugin.Instance = this;
         HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
@@ -57,6 +57,8 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
+        Plugin.LogDebug("Loading configuration.");
+
         Data.wasteCriticalRatio = Config.Bind(new ConfigDefinition("Configurables", "Waste Critical Ratio"),
             0.975f,
             new ConfigDescription("Ratio when \"Waste Tank Critical!\" alarm goes off.", new AcceptableValueRange<float>(0.0f, 1.0f)));
@@ -71,11 +73,13 @@ public class Plugin : BaseUnityPlugin {
 
         Data.airCriticalMoles = Config.Bind(new ConfigDefinition("Configurables", "Air Critical Moles"),
             7.5f,
-            new ConfigDescription("Quantity of moles when \"Air Tank Critical!\" alarm goes off. (this number will be multiplied by how many moles a human breathes per tick)"));
+            new ConfigDescription("Quantity of moles when \"Air Tank Critical!\" alarm goes off. (this number will be multiplied by how many moles a human breaths per tick)"));
 
         Data.airCautionMoles = Config.Bind(new ConfigDefinition("Configurables", "Air Caution Moles"),
             50f,
-            new ConfigDescription("Quanitity of moles when \"Air Tank Caution\" alarm goes off. (this number will be multiplied by how many moles a human breathes per tick)"));
+            new ConfigDescription("Quanitity of moles when \"Air Tank Caution\" alarm goes off. (this number will be multiplied by how many moles a human breaths per tick)"));
+
+        Plugin.LogDebug("Loaded configuration.");
     }
 
     public async UniTask OnBaseLoaded() {
@@ -83,7 +87,7 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        LogInfo($"v{Data.ModVersion} is installed.");
+        Plugin.LogInfo($"v{Data.ModVersion} is installed.");
 
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }
