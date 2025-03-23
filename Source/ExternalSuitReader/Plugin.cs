@@ -1,6 +1,5 @@
 ﻿#region
 
-using HarmonyLib.Tools;
 using static BepInEx.BepInDependency;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
@@ -21,9 +20,7 @@ public class Plugin : BaseUnityPlugin {
         get; private set;
     }
 
-    public static ManualLogSource LoggerInstance {
-        get => Plugin.Instance.Logger;
-    }
+    public static ManualLogSource LoggerInstance => Plugin.Instance.Logger;
 
     [UsedImplicitly]
     public void Awake() {
@@ -204,15 +201,5 @@ internal struct Data {
         {LogicType.TargetZ, (suit) => CursorManager.CursorHit.point.x},
     };
 
-    public static readonly Dictionary<LogicType, Action<AdvancedSuit, double>> LogicWriteDictionary = new() {
-        // data channels
-        /*{LogicType.Channel0, (suit, value) => Functions.SetSuitChannel(suit.ReferenceId, 0, value)},
-        {LogicType.Channel1, (suit, value) => Functions.SetSuitChannel(suit.ReferenceId, 1, value)},
-        {LogicType.Channel2, (suit, value) => Functions.SetSuitChannel(suit.ReferenceId, 2, value)},
-        {LogicType.Channel3, (suit, value) => Functions.SetSuitChannel(suit.ReferenceId, 3, value)},
-        {LogicType.Channel4, (suit, value) => Functions.SetSuitChannel(suit.ReferenceId, 4, value)},
-        {LogicType.Channel5, (suit, value) => Functions.SetSuitChannel(suit.ReferenceId, 5, value)},
-        {LogicType.Channel6, (suit, value) => Functions.SetSuitChannel(suit.ReferenceId, 6, value)},
-        {LogicType.Channel7, (suit, value) => Functions.SetSuitChannel(suit.ReferenceId, 7, value)},*/
-    };
+    public static readonly Dictionary<LogicType, Action<AdvancedSuit, double>> LogicWriteDictionary = [];
 }

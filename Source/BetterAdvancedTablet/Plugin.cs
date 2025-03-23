@@ -1,6 +1,5 @@
 ﻿#region
 
-using HarmonyLib.Tools;
 using static BepInEx.BepInDependency;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
@@ -20,9 +19,7 @@ public class Plugin : BaseUnityPlugin {
         get; private set;
     }
 
-    public static ManualLogSource LoggerInstance {
-        get => Plugin.Instance.Logger;
-    }
+    public static ManualLogSource LoggerInstance => Plugin.Instance.Logger;
 
     [UsedImplicitly]
     public void Awake() {

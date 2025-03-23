@@ -1,6 +1,5 @@
 ﻿#region
 
-using HarmonyLib.Tools;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 #endregion
@@ -21,9 +20,7 @@ public class Plugin : BaseUnityPlugin {
         get; private set;
     }
 
-    public static ManualLogSource LoggerInstance {
-        get => Plugin.Instance.Logger;
-    }
+    public static ManualLogSource LoggerInstance => Plugin.Instance.Logger;
 
     [UsedImplicitly]
     public void Awake() {
