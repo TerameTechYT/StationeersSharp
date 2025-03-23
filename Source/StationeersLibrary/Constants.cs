@@ -2,7 +2,7 @@
 
 #endregion
 
-using static System.Net.WebRequestMethods;
+#define FORCE_DEBUG
 
 namespace StationeersLibrary;
 
@@ -13,7 +13,7 @@ public static class Constants {
     public const string STATIONEERS_LIBRARY_GUID = Data.ModGuid;
     public const ulong STATIONEERS_LIBRARY_HANDLE = Data.ModHandle;
 
-#if DEBUG
+#if DEBUG || FORCE_DEBUG
     public const bool DEBUG_MODE = true;
 #else
     public const bool DEBUG_MODE = false;
@@ -26,8 +26,11 @@ public static class Constants {
 
     public const string REPOSITORY_OWNER_URL = $"{GITHUB_URL}/{REPOSITORY_OWNER}";
     public const string REPOSITORY_URL = $"{REPOSITORY_OWNER_URL}/{REPOSITORY_NAME}";
+
     public const string REPOSITORY_ISSUES_URL = $"{REPOSITORY_URL}/issues";
     public const string REPOSITORY_ISSUES_NEW_URL = $"{REPOSITORY_ISSUES_URL}/new";
+
+    public const string REPOSITORY_PULLS_URL = $"{REPOSITORY_URL}/pulls";
 
     // FILE PATHS
     public static string DOCUMENTS_FOLDER => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -141,7 +144,7 @@ public static class Constants {
     public const float MINIMUM_KELVIN = ZERO_CELCIUS_KELVIN + MINIMUM_CELCIUS;
     public const float MAXIMUM_KELVIN = ZERO_CELCIUS_KELVIN + MAXIMUM_CELCIUS;
 
-    // PRESSURE
+    // PRESSURE: KPA
     public const float ONE_ATMOSPHERE_PRESSURE_KPA = 101.325f;
     public const float TWO_ATMOSPHERE_PRESSURE_KPA = ONE_ATMOSPHERE_PRESSURE_KPA * 2f;
     public const float THREE_ATMOSPHERE_PRESSURE_KPA = ONE_ATMOSPHERE_PRESSURE_KPA * 3f;
