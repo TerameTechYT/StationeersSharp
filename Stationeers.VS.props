@@ -181,8 +181,11 @@
     <Using Include="ImGuiNET" />
     <Using Include="ImGuiNET.Unity" />
 
-    <!-- BepInEx -->
+    <!-- Harmony -->
     <Using Include="HarmonyLib" />
+    <Using Include="HarmonyLib.Tools" />
+
+    <!-- BepInEx -->
     <Using Include="BepInEx" />
     <Using Include="BepInEx.Bootstrap" />
     <Using Include="BepInEx.Configuration" />
