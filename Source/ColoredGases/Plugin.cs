@@ -24,15 +24,14 @@ public class Plugin : BaseUnityPlugin {
 
     [UsedImplicitly]
     public void Awake() {
+        Plugin.Instance = this;
         Plugin.LogDebug("Mod Started.");
         if (Utilities.IsLoaded(Data.ModGuid)) {
             throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
         }
 
-        Plugin.LogDebug("Loading configuration.");
         this.LoadConfiguration();
 
-        Plugin.Instance = this;
         HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
@@ -57,6 +56,8 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
+        Plugin.LogDebug("Loading configuration.");
+
         Data.enableAirVisualizer = Config.Bind(
             new ConfigDefinition("Configurables", "Enable Colored Air Visualier"),
             true,
@@ -68,6 +69,8 @@ public class Plugin : BaseUnityPlugin {
             true,
             new ConfigDescription("Enable or disable custom colored fog visualizers.")
         );
+
+        Plugin.LogDebug("Loaded configuration.");
     }
 
     public async UniTask OnBaseLoaded() {
