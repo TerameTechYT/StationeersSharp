@@ -1,6 +1,5 @@
 ﻿#region
 
-using HarmonyLib.Tools;
 using StationeersLibrary.Commands;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
@@ -19,21 +18,19 @@ public class Plugin : BaseUnityPlugin {
         get; private set;
     }
 
-    public static ManualLogSource LoggerInstance {
-        get => Plugin.Instance.Logger;
-    }
+    public static ManualLogSource LoggerInstance => Plugin.Instance.Logger;
 
     [UsedImplicitly]
     public void Awake() {
+        Plugin.Instance = this;
+
         Plugin.LogDebug("Mod Started.");
         if (Utilities.IsLoaded(Data.ModGuid)) {
             throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
         }
 
-        Plugin.LogDebug("Loading configuration.");
         this.LoadConfiguration();
 
-        Plugin.Instance = this;
         HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
@@ -44,7 +41,8 @@ public class Plugin : BaseUnityPlugin {
         catch (HarmonyException ex) {
             Plugin.LogException(ex);
             Plugin.LogError($"Harmony failed to patch! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-        } finally {
+        }
+        finally {
             Plugin.LogDebug($"Harmony patch finished.");
         }
 
@@ -59,7 +57,9 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
+        Plugin.LogDebug("Loading configuration.");
 
+        Plugin.LogDebug("Loaded configuration.");
     }
 
     public async UniTask OnBaseLoaded() {
@@ -87,23 +87,23 @@ public class Plugin : BaseUnityPlugin {
 
         switch (severity) {
             case Severity.Error: {
-                Plugin.LoggerInstance.LogError(message);
+                Plugin.LoggerInstance?.LogError(message);
                 ConsoleWindow.PrintError(newMessage);
                 break;
             }
             case Severity.Warning: {
-                Plugin.LoggerInstance.LogWarning(message);
+                Plugin.LoggerInstance?.LogWarning(message);
                 ConsoleWindow.PrintAction(newMessage);
                 break;
             }
             case Severity.Info: {
-                Plugin.LoggerInstance.LogInfo(message);
+                Plugin.LoggerInstance?.LogInfo(message);
                 ConsoleWindow.Print(newMessage);
                 break;
             }
             default:
             case Severity.Debug: {
-                Plugin.LoggerInstance.LogDebug(message);
+                Plugin.LoggerInstance?.LogDebug(message);
                 ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
                 break;
             }
@@ -115,6 +115,6 @@ internal struct Data {
     // Mod Data
     public const string ModGuid = "stationeerslibrary";
     public const string ModName = "StationeersLibrary";
-    public const string ModVersion = "1.0.0";
+    public const string ModVersion = "1.1.0";
     public const ulong ModHandle = 3389894703;
 }

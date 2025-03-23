@@ -1,6 +1,5 @@
 ﻿#region
 
-using HarmonyLib.Tools;
 using static BepInEx.BepInDependency;
 using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
@@ -21,21 +20,19 @@ public class Plugin : BaseUnityPlugin {
         get; private set;
     }
 
-    public static ManualLogSource LoggerInstance {
-        get => Plugin.Instance.Logger;
-    }
+    public static ManualLogSource LoggerInstance => Plugin.Instance.Logger;
 
     [UsedImplicitly]
     public void Awake() {
+        Plugin.Instance = this;
+
         Plugin.LogDebug("Mod Started.");
         if (Utilities.IsLoaded(Data.ModGuid)) {
             throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
         }
 
-        Plugin.LogDebug("Loading configuration.");
         this.LoadConfiguration();
 
-        Plugin.Instance = this;
         HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
@@ -53,6 +50,8 @@ public class Plugin : BaseUnityPlugin {
     }
 
     public void LoadConfiguration() {
+        Plugin.LogDebug("Loading configuration.");
+
         Data.enableSolarPanel = Config.Bind(
             new ConfigDefinition("Configurables", "Solar Panel Patches"),
             true,
@@ -103,6 +102,8 @@ public class Plugin : BaseUnityPlugin {
             new ConfigDescription("The power output on the Turbine Generator (not wind turbine, the one that looks like a wall)",
             new AcceptableValueRange<float>(1f, 25f)
         ));
+
+        Plugin.LogDebug("Loaded configuration.");
     }
 
     public async UniTask OnBaseLoaded() {
@@ -130,23 +131,23 @@ public class Plugin : BaseUnityPlugin {
 
         switch (severity) {
             case Severity.Error: {
-                Plugin.LoggerInstance.LogError(message);
+                Plugin.LoggerInstance?.LogError(message);
                 ConsoleWindow.PrintError(newMessage);
                 break;
             }
             case Severity.Warning: {
-                Plugin.LoggerInstance.LogWarning(message);
+                Plugin.LoggerInstance?.LogWarning(message);
                 ConsoleWindow.PrintAction(newMessage);
                 break;
             }
             case Severity.Info: {
-                Plugin.LoggerInstance.LogInfo(message);
+                Plugin.LoggerInstance?.LogInfo(message);
                 ConsoleWindow.Print(newMessage);
                 break;
             }
             default:
             case Severity.Debug: {
-                Plugin.LoggerInstance.LogDebug(message);
+                Plugin.LoggerInstance?.LogDebug(message);
                 ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
             }
             break;
@@ -161,9 +162,13 @@ internal struct Data {
     public const string ModVersion = "1.2.0";
     public const ulong ModHandle = 3234916147;
 
-    public static List<string> IgnoredSolarPanelPrefabs => [
-        "StructureSolarPanelFlat", "StructureSolarPanel45",
-        "StructureSolarPanelFlatReinforced", "StructureSolarPanel45Reinforced"
+    //
+    public static List<string> FlatSolarPanelPrefabs => [
+        "StructureSolarPanelFlat", "StructureSolarPanel45", "StructureSolarPanelFlatReinforced", "StructureSolarPanel45Reinforced"
+    ];
+
+    public static List<string> WindTurbinePrefabs => [
+        "StructureUprightWindTurbine", "StructureWindTurbine",
     ];
 
     //
@@ -189,9 +194,11 @@ internal struct Data {
     public static ConfigEntry<bool> enableFasterCharging;
     public static bool EnableFasterCharging => enableWindTurbine?.Value ?? false;
 
+    //
     public static ConfigEntry<float> fastChargeRate;
     public static float FastChargeRate => fastChargeRate?.Value ?? Constants.TWO_POINT_FIVE_KILOWATTS;
 
+    //
     public static ConfigEntry<float> turbineMultiplier;
     public static float TurbineMultiplier => turbineMultiplier?.Value ?? 10f;
 }
