@@ -4,7 +4,7 @@
 
 namespace StationeersLibrary.Exceptions;
 
-public sealed class AlreadyLoadedException : Exception {
+public class AlreadyLoadedException : Exception {
     public AlreadyLoadedException(string name, string guid, string version) : base($"Mod {name} ({guid}) - {version} has already been loaded!") {
 
     }
