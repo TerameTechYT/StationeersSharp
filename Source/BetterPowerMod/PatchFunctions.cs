@@ -32,38 +32,23 @@ public static class PatchFunctions {
     }
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.SolarInfo))]
-    [HarmonyPostfix]
-    public static void SolarPanelSolarInfo(ref SolarPanel __instance, ref string __result) {
-        if (!Data.EnableSolarPanel || GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
-            return; // exit as server will never be the one rendering tooltips
-        }
-
-        try {
-            __result = Functions.GetSolarPanelTooltip(__instance, __result);
-        }
-        catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
-            }
-        }
-    }*/
-
-    /*[UsedImplicitly]
     [HarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
-    [HarmonyPostfix]
-    public static void DeviceGetPassiveTooltip(ref Device __instance, ref PassiveTooltip __result, Collider hitCollider) {
-        if (GameManager.IsBatchMode || !Data.EnableWindTurbine || __instance == null  || __instance is not WindTurbineGenerator generator) {
-            return; // exit as server will never be the one rendering tooltips
+    [HarmonyPriority(Priority.First)]
+    [HarmonyReversePatch]
+    public static PassiveTooltip DeviceGetPassiveTooltipReversePatch(Device __instance, Collider hitCollider) => throw new HarmonyReversePatchException();
+
+    [UsedImplicitly]
+    [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.GetPassiveTooltip))]
+    [HarmonyPrefix]
+    public static bool SolarPanelGetPassiveTooltip(ref SolarPanel __instance, ref PassiveTooltip __result, Collider hitCollider) {
+        if (!Data.EnableSolarPanel || GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
+            return true; // exit as server will never be the one rendering tooltips
         }
 
         try {
-            __result = Functions.GetWindTurbineTooltip(generator);
+            __result = Functions.GetSolarPanelTooltip(__instance, hitCollider);
+
+            return false;
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -75,25 +60,50 @@ public static class PatchFunctions {
                 Plugin.LogException(ex);
             }
         }
+
+        return true;
+    }
+
+    [UsedImplicitly]
+    [HarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
+    [HarmonyPriority(Priority.Last)]
+    [HarmonyPrefix]
+    public static bool DeviceGetPassiveTooltip(ref Device __instance, ref PassiveTooltip __result, Collider hitCollider) {
+        if (GameManager.IsBatchMode || !Data.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted || !Data.WindTurbinePrefabs.Contains(__instance.PrefabName)) {
+            return true; // exit as server will never be the one rendering tooltips
+        }
+
+        try {
+            __result = Functions.GetWindTurbineTooltip(__instance as WindTurbineGenerator, hitCollider);
+
+            return false;
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.LogException(ex);
+            }
+        }
+
+        return true;
     }*/
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(WindTurbineGenerator), "SetTurbineRotationSpeed")]
     [HarmonyPostfix]
-    public static void WindTurbineGeneratorSetTurbineRotationSpeed(ref WindTurbineGenerator __instance, float speed) {
-        if (GameManager.IsBatchMode || !Data.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted) {
+    public static void WindTurbineGeneratorSetTurbineRotationSpeed(ref WindTurbineGenerator __instance, float speed, ref Transform ___bladesTransform) {
+        if (!Data.EnableWindTurbine || GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
             return; // exit as server will never be the one rendering the turbine (i think)
         }
 
         try {
-            Transform bladesTransform = Traverse.Create(__instance).Field("bladesTransform").GetValue<Transform>();
-
-            float RPM = Functions.GetWindTurbineRPM(__instance);
-            if (__instance.BaseAnimator != null) {
-                __instance.BaseAnimator.SetFloat(WindTurbineGenerator.SpeedState, __instance.GenerationRate);
-            }
-            else if (bladesTransform != null && RPM > 0f) {
-                bladesTransform.Rotate(__instance is LargeWindTurbineGenerator ? Vector3.forward : Vector3.up, RPM / 60f);
+            if (speed > 0f) {
+                __instance.BaseAnimator?.SetFloat(WindTurbineGenerator.SpeedState, speed);
+                ___bladesTransform?.Rotate(__instance is LargeWindTurbineGenerator ? Vector3.forward : Vector3.up, 720f * GameManager.DeltaTime * speed);
             }
         }
         catch (Exception ex) {
@@ -180,13 +190,13 @@ public static class PatchFunctions {
     [UsedImplicitly]
     [HarmonyPatch(typeof(PowerTransmitterOmni), nameof(PowerTransmitterOmni.GetUsedPower))]
     [HarmonyPostfix]
-    public static void PowerTransmitterOmniGetUsedPower(ref PowerTransmitterOmni __instance) {
+    public static void PowerTransmitterOmniGetUsedPower(ref PowerTransmitterOmni __instance, ref float ____maximumPowerUsage) {
         if (!Data.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
         try {
-            Traverse.Create(__instance).Field("_maximumPowerUsage").SetValue(Data.FastChargeRate);
+            ____maximumPowerUsage = Data.FastChargeRate;
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -232,7 +242,30 @@ public static class PatchFunctions {
         }
 
         try {
-            __instance.BatteryChargeRate = Data.FastChargeRate;
+            __instance.BatteryChargeRate = __instance.PrefabName == Data.BatteryChargerSmall ? Data.FastChargeRate / 2f : Data.FastChargeRate;
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.LogException(ex);
+            }
+        }
+    }
+
+    [UsedImplicitly]
+    [HarmonyPatch(typeof(WallLightBattery), nameof(WallLightBattery.GetUsedPower))]
+    [HarmonyPostfix]
+    public static void WallLightBatteryGetUsedPower(ref WallLightBattery __instance) {
+        if (!Data.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
+            return;
+        }
+
+        try {
+            __instance.BatteryChargeRate = Data.FastChargeRate / 2f;
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();

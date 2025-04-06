@@ -13,37 +13,71 @@ internal static class Functions {
             return 0f;
         }
 
-        float noise = WindTurbineGenerator.GetNoise(generator.NoiseIntensity);
+        float intensity = Functions.IsCurrentlyStorm() ? Functions.GetWeatherWindStrength() * generator.WeatherUtilisationMultiplier : 1f;
+        float noise = WindTurbineGenerator.GetNoise(generator.NoiseIntensity * intensity);
         float value = Mathf.Max(0, Mathf.Clamp(pressure, 1f, Constants.ONE_ATMOSPHERE_PRESSURE_KPA) * noise);
 
-        return WeatherManager.IsWeatherEventRunning && WeatherManager.CurrentWeatherEvent != null ? WeatherManager.CurrentWeatherEvent.WindStrength * value : value;
+        return Functions.IsCurrentlyStorm() ? Functions.GetWeatherWindStrength() * value : value;
     }
 
-    internal static float GetWindTurbineRPM(WindTurbineGenerator generator) => GameManager.DeltaTime * generator.GenerationRate * 60;
+    internal static bool IsCurrentlyStorm() => WeatherManager.IsWeatherEventRunning && WeatherManager.CurrentWeatherEvent != null;
 
-    internal static PassiveTooltip GetWindTurbineTooltip(WindTurbineGenerator generator) {
+    internal static WeatherEvent GetWeatherEvent() => Functions.IsCurrentlyStorm() ? WeatherManager.CurrentWeatherEvent : null;
+    internal static float GetWeatherWindStrength() => Functions.GetWeatherEvent()?.WindStrength ?? 1f;
+
+    internal static float GetWindTurbineRPM(WindTurbineGenerator generator) => 720f * GameManager.DeltaTime * generator.GenerationRate;
+
+    /*internal static PassiveTooltip GetWindTurbineTooltip(WindTurbineGenerator generator, Collider hitCollider) {
+        PassiveTooltip passiveTooltip = PatchFunctions.DeviceGetPassiveTooltipReversePatch(generator, hitCollider);
+
+        if (generator.IsStructureCompleted) {
+            passiveTooltip.Title = generator.DisplayName;
+            passiveTooltip.State = Functions.GetWindTurbineInfo(generator);
+        }
+
+        return passiveTooltip;
+    }
+
+    internal static string GetWindTurbineInfo(WindTurbineGenerator generator) {
         StringBuilder stringBuilder = new();
         stringBuilder.AppendLine($"{GameStrings.GeneratingPower} {generator.GenerationRate.ToStringPrefix("W", "yellow")}");
-        stringBuilder.AppendLine($"Speed {GetWindTurbineRPM(generator).ToStringPrefix("RPM", "yellow")}");
+        stringBuilder.AppendLine($"Speed {Functions.GetWindTurbineRPM(generator).ToStringPrefix("RPM", "yellow")}");
 
-        return new PassiveTooltip() {
-            Title = generator.DisplayName,
-            Slider = generator.ThingHealth,
-            Extended = stringBuilder.ToString()
-        };
+        return stringBuilder.ToString();
     }
 
-    internal static string GetSolarPanelTooltip(SolarPanel panel, string text) {
-        if (!Data.IgnoredSolarPanelPrefabs.Contains(panel.PrefabName)) {
-            double vertical = panel.Vertical * panel.MaximumVertical;
-            double horizontal = panel.Horizontal * panel.MaximumHorizontal;
+    internal static PassiveTooltip GetSolarPanelTooltip(SolarPanel solarPanel, Collider hitCollider) {
+        PassiveTooltip passiveTooltip = PatchFunctions.DeviceGetPassiveTooltipReversePatch(solarPanel, hitCollider);
 
-            StringBuilder stringBuilder = new();
+        if (solarPanel.IsStructureCompleted) {
+            passiveTooltip.Title = solarPanel.DisplayName;
+            passiveTooltip.State = Functions.GetSolarPanelInfo(solarPanel);
+        }
+
+        if (solarPanel.DamageState.Total > 0f) {
+            passiveTooltip.RepairString = ISolarRepairer.Tooltip;
+        }
+
+        return passiveTooltip;
+    }
+
+    internal static string GetSolarPanelInfo(SolarPanel solarPanel) {
+        StringBuilder stringBuilder = new();
+        float efficency = (solarPanel.GenerationEfficiency * (1f - solarPanel.DamageState.TotalRatio) * 100f).RoundToSignificantDigits(2);
+        float health = (100f - (solarPanel.DamageState.TotalRatio * 100f)).RoundToSignificantDigits(2);
+
+        stringBuilder.AppendLine($"{GameStrings.GeneratingPower} {solarPanel.GenerationRate.ToStringPrefix("W", "yellow")}");
+        stringBuilder.AppendLine($"Efficency {efficency.ToStringPercent("yellow")}");
+        stringBuilder.AppendLine($"Health {health.ToStringPercent(solarPanel.DamageColor)}");
+
+        if (!Data.FlatSolarPanelPrefabs.Contains(solarPanel.PrefabName)) {
+            double vertical = solarPanel.Vertical * solarPanel.MaximumVertical;
+            double horizontal = solarPanel.Horizontal * solarPanel.MaximumHorizontal;
+
             stringBuilder.AppendLine($"Vertical {vertical.ToStringPrefix("degrees", "yellow")}");
             stringBuilder.AppendLine($"Horizontal {horizontal.ToStringPrefix("degrees", "yellow")}");
-            stringBuilder.Append(text);
-            return stringBuilder.ToString();
         }
-        return text;
-    }
+
+        return stringBuilder.ToString();
+    }*/
 }

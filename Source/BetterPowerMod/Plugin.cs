@@ -111,7 +111,7 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        LogInfo($"v{Data.ModVersion} is installed.");
+        Plugin.LogInfo($"v{Data.ModVersion} is installed.");
 
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }
@@ -163,10 +163,14 @@ internal struct Data {
     public const ulong ModHandle = 3234916147;
 
     //
+    public const string BatteryChargerSmall = "StructureBatteryChargerSmall";
+
+    //
     public static List<string> FlatSolarPanelPrefabs => [
         "StructureSolarPanelFlat", "StructureSolarPanel45", "StructureSolarPanelFlatReinforced", "StructureSolarPanel45Reinforced"
     ];
 
+    //
     public static List<string> WindTurbinePrefabs => [
         "StructureUprightWindTurbine", "StructureWindTurbine",
     ];
