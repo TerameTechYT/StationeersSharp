@@ -2,6 +2,10 @@
 > Adds new slots to Advanced Tablet, and more!<br>
 > [More Details](/Source/betterAdvancedTablet)<br>
 
+### Better Fabricator (BF):
+> Adds every recipe to fabricator (including modded)<br>
+> [More Details](/Source/BetterFabricator)<br>
+
 ### Better Code Editor (BCE):
 > Adds more lines to code editor.<br>
 > [More Details](/Source/BetterCodeEditor)<br>
