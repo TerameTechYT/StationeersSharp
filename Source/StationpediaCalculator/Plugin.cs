@@ -66,7 +66,7 @@ public class Plugin : BaseUnityPlugin {
         await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
 
         // Print version after main menu is visible
-        Plugin.Plugin.LogInfo($"v{Data.ModVersion} is installed.");
+        Plugin.LogInfo($"v{Data.ModVersion} is installed.");
 
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }
