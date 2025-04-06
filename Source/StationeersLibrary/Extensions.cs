@@ -13,6 +13,10 @@ public static class StringExtensions {
     public static string ToStringPrefix(this MoleQuantity value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
 }
 
+public static class CodeInstructionExtensions {
+    public static bool OpcodeIs(this CodeInstruction instruction, OpCode opcode) => instruction?.opcode == opcode;
+}
+
 public static class UnitExtensions {
     public static bool IsKelvinNil(this float value) => value <= Constants.MINIMUM_KELVIN;
     public static bool IsKelvinNil(this TemperatureKelvin value) => value.ToFloat().IsKelvinNil();
