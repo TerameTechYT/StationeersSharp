@@ -15,7 +15,7 @@ The following BepInEx versions are currently being supported with updates.
 | 5.3     | :x:                |
 | 5.2     | :x:                |
 | 5.1     | :x:                |
-| > 5.0   | :x:                |
+| > 5.0.x   | :x:                |
 
 
 # Building
