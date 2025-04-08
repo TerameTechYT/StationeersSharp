@@ -59,6 +59,12 @@ public class Plugin : BaseUnityPlugin {
     public void LoadConfiguration() {
         Plugin.LogDebug("Loading configuration.");
 
+        Data.debugMode = Config.Bind(
+            new ConfigDefinition("Debug", "Enable Debugging Mode"),
+            false,
+            new ConfigDescription("Should StationeersLibrary mods enable debug mode? enables extra logging for debugging, may fill log files.")
+        );
+
         Plugin.LogDebug("Loaded configuration.");
     }
 
@@ -72,6 +78,7 @@ public class Plugin : BaseUnityPlugin {
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }
 
+    public static void LogFatal(string message) => Plugin.Log(message, Severity.Fatal);
     public static void LogException(Exception ex) => Plugin.Log($"[{ex?.Source} - {ex?.StackTrace}]: {ex?.Message}", Severity.Error);
     public static void LogError(string message) => Plugin.Log(message, Severity.Error);
     public static void LogWarning(string message) => Plugin.Log(message, Severity.Warning);
@@ -86,6 +93,11 @@ public class Plugin : BaseUnityPlugin {
         string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
+            case Severity.Fatal: {
+                Plugin.LoggerInstance?.LogFatal(message);
+                ConsoleWindow.PrintError(newMessage);
+                break;
+            }
             case Severity.Error: {
                 Plugin.LoggerInstance?.LogError(message);
                 ConsoleWindow.PrintError(newMessage);
@@ -117,4 +129,8 @@ internal struct Data {
     public const string ModName = "StationeersLibrary";
     public const string ModVersion = "1.1.0";
     public const ulong ModHandle = 3389894703;
+
+    //
+    public static ConfigEntry<bool> debugMode;
+    public static bool DebugMode => debugMode?.Value ?? false;
 }

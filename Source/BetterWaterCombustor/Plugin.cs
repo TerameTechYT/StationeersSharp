@@ -72,6 +72,7 @@ public class Plugin : BaseUnityPlugin {
         Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
     }
 
+    public static void LogFatal(string message) => Plugin.Log(message, Severity.Fatal);
     public static void LogException(Exception ex) => Plugin.Log($"[{ex?.Source} - {ex?.StackTrace}]: {ex?.Message}", Severity.Error);
     public static void LogError(string message) => Plugin.Log(message, Severity.Error);
     public static void LogWarning(string message) => Plugin.Log(message, Severity.Warning);
@@ -86,6 +87,11 @@ public class Plugin : BaseUnityPlugin {
         string newMessage = $"[{Data.ModName}]: {message}";
 
         switch (severity) {
+            case Severity.Fatal: {
+                Plugin.LoggerInstance?.LogFatal(message);
+                ConsoleWindow.PrintError(newMessage);
+                break;
+            }
             case Severity.Error: {
                 Plugin.LoggerInstance?.LogError(message);
                 ConsoleWindow.PrintError(newMessage);
