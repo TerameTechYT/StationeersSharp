@@ -5,6 +5,18 @@ used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [Stat
 ## Downloads [here](/Build/x64/Release)
 ## Mod Info [here](/MODS.md)
 
+## Supported BepInEx Versions
+The following BepInEx versions are currently being supported with updates.
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 5.4.x   | :white_check_mark: |
+| 5.3     | :x:                |
+| 5.2     | :x:                |
+| 5.1     | :x:                |
+| > 5.0   | :x:                |
+
+
 # Building
 ## Prerequisites:
 [Stationeers](https://store.steampowered.com/app/544550/Stationeers/)<br>
