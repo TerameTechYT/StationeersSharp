@@ -10,6 +10,7 @@ The following BepInEx versions are currently being supported with updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
+| 6.0.x   | :x: |
 | 5.4.x   | :white_check_mark: |
 | 5.3     | :x:                |
 | 5.2     | :x:                |
