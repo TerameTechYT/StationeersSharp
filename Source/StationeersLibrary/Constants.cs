@@ -2,8 +2,6 @@
 
 #endregion
 
-#define FORCE_DEBUG
-
 namespace StationeersLibrary;
 
 public static class Constants {
@@ -13,11 +11,7 @@ public static class Constants {
     public const string STATIONEERS_LIBRARY_GUID = Data.ModGuid;
     public const ulong STATIONEERS_LIBRARY_HANDLE = Data.ModHandle;
 
-#if DEBUG || FORCE_DEBUG
-    public const bool DEBUG_MODE = true;
-#else
-    public const bool DEBUG_MODE = false;
-#endif
+    public static bool DEBUG_MODE => Data.DebugMode;
 
     // REPO
     public const string GITHUB_URL = "https://github.com";
