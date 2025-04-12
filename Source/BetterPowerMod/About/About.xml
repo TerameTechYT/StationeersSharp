@@ -6,7 +6,7 @@
   <Description>
     [h1]Better Power Mod[/h1]
     [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
-    See: https://github.com/jixxed/StationeersMods
+    See: https://jixxed.github.io/StationeersMods/
     [i]previously known as: ActualSolarIrriadiance[/i]
 
     Fixes the max wattage (500w) of solar panels.
@@ -22,7 +22,7 @@
   <InGameDescription>
     <![CDATA[<size="30"><color=#ffa500> Better Power Mod </color></size>
 <b>WARNING:</b> <color=#ff0000>This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.</color>
-See: <b><u><color=#00ccff>https://github.com/jixxed/StationeersMods</color></u></b>.
+See: <b><u><color=#00ccff>https://jixxed.github.io/StationeersMods/</color></u></b>.
 ]]>
   </InGameDescription>
   <WorkshopHandle>3234916147</WorkshopHandle>
