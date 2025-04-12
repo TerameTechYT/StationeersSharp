@@ -76,8 +76,6 @@ public static class Functions {
         }
 
         recipeData.Recipe.Check();
-        if (!Fabricator.RecipeComparable.AddRecipe(recipeData)) {
-            Plugin.LogError($"Failed to add recipe for {recipeData.PrefabName} to fabricator!");
-        }
+        Fabricator.RecipeComparable.AddRecipe(recipeData);
     }
 }
