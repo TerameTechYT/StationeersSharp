@@ -44,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StationeersLibrary\StationeersLibrary.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Source\StationeersLibrary\StationeersLibrary.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
