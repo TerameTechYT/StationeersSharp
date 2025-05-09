@@ -8,7 +8,7 @@ namespace LoulanRevived;
 public static class PatchFunctions {
     private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
-    [UsedImplicitly]
+    /*[UsedImplicitly]
     [HarmonyPatch(typeof(WorldManager), "LoadGameDataAsync")]
     [HarmonyPostfix]
     public static void WorldManagerLoadGameDataAsync(ref WorldManager __instance) {
@@ -31,7 +31,7 @@ public static class PatchFunctions {
         }
     }
 
-    /*[UsedImplicitly]
+    [UsedImplicitly]
     [HarmonyPatch(typeof(WorkshopMenu), "GenerateRandomIncident")]
     [HarmonyPrefix]
     public static bool TileSystemDelayIncident(ref TileSystem __instance, TileData tileData, bool onTileEnter = false)
@@ -54,7 +54,7 @@ public static class PatchFunctions {
         }
 
         return false;
-    }*/
+    }
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(TileSystem), "DelayIncident")]
@@ -80,5 +80,5 @@ public static class PatchFunctions {
             }
         }
         return false;
-    }
+    }*/
 }

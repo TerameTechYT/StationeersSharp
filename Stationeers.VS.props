@@ -11,7 +11,7 @@
 		<BIEPatchersDirectory>$(BIEDirectory)\patchers</BIEPatchersDirectory>
 		<BIEPluginsDirectory>$(BIEDirectory)\plugins</BIEPluginsDirectory>
 
-		<StationeersModsDirectory>$(BIEPluginsDirectory)\StationeersMods</StationeersModsDirectory>
+    <StationeersLaunchPadDirectory>$(BIEPluginsDirectory)\StationeersLaunchPad</StationeersLaunchPadDirectory>
 	</PropertyGroup>
 
   <ItemGroup>
@@ -117,7 +117,6 @@
     <Using Include="Assets.Scripts.Util" />
     <Using Include="Assets.Scripts.Vehicles" />
     <Using Include="Assets.Scripts.Voxel" />
-    <Using Include="Assets.Scripts.Voxel.Shield" />
     <Using Include="Assets.Scripts.Weather" />
     <Using Include="Audio" />
     <Using Include="ch.sycoforge.Flares" />

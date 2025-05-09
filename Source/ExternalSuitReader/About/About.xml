@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>External Suit Reader [StationeersMods]</Name>
+  <Name>External Suit Reader [StationeersLaunchPad]</Name>
   <Author>vinus</Author>
   <Version>1.0.0</Version>
   <Description>
     [h1]External Suit Reader[/h1]
-    [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
-    See: https://jixxed.github.io/StationeersMods/
+    [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
+    See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
 
     Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.
     There are also many new things able to read and write to.
@@ -25,14 +25,14 @@
   <WorkshopHandle>3071985478</WorkshopHandle>
   <InGameDescription>
     <![CDATA[<size="30"><color=#ffa500> External Suit Reader </color></size>
-<b>WARNING:</b> <color=#ff0000>This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.</color>
-See: <b><u><color=#00ccff>https://jixxed.github.io/StationeersMods/</color></u></b>.
+<b>WARNING:</b> <color=#ff0000>This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.</color>
+See: <b><u><color=#00ccff>https://github.com/StationeersLaunchPad/StationeersLaunchPad</color></u></b>.
 ]]>
   </InGameDescription>
   <Tags>
     <Tag>Mod</Tag>
     <Tag>BepInEx</Tag>
-    <Tag>StationeersMods</Tag>
+    <Tag>StationeersLaunchPad</Tag>
   </Tags>
 
   <Dependencies>

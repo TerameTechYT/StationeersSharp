@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>Stationpedia Calculator [StationeersMods]</Name>
+  <Name>Stationpedia Calculator [StationeersLaunchPad]</Name>
   <Author>vinus</Author>
   <Version>1.0.0</Version>
   <Description>
     [h1]Stationpedia Calculator[/h1]
-    [b]WARNING:[/b] This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.
-    See: https://jixxed.github.io/StationeersMods/
+    [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
+    See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
 
     Demonstration Link: https://youtu.be/Bjh0wN31I_M
     A fully capable calculator built straight into the stationpedia.
@@ -19,14 +19,14 @@
   <WorkshopHandle>3305312105</WorkshopHandle>
   <InGameDescription>
     <![CDATA[<size="30"><color=#ffa500> Stationpedia Calculator </color></size>
-<b>WARNING:</b> <color=#ff0000>This is a StationeersMods Plugin Mod. It requires Bepinex to be installed with the StationeersMods plugin.</color>
-See: <b><u><color=#00ccff>https://jixxed.github.io/StationeersMods/</color></u></b>.
+<b>WARNING:</b> <color=#ff0000>This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.</color>
+See: <b><u><color=#00ccff>https://github.com/StationeersLaunchPad/StationeersLaunchPad</color></u></b>.
 ]]>
   </InGameDescription>
   <Tags>
     <Tag>Mod</Tag>
     <Tag>BepInEx</Tag>
-    <Tag>StationeersMods</Tag>
+    <Tag>StationeersLaunchPad</Tag>
   </Tags>
 
   <Dependencies>

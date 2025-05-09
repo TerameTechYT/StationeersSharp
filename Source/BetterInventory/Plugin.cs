@@ -111,8 +111,13 @@ public class Plugin : BaseUnityPlugin {
 
 internal struct Data {
     // Mod Data
-    public const string ModGuid = "template";
-    public const string ModName = "Template";
+    public const string ModGuid = "betterinventory";
+    public const string ModName = "BetterInventory";
     public const string ModVersion = "1.0.0";
     public const ulong ModHandle = 0;
+
+    public static ControlsGroup ControlsGroup = new(Data.ModName);
+    public static List<KeyItem> ControlKeys => [
+        
+    ];
 }

@@ -4,12 +4,15 @@
 public static class PatchFunctions {
     private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
-    [UsedImplicitly]
-    [HarmonyPatch(typeof(string), nameof(string.Equals))]
-    [HarmonyPostfix]
-    public static void StringEquals(ref string __instance) {
-        try {
+    [HarmonyPatch(typeof(InventoryManager), nameof(InventoryManager.SmartStow))]
+    [HarmonyPrefix]
+    public static void InventoryManagerSmartStow(Slot selectedSlot) {
+        if (selectedSlot == null || selectedSlot.IsEmpty()) {
+            return;
+        }
 
+        try {
+            Functions.CustomSmartStow(ref selectedSlot);
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -17,7 +20,33 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.LogException(ex);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(KeyManager), nameof(KeyManager.SetupKeyBindings))]
+    [HarmonyPostfix]
+    public static void KeyManagerSetupKeyBindings(ref Dictionary<string, ControlsGroup> ____controlsGroupLookup) {
+        if (____controlsGroupLookup == null) {
+            return;
+        }
+
+        try {
+            foreach (KeyItem key in Data.ControlKeys) {
+                ____controlsGroupLookup[key.Name] = Data.ControlsGroup;
+                KeyManager.KeyItemLookup[key.Name] = key;
+                KeyManager.AllKeys.Add(key);
+            }
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
+
+                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
                 Plugin.LogException(ex);
             }
         }

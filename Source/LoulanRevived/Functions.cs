@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 namespace LoulanRevived;
 
 internal class Functions {
-    public static void LoadIncidents(ref WorldManager worldManager) {
+    /*public static void LoadIncidents(ref WorldManager worldManager) {
         string[] directories = Directory.GetDirectories(Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName, "Incidents"));
 
         foreach (string directory in directories) {
@@ -67,7 +67,7 @@ internal class Functions {
                 /*if (featureIncident.ContainStructures) {
                     TileData.IncidentsToNotSave.Add(tileData.tileCoord);
                     tileSystem.WorldContainsStructures = true;
-                }*/
+                }
             }
         }
     }
@@ -85,11 +85,5 @@ internal class Functions {
             _ = Incident.LaunchIncident(incident);
         }
         Plugin.LogWarning($"Spawned wrecked building");
-    }
-}
-
-internal static class Extensions {
-    internal static bool OpcodeIs(this CodeInstruction code, OpCode opcode) => code.opcode == opcode;
-
-    internal static bool InstructionIs(this CodeInstruction code, OpCode opcode, object operand) => code.OpcodeIs(opcode) && code.OperandIs(operand);
+    }*/
 }

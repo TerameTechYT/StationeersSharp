@@ -1,6 +1,6 @@
 # StationeersSharp
 > A collection of mods specifically for the game [Stationeers](https://store.steampowered.com/app/544550/Stationeers/) 
-used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [StationeersMods](https://github.com/jixxed/StationeersMods) by [Jixxed](https://github.com/jixxed/)<br>
+used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [StationeersLaunchPad](https://github.com/StationeersLaunchPad/StationeersLaunchPad) by [Tsholmes](https://github.com/tsholmes)<br>
 
 ## Downloads [here](/Build/x64/Release)
 ## Mod Info [here](/MODS.md)
@@ -21,7 +21,7 @@ The following BepInEx versions are currently being supported with updates.
 # Building
 ## Prerequisites:
 [Stationeers](https://store.steampowered.com/app/544550/Stationeers/)<br>
-[BepInEx 5.4.x](https://docs.bepinex.dev/articles/user_guide/installation/index.html) and [StationeersMods latest](https://github.com/jixxed/StationeersMods/tree/main?tab=readme-ov-file#installation)<br> 
+[BepInEx 5.4.x](https://docs.bepinex.dev/articles/user_guide/installation/index.html) and [StationeersLaunchPad](https://github.com/StationeersLaunchPad/StationeersLaunchPad?tab=readme-ov-file#fresh)<br> 
 [Visual Studio 2019+](https://visualstudio.microsoft.com)<br>
 
 ## Setup

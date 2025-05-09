@@ -20,25 +20,9 @@
       <Private>False</Private>
     </Reference>
 
-    <!-- Stationeers.Mods DLL's -->
-    <Reference Include="StationeersMods">
-      <HintPath>$(StationeersModsDirectory)\StationeersMods.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="StationeersMods.Plugin">
-      <HintPath>$(StationeersModsDirectory)\StationeersMods.Plugin.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="StationeersMods.Cecil">
-      <HintPath>$(StationeersModsDirectory)\StationeersMods.Cecil.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="StationeersMods.Interface">
-      <HintPath>$(StationeersModsDirectory)\StationeersMods.Interface.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="StationeersMods.Shared">
-      <HintPath>$(StationeersModsDirectory)\StationeersMods.Shared.dll</HintPath>
+    <!-- StationeersLaunchPad DLL's -->
+    <Reference Include="StationeersLaunchPad">
+      <HintPath>$(StationeersLaunchPadDirectory)\StationeersLaunchPad.dll</HintPath>
       <Private>False</Private>
     </Reference>
 
