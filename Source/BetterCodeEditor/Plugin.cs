@@ -35,7 +35,6 @@ public class Plugin : BaseUnityPlugin {
 
         this.LoadConfiguration();
 
-        HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
         Plugin.LogDebug($"Harmony patch starting.");
