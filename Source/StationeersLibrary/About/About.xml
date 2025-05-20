@@ -27,16 +27,14 @@ See: <b><u><color=#00ccff>https://github.com/StationeersLaunchPad/StationeersLau
   </Tags>
 
   <Dependencies>
-    
   </Dependencies>
 
   <LoadBefore>
-    <Mod>
-      <Id>1</Id>
-    </Mod>
   </LoadBefore>
 
   <LoadAfter>
-    
+    <Mod>
+      <Id>1</Id>
+    </Mod>
   </LoadAfter>
 </ModMetadata>

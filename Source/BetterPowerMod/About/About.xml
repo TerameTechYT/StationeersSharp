@@ -39,12 +39,11 @@ See: <b><u><color=#00ccff>https://github.com/StationeersLaunchPad/StationeersLau
   </Dependencies>
 
   <LoadBefore>
-
+    <Mod>
+      <Id>3389894703</Id>
+    </Mod>
   </LoadBefore>
 
   <LoadAfter>
-        <Mod>
-      <Id>3389894703</Id>
-    </Mod>
   </LoadAfter>
 </ModMetadata>
