@@ -31,7 +31,9 @@ public class Plugin : BaseUnityPlugin {
 
         this.LoadConfiguration();
 
-        HarmonyFileLog.Enabled = Constants.DEBUG_MODE;
+        if (Constants.DEBUG_MODE) {
+            HarmonyFileLog.Enabled = true;
+        }
         Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
 
         Plugin.LogDebug($"Harmony patch starting.");
@@ -46,7 +48,9 @@ public class Plugin : BaseUnityPlugin {
             Plugin.LogDebug($"Harmony patch finished.");
         }
 
-        CommandLine.AddCommand("slib", new StationeersLibraryCommand());
+        if (!CommandLine.CommandsMap.ContainsKey("slib")){
+            CommandLine.AddCommand("slib", new StationeersLibraryCommand());
+        }
 
         // Thx jixxed for awesome code :)
         SceneManager.sceneLoaded += (scene, _) => {
