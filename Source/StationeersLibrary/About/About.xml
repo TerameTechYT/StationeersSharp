@@ -30,11 +30,11 @@ See: <b><u><color=#00ccff>https://github.com/StationeersLaunchPad/StationeersLau
   </Dependencies>
 
   <LoadBefore>
-  </LoadBefore>
-
-  <LoadAfter>
     <Mod>
       <Id>1</Id>
     </Mod>
+  </LoadBefore>
+
+  <LoadAfter>
   </LoadAfter>
 </ModMetadata>
