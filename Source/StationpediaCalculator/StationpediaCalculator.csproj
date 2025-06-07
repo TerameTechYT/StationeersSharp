@@ -46,6 +46,10 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="GameData\" />
+  </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />

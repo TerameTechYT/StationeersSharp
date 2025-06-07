@@ -7,23 +7,7 @@ namespace StationeersLibrary;
 public static class Utilities {
     public static bool IsLoaded(string guid) => Chainloader.PluginInfos.ContainsKey(guid) || Harmony.HasAnyPatches(guid);
 
-    public static void SetModVersion(ulong handle, string version) {
-        if (handle == 0) {
-            return;
-        }
-
-        /*ModData mod = WorkshopMenu.ModsConfig.Mods.Find((mod) => mod.GetAboutData().WorkshopHandle == handle);
-        if (mod == null) {
-            return;
-        }
-
-        ModAbout aboutData = mod.GetAboutData();
-        aboutData.Version = version;
-
-        Traverse.Create(mod).Field("_modAboutData").SetValue(aboutData);*/
-    }
-
-    public static KeyCode GetConsoleKeyCode() => KeyManager.AllKeys.Find((key) => key.DefaultKey == KeyCode.F2).Key;
+    public static KeyCode GetConsoleKeyCode() => KeyManager.AllKeys.Find((key) => key.Name == "ToggleConsole").Key;
 
     public static Chemistry.GasType GetSpeciesAirType(SpeciesClass species) => species switch {
         SpeciesClass.Human => Chemistry.GasType.Oxygen,
@@ -43,7 +27,7 @@ public static class Utilities {
         }
 
         try {
-            return action();
+            return action.Invoke();
         }
         catch (TException) {
             return fallbackValue;

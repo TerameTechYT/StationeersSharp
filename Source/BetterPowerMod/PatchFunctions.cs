@@ -12,7 +12,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.PowerGenerated), MethodType.Getter)]
     [HarmonyPostfix]
     public static void SolarPanelPowerGeneratedGetter(ref SolarPanel __instance, ref float __result) {
-        if (!Data.EnableSolarPanel || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableSolarPanel || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -25,23 +25,23 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
+    [DoHarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
     [HarmonyPriority(Priority.First)]
     [HarmonyReversePatch]
     public static PassiveTooltip DeviceGetPassiveTooltipReversePatch(Device __instance, Collider hitCollider) => throw new HarmonyReversePatchException();
 
     [UsedImplicitly]
-    [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.GetPassiveTooltip))]
+    [DoHarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.GetPassiveTooltip))]
     [HarmonyPrefix]
     public static bool SolarPanelGetPassiveTooltip(ref SolarPanel __instance, ref PassiveTooltip __result, Collider hitCollider) {
-        if (!Data.EnableSolarPanel || GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableSolarPanel || GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
             return true; // exit as server will never be the one rendering tooltips
         }
 
@@ -56,8 +56,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
 
@@ -65,11 +65,11 @@ public static class PatchFunctions {
     }
 
     [UsedImplicitly]
-    [HarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
+    [DoHarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
     [HarmonyPriority(Priority.Last)]
     [HarmonyPrefix]
     public static bool DeviceGetPassiveTooltip(ref Device __instance, ref PassiveTooltip __result, Collider hitCollider) {
-        if (GameManager.IsBatchMode || !Data.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted || !Data.WindTurbinePrefabs.Contains(__instance.PrefabName)) {
+        if (GameManager.IsBatchMode || !ConfigData.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted || !ConfigData.WindTurbinePrefabs.Contains(__instance.PrefabName)) {
             return true; // exit as server will never be the one rendering tooltips
         }
 
@@ -84,8 +84,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
 
@@ -96,7 +96,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WindTurbineGenerator), "SetTurbineRotationSpeed")]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorSetTurbineRotationSpeed(ref WindTurbineGenerator __instance, float speed, ref Transform ___bladesTransform) {
-        if (!Data.EnableWindTurbine || GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableWindTurbine || GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
             return; // exit as server will never be the one rendering the turbine (i think)
         }
 
@@ -112,8 +112,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -122,7 +122,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.GenerationRate), MethodType.Getter)]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorGenerationRateGetter(ref WindTurbineGenerator __instance, ref float __result) {
-        if (!Data.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -135,8 +135,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -145,12 +145,12 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(TurbineGenerator), nameof(TurbineGenerator.GetGeneratedPower))]
     [HarmonyPostfix]
     public static void TurbineGeneratorGetGeneratedPower(ref TurbineGenerator __instance, ref float __result) {
-        if (!Data.EnableTurbine || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableTurbine || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
         try {
-            __result *= Data.TurbineMultiplier;
+            __result *= ConfigData.TurbineMultiplier;
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -158,8 +158,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -168,12 +168,12 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(StirlingEngine), nameof(StirlingEngine.MaxPower), MethodType.Getter)]
     [HarmonyPostfix]
     public static void StirlingEngineMaxPowerGetter(ref StirlingEngine __instance, ref MoleEnergy __result) {
-        if (!Data.EnableStirling || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableStirling || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
         try {
-            __result = new MoleEnergy(Data.StirlingEnergy);
+            __result = new MoleEnergy(ConfigData.StirlingEnergy);
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -181,8 +181,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -191,12 +191,12 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(PowerTransmitterOmni), nameof(PowerTransmitterOmni.GetUsedPower))]
     [HarmonyPostfix]
     public static void PowerTransmitterOmniGetUsedPower(ref PowerTransmitterOmni __instance, ref float ____maximumPowerUsage) {
-        if (!Data.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
         try {
-            ____maximumPowerUsage = Data.FastChargeRate;
+            ____maximumPowerUsage = ConfigData.FastChargeRate;
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -204,8 +204,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -214,12 +214,12 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(AreaPowerControl), nameof(AreaPowerControl.GetUsedPower))]
     [HarmonyPostfix]
     public static void AreaPowerControlGetUsedPower(ref AreaPowerControl __instance) {
-        if (!Data.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
         try {
-            __instance.BatteryChargeRate = Data.FastChargeRate;
+            __instance.BatteryChargeRate = ConfigData.FastChargeRate;
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -227,8 +227,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -237,12 +237,12 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(BatteryCellCharger), nameof(BatteryCellCharger.GetUsedPower))]
     [HarmonyPostfix]
     public static void BatteryCellChargerGetUsedPower(ref BatteryCellCharger __instance) {
-        if (!Data.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
         try {
-            __instance.BatteryChargeRate = __instance.PrefabName == Data.BatteryChargerSmall ? Data.FastChargeRate / 2f : Data.FastChargeRate;
+            __instance.BatteryChargeRate = __instance.PrefabName == ConfigData.BatteryChargerSmall ? ConfigData.FastChargeRate / 2f : ConfigData.FastChargeRate;
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -250,8 +250,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -260,12 +260,12 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WallLightBattery), nameof(WallLightBattery.GetUsedPower))]
     [HarmonyPostfix]
     public static void WallLightBatteryGetUsedPower(ref WallLightBattery __instance) {
-        if (!Data.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
+        if (!ConfigData.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
         try {
-            __instance.BatteryChargeRate = Data.FastChargeRate / 2f;
+            __instance.BatteryChargeRate = ConfigData.FastChargeRate / 2f;
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -273,8 +273,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }

@@ -36,7 +36,6 @@
     <CopyItemsGameData Include="$(ProjectDir)\GameData\**\*.*" />
     <CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
     <CopyItemsTextures Include="$(ProjectDir)\Textures\**\*.*" />
-    <CopyItemsIncidents Include="$(ProjectDir)\Incidents\**\*.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +48,5 @@
     <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
     <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
     <Copy SourceFiles="@(CopyItemsTextures)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\Textures\%(RecursiveDir)" ContinueOnError="true" />
-    <Copy SourceFiles="@(CopyItemsIncidents)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\Incidents\%(RecursiveDir)" ContinueOnError="true" />
   </Target>
 </Project>

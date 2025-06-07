@@ -7,192 +7,107 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 namespace DetailedPlayerInfo;
 
-[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInDependency(Constants.STATIONEERS_LIBRARY_GUID, DependencyFlags.HardDependency)]
-[BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
-public class Plugin : BaseUnityPlugin {
-    public static Plugin Instance {
-        get; private set;
-    }
+public class Plugin : Mod {
+    public static Plugin Instance { get; private set; }
 
-    public static Harmony HarmonyInstance {
-        get; private set;
-    }
+    public override bool UseConfig => true;
+    public override bool UseHarmony => true;
 
-    public static ManualLogSource LoggerInstance => Plugin.Instance.Logger;
+    public override ModInfo Data => new ModInfo() {
+        Name = "DetailedPlayerInfo",
+        Guid = "detailedplayerinfo",
+        Version = new Version(1, 8, 0),
+        WorkshopId = 3071950159ul,
+        GameType = GameType.Client,
+    };
 
-    [UsedImplicitly]
-    public void Awake() {
-        Plugin.Instance = this;
+    public Plugin() => Plugin.Instance = this;
 
-        Plugin.LogDebug("Mod Started.");
-        if (Utilities.IsLoaded(Data.ModGuid)) {
-            throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
-        }
+    public override void OnLoadConfiguration() {
+        ConfigData.preferredPressureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Pressure Unit"),
+                   PressureUnit.Pascal,
+                   new ConfigDescription("Will change most things to use this unit of measurement."));
 
-        this.LoadConfiguration();
-
-        Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
-
-        Plugin.LogDebug($"Harmony patch starting.");
-        try {
-            Plugin.HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-        }
-        catch (HarmonyException ex) {
-            Plugin.LogException(ex);
-            Plugin.LogError($"Harmony failed to patch! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-        }
-        finally {
-            Plugin.LogDebug($"Harmony patch finished.");
-        }
-
-        // Thx jixxed for awesome code :)
-        SceneManager.sceneLoaded += (scene, _) => {
-            if (scene.name == Constants.BASE_SCENE_NAME) {
-                this.OnBaseLoaded().Forget();
-            }
-        };
-    }
-
-    public void LoadConfiguration() {
-        Plugin.LogDebug("Loading configuration.");
-
-        Data.preferredPressureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Pressure Unit"),
-            PressureUnit.Pascal,
-            new ConfigDescription("Will change most things to use this unit of measurement."));
-
-        Data.preferredTemperatureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Temperature Unit"),
+        ConfigData.preferredTemperatureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Temperature Unit"),
             TemperatureUnit.Celcius,
             new ConfigDescription("Will change most things to use this unit of measurement."));
 
-        Data.preferredVolumeUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Volume Unit"),
+        ConfigData.preferredVolumeUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Volume Unit"),
             VolumeUnit.Liter,
             new ConfigDescription("Will change most things to use this unit of measurement."));
 
-        Data.preferredVelocityUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Velocity Unit"),
+        ConfigData.preferredVelocityUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Velocity Unit"),
             VelocityUnit.Meters,
             new ConfigDescription("Will change most things to use this unit of measurement."));
 
-        Data.customFramerate = Config.Bind(new ConfigDefinition("Configurables", "CustomFramerate"),
+        ConfigData.customFramerate = Config.Bind(new ConfigDefinition("Configurables", "CustomFramerate"),
             true,
             new ConfigDescription("Should the framerate text only display FPS."));
 
-        Data.changeFontSize = Config.Bind(new ConfigDefinition("Configurables", "ChangeFontSize"),
+        ConfigData.changeFontSize = Config.Bind(new ConfigDefinition("Configurables", "ChangeFontSize"),
             true,
             new ConfigDescription("Should the font size be changed."));
 
-        Data.extraInfoPower = Config.Bind(new ConfigDefinition("Configurables", "ExtraInfoPower"),
+        ConfigData.extraInfoPower = Config.Bind(new ConfigDefinition("Configurables", "ExtraInfoPower"),
             true,
             new ConfigDescription("Should a extra text label be placed next to the status like waste tank status."));
 
-        Data.extraInfoFilter = Config.Bind(new ConfigDefinition("Configurables", "ExtraInfoFilter"),
+        ConfigData.extraInfoFilter = Config.Bind(new ConfigDefinition("Configurables", "ExtraInfoFilter"),
             true,
             new ConfigDescription("Should a extra text label be placed next to the status like waste tank status."));
 
-        Data.numberPrecision = Config.Bind(new ConfigDefinition("Configurables", "NumberPrecision"),
+        ConfigData.numberPrecision = Config.Bind(new ConfigDefinition("Configurables", "NumberPrecision"),
             2,
             new ConfigDescription("How many decimal points should be displayed on numbers.",
             new AcceptableValueRange<int>(1, 4)));
 
-        Data.fontSize = Config.Bind(new ConfigDefinition("Configurables", "FontSize"),
+        ConfigData.fontSize = Config.Bind(new ConfigDefinition("Configurables", "FontSize"),
             21,
             new ConfigDescription("What font size should the labels be changed to.",
             new AcceptableValueRange<int>(14, 28)));
-
-        Plugin.LogDebug("Loaded configuration.");
     }
 
-
-    public async UniTask OnBaseLoaded() {
-        // Wait until game has loaded into main menu
-        await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
-
-        // Print version after main menu is visible
-        Plugin.LogInfo($"v{Data.ModVersion} is installed.");
-
-        Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
-    }
-
-    public static void LogFatal(string message) => Plugin.Log(message, Severity.Fatal);
-    public static void LogException(Exception ex) => Plugin.Log($"[{ex?.Source} - {ex?.StackTrace}]: {ex?.Message}", Severity.Error);
-    public static void LogError(string message) => Plugin.Log(message, Severity.Error);
-    public static void LogWarning(string message) => Plugin.Log(message, Severity.Warning);
-    public static void LogInfo(string message) => Plugin.Log(message, Severity.Info);
-    public static void LogDebug(string message) {
-        if (Constants.DEBUG_MODE) {
-            Plugin.Log(message, Severity.Debug);
-        }
-    }
-
-    private static void Log(string message, Severity severity) {
-        string newMessage = $"[{Data.ModName}]: {message}";
-
-        switch (severity) {
-            case Severity.Fatal: {
-                Plugin.LoggerInstance?.LogFatal(message);
-                ConsoleWindow.PrintError(newMessage);
-                break;
-            }
-            case Severity.Error: {
-                Plugin.LoggerInstance?.LogError(message);
-                ConsoleWindow.PrintError(newMessage);
-                break;
-            }
-            case Severity.Warning: {
-                Plugin.LoggerInstance?.LogWarning(message);
-                ConsoleWindow.PrintAction(newMessage);
-                break;
-            }
-            case Severity.Info: {
-                Plugin.LoggerInstance?.LogInfo(message);
-                ConsoleWindow.Print(newMessage);
-                break;
-            }
-            default:
-            case Severity.Debug: {
-                Plugin.LoggerInstance?.LogDebug(message);
-                ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
-            }
-            break;
-        }
-    }
+    public override void OnAwake() { }
 }
 
-internal struct Data {
-    // Mod Data
-    public const string ModGuid = "detailedplayerinfo";
-    public const string ModName = "DetailedPlayerInfo";
-    public const string ModVersion = "1.7.0";
-    public const ulong ModHandle = 3071950159;
-
-    // Config
+internal struct ConfigData {
+    //
     public static ConfigEntry<PressureUnit> preferredPressureUnit;
     public static PressureUnit PreferredPressureUnit => preferredPressureUnit?.Value ?? PressureUnit.Pascal;
 
+    //
     public static ConfigEntry<TemperatureUnit> preferredTemperatureUnit;
     public static TemperatureUnit PreferredTemperatureUnit => preferredTemperatureUnit?.Value ?? TemperatureUnit.Celcius;
 
+    //
     public static ConfigEntry<VolumeUnit> preferredVolumeUnit;
     public static VolumeUnit PreferredVolumeUnit => preferredVolumeUnit?.Value ?? VolumeUnit.Liter;
 
+    //
     public static ConfigEntry<VelocityUnit> preferredVelocityUnit;
     public static VelocityUnit PreferredVelocityUnit => preferredVelocityUnit?.Value ?? VelocityUnit.Meters;
 
+    //
     public static ConfigEntry<bool> customFramerate;
     public static bool CustomFramerate => customFramerate?.Value ?? false;
 
+    //
     public static ConfigEntry<bool> changeFontSize;
     public static bool ChangeFontSize => changeFontSize?.Value ?? false;
 
+    //
     public static ConfigEntry<int> fontSize;
     public static int FontSize => ChangeFontSize ? (fontSize?.Value ?? 21) : 21;
-
+    
+    //
     public static ConfigEntry<bool> extraInfoPower;
     public static bool ExtraInfoPower => extraInfoPower?.Value ?? false;
 
+    //
     public static ConfigEntry<bool> extraInfoFilter;
     public static bool ExtraInfoFilter => extraInfoFilter?.Value ?? false;
 
+    //
     public static ConfigEntry<int> numberPrecision;
     public static int NumberPrecision => numberPrecision?.Value ?? 0;
 

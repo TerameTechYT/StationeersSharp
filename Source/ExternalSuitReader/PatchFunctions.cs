@@ -25,8 +25,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -52,14 +52,14 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.Awake))]
+    [DoHarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.Awake))]
     [HarmonyPostfix]
     public static void AdvancedSuitAwake(ref AdvancedSuit __instance) {
         if (__instance == null) {
@@ -80,14 +80,14 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }*/
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.OnDestroy))]
+    [DoHarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.OnDestroy))]
     [HarmonyPostfix]
     public static void AdvancedSuitOnDestroy(ref AdvancedSuit __instance) {
         if (__instance == null) {
@@ -103,14 +103,14 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }*/
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(Suit), nameof(Suit.SerializeSave))]
+    [DoHarmonyPatch(typeof(Suit), nameof(Suit.SerializeSave))]
     [HarmonyPostfix]
     public static void AdvancedSuitSerializeSave(ref Suit __instance, ref ThingSaveData __result) {
         if (!Data.EnableExperimentalSaving || __instance == null || __result == null || __instance is not AdvancedSuit suit) {
@@ -130,14 +130,14 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }*/
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(Suit), nameof(Suit.DeserializeSave))]
+    [DoHarmonyPatch(typeof(Suit), nameof(Suit.DeserializeSave))]
     [HarmonyPostfix]
     public static void AdvancedSuitDeserializeSave(ref Suit __instance, ref ThingSaveData savedData) {
         if (!Data.EnableExperimentalSaving || __instance == null || savedData == null || __instance is not AdvancedSuit suit) {
@@ -161,14 +161,14 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }*/
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.SerializeOnJoin))]
+    [DoHarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.SerializeOnJoin))]
     [HarmonyPostfix]
     public static void AdvancedSuitSerializeOnJoin(ref AdvancedSuit __instance, ref RocketBinaryWriter writer) {
         if (__instance == null || writer == null)
@@ -188,14 +188,14 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogError(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogError(ex);
             }
         }
     }
 
     [UsedImplicitly]
-    [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.DeserializeOnJoin))]
+    [DoHarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.DeserializeOnJoin))]
     [HarmonyPostfix]
     public static void AdvancedSuitDeserializeOnJoin(ref AdvancedSuit __instance, ref RocketBinaryReader reader) {
         if (__instance == null || reader == null)
@@ -215,8 +215,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogError(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogError(ex);
             }
         }
     }*/

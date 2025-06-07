@@ -13,19 +13,19 @@ public static class PatchFunctions {
     [HarmonyPrefix]
     public static bool PrefabLoadAll() {
         try {
-            AdvancedTablet tabletPrefab = WorldManager.Instance.SourcePrefabs.Find((thing) => thing.PrefabName == Data.AdvancedTabletPrefabName) as AdvancedTablet;
+            AdvancedTablet tabletPrefab = WorldManager.Instance.SourcePrefabs.Find((thing) => thing.PrefabName == ConfigData.AdvancedTabletPrefabName) as AdvancedTablet;
             if (tabletPrefab == null) {
                 return true;
             }
 
-            Plugin.LogDebug($"Found {Data.AdvancedTabletPrefabName} Prefab!");
+            Plugin.Instance.LogDebug($"Found {ConfigData.AdvancedTabletPrefabName} Prefab!");
             tabletPrefab.AllowSelfUse = true;
 
             Slot template = tabletPrefab.Slots.Find((slot) => slot.Type == Slot.Class.Cartridge);
-            for (int i = 0; i < Data.AdditionalTabletSlots; i++) {
+            for (int i = 0; i < ConfigData.AdditionalTabletSlots; i++) {
                 tabletPrefab.Slots.Add(Functions.CloneSlot(template));
             }
-            Plugin.LogDebug($"Added {Data.AdditionalTabletSlots} slots to {Data.AdvancedTabletPrefabName} Prefab");
+            Plugin.Instance.LogDebug($"Added {ConfigData.AdditionalTabletSlots} slots to {ConfigData.AdvancedTabletPrefabName} Prefab");
         }
         catch (Exception ex) {
             MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
@@ -33,8 +33,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
 
@@ -65,7 +65,7 @@ public static class PatchFunctions {
                 }
                 break;
                 default: {
-                    Plugin.LogDebug($"Ignoring action type {interactable.Action}");
+                    Plugin.Instance.LogDebug($"Ignoring action type {interactable.Action}");
                     break;
                 }
             }
@@ -76,15 +76,15 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
         return true;
     }
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(Item), nameof(Item.OnUsePrimary))]
+    [DoHarmonyPatch(typeof(Item), nameof(Item.OnUsePrimary))]
     [HarmonyPrefix]
     public static bool ItemOnUsePrimary(Item __instance, Vector3 targetLocation, Quaternion targetRotation, ulong steamId, bool authoringMode) {
         if (__instance == null || __instance is not AdvancedTablet advancedTablet) {
@@ -104,8 +104,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
 
@@ -113,7 +113,7 @@ public static class PatchFunctions {
     }*/
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(AtmosAnalyser), "GetScannedAtmosphere")]
+    [DoHarmonyPatch(typeof(AtmosAnalyser), "GetScannedAtmosphere")]
     [HarmonyPrefix]
     public static bool AtmosAnalyserGetScannedAtmosphere(AtmosAnalyser __instance, ref Atmosphere __result, ref string ____selectedText) {
         if (__instance == null) {
@@ -129,8 +129,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
 
@@ -138,7 +138,7 @@ public static class PatchFunctions {
     }*/
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(KeyManager), nameof(KeyManager.SetupKeyBindings))]
+    [DoHarmonyPatch(typeof(KeyManager), nameof(KeyManager.SetupKeyBindings))]
     [HarmonyPostfix]
     public static void KeyManagerSetupKeyBindings(ref Dictionary<string, ControlsGroup> ____controlsGroupLookup) {
         if (____controlsGroupLookup == null) {
@@ -161,8 +161,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }*/

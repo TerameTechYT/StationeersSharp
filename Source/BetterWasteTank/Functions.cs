@@ -14,16 +14,16 @@ internal static class Functions {
     internal static float GetCanisterMoles(GasCanister canister, SpeciesClass species) => GetCanisterMoles(canister, Utilities.GetSpeciesAirType(species));
 
     internal static bool IsWasteCritical(Suit suit) => IsWasteCritical(suit.WasteTank);
-    internal static bool IsWasteCritical(GasCanister canister) => canister == null || GetCanisterFullRatio(canister) >= Data.WasteCriticalRatio;
+    internal static bool IsWasteCritical(GasCanister canister) => canister == null || GetCanisterFullRatio(canister) >= ConfigData.WasteCriticalRatio;
 
     internal static bool IsWasteCaution(Suit suit) => !IsWasteCritical(suit) && IsWasteCaution(suit.WasteTank);
-    internal static bool IsWasteCaution(GasCanister canister) => canister != null && GetCanisterFullRatio(canister) >= Data.WasteCautionRatio;
+    internal static bool IsWasteCaution(GasCanister canister) => canister != null && GetCanisterFullRatio(canister) >= ConfigData.WasteCautionRatio;
 
     internal static bool IsAirCritical(Suit suit, SpeciesClass species) => IsAirCritical(suit.AirTank, Utilities.GetSpeciesAirType(species));
-    internal static bool IsAirCritical(GasCanister canister, Chemistry.GasType breathable) => canister == null || GetCanisterMoles(canister, breathable) <= Data.AirTankMolesCritical;
+    internal static bool IsAirCritical(GasCanister canister, Chemistry.GasType breathable) => canister == null || GetCanisterMoles(canister, breathable) <= ConfigData.AirTankMolesCritical;
 
     internal static bool IsAirCaution(Suit suit, SpeciesClass species) => !IsAirCritical(suit, species) && IsAirCaution(suit.AirTank, Utilities.GetSpeciesAirType(species));
-    internal static bool IsAirCaution(GasCanister canister, Chemistry.GasType breathable) => canister != null && GetCanisterMoles(canister, breathable) <= Data.AirTankMolesCaution;
+    internal static bool IsAirCaution(GasCanister canister, Chemistry.GasType breathable) => canister != null && GetCanisterMoles(canister, breathable) <= ConfigData.AirTankMolesCaution;
 
-    internal static float GetMoles(this Atmosphere atmosphere, Chemistry.GasType gasType) => Data.AirCountOnlyBreathable ? atmosphere.PartialMoles(gasType) : atmosphere.TotalMoles.ToFloat();
+    internal static float GetMoles(this Atmosphere atmosphere, Chemistry.GasType gasType) => ConfigData.AirCountOnlyBreathable ? atmosphere.PartialMoles(gasType) : atmosphere.TotalMoles.ToFloat();
 }

@@ -17,7 +17,7 @@ public static class PatchFunctions {
             FieldInfo fabricatorRecipes = gameData.GetField("FabricatorRecipes");
 
             // next we find our list to change it to
-            Type modData = typeof(Data);
+            Type modData = typeof(ConfigData);
             FieldInfo modFabricatorRecipes = modData.GetField("FabricatorRecipes");
 
             instructionsList.Manipulator(
@@ -45,8 +45,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.Instance.LogException(ex);
             }
         }
 

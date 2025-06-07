@@ -14,7 +14,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.UpdateFrameRate))]
     [HarmonyPrefix]
     public static bool WorldManagerUpdateFrameRate(ref TextMeshProUGUI ___FrameRate) {
-        if (!Data.CustomFramerate || ___FrameRate == null) {
+        if (!ConfigData.CustomFramerate || ___FrameRate == null) {
             return true;
         }
 
@@ -27,8 +27,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
 
@@ -52,8 +52,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -75,15 +75,15 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
 
     /*[UsedImplicitly]
     [HarmonyPriority(Priority.Last)]
-    [HarmonyPatch(typeof(AtmosAnalyser), "PrepareText")]
+    [DoHarmonyPatch(typeof(AtmosAnalyser), "PrepareText")]
     [HarmonyPostfix]
     public static void AtmosAnalyserPrepareText(ref AtmosAnalyser __instance, ref bool ____isGasPipe, ref string ____pressureValueText, ref string ____liquidVolumeValueText, ref string ____capacityValueText, ref string ____temperatureValueText, ref string ____energyConvectedText, ref string ____energyRadiatedText, ref string ____latentText, ref string ____stressText) {
         if (__instance == null || __instance.ScannedAtmosphere == null) {
@@ -99,14 +99,14 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }*/
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(AtmosAnalyser), "SetHash")]
+    [DoHarmonyPatch(typeof(AtmosAnalyser), "SetHash")]
     [HarmonyPrefix]
     public static bool AtmosAnalyserSetHash(ref AtmosAnalyser __instance, Mole mole, Atmosphere atmos, string volumeTextColor, ref Dictionary<int, GasItem> ____moleDisplay) {
         if (__instance == null || atmos == null || ____moleDisplay == null) {
@@ -127,8 +127,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
 
@@ -136,7 +136,7 @@ public static class PatchFunctions {
     }*/
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(AtmosphericsManager), nameof(AtmosphericsManager.DisplayBasicAtmosphere), [typeof(Atmosphere), typeof(StringBuilder), typeof(Pipe.ContentType)])]
+    [DoHarmonyPatch(typeof(AtmosphericsManager), nameof(AtmosphericsManager.DisplayBasicAtmosphere), [typeof(Atmosphere), typeof(StringBuilder), typeof(Pipe.ContentType)])]
     [HarmonyPrefix]
     public static bool AtmosphericsManagerDisplayBasicAtmosphere(ref Atmosphere atmosphere, ref StringBuilder stringBuilder, Pipe.ContentType contentType = Pipe.ContentType.All) {
         if (atmosphere == null || stringBuilder == null || contentType == null) {
@@ -152,8 +152,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
 

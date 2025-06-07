@@ -8,5 +8,5 @@ namespace StationeersLibrary.Enums;
 public enum GameType {
     None = 0,
     Client = 1,
-    Headless = 2,
+    Server = 2,
 }

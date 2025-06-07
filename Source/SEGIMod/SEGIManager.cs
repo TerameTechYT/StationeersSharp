@@ -25,7 +25,7 @@ public class SEGIManager : MonoBehaviour {
             return;
         }
 
-        SEGIManager.SEGIInstance.enabled = Data.Enabled;
+        SEGIManager.SEGIInstance.enabled = ConfigData.Enabled;
         SEGIManager.SEGIInstance.sun = WorldManager.Instance.WorldSun.TargetLight;
     }
 }

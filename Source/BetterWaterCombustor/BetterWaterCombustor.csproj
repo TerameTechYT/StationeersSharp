@@ -41,6 +41,10 @@
     <ProjectReference Include="$(SolutionDir)\Source\StationeersLibrary\StationeersLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GameData\" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />

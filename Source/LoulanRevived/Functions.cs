@@ -14,7 +14,7 @@ internal class Functions {
             MissionData incidentData = Incident.GetIncident(new DirectoryInfo(directory));
 
             Incident.LoadIncident(incidentData);
-            Plugin.LogInfo($"Loaded incident {incidentData.FolderName}");
+            Plugin.Instance.LogInfo($"Loaded incident {incidentData.FolderName}");
         }
     }
 
@@ -75,7 +75,7 @@ internal class Functions {
     public static async UniTask DelayIncidentAsync(TileSystem tileSystem, TileData tileData, Incident incident, int delay, WorldManager.TerrainFeatureIncident relatedValues) {
         await UniTask.Delay(delay * 1000);
 
-        Plugin.LogWarning($"Spawning wrecked building at x={incident.customPosition.x} z={incident.customPosition.z}");
+        Plugin.Instance.LogWarning($"Spawning wrecked building at x={incident.customPosition.x} z={incident.customPosition.z}");
 
         if (tileData.IsCenterTile) {
             Incident.LaunchIncident(incident);
@@ -84,6 +84,6 @@ internal class Functions {
         if (relatedValues.CanLaunchOutsideTile) {
             _ = Incident.LaunchIncident(incident);
         }
-        Plugin.LogWarning($"Spawned wrecked building");
+        Plugin.Instance.LogWarning($"Spawned wrecked building");
     }*/
 }

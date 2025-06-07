@@ -12,7 +12,7 @@ internal static class Functions {
         Expression expression = new(searchText, EvaluateOptions.IgnoreCase);
 
         if (expression.HasErrors()) {
-            Data.CalculatorItem.gameObject.SetActive(false);
+            ConfigData.CalculatorItem.gameObject.SetActive(false);
         }
         else {
             object result = "";
@@ -23,14 +23,14 @@ internal static class Functions {
 
             string text = result?.ToString() ?? "invalid";
 
-            Data.CalculatorItem.gameObject.SetActive(true);
-            Data.CalculatorItem.transform.SetSiblingIndex(0);
+            ConfigData.CalculatorItem.gameObject.SetActive(true);
+            ConfigData.CalculatorItem.transform.SetSiblingIndex(0);
 
-            Data.CalculatorItem.InsertTitle.text = text;
-            Data.CalculatorItem.InsertImage.sprite = Stationpedia.Instance.ImportantSearchImage;
-            Data.CalculatorItem.SetSpecial();
+            ConfigData.CalculatorItem.InsertTitle.text = text;
+            ConfigData.CalculatorItem.InsertImage.sprite = Stationpedia.Instance.ImportantSearchImage;
+            ConfigData.CalculatorItem.SetSpecial();
 
-            Data.CalculatorItem.InsertsButton.onClick.AddListener(async () => {
+            ConfigData.CalculatorItem.InsertsButton.onClick.AddListener(async () => {
                 Stationpedia.Instance.BaseAnimator.SetBool("Copied", true);
                 GameManager.Clipboard = text;
                 await UniTask.Delay(750);
@@ -45,7 +45,7 @@ internal static class Functions {
         SPDAListItem calculatorItem = UnityObject.Instantiate(Stationpedia.Instance.ListInsertPrefab, Stationpedia.Instance.SearchContents);
         calculatorItem.gameObject.SetActive(false);
 
-        Data.CalculatorItem = calculatorItem;
+        ConfigData.CalculatorItem = calculatorItem;
         items.Add(calculatorItem);
     }
 }

@@ -9,7 +9,7 @@ public static class PatchFunctions {
     private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
     /*[UsedImplicitly]
-    [HarmonyPatch(typeof(WorldManager), "LoadGameDataAsync")]
+    [DoHarmonyPatch(typeof(WorldManager), "LoadGameDataAsync")]
     [HarmonyPostfix]
     public static void WorldManagerLoadGameDataAsync(ref WorldManager __instance) {
         if (!Data.SpawnWrecks || __instance == null) {
@@ -25,14 +25,14 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
 
     [UsedImplicitly]
-    [HarmonyPatch(typeof(WorkshopMenu), "GenerateRandomIncident")]
+    [DoHarmonyPatch(typeof(WorkshopMenu), "GenerateRandomIncident")]
     [HarmonyPrefix]
     public static bool TileSystemDelayIncident(ref TileSystem __instance, TileData tileData, bool onTileEnter = false)
     {
@@ -48,8 +48,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogError(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogError(ex);
             }
         }
 
@@ -57,7 +57,7 @@ public static class PatchFunctions {
     }
 
     [UsedImplicitly]
-    [HarmonyPatch(typeof(TileSystem), "DelayIncident")]
+    [DoHarmonyPatch(typeof(TileSystem), "DelayIncident")]
     [HarmonyPrefix]
     public static bool TileSystemDelayIncident(ref TileSystem __instance, ref IEnumerator __result,
         TileData tileData, Incident incident, int delay, WorldManager.TerrainFeatureIncident relatedValues) {
@@ -75,8 +75,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
         return false;

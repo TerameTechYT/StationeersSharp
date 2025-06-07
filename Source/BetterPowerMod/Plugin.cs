@@ -7,166 +7,79 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 namespace BetterPowerMod;
 
-[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInDependency(Constants.STATIONEERS_LIBRARY_GUID, DependencyFlags.HardDependency)]
-[BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
-[BepInProcess(Constants.HEADLESS_EXECUTABLE_NAME)]
-public class Plugin : BaseUnityPlugin {
-    public static Plugin Instance {
-        get; private set;
-    }
+public class Plugin : Mod {
+    public static Plugin Instance { get; private set; }
 
-    public static Harmony HarmonyInstance {
-        get; private set;
-    }
+    public override bool UseConfig => true;
+    public override bool UseHarmony => true;
 
-    public static ManualLogSource LoggerInstance => Plugin.Instance.Logger;
+    public override ModInfo Data => new ModInfo() {
+        Name = "BetterPowerMod",
+        Guid = "betterpowermod",
+        Version = new Version(1, 4, 0),
+        WorkshopId = 3234916147ul,
+        GameType = GameType.Client | GameType.Server,
+    };
 
-    [UsedImplicitly]
-    public void Awake() {
-        Plugin.Instance = this;
+    public Plugin() => Plugin.Instance = this;
 
-        Plugin.LogDebug("Mod Started.");
-        if (Utilities.IsLoaded(Data.ModGuid)) {
-            throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
-        }
-
-        this.LoadConfiguration();
-
-        Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
-
-        Plugin.LogDebug($"Harmony patch starting.");
-        try {
-            Plugin.HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-        }
-        catch (HarmonyException ex) {
-            Plugin.LogException(ex);
-            Plugin.LogError($"Harmony failed to patch! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-        }
-        finally {
-            Plugin.LogDebug($"Harmony patch finished.");
-        }
-    }
-
-    public void LoadConfiguration() {
-        Plugin.LogDebug("Loading configuration.");
-
-        Data.enableSolarPanel = Config.Bind(
+    public override void OnLoadConfiguration() {
+        ConfigData.enableSolarPanel = Config.Bind(
             new ConfigDefinition("Configurables", "Solar Panel Patches"),
             true,
             new ConfigDescription("Should the max power output be set to the worlds Solar Irradiance"
         ));
 
-        Data.enableWindTurbine = Config.Bind(
+        ConfigData.enableWindTurbine = Config.Bind(
             new ConfigDefinition("Configurables", "Wind Turbine Patches"),
             true,
             new ConfigDescription("Should the max power output be set higher based on the atmospheric pressure")
         );
 
-        Data.enableTurbine = Config.Bind(
+        ConfigData.enableTurbine = Config.Bind(
             new ConfigDefinition("Configurables", "Wall Turbine Patches"),
             true,
             new ConfigDescription("Should the max power output be multipled by 10")
          );
 
-        Data.enableStirling = Config.Bind(
+        ConfigData.enableStirling = Config.Bind(
             new ConfigDefinition("Configurables", "Stirling Patches"),
             true,
             new ConfigDescription($"Should the max power output be changed to Stirling Energy Output")
         );
 
-        Data.stirlingEnergy = Config.Bind(
+        ConfigData.stirlingEnergy = Config.Bind(
             new ConfigDefinition("Configurables", "Stirling Energy Output"),
             Constants.TWENTY_KILOWATTS,
             new ConfigDescription("The max power output of the Stirling Engine",
             new AcceptableValueRange<float>(Constants.EIGHT_KILOWATTS, Constants.TWENTY_FIVE_KILOWATTS)
         ));
 
-        Data.enableFasterCharging = Config.Bind(
+        ConfigData.enableFasterCharging = Config.Bind(
             new ConfigDefinition("Configurables", "Charging Patches"),
             true,
             new ConfigDescription("Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate")
         );
 
-        Data.fastChargeRate = Config.Bind(
+        ConfigData.fastChargeRate = Config.Bind(
             new ConfigDefinition("Configurables", "Fast Charging Charging Rate"),
             Constants.TWO_POINT_FIVE_KILOWATTS,
             new ConfigDescription("The max input power of the (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter)",
             new AcceptableValueRange<float>(1f, Constants.FIVE_KILOWATTS)
         ));
 
-        Data.turbineMultiplier = Config.Bind(
+        ConfigData.turbineMultiplier = Config.Bind(
             new ConfigDefinition("Configurables", "Turbine Power Multiplier"),
             10f,
             new ConfigDescription("The power output on the Turbine Generator (not wind turbine, the one that looks like a wall)",
             new AcceptableValueRange<float>(1f, 25f)
         ));
-
-        Plugin.LogDebug("Loaded configuration.");
     }
 
-    public async UniTask OnBaseLoaded() {
-        // Wait until game has loaded into main menu
-        await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
-
-        // Print version after main menu is visible
-        Plugin.LogInfo($"v{Data.ModVersion} is installed.");
-
-        Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
-    }
-
-    public static void LogFatal(string message) => Plugin.Log(message, Severity.Fatal);
-    public static void LogException(Exception ex) => Plugin.Log($"[{ex?.Source} - {ex?.StackTrace}]: {ex?.Message}", Severity.Error);
-    public static void LogError(string message) => Plugin.Log(message, Severity.Error);
-    public static void LogWarning(string message) => Plugin.Log(message, Severity.Warning);
-    public static void LogInfo(string message) => Plugin.Log(message, Severity.Info);
-    public static void LogDebug(string message) {
-        if (Constants.DEBUG_MODE) {
-            Plugin.Log(message, Severity.Debug);
-        }
-    }
-
-    private static void Log(string message, Severity severity) {
-        string newMessage = $"[{Data.ModName}]: {message}";
-
-        switch (severity) {
-            case Severity.Fatal: {
-                Plugin.LoggerInstance?.LogFatal(message);
-                ConsoleWindow.PrintError(newMessage);
-                break;
-            }
-            case Severity.Error: {
-                Plugin.LoggerInstance?.LogError(message);
-                ConsoleWindow.PrintError(newMessage);
-                break;
-            }
-            case Severity.Warning: {
-                Plugin.LoggerInstance?.LogWarning(message);
-                ConsoleWindow.PrintAction(newMessage);
-                break;
-            }
-            case Severity.Info: {
-                Plugin.LoggerInstance?.LogInfo(message);
-                ConsoleWindow.Print(newMessage);
-                break;
-            }
-            default:
-            case Severity.Debug: {
-                Plugin.LoggerInstance?.LogDebug(message);
-                ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
-            }
-            break;
-        }
-    }
+    public override void OnAwake() { }
 }
 
-internal struct Data {
-    // Mod Data
-    public const string ModGuid = "betterpowermod";
-    public const string ModName = "BetterPowerMod";
-    public const string ModVersion = "1.2.0";
-    public const ulong ModHandle = 3234916147;
-
+internal struct ConfigData {
     //
     public const string BatteryChargerSmall = "StructureBatteryChargerSmall";
 

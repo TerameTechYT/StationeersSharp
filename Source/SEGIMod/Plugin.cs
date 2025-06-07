@@ -7,133 +7,105 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 
 namespace SEGI;
 
-[BepInPlugin(Data.ModGuid, Data.ModName, Data.ModVersion)]
-[BepInDependency(Constants.STATIONEERS_LIBRARY_GUID, DependencyFlags.HardDependency)]
-[BepInProcess(Constants.CLIENT_EXECUTABLE_NAME)]
-public class Plugin : BaseUnityPlugin {
-    public static Plugin Instance {
-        get; private set;
+public class Plugin : Mod {
+    public static Plugin Instance { get; private set; }
+
+    public static GameObject SEGIGameObject { get; private set; }
+
+    public override bool UseConfig => true;
+    public override bool UseHarmony => true;
+
+    public override ModInfo Data => new ModInfo() {
+        Name = "SEGIMod",
+        Guid = "segiMod",
+        Version = new Version(1, 4, 0),
+        WorkshopId = 3281346086ul,
+        GameType = GameType.Client,
+    };
+
+    public Plugin() => Plugin.Instance = this;
+
+    public override UniTask OnMainMenuPageEnabled(MainMenuPageEnabledArgs args) {
+        Plugin.SEGIGameObject = GameObject.Find("SEGIManager") ?? new GameObject("SEGIManager");
+        Plugin.SEGIGameObject.AddComponent<SEGIManager>();
+        GameObject.DontDestroyOnLoad(SEGIGameObject);
+
+        return UniTask.CompletedTask;
     }
 
-    public static Harmony HarmonyInstance {
-        get; private set;
-    }
-
-    public static ManualLogSource LoggerInstance => Plugin.Instance.Logger;
-
-    public static GameObject SEGIGameObject {
-        get; private set;
-    }
-
-    [UsedImplicitly]
-    public void Awake() {
-        Plugin.Instance = this;
-
-        Plugin.LogDebug("Mod Started.");
-        if (Utilities.IsLoaded(Data.ModGuid)) {
-            throw new AlreadyLoadedException(Data.ModName, Data.ModGuid, Data.ModVersion);
-        }
-
-        this.LoadConfiguration();
-
-        Plugin.HarmonyInstance = new Harmony(Data.ModGuid);
-
-        Plugin.LogDebug($"Harmony patch starting.");
-        try {
-            Plugin.HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-        }
-        catch (HarmonyException ex) {
-            Plugin.LogException(ex);
-            Plugin.LogError($"Harmony failed to patch! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-        }
-        finally {
-            Plugin.LogDebug($"Harmony patch finished.");
-        }
-
-        // Thx jixxed for awesome code :)
-        SceneManager.sceneLoaded += (scene, _) => {
-            if (scene.name == Constants.BASE_SCENE_NAME) {
-                OnBaseLoaded().Forget();
-            }
-        };
-    }
-
-    public void LoadConfiguration() {
-        Plugin.LogDebug("Loading configuration.");
-
-        Data.enabled = Config.Bind(
+    public override void OnLoadConfiguration() {
+        ConfigData.enabled = Config.Bind(
             new ConfigDefinition("General", "Enabled"),
             true
         );
 
         // Voxel
-        Data.voxelResolution = Config.Bind(
+        ConfigData.voxelResolution = Config.Bind(
             new ConfigDefinition("Voxel", "Resolution"),
             SEGI.VoxelResolution.High
         );
 
-        Data.halfResolution = Config.Bind(
+        ConfigData.halfResolution = Config.Bind(
             new ConfigDefinition("Voxel", "Half Resolution"),
             true
         );
 
-        Data.voxelSpaceSize = Config.Bind(
+        ConfigData.voxelSpaceSize = Config.Bind(
             new ConfigDefinition("Voxel", "Space Size"),
             25f,
             new ConfigDescription("1.0 to 100.0",
             new AcceptableValueRange<float>(1f, 100f)
         ));
 
-        Data.voxelAntiAliasing = Config.Bind(
+        ConfigData.voxelAntiAliasing = Config.Bind(
             new ConfigDefinition("Voxel", "Anti Aliasing"),
             true
         );
 
-
         // Occlusion
-        Data.innerOcclusionLayers = Config.Bind(
+        ConfigData.innerOcclusionLayers = Config.Bind(
             new ConfigDefinition("Occlusion", "Inner Occlusion Layers"),
             1,
             new ConfigDescription("0 to 2",
             new AcceptableValueRange<int>(0, 2)
         ));
 
-        Data.occlusionPower = Config.Bind(
+        ConfigData.occlusionPower = Config.Bind(
             new ConfigDefinition("Occlusion", "Occlusion Power"),
             1f,
             new ConfigDescription("0.001 to 4.0",
             new AcceptableValueRange<float>(0.001f, 4f)
         ));
 
-        Data.occlusionStrength = Config.Bind(
+        ConfigData.occlusionStrength = Config.Bind(
             new ConfigDefinition("Occlusion", "Occlusion Strenth"),
             1f,
             new ConfigDescription("0.0 to 4.0",
             new AcceptableValueRange<float>(0f, 4f)
         ));
 
-        Data.secondaryOcclusionStrength = Config.Bind(
+        ConfigData.secondaryOcclusionStrength = Config.Bind(
             new ConfigDefinition("Occlusion", "Secondary Occlusion Strenth"),
             1f,
             new ConfigDescription("0.1 to 4.0",
             new AcceptableValueRange<float>(0.1f, 4f)
         ));
 
-        Data.nearOcclusionStrength = Config.Bind(
+        ConfigData.nearOcclusionStrength = Config.Bind(
             new ConfigDefinition("Occlusion", "Near Occlusion Strenth"),
             0.5f,
             new ConfigDescription("0 to 4.0",
             new AcceptableValueRange<float>(0f, 4f)
         ));
 
-        Data.farOcclusionStrength = Config.Bind(
+        ConfigData.farOcclusionStrength = Config.Bind(
             new ConfigDefinition("Occlusion", "Far Occlusion Strenth"),
             1f,
             new ConfigDescription("0.1 to 4.0",
             new AcceptableValueRange<float>(0.1f, 4f)
         ));
 
-        Data.farthestOcclusionStrength = Config.Bind(
+        ConfigData.farthestOcclusionStrength = Config.Bind(
             new ConfigDefinition("Occlusion", "Farthest Occlusion Strenth"),
             1f,
             new ConfigDescription("0.1 to 4.0",
@@ -141,52 +113,52 @@ public class Plugin : BaseUnityPlugin {
         ));
 
         // Reflection
-        Data.doReflections = Config.Bind(
+        ConfigData.doReflections = Config.Bind(
             new ConfigDefinition("Refections", "Do Reflections"),
             true
         );
 
-        Data.infiniteBounces = Config.Bind(
+        ConfigData.infiniteBounces = Config.Bind(
             new ConfigDefinition("Refections", "Infinite Bounces"),
             true
         );
 
-        Data.reflectionSteps = Config.Bind(
+        ConfigData.reflectionSteps = Config.Bind(
             new ConfigDefinition("Refections", "Reflection Steps"),
             32,
             new ConfigDescription("12 to 128",
             new AcceptableValueRange<int>(12, 128)
         ));
 
-        Data.reflectionOcclusionPower = Config.Bind(
+        ConfigData.reflectionOcclusionPower = Config.Bind(
             new ConfigDefinition("Refections", "Reflection Occlusion Power"),
             1f,
             new ConfigDescription("0.001 to 4.0",
             new AcceptableValueRange<float>(0.001f, 4f)
          ));
 
-        Data.secondaryBounceGain = Config.Bind(
+        ConfigData.secondaryBounceGain = Config.Bind(
             new ConfigDefinition("Refections", "Secondary Bounce Gain"),
             0.75f,
             new ConfigDescription("0.1 to 4.0",
             new AcceptableValueRange<float>(0.1f, 4f)
         ));
 
-        Data.skyReflectionIntensity = Config.Bind(
+        ConfigData.skyReflectionIntensity = Config.Bind(
             new ConfigDefinition("Refections", "Sky Reflection Intensity"),
             0.5f,
             new ConfigDescription("0.0 to 1.0f",
             new AcceptableValueRange<float>(0f, 1f)
         ));
 
-        Data.skyIntensity = Config.Bind(
+        ConfigData.skyIntensity = Config.Bind(
             new ConfigDefinition("Refections", "Sky Intensity"),
             1f,
             new ConfigDescription("0 to 8.0",
             new AcceptableValueRange<float>(0f, 8f)
         ));
 
-        Data.softSunlight = Config.Bind(
+        ConfigData.softSunlight = Config.Bind(
             new ConfigDefinition("Refections", "Soft Sunlight"),
             1f,
             new ConfigDescription("0 to 16.0",
@@ -194,42 +166,42 @@ public class Plugin : BaseUnityPlugin {
         ));
 
         // Cones
-        Data.cones = Config.Bind(
+        ConfigData.cones = Config.Bind(
             new ConfigDefinition("Cones", "Cones"),
             6,
             new ConfigDescription("1 to 128",
             new AcceptableValueRange<int>(1, 128)
         ));
 
-        Data.secondaryCones = Config.Bind(
+        ConfigData.secondaryCones = Config.Bind(
             new ConfigDefinition("Cones", "Secondary Cones"),
             3,
             new ConfigDescription("3 to 16",
             new AcceptableValueRange<int>(3, 16)
         ));
 
-        Data.coneTraceSteps = Config.Bind(
+        ConfigData.coneTraceSteps = Config.Bind(
             new ConfigDefinition("Cones", "Cone Trace Steps"),
             14,
             new ConfigDescription("1 to 32",
             new AcceptableValueRange<int>(1, 32)
         ));
 
-        Data.coneTraceBias = Config.Bind(
+        ConfigData.coneTraceBias = Config.Bind(
             new ConfigDefinition("Cones", "Cone Trace Bias"),
             1f,
             new ConfigDescription("0.0 to 4.0",
             new AcceptableValueRange<float>(0f, 4f)
         ));
 
-        Data.coneLength = Config.Bind(
+        ConfigData.coneLength = Config.Bind(
             new ConfigDefinition("Cones", "Cone Length"),
             1f,
             new ConfigDescription("0.1 to 2.0",
             new AcceptableValueRange<float>(0.1f, 2f)
         ));
 
-        Data.coneWidth = Config.Bind(
+        ConfigData.coneWidth = Config.Bind(
             new ConfigDefinition("Cones", "Cone Width"),
             2.25f,
             new ConfigDescription("0.5 to 6.0",
@@ -237,21 +209,21 @@ public class Plugin : BaseUnityPlugin {
         ));
 
         // Light
-        Data.nearLightGain = Config.Bind(
+        ConfigData.nearLightGain = Config.Bind(
             new ConfigDefinition("Light", "Near Light Gain"),
             1f,
             new ConfigDescription("0.0 to 4.0",
             new AcceptableValueRange<float>(0f, 8f)
         ));
 
-        Data.giGain = Config.Bind(
+        ConfigData.giGain = Config.Bind(
             new ConfigDefinition("Light", "Global Illumination Gain"),
             0.5f,
             new ConfigDescription("0.0 to 4.0",
             new AcceptableValueRange<float>(0f, 8f)
         ));
 
-        Data.shadowSpaceSize = Config.Bind(
+        ConfigData.shadowSpaceSize = Config.Bind(
             new ConfigDefinition("Light", "Shadow Space Size"),
             1f,
             new ConfigDescription("1.0 to 100.0",
@@ -260,108 +232,33 @@ public class Plugin : BaseUnityPlugin {
 
 
         // Sampling & Filtering
-        Data.gaussianMipFilter = Config.Bind(
+        ConfigData.gaussianMipFilter = Config.Bind(
             new ConfigDefinition("Sampling & Filtering", "Gaussian Mip Filter"),
             true
         );
 
-        Data.useBilateralFiltering = Config.Bind(
+        ConfigData.useBilateralFiltering = Config.Bind(
             new ConfigDefinition("Sampling & Filtering", "Use Bilateral Filtering"),
             true
         );
 
-        Data.stochasticSampling = Config.Bind(
+        ConfigData.stochasticSampling = Config.Bind(
             new ConfigDefinition("Sampling & Filtering", "Stochastic Sampling"),
             true
         );
 
-        Data.temporalBlendWeight = Config.Bind(
+        ConfigData.temporalBlendWeight = Config.Bind(
             new ConfigDefinition("Sampling & Filtering", "Temporal Blend Weight"),
             0.1f,
             new ConfigDescription("0.01 to 1.0",
             new AcceptableValueRange<float>(0.01f, 1f)
         ));
-
-        Config.SettingChanged += this.ConfigChanged;
-
-        Plugin.LogDebug("Loaded configuration.");
     }
 
-    private void ConfigChanged(object sender, SettingChangedEventArgs e) {
-        if (e.ChangedSetting.Definition.Key == "Enabled") {
-            Plugin.LogInfo($"SEGI is now {(Data.Enabled ? "Enabled" : "Disabled")}");
-        }
-        else {
-            Plugin.LogInfo($"SEGI will use approximately {SEGIManager.SEGIInstance?.VRamUsage ?? -1f}kb of vram");
-        }
-    }
-
-    public async UniTask OnBaseLoaded() {
-        // Wait until game has loaded into main menu
-        await UniTask.WaitUntil(() => MainMenuUI.Instance.IsVisible);
-
-        // Print version after main menu is visible
-        Plugin.LogInfo($"v{Data.ModVersion} is installed.");
-
-        Utilities.SetModVersion(Data.ModHandle, Data.ModVersion);
-
-        Plugin.SEGIGameObject = GameObject.Find("SEGIManager") ?? new GameObject("SEGIManager");
-        Plugin.SEGIGameObject.AddComponent<SEGIManager>();
-        GameObject.DontDestroyOnLoad(SEGIGameObject);
-    }
-
-    public static void LogFatal(string message) => Plugin.Log(message, Severity.Fatal);
-    public static void LogException(Exception ex) => Plugin.Log($"[{ex?.Source} - {ex?.StackTrace}]: {ex?.Message}", Severity.Error);
-    public static void LogError(string message) => Plugin.Log(message, Severity.Error);
-    public static void LogWarning(string message) => Plugin.Log(message, Severity.Warning);
-    public static void LogInfo(string message) => Plugin.Log(message, Severity.Info);
-    public static void LogDebug(string message) {
-        if (Constants.DEBUG_MODE) {
-            Plugin.Log(message, Severity.Debug);
-        }
-    }
-
-    private static void Log(string message, Severity severity) {
-        string newMessage = $"[{Data.ModName}]: {message}";
-
-        switch (severity) {
-            case Severity.Fatal: {
-                Plugin.LoggerInstance?.LogFatal(message);
-                ConsoleWindow.PrintError(newMessage);
-                break;
-            }
-            case Severity.Error: {
-                Plugin.LoggerInstance?.LogError(message);
-                ConsoleWindow.PrintError(newMessage);
-                break;
-            }
-            case Severity.Warning: {
-                Plugin.LoggerInstance?.LogWarning(message);
-                ConsoleWindow.PrintAction(newMessage);
-                break;
-            }
-            case Severity.Info: {
-                Plugin.LoggerInstance?.LogInfo(message);
-                ConsoleWindow.Print(newMessage);
-                break;
-            }
-            default:
-            case Severity.Debug: {
-                Plugin.LoggerInstance?.LogDebug(message);
-                ConsoleWindow.Print(newMessage, color: ConsoleColor.Gray, aged: false);
-            }
-            break;
-        }
-    }
+    public override void OnAwake() { }
 }
 
-internal struct Data {
-    // Mod Data
-    public const string ModGuid = "segimod";
-    public const string ModName = "SEGIMod";
-    public const string ModVersion = "1.3.0";
-    public const ulong ModHandle = 3281346086;
-
+internal struct ConfigData {
     public static ConfigEntry<bool> enabled;
     public static bool Enabled => enabled?.Value ?? false;
 

@@ -70,7 +70,7 @@ internal static class Functions {
         stringBuilder.AppendLine($"Efficency {efficency.ToStringPercent("yellow")}");
         stringBuilder.AppendLine($"Health {health.ToStringPercent(solarPanel.DamageColor)}");
 
-        if (!Data.FlatSolarPanelPrefabs.Contains(solarPanel.PrefabName)) {
+        if (!ConfigData.FlatSolarPanelPrefabs.Contains(solarPanel.PrefabName)) {
             double vertical = solarPanel.Vertical * solarPanel.MaximumVertical;
             double horizontal = solarPanel.Horizontal * solarPanel.MaximumHorizontal;
 

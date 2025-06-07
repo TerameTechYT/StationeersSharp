@@ -12,7 +12,7 @@ public static class PatchFunctions {
     [HarmonyPatch(typeof(Stationpedia), "ForceSearch")]
     [HarmonyPostfix]
     public static void StationpediaForceSearch(ref Stationpedia __instance, string searchText) {
-        if (Stationpedia.Instance == null || Data.CalculatorItem == null || string.IsNullOrEmpty(searchText)) {
+        if (Stationpedia.Instance == null || ConfigData.CalculatorItem == null || string.IsNullOrEmpty(searchText)) {
             return;
         }
 
@@ -25,8 +25,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }
@@ -55,8 +55,8 @@ public static class PatchFunctions {
             if (!_patches[currentMethod]) {
                 _patches[currentMethod] = true;
 
-                Plugin.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.LogException(ex);
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
             }
         }
     }

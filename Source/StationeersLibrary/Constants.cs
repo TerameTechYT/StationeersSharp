@@ -5,13 +5,15 @@
 namespace StationeersLibrary;
 
 public static class Constants {
-    //
-    public const string STATIONEERS_LIBRARY_NAME = Data.ModName;
-    public const string STATIONEERS_LIBRARY_VERSION = Data.ModVersion;
-    public const string STATIONEERS_LIBRARY_GUID = Data.ModGuid;
-    public const ulong STATIONEERS_LIBRARY_HANDLE = Data.ModHandle;
+    // INFO
+    public static string STATIONEERS_LIBRARY_NAME => Plugin.Instance.ModName;
+    public static string STATIONEERS_LIBRARY_VERSION => Plugin.Instance.ModVersionString;
+    public static string STATIONEERS_LIBRARY_GUID => Plugin.Instance.ModGuid;
+    public static ulong STATIONEERS_LIBRARY_HANDLE => Plugin.Instance.ModWorkshopId;
 
-    public static bool DEBUG_MODE => Data.DebugMode;
+    public static bool DEBUG_MODE => ConfigData.DebugMode;
+
+    public static GameType GameType = GameManager.IsBatchMode ? GameType.Server : GameType.Client;
 
     // REPO
     public const string GITHUB_URL = "https://github.com";
@@ -31,6 +33,8 @@ public static class Constants {
     public static string MY_GAMES_FOLDER => Path.Combine(DOCUMENTS_FOLDER, "My Games");
     public static string STATIONEERS_DOCUMENTS_FOLDER => Path.Combine(MY_GAMES_FOLDER, "Stationeers");
 
+    public static string HARMONY_LOG_PATH => Path.Combine(Paths.BepInExRootPath, "HarmonyOutput.log");
+
     // FILE NAMES
     public const string CLIENT_EXECUTABLE_NAME = "rocketstation.exe";
     public const string HEADLESS_EXECUTABLE_NAME = "rocketstation_DedicatedServer.exe";
@@ -43,10 +47,13 @@ public static class Constants {
     // MENU PAGE NAMES
     public const string MAIN_MENU_PAGE = "MainMenu";
     public const string NEW_GAME_PAGE = "NewGame";
-    public const string WORKSHOP_PAGE = "WorkshopMenu";
-    public const string WORLD_CONFIG_PAGE = "WorldConfiguration";
+    public const string LOAD_GAME_PAGE = "LoadSave";
+    public const string DIFFICULTY_SELECTION_PAGE = "WorldConfiguration";
     public const string STARTING_CONDITIONS_PAGE = "StartingConditions";
     public const string TUTORIALS_PAGE = "TutorialScenarios";
+    public const string MULTIPLAYER_PAGE = "JoinServer";
+    public const string WORKSHOP_PAGE = "WorkshopMods";
+    public const string SETTINGS_PAGE = "Settings";
 
     public const string DEGREE_SYMBOL = "°";
 

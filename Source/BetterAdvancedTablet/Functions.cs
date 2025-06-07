@@ -24,10 +24,10 @@ public static class Functions {
         OccupantAlwaysVisible = slot.OccupantAlwaysVisible,
     };
 
-    /*internal static ControlsGroup RegisterControlsGroup() => new(Data.ModName);
+    /*internal static ControlsGroup RegisterControlsGroup() => new(ConfigData.ModName);
     internal static List<KeyItem> RegisterKeys() => [
-        new KeyItem(Data.NextCartridge, KeyCode.PageUp),
-        new KeyItem(Data.PrevCartridge, KeyCode.PageDown),
+        new KeyItem(ConfigData.NextCartridge, KeyCode.PageUp),
+        new KeyItem(ConfigData.PrevCartridge, KeyCode.PageDown),
     ];*/
 
     internal static void ToNextCartridge(ref AdvancedTablet advancedTablet) {
@@ -46,7 +46,7 @@ public static class Functions {
 
                 if (advancedTablet.CartridgeSlots[slot].IsNotEmpty()) {
                     result = currentCartSlot;
-                    Plugin.LogDebug($"Next Cartridge not empty, returning {result}");
+                    Plugin.Instance.LogDebug($"Next Cartridge not empty, returning {result}");
 
                     break;
                 }
@@ -63,7 +63,7 @@ public static class Functions {
 
                 if (advancedTablet.CartridgeSlots[slot].IsNotEmpty()) {
                     result = currentCartSlot;
-                    Plugin.LogDebug($"Previous Cartridge not empty, returning {result}");
+                    Plugin.Instance.LogDebug($"Previous Cartridge not empty, returning {result}");
 
                     break;
                 }
@@ -72,7 +72,7 @@ public static class Functions {
             }
         }
 
-        Plugin.LogDebug($"returning {result}");
+        Plugin.Instance.LogDebug($"returning {result}");
         return result;
     }
 
