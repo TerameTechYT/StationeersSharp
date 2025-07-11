@@ -31,13 +31,12 @@
       <PackagePath>$(SolutionDir)</PackagePath>
     </None>
 
-    <Using Include="StationeersLibrary" />
-    <Using Include="StationeersLibrary.Args" />
-    <Using Include="StationeersLibrary.Commands" />
-    <Using Include="StationeersLibrary.Enums" />
-    <Using Include="StationeersLibrary.Exceptions" />
-    <Using Include="StationeersLibrary.Mods" />
-
+     <Using Include="StationeersLibrary" />
+     <Using Include="StationeersLibrary.Args" />
+     <Using Include="StationeersLibrary.Commands" />
+     <Using Include="StationeersLibrary.Enums" />
+     <Using Include="StationeersLibrary.Exceptions" />
+     <Using Include="StationeersLibrary.Mods" />
 
     <!-- System -->
     <Using Include="JetBrains.Annotations" />
@@ -78,7 +77,6 @@
     <Using Include="Assets.Scripts.AI" />
     <Using Include="Assets.Scripts.AssetCreation" />
     <Using Include="Assets.Scripts.Atmospherics" />
-    <Using Include="Assets.Scripts.Database" />
     <Using Include="Assets.Scripts.Effects" />
     <Using Include="Assets.Scripts.Emotes" />
     <Using Include="Assets.Scripts.Events" />

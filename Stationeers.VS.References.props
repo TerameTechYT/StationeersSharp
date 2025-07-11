@@ -25,6 +25,11 @@
       <HintPath>$(StationeersLaunchPadDirectory)\StationeersLaunchPad.dll</HintPath>
       <Private>False</Private>
     </Reference>
+      
+    <Reference Include="LaunchPadBooster">
+      <HintPath>$(StationeersLaunchPadDirectory)\LaunchPadBooster.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
 
     <!-- Mono DLL's -->
     <Reference Include="Mono.Cecil">
