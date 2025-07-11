@@ -15,7 +15,7 @@ public class Plugin : Mod {
         Name = "ColoredGases",
         Guid = "coloredgases",
         Version = new Version(1, 2, 0),
-        WorkshopId = 0ul,
+        WorkshopId = 3523162910ul,
         GameType = GameType.Client,
     };
 
