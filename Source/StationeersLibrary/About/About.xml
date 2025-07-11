@@ -4,21 +4,17 @@
 	<Author>vinus</Author>
 	<Version>1.0.0</Version>
 	<Description>
-		[h1]Stationeers Library[/h1]
-		[b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
-		See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
+        [h1] This is [b]NOT[/b] StationeersLaunchPad [/h1]
 
-		This mod adds no extra functionality by itself, it is a library for all of my mods.
+        [h1]Stationeers Library[/h1]
+        [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
+        See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
 
-		you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-		https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
-	</Description>
-	<InGameDescription>
-		<![CDATA[<size="30"><color=#ffa500> Stationeers Library </color></size>
-<b>WARNING:</b> <color=#ff0000>This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.</color>
-See: <b><u><color=#00ccff>https://github.com/StationeersLaunchPad/StationeersLaunchPad</color></u></b>.
-]]>
-	</InGameDescription>
+        [h2]This mod adds no extra functionality by itself, it is a library for all of my mods.[/h2]
+
+        you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+        https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+    </Description>
 	<WorkshopHandle>3389894703</WorkshopHandle>
 	<Tags>
 		<Tag>Mod</Tag>
