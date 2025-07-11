@@ -9,6 +9,7 @@ public class Plugin : Mod {
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
+    protected override LaunchPadBooster.Mod InternalMod => new(this.ModGuid, this.ModVersionString);
 
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
@@ -18,13 +19,8 @@ public class Plugin : Mod {
         GameType = GameType.Both,
     };
 
-    public Plugin() => Plugin.Instance = this;
 
-    public override void OnLoadConfiguration() => ConfigData.debugMode = this.Config.Bind(
-                    new ConfigDefinition("Debug", "Enable Debugging Mode"),
-                    false,
-                    new ConfigDescription("Should StationeersLibrary mods enable debug mode? enables extra logging for debugging, may fill log files.")
-            );
+    public Plugin() => Plugin.Instance = this;
 
     public override void OnAwake() { }
 }
