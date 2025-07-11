@@ -1,7 +1,12 @@
 ﻿#region
 
 using StationeersLaunchPad;
+using LaunchPadBooster;
+using LaunchPadBooster.Networking;
+using InternalMod = LaunchPadBooster.Mod;
 using Logger = StationeersLaunchPad.Logger;
+using MoonSharp.Interpreter.CoreLib;
+using System.Diagnostics;
 
 #endregion
 
@@ -30,7 +35,12 @@ public abstract class Mod : MonoBehaviour {
     /// <summary>
     /// Should this mod automatically save configuration changes?
     /// </summary>
-    public virtual bool AutoSaveConfig { get; protected set; }
+    public virtual bool AutoSaveConfig { get; protected set; } = true;
+
+    /// <summary>
+    /// Should this mod save configuration on creation?
+    /// </summary>
+    public virtual bool SaveConfigOnCreate { get; protected set; } = true;
 
     /// <summary>
     /// This mods <see cref="ConfigFile"/> instance.
@@ -51,6 +61,22 @@ public abstract class Mod : MonoBehaviour {
     /// This mods <see cref="HarmonyLib.Harmony"/> instance.
     /// </summary>
     public Harmony Harmony { get; private set; }
+
+    /// <summary>
+    /// Override to provide your own version checking function.
+    /// <see cref="https://github.com/StationeersLaunchPad/LaunchPadBooster/blob/master/README.md#multiplayer"/>
+    /// </summary>
+    public virtual Func<string, bool> VersionCheck { get; private set; }
+
+    /// <summary>
+    /// Internal <see cref="LaunchPadBooster.Mod"/> instance.
+    /// </summary>
+    internal InternalMod InternalMod { get; private set; }
+
+    /// <summary>
+    /// Internal <see cref="StationeersLaunchPad.LoadedMod"/> instance.
+    /// </summary>
+    internal LoadedMod LoadedMod { get; private set; }
 
     /// <summary>
     /// This mods list of prefabs.
@@ -92,6 +118,16 @@ public abstract class Mod : MonoBehaviour {
     /// </summary>
     public GameType ModGameType => this.Data.GameType;
 
+    public Mod() {
+        LoadedMod mod = null;
+        ModLoader.TryGetStackTraceMod(new StackTrace(2), out mod);
+
+        if (mod != null) {
+            this.LoadedMod = mod;
+            UnityEngine.Debug.LogError("could not get loadedmod");
+        }
+    }
+
     /// <summary>
     /// Internal <see cref="Awake"/> method.
     /// Called when <see cref="MonoBehaviour"/> is initalized
@@ -107,8 +143,24 @@ public abstract class Mod : MonoBehaviour {
             throw new IncompatableGameTypeException(Constants.GameType, this.ModGameType);
         }
 
+        this.InternalMod = new InternalMod(this.ModGuid, this.ModVersionString);
+        this.InternalMod.AddPrefabs(this.Prefabs.AsReadOnly());
+        this.InternalMod.SetVersionCheck(this.VersionCheck);
+        if (this.ModGameType == GameType.Both) {
+            this.InternalMod.SetMultiplayerRequired();
+        }
+
         if (this.UseLogger) {
             this.Logger = Logger.Global.CreateChild(this.ModName);
+        }
+
+        if (this.UseConfig) {
+            this.Config = new ConfigFile(Path.Combine(Constants.BIE_CONFIG_FOLDER, this.ModGuid), this.SaveConfigOnCreate);
+            this.Config.SaveOnConfigSet = this.AutoSaveConfig;
+            this.Config.SettingChanged += this.ConfigChanged;
+            this.Config.ConfigReloaded += this.ConfigReloaded;
+
+            this.DoLoadConfiguration();
         }
 
         if (this.UseHarmony) {
@@ -127,19 +179,9 @@ public abstract class Mod : MonoBehaviour {
     /// <summary>
     /// Called by <see cref="StationeersLaunchPad"/> with configuration and any prefabs.
     /// </summary>
-    /// <param name="config">ConfigFile</param>
-    /// <param name="prefabs">List<GameObject></param>
-    public void OnLoaded(ConfigFile config, List<GameObject> prefabs) {
+    /// <param name="prefabs"></param>
+    public void OnLoaded(List<GameObject> prefabs) {
         this.Prefabs.AddRange(prefabs ?? []);
-
-        if (this.UseConfig) {
-            this.Config = config;
-            this.Config.SaveOnConfigSet = this.AutoSaveConfig;
-            this.Config.SettingChanged += this.ConfigChanged;
-            this.Config.ConfigReloaded += this.ConfigReloaded;
-
-            this.DoLoadConfiguration();
-        }
     }
 
     /// <summary>
@@ -162,19 +204,19 @@ public abstract class Mod : MonoBehaviour {
     /// Internal <see cref="Awake"/> method.
     /// Called every frame before <see cref="LateUpdate"/>
     /// </summary>
-    private void Update() => this.OnUpdate();
+    private void Update() => this.OnUpdate(Time.deltaTime);
 
     /// <summary>
     /// Internal <see cref="LateUpdate"/> method.
     /// Called after <see cref="Update"/>
     /// </summary>
-    private void LateUpdate() => this.OnLateUpdate();
+    private void LateUpdate() => this.OnLateUpdate(Time.deltaTime);
 
     /// <summary>
     /// Internal <see cref="FixedUpdate"/> method.
     /// Called on a fixed framerate frames.
     /// </summary>
-    private void FixedUpdate() => this.OnLateUpdate();
+    private void FixedUpdate() => this.OnLateUpdate(Time.fixedDeltaTime);
 
     /// <summary>
     /// Internal <see cref="DoLoadConfiguration"/> method.
@@ -195,8 +237,8 @@ public abstract class Mod : MonoBehaviour {
     private void DoHarmonyPatch() {
         bool success = true;
         try {
-            this.LogDebug("Harmony patching starting...");
             if (this.AutoPatch) {
+                this.LogDebug("Harmony patching starting...");
                 this.Harmony.PatchAll(Assembly.GetExecutingAssembly());
             }
         }
@@ -211,11 +253,19 @@ public abstract class Mod : MonoBehaviour {
         }
     }
 
+    public PrefabSetup<T> RegisterPrefab<T>(string prefab = null) {
+        return this.InternalMod.SetupPrefabs<T>(prefab);
+    }
+
+    public void RegisterSaveDataType<T>() => this.InternalMod.AddSaveDataType<T>();
+
+    public void RegisterNetworkMessage<T>() where T : ModNetworkMessage<T>, new() => this.InternalMod.RegisterNetworkMessage<T>();
+
     /// <summary>
     /// Internal <see cref="Mod.SceneLoaded"/> method.
     /// Called when a scene is loaded.
     /// </summary>
-    /// <param name="scene">Scene</param>
+    /// <param name="scene"></param>
     /// <param name="loadSceneMode"></param>
     /// <exception cref="NotImplementedException"></exception>
     private void SceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
@@ -259,7 +309,7 @@ public abstract class Mod : MonoBehaviour {
     /// <param name="page"></param>
     /// <exception cref="NotImplementedException"></exception>
     private void MenuPageEnabled(string page) {
-        MainMenuPageEnabledArgs args = new MainMenuPageEnabledArgs(page);
+        MenuPageEnabledArgs args = new MenuPageEnabledArgs(page);
         UniTask task = page switch {
             Constants.MAIN_MENU_PAGE => this.OnMainMenuPageEnabled(args),
             Constants.NEW_GAME_PAGE => this.OnNewGamePageEnabled(args),
@@ -302,20 +352,20 @@ public abstract class Mod : MonoBehaviour {
     /// <summary>
     /// Called by <see cref="Mod"/> every frame.
     /// </summary>
-    public virtual void OnUpdate() { }
+    public virtual void OnUpdate(float deltaTime) { }
 
     /// <summary>
     /// Called by <see cref="Mod"/> after <see cref="OnUpdate"/>
     /// </summary>
-    public virtual void OnLateUpdate() {}
+    public virtual void OnLateUpdate(float deltaTime) {}
 
     /// <summary>
     /// Called by <see cref="Mod"/> on a fixed framerate.
     /// </summary>
-    public virtual void OnFixedUpdate() {}
+    public virtual void OnFixedUpdate(float deltaTime) {}
 
     /// <summary>
-    /// Called by Unity for handling IMGUI events.
+    /// Called by Unity for handling UGUI events.
     /// </summary>
     public virtual void OnGUI() { }
 
@@ -394,56 +444,56 @@ public abstract class Mod : MonoBehaviour {
     /// <summary>
     /// Called when any main menu page is enabled.
     /// </summary>
-    /// <param name="args">MainMenuPageEnabledArgs</param>
-    public virtual UniTask OnMenuPageEnabled(MainMenuPageEnabledArgs args) => UniTask.CompletedTask;
+    /// <param name="args">MenuPageEnabledArgs</param>
+    public virtual UniTask OnMenuPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the main menu is enabled.
     /// </summary>
-    /// <param name="args">MainMenuPageEnabledArgs</param>
-    public virtual UniTask OnMainMenuPageEnabled(MainMenuPageEnabledArgs args) => UniTask.CompletedTask;
+    /// <param name="args">MenuPageEnabledArgs</param>
+    public virtual UniTask OnMainMenuPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the new game menu is enabled.
     /// </summary>
-    /// <param name="args">MainMenuPageEnabledArgs</param>
-    public virtual UniTask OnNewGamePageEnabled(MainMenuPageEnabledArgs args) => UniTask.CompletedTask;
+    /// <param name="args">MenuPageEnabledArgs</param>
+    public virtual UniTask OnNewGamePageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the load game menu is enabled.
     /// </summary>
-    /// <param name="args">MainMenuPageEnabledArgs</param>
-    public virtual UniTask OnLoadGamePageEnabled(MainMenuPageEnabledArgs args) => UniTask.CompletedTask;
+    /// <param name="args">MenuPageEnabledArgs</param>
+    public virtual UniTask OnLoadGamePageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the difficulty selection menu is enabled.
     /// </summary>
-    /// <param name="args">MainMenuPageEnabledArgs</param>
-    public virtual UniTask OnDifficultySelectionPageEnabled(MainMenuPageEnabledArgs args) => UniTask.CompletedTask;
+    /// <param name="args">MenuPageEnabledArgs</param>
+    public virtual UniTask OnDifficultySelectionPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the start conditions menu is enabled.
     /// </summary>
-    /// <param name="args">MainMenuPageEnabledArgs</param>
-    public virtual UniTask OnStartingConditionsPageEnabled(MainMenuPageEnabledArgs args) => UniTask.CompletedTask;
+    /// <param name="args">MenuPageEnabledArgs</param>
+    public virtual UniTask OnStartingConditionsPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the tutorials menu is enabled.
     /// </summary>
-    /// <param name="args">MainMenuPageEnabledArgs</param>
-    public virtual UniTask OnTutorialsPageEnabled(MainMenuPageEnabledArgs args) => UniTask.CompletedTask;
+    /// <param name="args">MenuPageEnabledArgs</param>
+    public virtual UniTask OnTutorialsPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the workshop mods menu is enabled.
     /// </summary>
-    /// <param name="args">MainMenuPageEnabledArgs</param>
-    public virtual UniTask OnWorkshopPageEnabled(MainMenuPageEnabledArgs args) => UniTask.CompletedTask;
+    /// <param name="args">MenuPageEnabledArgs</param>
+    public virtual UniTask OnWorkshopPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the settings menu is enabled.
     /// </summary>
-    /// <param name="args">MainMenuPageEnabledArgs</param>
-    public virtual UniTask OnSettingsPageEnabled(MainMenuPageEnabledArgs args) => UniTask.CompletedTask;
+    /// <param name="args">MenuPageEnabledArgs</param>
+    public virtual UniTask OnSettingsPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Log function that is redirected to <see cref="Logger"/>
