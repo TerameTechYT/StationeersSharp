@@ -5,7 +5,7 @@
 namespace StationeersLibrary.Enums;
 
 public enum GameType {
-		Client,
-		Server,
-		Both,
+    Client,
+    Server,
+    Both,
 }

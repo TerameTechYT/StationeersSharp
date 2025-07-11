@@ -1,9 +1,7 @@
 ﻿namespace StationeersLibrary.Args;
 
 public class MenuPageEnabledArgs {
-		public string Page { get; private set; }
+    public string Page { get; private set; }
 
-		public MenuPageEnabledArgs(string page) {
-				this.Page = page;
-		}
+    public MenuPageEnabledArgs(string page) => this.Page = page;
 }

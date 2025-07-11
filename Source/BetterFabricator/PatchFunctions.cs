@@ -2,54 +2,54 @@
 
 [HarmonyPatch]
 public static class PatchFunctions {
-		private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
+    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
-		[UsedImplicitly]
-		[HarmonyPriority(Priority.Last)]
-		[HarmonyPatch(typeof(WorldManager), nameof(WorldManager.LoadXmlFileData))]
-		[HarmonyTranspiler]
-		public static IEnumerable<CodeInstruction> WorldManagerLoadXmlFileDataTranspiler(IEnumerable<CodeInstruction> instructions) {
-				try {
-						List<CodeInstruction> instructionsList = [.. instructions];
+    [UsedImplicitly]
+    [HarmonyPriority(Priority.Last)]
+    [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.LoadXmlFileData))]
+    [HarmonyTranspiler]
+    public static IEnumerable<CodeInstruction> WorldManagerLoadXmlFileDataTranspiler(IEnumerable<CodeInstruction> instructions) {
+        try {
+            List<CodeInstruction> instructionsList = [.. instructions];
 
-						// we want to override the original data with our own, so we find the field with the list of recipies
-						Type gameData = typeof(WorldManager.GameData);
-						FieldInfo fabricatorRecipes = gameData.GetField("FabricatorRecipes");
+            // we want to override the original data with our own, so we find the field with the list of recipies
+            Type gameData = typeof(WorldManager.GameData);
+            FieldInfo fabricatorRecipes = gameData.GetField("FabricatorRecipes");
 
-						// next we find our list to change it to
-						Type modData = typeof(ConfigData);
-						FieldInfo modFabricatorRecipes = modData.GetField("FabricatorRecipes");
+            // next we find our list to change it to
+            Type modData = typeof(ConfigData);
+            FieldInfo modFabricatorRecipes = modData.GetField("FabricatorRecipes");
 
-						instructionsList.Manipulator(
-								// we loop through our instructions until we find an instruction thast loads the original field
-								(instruction) => instruction.LoadsField(fabricatorRecipes),
+            instructionsList.Manipulator(
+                    // we loop through our instructions until we find an instruction thast loads the original field
+                    (instruction) => instruction.LoadsField(fabricatorRecipes),
 
-								// next we set the operand (or value) to our modified list
-								(instruction) => instruction.operand = modFabricatorRecipes
-						);
-						
-						// now obviously, we only want to populate the fabricator recipes once all other ones are loaded
-						// all of the foreach loops are wrapped in try {} finally {} blocks, so we will find the index of the last finally block
-						int endFinallyLastIndex = instructionsList.FindLastIndex((instruction) => instruction.OpcodeIs(OpCodes.Endfinally));
-						// insert our custom instructions directly after the last finally block
-						instructionsList.InsertRange(endFinallyLastIndex + 1, [
-								// insert instruction that will call our custom function after all game data for mod (or base) is loaded
-								CodeInstruction.Call(typeof(Functions), nameof(Functions.LoadFabricatorRecipes))
-						]);
+                    // next we set the operand (or value) to our modified list
+                    (instruction) => instruction.operand = modFabricatorRecipes
+            );
 
-						return instructionsList;
-				}
-				catch (Exception ex) {
-						MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+            // now obviously, we only want to populate the fabricator recipes once all other ones are loaded
+            // all of the foreach loops are wrapped in try {} finally {} blocks, so we will find the index of the last finally block
+            int endFinallyLastIndex = instructionsList.FindLastIndex((instruction) => instruction.OpcodeIs(OpCodes.Endfinally));
+            // insert our custom instructions directly after the last finally block
+            instructionsList.InsertRange(endFinallyLastIndex + 1, [
+                    // insert instruction that will call our custom function after all game data for mod (or base) is loaded
+                    CodeInstruction.Call(typeof(Functions), nameof(Functions.LoadFabricatorRecipes))
+            ]);
 
-						if (!_patches[currentMethod]) {
-								_patches[currentMethod] = true;
+            return instructionsList;
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-								Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
-								Plugin.Instance.LogException(ex);
-						}
-				}
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
 
-				return instructions;
-		}
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please Press F3 and type 'log' and report it to github.");
+                Plugin.Instance.LogException(ex);
+            }
+        }
+
+        return instructions;
+    }
 }

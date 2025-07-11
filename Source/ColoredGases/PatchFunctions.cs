@@ -6,47 +6,47 @@ namespace ColoredGases;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-		private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
+    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
 
-		[UsedImplicitly]
-		[HarmonyPatch(typeof(AtmosphericsManager), "Emit")]
-		[HarmonyPrefix]
-		public static bool AtmosphericsManagerEmitAirVisualizerParticles(List<Atmosphere> targetContainer, ParticleSystem emitter, Vector3 particleAtmosphereSpawnOffset, Predicate<Atmosphere> emitCondition, bool localSpace = false) {
-				try {
-						return ConfigData.EnableAirVisualizer && Functions.EmitAirParticles(targetContainer, emitter, particleAtmosphereSpawnOffset, emitCondition, localSpace);
-				}
-				catch (Exception ex) {
-						MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+    [UsedImplicitly]
+    [HarmonyPatch(typeof(AtmosphericsManager), "Emit")]
+    [HarmonyPrefix]
+    public static bool AtmosphericsManagerEmitAirVisualizerParticles(List<Atmosphere> targetContainer, ParticleSystem emitter, Vector3 particleAtmosphereSpawnOffset, Predicate<Atmosphere> emitCondition, bool localSpace = false) {
+        try {
+            return ConfigData.EnableAirVisualizer && Functions.EmitAirParticles(targetContainer, emitter, particleAtmosphereSpawnOffset, emitCondition, localSpace);
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-						if (!_patches[currentMethod]) {
-								_patches[currentMethod] = true;
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
 
-								Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-								Plugin.Instance.LogException(ex);
-						}
-				}
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
+            }
+        }
 
-				return true;
-		}
+        return true;
+    }
 
-		[UsedImplicitly]
-		[HarmonyPatch(typeof(AtmosphericFog), nameof(AtmosphericFog.EmitAtmosphericFogParticles))]
-		[HarmonyPrefix]
-		public static bool AtmosphericFogEmitAtmosphericFogParticles() {
-				try {
-						return ConfigData.EnableFogVisualizer && Functions.EmitFogParticles();
-				}
-				catch (Exception ex) {
-						MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
+    [UsedImplicitly]
+    [HarmonyPatch(typeof(AtmosphericFog), nameof(AtmosphericFog.EmitAtmosphericFogParticles))]
+    [HarmonyPrefix]
+    public static bool AtmosphericFogEmitAtmosphericFogParticles() {
+        try {
+            return ConfigData.EnableFogVisualizer && Functions.EmitFogParticles();
+        }
+        catch (Exception ex) {
+            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
 
-						if (!_patches[currentMethod]) {
-								_patches[currentMethod] = true;
+            if (!_patches[currentMethod]) {
+                _patches[currentMethod] = true;
 
-								Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-								Plugin.Instance.LogException(ex);
-						}
-				}
+                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
+                Plugin.Instance.LogException(ex);
+            }
+        }
 
-				return true;
-		}
+        return true;
+    }
 }

@@ -1,39 +1,39 @@
 ﻿namespace BetterInventory;
 
 public static class Functions {
-		public static void CustomSmartStow(ref Slot selectedSlot) {
-				Stackable selectedOccupant = selectedSlot.Get<Stackable>();
-				DynamicThing leftHandOccupant = InventoryManager.LeftHandSlot.Get();
-				DynamicThing rightHandOccupant = InventoryManager.RightHandSlot.Get();
+    public static void CustomSmartStow(ref Slot selectedSlot) {
+        Stackable selectedOccupant = selectedSlot.Get<Stackable>();
+        DynamicThing leftHandOccupant = InventoryManager.LeftHandSlot.Get();
+        DynamicThing rightHandOccupant = InventoryManager.RightHandSlot.Get();
 
-				if (leftHandOccupant != selectedOccupant && rightHandOccupant != selectedOccupant) {
-						return;
-				}
+        if (leftHandOccupant != selectedOccupant && rightHandOccupant != selectedOccupant) {
+            return;
+        }
 
-				Slot slotToFill = Functions.GetSlotToFill(selectedOccupant, selectedSlot.Type);
-		}
+        Slot slotToFill = Functions.GetSlotToFill(selectedOccupant, selectedSlot.Type);
+    }
 
-		public static Slot GetSlotToFill(Stackable stackable, Slot.Class slotType) {
-				if (stackable == null) {
-						return null;
-				}
+    public static Slot GetSlotToFill(Stackable stackable, Slot.Class slotType) {
+        if (stackable == null) {
+            return null;
+        }
 
-				foreach (Slot slot in InventoryManager.ParentHuman.Slots) {
-						if (slot.IsEmpty()) {
-								continue;
-						}
+        foreach (Slot slot in InventoryManager.ParentHuman.Slots) {
+            if (slot.IsEmpty()) {
+                continue;
+            }
 
-						Stackable slotOccupant = slot.Get<Stackable>();
+            Stackable slotOccupant = slot.Get<Stackable>();
 
-						int targetSpaceLeft = slotOccupant.MaxQuantity - slotOccupant.Quantity;
+            int targetSpaceLeft = slotOccupant.MaxQuantity - slotOccupant.Quantity;
 
-						if (slot.Type != slotType || slot.IsHandSlot || targetSpaceLeft < stackable.Quantity) {
-								continue;
-						}
+            if (slot.Type != slotType || slot.IsHandSlot || targetSpaceLeft < stackable.Quantity) {
+                continue;
+            }
 
-						return slot;
-				}
+            return slot;
+        }
 
-			 return null;
-		}
+        return null;
+    }
 }
