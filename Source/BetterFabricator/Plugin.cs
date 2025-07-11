@@ -9,7 +9,7 @@ public class Plugin : Mod {
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
-    protected override LaunchPadBooster.Mod InternalMod => new(this.ModGuid, this.ModVersionString);
+
 
     public override ModInfo Data => new ModInfo() {
         Name = "BetterFabricator",
