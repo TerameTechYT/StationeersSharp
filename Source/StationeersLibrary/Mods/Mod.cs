@@ -1,8 +1,10 @@
 ﻿#region
 
+using LaunchPadBooster;
+using LaunchPadBooster.Networking;
+using LaunchPadBooster.Utils;
 using StationeersLaunchPad;
 using System.Diagnostics;
-using InternalMod = LaunchPadBooster.Mod;
 using Logger = StationeersLaunchPad.Logger;
 
 #endregion
@@ -14,6 +16,11 @@ namespace StationeersLibrary.Mods;
 /// Inherits the <see cref="MonoBehaviour"/> class
 /// </summary>
 public abstract class Mod : MonoBehaviour {
+    /// <summary>
+    /// Instance for all mods
+    /// </summary>
+    public static readonly HashSet<Mod> AllMods = [];
+
     /// <summary>
     /// Should this mod initalize the logger?
     /// </summary>
@@ -68,17 +75,22 @@ public abstract class Mod : MonoBehaviour {
     /// <summary>
     /// Internal <see cref="LaunchPadBooster.Mod"/> instance.
     /// </summary>
-    internal InternalMod InternalMod { get; private set; }
+    protected LaunchPadBooster.Mod InternalMod { get; private set; }
 
     /// <summary>
     /// Internal <see cref="StationeersLaunchPad.LoadedMod"/> instance.
     /// </summary>
-    internal LoadedMod LoadedMod { get; private set; }
+    protected LoadedMod LoadedMod { get; private set; }
 
     /// <summary>
     /// This mods list of prefabs.
     /// </summary>
     public readonly List<GameObject> Prefabs = [];
+
+    /// <summary>
+    /// True if this mod has at least 1 prefab.
+    /// </summary>
+    public bool HasPrefabs => this.Prefabs.Count > 0;
 
     /// <summary>
     /// This mods ModInfo instance.
@@ -115,12 +127,16 @@ public abstract class Mod : MonoBehaviour {
     /// </summary>
     public GameType ModGameType => this.Data.GameType;
 
+    /// <summary>
+    /// Default constructor
+    /// </summary>
     protected Mod() {
-        ModLoader.TryGetStackTraceMod(new StackTrace(2), out LoadedMod mod);
-
-        if (mod != null) {
+        // Fetches the caller of this constructor, which should be the class that inherits this one.
+        if (ModLoader.TryGetStackTraceMod(new StackTrace(1), out LoadedMod mod)) {
             this.LoadedMod = mod;
-            UnityEngine.Debug.LogError("could not get loadedmod");
+        }
+        else {
+            UnityEngine.Debug.LogError("Could not get LoadedMod");
         }
     }
 
@@ -128,9 +144,17 @@ public abstract class Mod : MonoBehaviour {
     /// Internal <see cref="Awake"/> method.
     /// Called when <see cref="MonoBehaviour"/> is initalized
     /// </summary>
-    /// <exception cref="AlreadyLoadedException"></exception>
-    /// <exception cref="IncompatableGameTypeException"></exception>
-    private void Awake() {
+    private void Awake() => this.OnAwake();
+
+    /// <summary>
+    /// Called by <see cref="StationeersLaunchPad"/> with configuration and any prefabs.
+    /// </summary>
+    /// <param name="prefabs">Prefabs this mod should have</param>
+    /// <exception cref="AlreadyLoadedException">Thrown when an instance of this mod is already loaded</exception>
+    /// <exception cref="IncompatableGameTypeException">Thrown when this mod is loaded on a client that is incompatible</exception>
+    public void OnLoaded(List<GameObject> prefabs) {
+        this.Prefabs.AddRange(prefabs ?? []);
+
         if (Utilities.IsLoaded(this.ModGuid)) {
             throw new AlreadyLoadedException(this.Data);
         }
@@ -141,6 +165,7 @@ public abstract class Mod : MonoBehaviour {
 
         if (this.UseLogger) {
             this.Logger = Logger.Global.CreateChild(this.ModName);
+            this.DoLoggerMove();
         }
 
         if (this.UseConfig) {
@@ -149,6 +174,7 @@ public abstract class Mod : MonoBehaviour {
             };
             this.Config.SettingChanged += this.ConfigChanged;
             this.Config.ConfigReloaded += this.ConfigReloaded;
+            this.LoadedMod?.ConfigFiles?.Add(this.Config);
 
             this.DoLoadConfiguration();
         }
@@ -159,42 +185,36 @@ public abstract class Mod : MonoBehaviour {
             this.DoHarmonyPatch();
         }
 
+        this.InternalMod = new LaunchPadBooster.Mod(this.Data.Guid, this.Data.Version.ToString());
+        if (this.HasPrefabs) {
+            this.InternalMod.AddPrefabs(this.Prefabs.AsReadOnly());
+        }
+        if (this.VersionCheck != null) {
+            this.InternalMod.SetVersionCheck(this.VersionCheck);
+        }
+        if (this.ModGameType == GameType.Both) {
+            this.InternalMod.SetMultiplayerRequired();
+        }
+
         SceneManager.sceneLoaded += this.SceneLoaded;
         SceneManager.sceneUnloaded += this.SceneUnloaded;
         MainMenuWindowManager.OnPageEnabled += this.MenuPageEnabled;
-
-        this.OnAwake();
-    }
-
-    /// <summary>
-    /// Called by <see cref="StationeersLaunchPad"/> with configuration and any prefabs.
-    /// </summary>
-    /// <param name="prefabs"></param>
-    public void OnLoaded(List<GameObject> prefabs) {
-        this.Prefabs.AddRange(prefabs ?? []);
-
-        //this.InternalMod = new InternalMod(this.ModGuid, this.ModVersionString);
-        /*this.InternalMod.AddPrefabs(this.Prefabs.AsReadOnly());
-        this.InternalMod.SetVersionCheck(this.VersionCheck);
-        if (this.ModGameType == GameType.Both) {
-                this.InternalMod.SetMultiplayerRequired();
-        }*/
     }
 
     /// <summary>
     /// Internal <see cref="ConfigFile.SettingChanged"/> event connection.
     /// Called when user makes any change to configuration file.
     /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">SettingChangedEventArgs</param>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ConfigChanged(object sender, SettingChangedEventArgs e) => this.OnConfigChanged(sender as ConfigEntryBase, e);
 
     /// <summary>
     /// Internal <see cref="ConfigFile.ConfigReloaded"/> event connection.
     /// Called when configuration file is reloaded.
     /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">EventArgs</param>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ConfigReloaded(object sender, EventArgs e) => this.OnConfigReloaded();
 
     /// <summary>
@@ -216,6 +236,24 @@ public abstract class Mod : MonoBehaviour {
     private void FixedUpdate() => this.OnLateUpdate(Time.fixedDeltaTime);
 
     /// <summary>
+    /// Internal logger move function, moves the contents of SLP's logger into ours
+    /// </summary>
+    private void DoLoggerMove() {
+        // i know this is jank, but we dont really want to have 2 logger instances for the same mod
+        if (this.LoadedMod != null) {
+            var logger = this.LoadedMod.Logger;
+            var buffer = logger.Buffer;
+            for (int i = 0; i < buffer.Count; i++) {
+                LogLine line = buffer[i];
+
+                this.Logger.Buffer.Add(this.ModName, line.Message, line.Severity);
+            }
+            logger.Clear();
+            this.LoadedMod.Logger = this.Logger;
+        }
+    }
+
+    /// <summary>
     /// Internal <see cref="DoLoadConfiguration"/> method.
     /// Called when mod is ready to load configuration
     /// </summary>
@@ -233,38 +271,50 @@ public abstract class Mod : MonoBehaviour {
     /// </summary>
     private void DoHarmonyPatch() {
         bool success = true;
-        try {
-            if (this.AutoPatch) {
+        if (this.AutoPatch) {
+            try {
                 this.LogDebug("Harmony patching starting...");
                 this.Harmony.PatchAll(Assembly.GetExecutingAssembly());
             }
+            catch (Exception ex) {
+                this.LogException(ex);
+                this.LogError("Failed to patch harmony!");
+                success = false;
+            }
+            finally {
+                this.LogDebug("Harmony patching finished!");
+            }
         }
-        catch (Exception ex) {
-            this.LogException(ex);
-            this.LogError("Failed to patch harmony!");
-            success = false;
-        }
-        finally {
-            this.LogDebug("Harmony patching finished!");
-            this.OnHarmonyPatched(success);
-        }
+        this.OnHarmonyPatched(success);
     }
 
-    /* public PrefabSetup<T> RegisterPrefab<T>(string prefab = null) {
-               return this.InternalMod?.SetupPrefabs<T>(prefab);
-       }
+    /// <summary>
+    /// Registers a prefab.
+    /// </summary>
+    /// <typeparam name="T">The script for your prefab.</typeparam>
+    /// <param name="prefab">The name of your prefab.</param>
+    /// <returns>Prefab setup object.</returns>
+    public PrefabSetup<T> RegisterPrefab<T>(string prefab) where T : Thing => this.InternalMod?.SetupPrefabs<T>(prefab);
 
-       public void RegisterSaveDataType<T>() => this.InternalMod?.AddSaveDataType<T>();
+    /// <summary>
+    /// Registers a savedata type.
+    /// </summary>
+    /// <typeparam name="T">A thing savedata type.</typeparam>
+    public void RegisterSaveDataType<T>() where T : ThingSaveData => this.InternalMod?.AddSaveDataType<T>();
 
-       public void RegisterNetworkMessage<T>() where T : ModNetworkMessage<T>, new() => this.InternalMod?.RegisterNetworkMessage<T>();*/
+    /// <summary>
+    /// Registers a network message.
+    /// </summary>
+    /// <typeparam name="T">A network message type.</typeparam>
+    public void RegisterNetworkMessage<T>() where T : ModNetworkMessage<T>, new() => this.InternalMod?.RegisterNetworkMessage<T>();
 
     /// <summary>
     /// Internal <see cref="Mod.SceneLoaded"/> method.
     /// Called when a scene is loaded.
     /// </summary>
-    /// <param name="scene"></param>
-    /// <param name="loadSceneMode"></param>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <param name="scene">The scene being loaded</param>
+    /// <param name="loadSceneMode">The scenes loading mode</param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private void SceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
         SceneLoadArgs args = new SceneLoadArgs(scene, loadSceneMode);
 
@@ -272,7 +322,7 @@ public abstract class Mod : MonoBehaviour {
             Constants.SPLASH_SCENE_NAME => this.OnSplashLoaded(args),
             Constants.BASE_SCENE_NAME => this.OnBaseLoaded(args),
             Constants.CHARACTER_CUSTOMIZATION_SCENE_NAME => this.OnCharacterCustomizationLoaded(args),
-            _ => throw new NotImplementedException($"Unknown Scene Loaded, name: {scene.name}"),
+            _ => throw new ArgumentOutOfRangeException($"Unknown Scene Loaded, name: {scene.name}"),
         };
 
         this.OnSceneLoaded(args).Forget();
@@ -283,8 +333,8 @@ public abstract class Mod : MonoBehaviour {
     /// Internal <see cref="Mod.SceneUnloaded"/> method,
     /// Called when a scene is unloaded.
     /// </summary>
-    /// <param name="scene"></param>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <param name="scene">The scene being unloaded</param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private void SceneUnloaded(Scene scene) {
         SceneLoadArgs args = new SceneLoadArgs(scene);
 
@@ -292,7 +342,7 @@ public abstract class Mod : MonoBehaviour {
             Constants.SPLASH_SCENE_NAME => this.OnSplashUnloaded(args),
             Constants.BASE_SCENE_NAME => this.OnBaseUnloaded(args),
             Constants.CHARACTER_CUSTOMIZATION_SCENE_NAME => this.OnCharacterCustomizationUnloaded(args),
-            _ => throw new NotImplementedException($"Unknown Scene Unloaded, name: {scene.name}"),
+            _ => throw new ArgumentOutOfRangeException($"Unknown Scene Unloaded, name: {scene.name}"),
         };
 
         this.OnSceneLoaded(args).Forget();
@@ -303,8 +353,8 @@ public abstract class Mod : MonoBehaviour {
     /// Internal <see cref="Mod.MenuPageEnabled"/> method.
     /// Called when a main menu page is enabled.
     /// </summary>
-    /// <param name="page"></param>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <param name="page">The oage being enabled</param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private void MenuPageEnabled(string page) {
         MenuPageEnabledArgs args = new MenuPageEnabledArgs(page);
         UniTask task = page switch {
@@ -316,7 +366,7 @@ public abstract class Mod : MonoBehaviour {
             Constants.TUTORIALS_PAGE => this.OnTutorialsPageEnabled(args),
             Constants.WORKSHOP_PAGE => this.OnWorkshopPageEnabled(args),
             Constants.SETTINGS_PAGE => this.OnSettingsPageEnabled(args),
-            _ => throw new NotImplementedException($"Unknown Page Enabled, name: {page}"),
+            _ => throw new ArgumentOutOfRangeException($"Unknown Page Enabled, name: {page}"),
         };
 
         this.OnMenuPageEnabled(args).Forget();
@@ -525,9 +575,9 @@ public abstract class Mod : MonoBehaviour {
     /// </summary>
     /// <param name="message">string</param>
     public void LogDebug(string message) {
-#if DEBUG
-				this.Log(message, LogSeverity.Debug);
-#endif
+        if (LaunchPadConfig.Debug) {
+            this.Log(message, LogSeverity.Debug);
+        }
     }
 
     /// <summary>
