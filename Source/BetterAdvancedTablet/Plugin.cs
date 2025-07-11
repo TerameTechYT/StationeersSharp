@@ -20,7 +20,7 @@ public class Plugin : Mod {
         Guid = "betteradvancedtablet",
         Version = new Version(1, 1, 0),
         WorkshopId = 0ul,
-        GameType = GameType.Client | GameType.Server,
+        GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;

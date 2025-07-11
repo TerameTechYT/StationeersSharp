@@ -25,7 +25,7 @@ public class Plugin : Mod {
 
     public Plugin() => Plugin.Instance = this;
 
-    public override UniTask OnMainMenuPageEnabled(MainMenuPageEnabledArgs args) {
+    public override UniTask OnMainMenuPageEnabled(MenuPageEnabledArgs args) {
         Plugin.SEGIGameObject = GameObject.Find("SEGIManager") ?? new GameObject("SEGIManager");
         Plugin.SEGIGameObject.AddComponent<SEGIManager>();
         GameObject.DontDestroyOnLoad(SEGIGameObject);

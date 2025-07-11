@@ -18,7 +18,7 @@ public class Plugin : Mod {
         Guid = "betterwastetank",
         Version = new Version(1, 6, 0),
         WorkshopId = 3071913936ul,
-        GameType = GameType.Client | GameType.Server,
+        GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;

@@ -18,7 +18,7 @@ public class Plugin : Mod {
         Guid = "betterpowermod",
         Version = new Version(1, 4, 0),
         WorkshopId = 3234916147ul,
-        GameType = GameType.Client | GameType.Server,
+        GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;

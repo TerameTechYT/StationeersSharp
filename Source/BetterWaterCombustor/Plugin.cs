@@ -18,7 +18,7 @@ public class Plugin : Mod {
         Guid = "betterwatercombustor",
         Version = new Version(1, 2, 0),
         WorkshopId = 3404201609ul,
-        GameType = GameType.Client | GameType.Server,
+        GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;
