@@ -1,11 +1,18 @@
 ﻿#region
 
+using System.Linq.Expressions;
+using LaunchPadBooster.Utils;
+using InternalMod = LaunchPadBooster.Mod;
+
 #endregion
 
 namespace StationeersLibrary;
 
 public static class Utilities {
-    public static bool IsLoaded(string guid) => Chainloader.PluginInfos.ContainsKey(guid) || Harmony.HasAnyPatches(guid);
+    public static bool IsLoaded(string guid) =>
+        Harmony.HasAnyPatches(guid) ||
+        InternalMod.AllMods.Find((mod) => mod.ID.Name == guid) != null ||
+        Chainloader.PluginInfos.ContainsKey(guid);
 
     public static KeyCode GetConsoleKeyCode() => KeyManager.AllKeys.Find((key) => key.Name == "ToggleConsole").Key;
 
@@ -57,4 +64,120 @@ public static class Utilities {
         EnergyUnit.Calorie => Constants.CALORIE_SYMBOL,
         _ => Constants.JOULE_SYMBOL,
     };
+}
+
+public static class ReflectionUtilities {
+    // Expressive
+
+    public static FieldInfo Field<T>(Expression<Func<T>> expression) =>
+        ReflectionUtils.Field<T>(expression);
+
+    public static PropertyInfo Property<T>(Expression<Func<T>> expression) =>
+        (expression?.Body as MemberExpression)?.Member as PropertyInfo;
+    public static MethodInfo PropertyGetter<T>(Expression<Func<T>> expression) =>
+        ReflectionUtils.PropertyGetter<T>(expression);
+    public static MethodInfo PropertySetter(Expression<Action> action) =>
+        ReflectionUtils.PropertySetter(action);
+
+    public static ConstructorInfo Constructor<T>(Expression<Func<T>> expression) =>
+        ReflectionUtils.Constructor<T>(expression);
+
+    public static MethodInfo Operator<T>(Expression<Func<T>> expression) =>
+        ReflectionUtils.Operator<T>(expression);
+
+    public static MethodInfo Method<T>(Expression<Func<T>> expression) =>
+        ReflectionUtils.Method<T>(expression);
+    public static MethodInfo Method(Expression<Action> action) =>
+        ReflectionUtils.Method(action);
+    public static MethodInfo Method(MethodCallExpression call) =>
+        ReflectionUtils.Method(call);
+
+    public static MethodInfo VirtualMethod(MethodInfo method, Type type) =>
+        ReflectionUtils.VirtualMethodIn(method, type);
+
+    public static MethodInfo AsyncMethod<T>(Expression<Func<T>> expression) =>
+        ReflectionUtils.AsyncMethod<T>(expression);
+
+    public static T CreateDelegate<T>(this MethodInfo method) where T : Delegate =>
+        ReflectionUtils.CreateDelegate<T>(method);
+
+    // Direct
+
+    public static MemberInfo[] Member(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+        type?.GetMember(name, bindingFlags);
+
+    public static FieldInfo Field(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+        type?.GetField(name, bindingFlags);
+
+    public static PropertyInfo Property(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+        type?.GetProperty(name, bindingFlags);
+
+    public static MethodInfo PropertyGetter(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+        Property(type, name, bindingFlags)?.GetGetMethod(bindingFlags.HasFlag(BindingFlags.NonPublic));
+    public static MethodInfo PropertySetter(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+        Property(type, name, bindingFlags)?.GetSetMethod(bindingFlags.HasFlag(BindingFlags.NonPublic));
+    
+    public static object PropertyGetValue(Type type, string name, object obj = null, object[] index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+        Property(type, name, bindingFlags)?.GetValue(obj, index);
+    public static T PropertyGetValue<T>(Type type, string name, object obj = null, object[] index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+        (T) PropertyGetValue(type, name, obj, index, bindingFlags);
+
+    public static void PropertySetValue(Type type, string name, object value, object obj = null, object[] index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+        Property(type, name, bindingFlags)?.SetValue(obj, value, index);
+    public static void PropertySetValue<T>(Type type, string name, T value, object obj = null, object[] index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+        Property(type, name, bindingFlags)?.SetValue(obj, value, index);
+
+    public static MethodInfo Method(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+        type?.GetMethod(name, bindingFlags);
+
+    public const string ASYNC_METHOD = "MoveNext";
+    public static MethodInfo AsyncMethod(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) {
+        AsyncStateMachineAttribute attribute = Attribute<AsyncStateMachineAttribute>(type);
+        InterfaceMapping? mapping = InterfaceMapping(attribute.StateMachineType, typeof(AsyncStateMachineAttribute));
+        MethodInfo moveNext = Method(typeof(IAsyncStateMachine), ASYNC_METHOD, bindingFlags);
+
+        foreach (MethodInfo method in mapping?.TargetMethods) {
+            if (method == moveNext) {
+                return method;
+            }
+        }
+
+        throw new TypeLoadException("Could not find async method implementation");
+    }
+
+    public static ConstructorInfo Constructor(Type type, BindingFlags bindingFlags = BindingFlags.Default, Binder binder = null, Type[] types = null, ParameterModifier[] modifiers = null) =>
+        type?.GetConstructor(bindingFlags, binder, types, modifiers);
+
+    public static EventInfo Event(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+        type?.GetEvent(name, bindingFlags);
+
+    public static T Attribute<T>(Type type) where T : Attribute =>
+        type?.GetCustomAttribute<T>();
+    public static Attribute Attribute(Type type, Type attributeType) =>
+        type?.GetCustomAttribute(attributeType);
+
+    public static Type Interface(Type type, string name) =>
+        type?.GetInterface(name);
+    public static InterfaceMapping? InterfaceMapping(Type type, Type interfaceType) =>
+        type?.GetInterfaceMap(interfaceType);
+
+    // Typed Utils
+
+    public static bool IsPrivate(Type type) => type?.IsNotPublic ?? false;
+    public static bool IsInternal(Type type) => type?.IsVisible ?? false;
+    public static bool IsProtected(FieldInfo type) => type?.IsFamily ?? false;
+    public static bool IsProtected(MethodInfo type) => type?.IsFamily ?? false;
+    public static bool IsPublic(Type type) => type?.IsPublic ?? false;
+
+    public static bool IsAbstract(Type type) => type?.IsAbstract ?? false;
+    public static bool IsSealed(Type type) => type?.IsSealed ?? false;
+    public static bool IsStatic(MethodInfo type) => type?.IsStatic ?? false;
+    public static bool IsStatic(FieldInfo type) => type?.IsStatic ?? false;
+
+    public static bool IsClass(Type type) => type?.IsClass ?? false;
+    public static bool IsSubclass(Type type, Type subClass) => type?.IsSubclassOf(subClass) ?? false;
+    public static bool IsInterface(Type type) => type?.IsInterface ?? false;
+
+    public static bool IsInstance(Type type, object obj) => type?.IsInstanceOfType(obj) ?? false;
+    public static bool IsInstance<T>(Type type, T obj) => type?.IsInstanceOfType(obj) ?? false;
 }
