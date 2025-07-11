@@ -6,7 +6,7 @@
 		<RootNamespace>$(ModName)</RootNamespace>
 
 		<AnalysisLevel>latest-all</AnalysisLevel>
-		<LangVersion>latest</LangVersion>
+		<LangVersion>preview</LangVersion>
 		<ErrorReport>none</ErrorReport>
 
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
