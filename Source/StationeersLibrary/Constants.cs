@@ -13,7 +13,7 @@ public static class Constants {
 
     public static bool DEBUG_MODE => ConfigData.DebugMode;
 
-    public static GameType GameType = GameManager.IsBatchMode ? GameType.Server : GameType.Client;
+    public static GameType GameType => GameManager.IsBatchMode ? GameType.Server : GameType.Client;
 
     // REPO
     public const string GITHUB_URL = "https://github.com";
@@ -33,7 +33,14 @@ public static class Constants {
     public static string MY_GAMES_FOLDER => Path.Combine(DOCUMENTS_FOLDER, "My Games");
     public static string STATIONEERS_DOCUMENTS_FOLDER => Path.Combine(MY_GAMES_FOLDER, "Stationeers");
 
-    public static string HARMONY_LOG_PATH => Path.Combine(Paths.BepInExRootPath, "HarmonyOutput.log");
+    public static string STATIONEERS_FOLDER => Paths.GameRootPath;
+
+    public static string BIE_ROOT_FOLDER => Paths.BepInExRootPath;
+    public static string BIE_CONFIG_FOLDER => Paths.BepInExConfigPath;
+    public static string BIE_PLUGINS_FOLDER => Paths.PluginPath;
+    public static string BIE_PATCHERS_FOLDER => Paths.PatcherPluginPath;
+
+    public static string HARMONY_LOG_PATH => Path.Combine(BIE_ROOT_FOLDER, "HarmonyOutput.log");
 
     // FILE NAMES
     public const string CLIENT_EXECUTABLE_NAME = "rocketstation.exe";
