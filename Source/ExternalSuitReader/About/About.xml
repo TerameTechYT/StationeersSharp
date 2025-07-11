@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>External Suit Reader [StationeersLaunchPad]</Name>
-  <Author>vinus</Author>
-  <Version>1.0.0</Version>
-  <Description>
-    [h1]External Suit Reader[/h1]
-    [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
-    See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
+	<Name>External Suit Reader [StationeersLaunchPad]</Name>
+	<Author>vinus</Author>
+	<Version>1.0.0</Version>
+	<Description>
+		[h1]External Suit Reader[/h1]
+		[b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
+		See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
 
-    Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.
-    There are also many new things able to read and write to.
+		Makes the advanced suit have the ability to read the external atmosphere of which the suit is in.
+		There are also many new things able to read and write to.
 
-    Reading gas ratios is shown in the mod thumbnail.
+		Reading gas ratios is shown in the mod thumbnail.
 
-    [b]TotalMolesOutput[/b]: reads TotalMoles of external atmosphere.
-    [b]TargetPrefabHash[/b]: reads the PrefabHash of the object your looking at.
-    [b]TargetX, TargetY, TargetZ[/b]: reads the position of the object your looking at.
-    [b]Time[/b]: reads the current day counter.
-    [b]Charge[/b]: reads the battery charge ratio.
+		[b]TotalMolesOutput[/b]: reads TotalMoles of external atmosphere.
+		[b]TargetPrefabHash[/b]: reads the PrefabHash of the object your looking at.
+		[b]TargetX, TargetY, TargetZ[/b]: reads the position of the object your looking at.
+		[b]Time[/b]: reads the current day counter.
+		[b]Charge[/b]: reads the battery charge ratio.
 
-    you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-    https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
-  </Description>
-  <WorkshopHandle>3071985478</WorkshopHandle>
-  <InGameDescription>
-    <![CDATA[<size="30"><color=#ffa500> External Suit Reader </color></size>
+		you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+		https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+	</Description>
+	<WorkshopHandle>3071985478</WorkshopHandle>
+	<InGameDescription>
+		<![CDATA[<size="30"><color=#ffa500> External Suit Reader </color></size>
 <b>WARNING:</b> <color=#ff0000>This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.</color>
 See: <b><u><color=#00ccff>https://github.com/StationeersLaunchPad/StationeersLaunchPad</color></u></b>.
 ]]>
-  </InGameDescription>
-  <Tags>
-    <Tag>Mod</Tag>
-    <Tag>BepInEx</Tag>
-    <Tag>StationeersLaunchPad</Tag>
-  </Tags>
+	</InGameDescription>
+	<Tags>
+		<Tag>Mod</Tag>
+		<Tag>BepInEx</Tag>
+		<Tag>StationeersLaunchPad</Tag>
+	</Tags>
 
-  <Dependencies>
-    <Mod>
-      <Id>3389894703</Id>
-    </Mod>
-  </Dependencies>
+	<Dependencies>
+		<Mod>
+			<Id>3389894703</Id>
+		</Mod>
+	</Dependencies>
 
-  <LoadBefore>
-    <Mod>
-      <Id>3389894703</Id>
-    </Mod>
-  </LoadBefore>
+	<LoadBefore>
+		<Mod>
+			<Id>3389894703</Id>
+		</Mod>
+	</LoadBefore>
 
-  <LoadAfter>
-  </LoadAfter>
+	<LoadAfter>
+	</LoadAfter>
 </ModMetadata>

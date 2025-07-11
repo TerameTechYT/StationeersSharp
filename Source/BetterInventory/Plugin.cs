@@ -7,26 +7,26 @@ using MainMenuUI = Assets.Scripts.UI.MainMenu;
 namespace BetterInventory;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+		public static Plugin Instance { get; private set; }
 
-    public override bool UseConfig => true;
-    public override bool UseHarmony => true;
+		public override bool UseConfig => true;
+		public override bool UseHarmony => true;
 
-    public override ModInfo Data => new ModInfo() {
-        Name = "BetterInventory",
-        Guid = "betterinventory",
-        Version = new Version(1, 2, 0),
-        WorkshopId = 0ul,
-        GameType = GameType.Client,
-    };
+		public override ModInfo Data => new ModInfo() {
+				Name = "BetterInventory",
+				Guid = "betterinventory",
+				Version = new Version(1, 2, 0),
+				WorkshopId = 0ul,
+				GameType = GameType.Client,
+		};
 
-    public Plugin() => Plugin.Instance = this;
+		public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+		public override void OnAwake() { }
 }
 
 internal struct Data {
-    public static ControlsGroup ControlsGroup = new(Plugin.Instance.ModName);
-    public static List<KeyItem> ControlKeys => [
-    ];
+		public static ControlsGroup ControlsGroup = new(Plugin.Instance.ModName);
+		public static List<KeyItem> ControlKeys => [
+		];
 }

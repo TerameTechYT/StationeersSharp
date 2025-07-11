@@ -5,7 +5,7 @@
 namespace StationeersLibrary.Enums;
 
 public enum TemperatureUnit {
-    Kelvin,
-    Celcius,
-    Fahrenheit,
+		Kelvin,
+		Celcius,
+		Fahrenheit,
 }

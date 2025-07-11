@@ -1,359 +1,359 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <!-- BepInEx DLL's -->
-    <Reference Include="BepInEx">
-      <HintPath>$(BIECoreDirectory)\BepInEx.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="BepInEx.Preloader">
-      <HintPath>$(BIECoreDirectory)\BepInEx.Preloader.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="BepInEx.Harmony">
-      <HintPath>$(BIECoreDirectory)\BepInEx.Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>    
-    
-    <!-- Harmony DLL's -->
-    <Reference Include="0Harmony">
-      <HintPath>$(BIECoreDirectory)\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+	<ItemGroup>
+		<!-- BepInEx DLL's -->
+		<Reference Include="BepInEx">
+			<HintPath>$(BIECoreDirectory)\BepInEx.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="BepInEx.Preloader">
+			<HintPath>$(BIECoreDirectory)\BepInEx.Preloader.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="BepInEx.Harmony">
+			<HintPath>$(BIECoreDirectory)\BepInEx.Harmony.dll</HintPath>
+			<Private>False</Private>
+		</Reference>		
+		
+		<!-- Harmony DLL's -->
+		<Reference Include="0Harmony">
+			<HintPath>$(BIECoreDirectory)\0Harmony.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 
-    <!-- StationeersLaunchPad DLL's -->
-    <Reference Include="StationeersLaunchPad">
-      <HintPath>$(StationeersLaunchPadDirectory)\StationeersLaunchPad.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-      
-    <Reference Include="LaunchPadBooster">
-      <HintPath>$(StationeersLaunchPadDirectory)\LaunchPadBooster.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+		<!-- StationeersLaunchPad DLL's -->
+		<Reference Include="StationeersLaunchPad">
+			<HintPath>$(StationeersLaunchPadDirectory)\StationeersLaunchPad.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+			
+		<Reference Include="LaunchPadBooster">
+			<HintPath>$(StationeersLaunchPadDirectory)\LaunchPadBooster.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 
-    <!-- Mono DLL's -->
-    <Reference Include="Mono.Cecil">
-      <HintPath>$(BIECoreDirectory)\Mono.Cecil.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb">
-      <HintPath>$(BIECoreDirectory)\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb">
-      <HintPath>$(BIECoreDirectory)\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks">
-      <HintPath>$(BIECoreDirectory)\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+		<!-- Mono DLL's -->
+		<Reference Include="Mono.Cecil">
+			<HintPath>$(BIECoreDirectory)\Mono.Cecil.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Mono.Cecil.Mdb">
+			<HintPath>$(BIECoreDirectory)\Mono.Cecil.Mdb.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Mono.Cecil.Pdb">
+			<HintPath>$(BIECoreDirectory)\Mono.Cecil.Pdb.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Mono.Cecil.Rocks">
+			<HintPath>$(BIECoreDirectory)\Mono.Cecil.Rocks.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 
-    <!-- Game DLL's -->
-    <Reference Include="Assembly-CSharp">
-      <HintPath>$(StationeersManagedDirectory)\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>$(StationeersManagedDirectory)\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Facepunch.Steamworks.Win64">
-      <HintPath>$(StationeersManagedDirectory)\Facepunch.Steamworks.Win64.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>$(StationeersManagedDirectory)\DOTween.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-
-
-    <!-- UniTask DLL's -->
-    <Reference Include="UniTask">
-      <HintPath>$(StationeersManagedDirectory)\UniTask.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UniTask.Addressables">
-      <HintPath>$(StationeersManagedDirectory)\UniTask.Addressables.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UniTask.DOTween">
-      <HintPath>$(StationeersManagedDirectory)\UniTask.DOTween.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UniTask.Linq">
-      <HintPath>$(StationeersManagedDirectory)\UniTask.Linq.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UniTask.TextMeshPro">
-      <HintPath>$(StationeersManagedDirectory)\UniTask.TextMeshPro.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-
-    <!-- ImGui DLL's -->
-    <Reference Include="RG.ImGui">
-      <HintPath>$(StationeersManagedDirectory)\RG.ImGui.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="RG.ImGui.Unity">
-      <HintPath>$(StationeersManagedDirectory)\RG.ImGui.Unity.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+		<!-- Game DLL's -->
+		<Reference Include="Assembly-CSharp">
+			<HintPath>$(StationeersManagedDirectory)\Assembly-CSharp.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Assembly-CSharp-firstpass">
+			<HintPath>$(StationeersManagedDirectory)\Assembly-CSharp-firstpass.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Facepunch.Steamworks.Win64">
+			<HintPath>$(StationeersManagedDirectory)\Facepunch.Steamworks.Win64.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DOTween">
+			<HintPath>$(StationeersManagedDirectory)\DOTween.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 
 
-    <!-- Unity DLL's -->
-    <Reference Include="Unity.Mathematics">
-      <HintPath>$(StationeersManagedDirectory)\Unity.Mathematics.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>$(StationeersManagedDirectory)\Unity.TextMeshPro.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+		<!-- UniTask DLL's -->
+		<Reference Include="UniTask">
+			<HintPath>$(StationeersManagedDirectory)\UniTask.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UniTask.Addressables">
+			<HintPath>$(StationeersManagedDirectory)\UniTask.Addressables.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UniTask.DOTween">
+			<HintPath>$(StationeersManagedDirectory)\UniTask.DOTween.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UniTask.Linq">
+			<HintPath>$(StationeersManagedDirectory)\UniTask.Linq.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UniTask.TextMeshPro">
+			<HintPath>$(StationeersManagedDirectory)\UniTask.TextMeshPro.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 
-    <Reference Include="UnityEngine.AccessibilityModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.AccessibilityModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AIModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.AIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AndroidJNIModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.AndroidJNIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.AnimationModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ARModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.ARModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.AssetBundleModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AudioModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.AudioModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ClothModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.ClothModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ClusterInputModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.ClusterInputModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ClusterRendererModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.ClusterRendererModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ContentLoadModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.ContentLoadModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CrashReportingModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.CrashReportingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.DirectorModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.DirectorModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.DSPGraphModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.DSPGraphModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.GameCenterModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.GameCenterModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.GIModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.GIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.GridModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.GridModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.HotReloadModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.HotReloadModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.ImageConversionModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.IMGUIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.InputLegacyModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.InputModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.InputModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.JSONSerializeModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.LocalizationModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.LocalizationModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.NVIDIAModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.NVIDIAModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.ParticleSystemModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.PerformanceReportingModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.PerformanceReportingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.Physics2DModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.Physics2DModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.PhysicsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ProfilerModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.ProfilerModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.PropertiesModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.PropertiesModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ScreenCaptureModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.ScreenCaptureModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SharedInternalsModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.SharedInternalsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SpriteMaskModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.SpriteMaskModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SpriteShapeModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.SpriteShapeModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.StreamingModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.StreamingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SubstanceModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.SubstanceModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SubsystemsModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.SubsystemsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.TerrainModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainPhysicsModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.TerrainPhysicsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextCoreFontEngineModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextCoreTextEngineModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.TextRenderingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.TilemapModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TLSModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.TLSModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.UIElementsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UIModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.UIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.UnityWebRequestModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UmbraModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.UmbraModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VehiclesModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.VehiclesModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VFXModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.VFXModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VideoModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.VideoModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VirtualTexturingModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.VirtualTexturingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VRModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.VRModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.WindModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.WindModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.XRModule">
-      <HintPath>$(StationeersManagedDirectory)\UnityEngine.XRModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
+		<!-- ImGui DLL's -->
+		<Reference Include="RG.ImGui">
+			<HintPath>$(StationeersManagedDirectory)\RG.ImGui.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RG.ImGui.Unity">
+			<HintPath>$(StationeersManagedDirectory)\RG.ImGui.Unity.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+
+
+		<!-- Unity DLL's -->
+		<Reference Include="Unity.Mathematics">
+			<HintPath>$(StationeersManagedDirectory)\Unity.Mathematics.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Unity.TextMeshPro">
+			<HintPath>$(StationeersManagedDirectory)\Unity.TextMeshPro.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+
+		<Reference Include="UnityEngine.AccessibilityModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.AccessibilityModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AIModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.AIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AndroidJNIModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.AndroidJNIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AnimationModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.AnimationModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ARModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.ARModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AssetBundleModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.AssetBundleModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AudioModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.AudioModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ClothModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.ClothModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ClusterInputModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.ClusterInputModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ClusterRendererModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.ClusterRendererModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ContentLoadModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.ContentLoadModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.CoreModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CrashReportingModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.CrashReportingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.DirectorModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.DirectorModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.DSPGraphModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.DSPGraphModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.GameCenterModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.GameCenterModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.GIModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.GIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.GridModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.GridModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.HotReloadModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.HotReloadModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ImageConversionModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.ImageConversionModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.IMGUIModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.IMGUIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.InputLegacyModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.InputModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.InputModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.JSONSerializeModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.JSONSerializeModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.LocalizationModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.LocalizationModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.NVIDIAModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.NVIDIAModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ParticleSystemModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.ParticleSystemModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.PerformanceReportingModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.PerformanceReportingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.Physics2DModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.Physics2DModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.PhysicsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ProfilerModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.ProfilerModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.PropertiesModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.PropertiesModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ScreenCaptureModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.ScreenCaptureModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SharedInternalsModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.SharedInternalsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SpriteMaskModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.SpriteMaskModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SpriteShapeModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.SpriteShapeModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.StreamingModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.StreamingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SubstanceModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.SubstanceModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SubsystemsModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.SubsystemsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TerrainModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.TerrainModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TerrainPhysicsModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreFontEngineModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreTextEngineModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TextRenderingModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.TextRenderingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TilemapModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.TilemapModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TLSModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.TLSModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.UI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UIElementsModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.UIElementsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.UIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.UnityWebRequestModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UmbraModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.UmbraModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VehiclesModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.VehiclesModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VFXModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.VFXModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VideoModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.VideoModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VirtualTexturingModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.VirtualTexturingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VRModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.VRModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.WindModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.WindModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.XRModule">
+			<HintPath>$(StationeersManagedDirectory)\UnityEngine.XRModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
 </Project>
