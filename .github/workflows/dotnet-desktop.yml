@@ -62,7 +62,7 @@ jobs:
         run: |
           msbuild StationeersSharp.sln `
             /p:Configuration=Publish `
-            /p:Platform="x64"
+            /p:Platform="x64" `
             /restore
 
       - name: Upload  Artifact
