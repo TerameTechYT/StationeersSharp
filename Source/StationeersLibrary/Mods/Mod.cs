@@ -4,8 +4,11 @@ using BepInEx.Harmony;
 using LaunchPadBooster;
 using LaunchPadBooster.Networking;
 using LaunchPadBooster.Utils;
+using RootMotion.Demos;
 using StationeersLaunchPad;
+using System;
 using System.Diagnostics;
+using UnityEngine;
 using Logger = StationeersLaunchPad.Logger;
 
 #endregion
@@ -20,7 +23,7 @@ public abstract class Mod : MonoBehaviour {
     /// <summary>
     /// Instance for all mods
     /// </summary>
-    public static readonly HashSet<Mod> AllMods = [];
+    public static readonly List<Mod> AllMods = [];
 
     /// <summary>
     /// Should this mod initalize the logger?
@@ -129,19 +132,15 @@ public abstract class Mod : MonoBehaviour {
     public GameType ModGameType => this.Data.GameType;
 
     /// <summary>
-    /// 
-    /// </summary>
-    protected List<Type> PatchClasses { get; private set; }
-
-    /// <summary>
     /// Default constructor
     /// </summary>
     protected Mod() {
-        AllMods.Add(this);
-
         // Fetches the caller of this constructor, which should be the class that inherits this one.
         if (ModLoader.TryGetStackTraceMod(new StackTrace(1), out LoadedMod mod)) {
             this.LoadedMod = mod;
+            if (this.UseLogger) {
+                this.Logger = this.LoadedMod.Logger;
+            }
         }
         else {
             UnityEngine.Debug.LogError("Could not get LoadedMod");
@@ -158,22 +157,21 @@ public abstract class Mod : MonoBehaviour {
     /// Called by <see cref="StationeersLaunchPad"/> with configuration and any prefabs.
     /// </summary>
     /// <param name="prefabs">Prefabs this mod should have</param>
-    /// <exception cref="AlreadyLoadedException">Thrown when an instance of this mod is already loaded</exception>
-    /// <exception cref="IncompatableGameTypeException">Thrown when this mod is loaded on a client that is incompatible</exception>
     public void OnLoaded(List<GameObject> prefabs) {
-        this.Prefabs.AddRange(prefabs ?? []);
+        if (this.UseLogger && this.Logger == null) {
+            this.Logger = Logger.Global.CreateChild(this.ModName);
+        }
 
         if (Utilities.IsLoaded(this.ModGuid)) {
-            throw new AlreadyLoadedException(this.Data);
+            this.LogError($"Mod {this.ModName} ({this.ModGuid}) - {this.ModVersion} has already been loaded!");
+            LaunchPadConfig.AutoLoad = false;
+            return;
         }
 
         if (!this.Data.IsGameCompatible()) {
-            throw new IncompatableGameTypeException(Constants.GameType, this.ModGameType);
-        }
-
-        if (this.UseLogger) {
-            this.Logger = Logger.Global.CreateChild(this.ModName);
-            this.DoLoggerMove();
+            this.LogError($"Mod cannot be run on {this.ModGameType}, requires {Constants.GameType}");
+            LaunchPadConfig.AutoLoad = false;
+            return;
         }
 
         if (this.UseConfig) {
@@ -199,6 +197,8 @@ public abstract class Mod : MonoBehaviour {
             this.DoHarmonyPatch();
         }
 
+        this.Prefabs.AddRange(prefabs ?? []);
+
         this.InternalMod = new LaunchPadBooster.Mod(this.Data.Guid, this.Data.Version.ToString());
         if (this.HasPrefabs) {
             this.InternalMod.AddPrefabs(this.Prefabs.AsReadOnly());
@@ -213,6 +213,8 @@ public abstract class Mod : MonoBehaviour {
         SceneManager.sceneLoaded += this.SceneLoaded;
         SceneManager.sceneUnloaded += this.SceneUnloaded;
         MainMenuWindowManager.OnPageEnabled += this.MenuPageEnabled;
+
+        AllMods.Add(this);
     }
 
     /// <summary>
@@ -248,24 +250,6 @@ public abstract class Mod : MonoBehaviour {
     /// Called on a fixed framerate frames.
     /// </summary>
     private void FixedUpdate() => this.OnLateUpdate(Time.fixedDeltaTime);
-
-    /// <summary>
-    /// Internal logger move function, moves the contents of SLP's logger into ours
-    /// </summary>
-    private void DoLoggerMove() {
-        // i know this is jank, but we dont really want to have 2 logger instances for the same mod
-        if (this.LoadedMod != null) {
-            var logger = this.LoadedMod.Logger;
-            var buffer = logger.Buffer;
-            for (int i = 0; i < buffer.Count; i++) {
-                LogLine line = buffer[i];
-
-                this.Logger.Buffer.Add(this.ModName, line.Message, line.Severity);
-            }
-            logger.Clear();
-            this.LoadedMod.Logger = this.Logger;
-        }
-    }
 
     /// <summary>
     /// Internal <see cref="DoLoadConfiguration"/> method.
@@ -307,10 +291,6 @@ public abstract class Mod : MonoBehaviour {
         }
         this.OnHarmonyPatched(success);
     }
-
-    public void RegisterPatchClass(Type type) => this.PatchClasses.Add(type);
-
-    public void RegisterPatchClass<T>() => this.RegisterPatchClass(typeof(T));
 
     /// <summary>
     /// Registers a prefab.
@@ -578,6 +558,24 @@ public abstract class Mod : MonoBehaviour {
         }
 
         this.Logger?.Log(message, severity);
+
+        switch (severity) {
+            default:
+            case LogSeverity.Debug:
+                ConsoleWindow.Print(message, ConsoleColor.Gray);
+                break;
+            case LogSeverity.Information:
+                ConsoleWindow.Print(message);
+                break;
+            case LogSeverity.Warning:
+                ConsoleWindow.PrintAction(message);
+                break;
+            case LogSeverity.Error:
+            case LogSeverity.Exception:
+            case LogSeverity.Fatal:
+                ConsoleWindow.PrintError(message);
+                break;
+        }
     }
 
     /// <summary>
@@ -591,6 +589,7 @@ public abstract class Mod : MonoBehaviour {
         }
 
         this.Logger?.Log(exception);
+        ConsoleWindow.PrintError(exception);
     }
 
     /// <summary>
@@ -647,6 +646,24 @@ public abstract class Mod : MonoBehaviour {
         }
 
         this.Logger?.LogFormat(true, severity, format, args);
+
+        switch (severity) {
+            default:
+            case LogSeverity.Debug:
+                ConsoleWindow.Print(string.Format(format, args), ConsoleColor.Gray);
+                break;
+            case LogSeverity.Information:
+                ConsoleWindow.Print(string.Format(format, args));
+                break;
+            case LogSeverity.Warning:
+                ConsoleWindow.PrintAction(string.Format(format, args));
+                break;
+            case LogSeverity.Error:
+            case LogSeverity.Exception:
+            case LogSeverity.Fatal:
+                ConsoleWindow.PrintError(string.Format(format, args));
+                break;
+        }
     }
 
     /// <summary>
