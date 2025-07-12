@@ -17,6 +17,7 @@
         <PackageLicenseFile>$(SolutionDir)LICENSE.md</PackageLicenseFile>
         <PackageReadmeFile>$(SolutionDir)README.md</PackageReadmeFile>
 
+        <Configurations>Debug;Release;Publish</Configurations>
         <PlatformTarget>x64</PlatformTarget>
         <Platforms>x64;x86</Platforms>
         <DebugType>embedded</DebugType>
@@ -25,9 +26,10 @@
         <Nullable>enable</Nullable>
 
         <!-- Change this to the path to your Stationeers Directory -->
-        <StationeersDirectory>D:\SteamLibrary\steamapps\common\Stationeers</StationeersDirectory>
-
+        <StationeersDirectory Condition="'$(Configuration)' != 'Publish'">D:\SteamLibrary\steamapps\common\Stationeers</StationeersDirectory>
+        
         <!-- Do Not Change Anything Below -->
+        <StationeersDirectory Condition="'$(Configuration)' == 'Publish'">$(SolutionDir)Libraries</StationeersDirectory>
         <StationeersDataDirectory>$(StationeersDirectory)\rocketstation_Data</StationeersDataDirectory>
         <StationeersManagedDirectory>$(StationeersDataDirectory)\Managed</StationeersManagedDirectory>
         <StationeersPluginsDirectory>$(StationeersDataDirectory)\Plugins</StationeersPluginsDirectory>
