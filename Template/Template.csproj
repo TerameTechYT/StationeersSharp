@@ -3,6 +3,7 @@
         <ModName>Template</ModName>
         <AssemblyName>$(ModName)</AssemblyName>
         <RootNamespace>$(ModName)</RootNamespace>
+        <Configurations>Debug;Release;Publish</Configurations>
     </PropertyGroup>
 
     <!-- Import Stationeers VS properties - paths etc. -->

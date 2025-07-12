@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterHydroponics",
         Guid = "betterhydroponics",
-        Version = new Version(1, 4, 0, 60),
+        Version = new Version(1, 4, 0, 64),
         WorkshopId = 3449149492ul,
         GameType = GameType.Both,
     };

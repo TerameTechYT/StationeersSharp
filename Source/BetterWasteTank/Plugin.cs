@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWasteTank",
         Guid = "betterwastetank",
-        Version = new Version(1, 8, 0, 60),
+        Version = new Version(1, 8, 0, 64),
         WorkshopId = 3071913936ul,
         GameType = GameType.Both,
     };

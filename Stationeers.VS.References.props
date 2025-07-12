@@ -239,10 +239,6 @@
             <HintPath>$(StationeersManagedDirectory)\UnityEngine.ProfilerModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath>$(StationeersManagedDirectory)\UnityEngine.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
         <Reference Include="UnityEngine.PropertiesModule">
             <HintPath>$(StationeersManagedDirectory)\UnityEngine.PropertiesModule.dll</HintPath>
             <Private>False</Private>
@@ -333,10 +329,6 @@
         </Reference>
         <Reference Include="UnityEngine.VideoModule">
             <HintPath>$(StationeersManagedDirectory)\UnityEngine.VideoModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath>$(StationeersManagedDirectory)\UnityEngine.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.VirtualTexturingModule">

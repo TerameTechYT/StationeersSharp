@@ -27,11 +27,12 @@ jobs:
 
       - name: Download Libraries from Steam
         run: |
-          dotnet out/DepotDownloader.dll `
+          cd DepotDownloader\
+          dotnet DepotDownloader.dll `
             -anonymous `
             -app 600760 `
             -depot 600761 `
-            -filelist REQUIRED.md
+            -filelist ../REQUIRED.md
 
       - name: Copy Libraries
         run: |

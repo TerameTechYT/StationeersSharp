@@ -95,6 +95,7 @@ if (Test-Path $aboutPath) {
     }
 } else {
     Write-Warning "$aboutFile not found in $parentFolder"
+    exit 1
 }
 
 # --- Changelog Section --- #
@@ -106,6 +107,7 @@ if ($aboutContent -match $commitCommentPattern) {
     Write-Host "Found last processed commit: $lastProcessedCommit"
 } else {
     Write-Warning "Could not find last processed commit"
+    exit 1
 }
 
 $currentCommit = (git rev-parse HEAD).Trim()
@@ -116,11 +118,11 @@ if (-not $currentCommit) {
     if ($lastProcessedCommit) {
         $gitMessages = git log "$lastProcessedCommit..HEAD" --pretty=format:"- %s" 2>&1
     } else {
-        $gitMessages = git log -n 5 --pretty=format:"- %s" 2>&1
+        exit 1
     }
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Warning "⚠Git log failed: $gitMessages"
+        Write-Warning "Git log failed: $gitMessages"
     } elseif ($gitMessages.Count -eq 0) {
         Write-Host "No new commits since last version — changelog not updated."
     } else {
