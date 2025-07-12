@@ -30,7 +30,7 @@ jobs:
           dotnet DepotDownloader\out\DepotDownloader.dll `
             -app 600760 `
             -depot 600761 `
-            -filelist regex:REQUIRED.md
+            -filelist regex: "REQUIRED.md"
 
       - name: Copy Libraries
         run: |
