@@ -1,17 +1,25 @@
 ﻿#region
 
 using LaunchPadBooster.Utils;
+using System.Diagnostics;
 using System.Linq.Expressions;
-using InternalMod = LaunchPadBooster.Mod;
 
 #endregion
 
 namespace StationeersLibrary;
 
 public static class Utilities {
+    private static readonly Dictionary<string, bool> _patches = [];
+
+    /// <summary>
+    /// Is a given mod Guid already loaded
+    /// </summary>
+    /// <param name="guid"></param>
+    /// <returns>If mod's guid is loaded</returns>
     public static bool IsLoaded(string guid) =>
             Harmony.HasAnyPatches(guid) ||
-            InternalMod.AllMods.Find((mod) => mod.ID.Name == guid) != null ||
+            Mod.AllMods.Find((mod) => mod.ModGuid == guid) != null ||
+            LaunchPadBooster.Mod.AllMods.Find((mod) => mod.ID.Name == guid) != null ||
             Chainloader.PluginInfos.ContainsKey(guid);
 
     public static KeyCode GetConsoleKeyCode() => KeyManager.AllKeys.Find((key) => key.Name == "ToggleConsole").Key;
@@ -27,6 +35,21 @@ public static class Utilities {
         TemperatureUnit.Kelvin => Constants.KELVIN_SYMBOL,
         _ => Constants.CELCIUS_SYMBOL,
     };
+
+    public static void ExceptionReporter(Mod mod, Exception ex) {
+        StackTrace stackTrace = new StackTrace(1);
+        StackFrame stackFrame = stackTrace.GetFrame(0);
+        MethodInfo method = (MethodInfo) stackFrame.GetMethod();
+        Type type = method.GetType();
+
+        if (mod == null || _patches.TryGetValue(type.FullName, out _)) {
+            return;
+        }
+
+        _patches.TryAdd(type.FullName, true);
+        mod.LogError($"Exception thrown! Please press {GetConsoleKeyCode()} and run 'slib report'!");
+        mod.LogException(ex);
+    }
 
     public static TValue CatchAndReturnDefault<TValue, TException>(TValue fallbackValue, Func<TValue> action) where TException : Exception {
         if (action == null) {
