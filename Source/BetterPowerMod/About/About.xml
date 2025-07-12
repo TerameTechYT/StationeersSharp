@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Power Mod [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.6.0.53</Version>
+    <Version>1.6.0.54</Version>
     <Description>
         [h1]Better Power Mod[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -41,8 +41,9 @@
     <LoadAfter>
     </LoadAfter>
 
+
 <ChangeLog>
-- update version script appends changelog instead of replacing
+- push changelog updated
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: f765bbf76dfb3a9a381459f91f1ca6fe75cafcbd -->
+<!-- LastProcessedCommit: a5725c41eb18bd10c1cd7b9a1275e2c9fde7349c -->

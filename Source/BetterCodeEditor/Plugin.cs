@@ -16,7 +16,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 53),
+        Version = new Version(1, 4, 0, 54),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };
