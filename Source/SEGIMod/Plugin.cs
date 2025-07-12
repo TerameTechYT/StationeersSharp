@@ -2,14 +2,12 @@
 
 #endregion
 
-using Util;
-
 namespace SEGI;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+    public static Plugin? Instance { get; private set; }
 
-    public static SEGI SEGIInstance { get; private set; }
+    public static SEGI? SEGIInstance { get; private set; }
 
 
     public override bool UseConfig => true;
@@ -19,7 +17,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "SEGIMod",
         Guid = "segimod",
-        Version = new Version(1, 6, 0, 8),
+        Version = new Version(1, 6, 0, 17),
         WorkshopId = 3281346086ul,
         GameType = GameType.Client,
     };
@@ -34,9 +32,7 @@ public class Plugin : Mod {
         return UniTask.CompletedTask;
     }
 
-    public override void OnUpdate(float deltaTime) {
-        Plugin.SEGIInstance?.enabled = ConfigData.Enabled;
-    }
+    public override void OnUpdate(float deltaTime) => Plugin.SEGIInstance?.enabled = ConfigData.Enabled;
 
     public override void OnLoadConfiguration() {
         ConfigData.enabled = Config.Bind(
@@ -264,114 +260,123 @@ public class Plugin : Mod {
 }
 
 internal struct ConfigData {
-    public static ConfigEntry<bool> enabled;
+    public static ConfigEntry<bool>? enabled;
     public static bool Enabled => enabled?.Value ?? false;
 
     // Voxel
-    public static ConfigEntry<SEGI.VoxelResolution> voxelResolution;
+    public static ConfigEntry<SEGI.VoxelResolution>? voxelResolution;
     public static SEGI.VoxelResolution VoxelResolution => voxelResolution?.Value ?? SEGI.VoxelResolution.High;
 
-    public static ConfigEntry<bool> halfResolution;
+    public static ConfigEntry<bool>? halfResolution;
     public static bool HalfResolution => halfResolution?.Value ?? false;
 
-    public static ConfigEntry<float> voxelSpaceSize;
+    public static ConfigEntry<float>? voxelSpaceSize;
     public static float VoxelSpaceSize => voxelSpaceSize?.Value ?? 25f;
 
-    public static ConfigEntry<bool> voxelAntiAliasing;
+    public static ConfigEntry<bool>? voxelAntiAliasing;
     public static bool VoxelAntiAliasing => voxelAntiAliasing?.Value ?? false;
 
     // Occlusion
-    public static ConfigEntry<int> innerOcclusionLayers;
+    public static ConfigEntry<int>? innerOcclusionLayers;
     public static int InnerOcclusionLayers => innerOcclusionLayers?.Value ?? 1;
 
-    public static ConfigEntry<float> occlusionPower;
+    public static ConfigEntry<float>? occlusionPower;
     public static float OcclusionPower => occlusionPower?.Value ?? 1f;
 
-    public static ConfigEntry<float> occlusionStrength;
+    public static ConfigEntry<float>? occlusionStrength;
     public static float OcclusionStrength => occlusionStrength?.Value ?? 1f;
 
-    public static ConfigEntry<float> secondaryOcclusionStrength;
+    public static ConfigEntry<float>? secondaryOcclusionStrength;
     public static float SecondaryOcclusionStrength => secondaryOcclusionStrength?.Value ?? 1f;
 
-    public static ConfigEntry<float> nearOcclusionStrength;
+    public static ConfigEntry<float>? nearOcclusionStrength;
     public static float NearOcclusionStrength => nearOcclusionStrength?.Value ?? 0.5f;
 
-    public static ConfigEntry<float> farOcclusionStrength;
+    public static ConfigEntry<float>? farOcclusionStrength;
     public static float FarOcclusionStrength => farOcclusionStrength?.Value ?? 1f;
 
-    public static ConfigEntry<float> farthestOcclusionStrength;
+    public static ConfigEntry<float>? farthestOcclusionStrength;
     public static float FarthestOcclusionStrength => farthestOcclusionStrength?.Value ?? 1f;
 
 
     // Reflections
-    public static ConfigEntry<bool> doReflections;
+    public static ConfigEntry<bool>? doReflections;
     public static bool DoReflections => doReflections?.Value ?? true;
 
-    public static ConfigEntry<bool> infiniteBounces;
+    public static ConfigEntry<bool>? infiniteBounces;
     public static bool InfiniteBounces => infiniteBounces?.Value ?? false;
 
-    public static ConfigEntry<int> reflectionSteps;
+    public static ConfigEntry<int>? reflectionSteps;
     public static int ReflectionSteps => reflectionSteps?.Value ?? 32;
 
-    public static ConfigEntry<float> reflectionOcclusionPower;
+    public static ConfigEntry<float>? reflectionOcclusionPower;
     public static float ReflectionOcclusionPower => reflectionOcclusionPower?.Value ?? 1f;
 
-    public static ConfigEntry<float> secondaryBounceGain;
+    public static ConfigEntry<float>? secondaryBounceGain;
     public static float SecondaryBounceGain => secondaryBounceGain?.Value ?? 0.75f;
 
-    public static ConfigEntry<float> skyReflectionIntensity;
+    public static ConfigEntry<float>? skyReflectionIntensity;
     public static float SkyReflectionIntensity => skyReflectionIntensity?.Value ?? 0.25f;
 
-    public static ConfigEntry<float> skyIntensity;
+    public static ConfigEntry<float>? skyIntensity;
     public static float SkyIntensity => skyIntensity?.Value ?? 1f;
 
-    public static ConfigEntry<float> softSunlight;
+    public static ConfigEntry<float>? softSunlight;
     public static float SoftSunlight => skyIntensity?.Value ?? 0f;
 
     // Cones
-    public static ConfigEntry<int> cones;
+    public static ConfigEntry<int>? cones;
     public static int Cones => cones?.Value ?? 6;
 
-    public static ConfigEntry<int> secondaryCones;
+    public static ConfigEntry<int>? secondaryCones;
     public static int SecondaryCones => secondaryCones?.Value ?? 3;
 
-    public static ConfigEntry<int> coneTraceSteps;
+    public static ConfigEntry<int>? coneTraceSteps;
     public static int ConeTraceSteps => coneTraceSteps?.Value ?? 14;
 
-    public static ConfigEntry<float> coneTraceBias;
+    public static ConfigEntry<float>? coneTraceBias;
     public static float ConeTraceBias => coneTraceBias?.Value ?? 1f;
 
-    public static ConfigEntry<float> coneLength;
+    public static ConfigEntry<float>? coneLength;
     public static float ConeLength => coneLength?.Value ?? 1f;
 
-    public static ConfigEntry<float> coneWidth;
+    public static ConfigEntry<float>? coneWidth;
     public static float ConeWidth => coneWidth?.Value ?? 2.25f;
 
 
     // Light
-    public static ConfigEntry<float> nearLightGain;
+    public static ConfigEntry<float>? nearLightGain;
     public static float NearLightGain => nearLightGain?.Value ?? 1f;
 
-    public static ConfigEntry<float> giGain;
+    public static ConfigEntry<float>? giGain;
     public static float GIGain => giGain?.Value ?? 0.5f;
 
-    public static ConfigEntry<float> shadowSpaceSize;
+    public static ConfigEntry<float>? shadowSpaceSize;
     public static float ShadowSpaceSize => shadowSpaceSize?.Value ?? 1f;
 
 
     // Sampling & Filtering
-    public static ConfigEntry<bool> gaussianMipFilter;
+    public static ConfigEntry<bool>? gaussianMipFilter;
     public static bool GaussianMipFilter => gaussianMipFilter?.Value ?? true;
 
-    public static ConfigEntry<bool> useBilateralFiltering;
+    public static ConfigEntry<bool>? useBilateralFiltering;
     public static bool UseBilateralFiltering => useBilateralFiltering?.Value ?? true;
 
-    public static ConfigEntry<bool> stochasticSampling;
+    public static ConfigEntry<bool>? stochasticSampling;
     public static bool StochasticSampling => stochasticSampling?.Value ?? true;
 
-    public static ConfigEntry<float> temporalBlendWeight;
+    public static ConfigEntry<float>? temporalBlendWeight;
     public static float TemporalBlendWeight => temporalBlendWeight?.Value ?? 0.1f;
 }
+
+
+
+
+
+
+
+
+
 
 
 

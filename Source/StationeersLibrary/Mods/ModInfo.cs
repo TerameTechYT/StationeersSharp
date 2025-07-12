@@ -7,17 +7,17 @@ public sealed class ModInfo {
     /// <summary>
     /// Mod Name
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Mod GUID
     /// </summary>
-    public string Guid { get; set; }
+    public string? Guid { get; set; }
 
     /// <summary>
     /// Mod Version
     /// </summary>
-    public Version Version { get; set; }
+    public Version? Version { get; set; }
 
     /// <summary>
     /// Mod Version (as a string)

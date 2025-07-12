@@ -5,7 +5,7 @@
 namespace BetterWaterCombustor;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+    public static Plugin? Instance { get; private set; }
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWaterCombustor",
         Guid = "betterwatercombustor",
-        Version = new Version(1, 4, 0, 8),
+        Version = new Version(1, 4, 0, 17),
         WorkshopId = 3404201609ul,
         GameType = GameType.Both,
     };
@@ -27,6 +27,15 @@ public class Plugin : Mod {
 internal struct ConfigData {
 
 }
+
+
+
+
+
+
+
+
+
 
 
 

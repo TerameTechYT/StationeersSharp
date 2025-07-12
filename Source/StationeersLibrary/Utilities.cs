@@ -92,74 +92,74 @@ public static class Utilities {
 public static class ReflectionUtilities {
     // Expressive
 
-    public static FieldInfo Field<T>(Expression<Func<T>> expression) =>
+    public static FieldInfo? Field<T>(Expression<Func<T>> expression) =>
             ReflectionUtils.Field<T>(expression);
 
-    public static PropertyInfo Property<T>(Expression<Func<T>> expression) =>
+    public static PropertyInfo? Property<T>(Expression<Func<T>> expression) =>
             (expression?.Body as MemberExpression)?.Member as PropertyInfo;
-    public static MethodInfo PropertyGetter<T>(Expression<Func<T>> expression) =>
+    public static MethodInfo? PropertyGetter<T>(Expression<Func<T>> expression) =>
             ReflectionUtils.PropertyGetter<T>(expression);
-    public static MethodInfo PropertySetter(Expression<Action> action) =>
+    public static MethodInfo? PropertySetter(Expression<Action> action) =>
             ReflectionUtils.PropertySetter(action);
 
-    public static ConstructorInfo Constructor<T>(Expression<Func<T>> expression) =>
+    public static ConstructorInfo? Constructor<T>(Expression<Func<T>> expression) =>
             ReflectionUtils.Constructor<T>(expression);
 
-    public static MethodInfo Operator<T>(Expression<Func<T>> expression) =>
+    public static MethodInfo? Operator<T>(Expression<Func<T>> expression) =>
             ReflectionUtils.Operator<T>(expression);
 
-    public static MethodInfo Method<T>(Expression<Func<T>> expression) =>
+    public static MethodInfo? Method<T>(Expression<Func<T>> expression) =>
             ReflectionUtils.Method<T>(expression);
-    public static MethodInfo Method(Expression<Action> action) =>
+    public static MethodInfo? Method(Expression<Action> action) =>
             ReflectionUtils.Method(action);
-    public static MethodInfo Method(MethodCallExpression call) =>
+    public static MethodInfo? Method(MethodCallExpression call) =>
             ReflectionUtils.Method(call);
 
-    public static MethodInfo VirtualMethod(this MethodInfo method, Type type) =>
+    public static MethodInfo? VirtualMethod(this MethodInfo method, Type type) =>
             ReflectionUtils.VirtualMethodIn(method, type);
 
-    public static MethodInfo AsyncMethod<T>(Expression<Func<T>> expression) =>
+    public static MethodInfo? AsyncMethod<T>(Expression<Func<T>> expression) =>
             ReflectionUtils.AsyncMethod<T>(expression);
 
-    public static T CreateDelegate<T>(this MethodInfo method) where T : Delegate =>
+    public static T? CreateDelegate<T>(this MethodInfo method) where T : Delegate =>
             ReflectionUtils.CreateDelegate<T>(method);
 
     // Direct
 
-    public static MemberInfo[] Member(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static MemberInfo[]? Member(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
             type?.GetMember(name, bindingFlags);
 
-    public static FieldInfo Field(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static FieldInfo? Field(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
             type?.GetField(name, bindingFlags);
 
-    public static PropertyInfo Property(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static PropertyInfo? Property(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
             type?.GetProperty(name, bindingFlags);
 
-    public static MethodInfo PropertyGetter(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static MethodInfo? PropertyGetter(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
             type.Property(name, bindingFlags)?.GetGetMethod(bindingFlags.HasFlag(BindingFlags.NonPublic));
-    public static MethodInfo PropertySetter(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static MethodInfo? PropertySetter(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
             type.Property(name, bindingFlags)?.GetSetMethod(bindingFlags.HasFlag(BindingFlags.NonPublic));
 
-    public static object PropertyGetValue(this Type type, string name, object obj = null, object[] index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static object? PropertyGetValue(this Type type, string name, object? obj = null, object[]? index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
             type.Property(name, bindingFlags)?.GetValue(obj, index);
-    public static T PropertyGetValue<T>(this Type type, string name, object obj = null, object[] index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
-            (T) type.PropertyGetValue(name, obj, index, bindingFlags);
+    public static T? PropertyGetValue<T>(this Type type, string name, object? obj = null, object[]? index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+            (T?) type.PropertyGetValue(name, obj, index, bindingFlags);
 
-    public static void PropertySetValue(this Type type, string name, object value, object obj = null, object[] index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static void PropertySetValue(this Type type, string name, object value, object? obj = null, object[]? index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
             type.Property(name, bindingFlags)?.SetValue(obj, value, index);
-    public static void PropertySetValue<T>(this Type type, string name, T value, object obj = null, object[] index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static void PropertySetValue<T>(this Type type, string name, T value, object? obj = null, object[]? index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
             type.Property(name, bindingFlags)?.SetValue(obj, value, index);
 
-    public static MethodInfo Method(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static MethodInfo? Method(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
             type?.GetMethod(name, bindingFlags);
 
     public const string ASYNC_METHOD = "MoveNext";
-    public static MethodInfo AsyncMethod(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) {
-        AsyncStateMachineAttribute attribute = Attribute<AsyncStateMachineAttribute>(type);
-        InterfaceMapping? mapping = InterfaceMapping(attribute.StateMachineType, typeof(AsyncStateMachineAttribute));
-        MethodInfo moveNext = Method(typeof(IAsyncStateMachine), ASYNC_METHOD, bindingFlags);
+    public static MethodInfo? AsyncMethod(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) {
+        AsyncStateMachineAttribute? attribute = Attribute<AsyncStateMachineAttribute>(type);
+        InterfaceMapping? mapping = InterfaceMapping(attribute?.StateMachineType, typeof(AsyncStateMachineAttribute));
+        MethodInfo? moveNext = Method(typeof(IAsyncStateMachine), ASYNC_METHOD, bindingFlags);
 
-        foreach (MethodInfo method in mapping?.TargetMethods) {
+        foreach (MethodInfo method in mapping?.TargetMethods ?? []) {
             if (method == moveNext) {
                 return method;
             }
@@ -168,25 +168,25 @@ public static class ReflectionUtilities {
         throw new TypeLoadException("Could not find async method implementation");
     }
 
-    public static ConstructorInfo Constructor(this Type type, BindingFlags bindingFlags = BindingFlags.Default, Binder binder = null, Type[] types = null, ParameterModifier[] modifiers = null) =>
+    public static ConstructorInfo? Constructor(this Type type, BindingFlags bindingFlags = BindingFlags.Default, Binder? binder = null, Type[]? types = null, ParameterModifier[]? modifiers = null) =>
             type?.GetConstructor(bindingFlags, binder, types, modifiers);
 
-    public static EventInfo Event(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
+    public static EventInfo? Event(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
             type?.GetEvent(name, bindingFlags);
 
-    public static T Attribute<T>(this Type type) where T : Attribute =>
+    public static T? Attribute<T>(this Type type) where T : Attribute =>
             type?.GetCustomAttribute<T>();
-    public static Attribute Attribute(this Type type, Type attributeType) =>
+    public static Attribute? Attribute(this Type type, Type attributeType) =>
             type?.GetCustomAttribute(attributeType);
 
-    public static T Attribute<T>(this FieldInfo type) where T : Attribute =>
+    public static T? Attribute<T>(this FieldInfo type) where T : Attribute =>
             type?.GetCustomAttribute<T>();
-    public static Attribute Attribute(this FieldInfo type, Type attributeType) =>
+    public static Attribute? Attribute(this FieldInfo type, Type attributeType) =>
             type?.GetCustomAttribute(attributeType);
 
-    public static T Attribute<T>(this MethodInfo type) where T : Attribute =>
+    public static T? Attribute<T>(this MethodInfo type) where T : Attribute =>
             type?.GetCustomAttribute<T>();
-    public static Attribute Attribute(this MethodInfo type, Type attributeType) =>
+    public static Attribute? Attribute(this MethodInfo type, Type attributeType) =>
             type?.GetCustomAttribute(attributeType);
 
     public static bool HasAttribute<T>(this Type type) where T : Attribute =>
@@ -204,7 +204,7 @@ public static class ReflectionUtilities {
     public static bool HasAttribute(this MethodInfo type, Type attributeType) =>
             type?.GetCustomAttribute(attributeType) != null;
 
-    public static Type Interface(this Type type, string name) =>
+    public static Type? Interface(this Type type, string name) =>
             type?.GetInterface(name);
     public static InterfaceMapping? InterfaceMapping(this Type type, Type interfaceType) =>
             type?.GetInterfaceMap(interfaceType);

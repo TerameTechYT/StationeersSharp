@@ -5,7 +5,7 @@
 namespace DetailedPlayerInfo;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+    public static Plugin? Instance { get; private set; }
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 8),
+        Version = new Version(2, 0, 0, 17),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };
@@ -70,43 +70,43 @@ public class Plugin : Mod {
 
 internal struct ConfigData {
     //
-    public static ConfigEntry<PressureUnit> preferredPressureUnit;
+    public static ConfigEntry<PressureUnit>? preferredPressureUnit;
     public static PressureUnit PreferredPressureUnit => preferredPressureUnit?.Value ?? PressureUnit.Pascal;
 
     //
-    public static ConfigEntry<TemperatureUnit> preferredTemperatureUnit;
+    public static ConfigEntry<TemperatureUnit>? preferredTemperatureUnit;
     public static TemperatureUnit PreferredTemperatureUnit => preferredTemperatureUnit?.Value ?? TemperatureUnit.Celcius;
 
     //
-    public static ConfigEntry<VolumeUnit> preferredVolumeUnit;
+    public static ConfigEntry<VolumeUnit>? preferredVolumeUnit;
     public static VolumeUnit PreferredVolumeUnit => preferredVolumeUnit?.Value ?? VolumeUnit.Liter;
 
     //
-    public static ConfigEntry<VelocityUnit> preferredVelocityUnit;
+    public static ConfigEntry<VelocityUnit>? preferredVelocityUnit;
     public static VelocityUnit PreferredVelocityUnit => preferredVelocityUnit?.Value ?? VelocityUnit.Meters;
 
     //
-    public static ConfigEntry<bool> customFramerate;
+    public static ConfigEntry<bool>? customFramerate;
     public static bool CustomFramerate => customFramerate?.Value ?? false;
 
     //
-    public static ConfigEntry<bool> changeFontSize;
+    public static ConfigEntry<bool>? changeFontSize;
     public static bool ChangeFontSize => changeFontSize?.Value ?? false;
 
     //
-    public static ConfigEntry<int> fontSize;
+    public static ConfigEntry<int>? fontSize;
     public static int FontSize => ChangeFontSize ? (fontSize?.Value ?? 21) : 21;
 
     //
-    public static ConfigEntry<bool> extraInfoPower;
+    public static ConfigEntry<bool>? extraInfoPower;
     public static bool ExtraInfoPower => extraInfoPower?.Value ?? false;
 
     //
-    public static ConfigEntry<bool> extraInfoFilter;
+    public static ConfigEntry<bool>? extraInfoFilter;
     public static bool ExtraInfoFilter => extraInfoFilter?.Value ?? false;
 
     //
-    public static ConfigEntry<int> numberPrecision;
+    public static ConfigEntry<int>? numberPrecision;
     public static int NumberPrecision => numberPrecision?.Value ?? 0;
 
     public const string ExternalTemperatureUnit =
@@ -136,6 +136,15 @@ internal struct ConfigData {
     public const string FilterStatus =
             "GameCanvas/StatusIcons/Filter";
 }
+
+
+
+
+
+
+
+
+
 
 
 

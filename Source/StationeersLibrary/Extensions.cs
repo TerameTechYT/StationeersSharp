@@ -2,9 +2,6 @@
 
 #endregion
 
-using Assets.Scripts.Util;
-using System.Collections.Generic;
-
 namespace StationeersLibrary;
 
 public static class HarmonyExtensions {

@@ -5,7 +5,7 @@
 namespace ColoredGases;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+    public static Plugin? Instance { get; private set; }
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "ColoredGases",
         Guid = "coloredgases",
-        Version = new Version(1, 4, 0, 8),
+        Version = new Version(1, 4, 0, 17),
         WorkshopId = 3523162910ul,
         GameType = GameType.Client,
     };
@@ -40,13 +40,22 @@ public class Plugin : Mod {
 
 internal struct ConfigData {
     //
-    public static ConfigEntry<bool> enableAirVisualizer;
+    public static ConfigEntry<bool>? enableAirVisualizer;
     public static bool EnableAirVisualizer => enableAirVisualizer?.Value ?? false;
 
     //
-    public static ConfigEntry<bool> enableFogVisualizer;
+    public static ConfigEntry<bool>? enableFogVisualizer;
     public static bool EnableFogVisualizer => enableFogVisualizer?.Value ?? false;
 }
+
+
+
+
+
+
+
+
+
 
 
 

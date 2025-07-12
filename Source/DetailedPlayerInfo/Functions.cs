@@ -23,25 +23,25 @@ public static class Extensions {
 
 internal static class Functions {
     // temperature text objects
-    private static TextMeshProUGUI _internalTempUnit;
-    private static TextMeshProUGUI _externalTempUnit;
+    private static TextMeshProUGUI? _internalTempUnit;
+    private static TextMeshProUGUI? _externalTempUnit;
 
     // pressure text objects
-    private static TextMeshProUGUI _internalPressureUnit;
-    private static TextMeshProUGUI _externalPressureUnit;
-    private static TextMeshProUGUI _jetpackPressureUnit;
+    private static TextMeshProUGUI? _internalPressureUnit;
+    private static TextMeshProUGUI? _externalPressureUnit;
+    private static TextMeshProUGUI? _jetpackPressureUnit;
 
     // template object to be cloned
-    private static GameObject _wasteTextPanel;
+    private static GameObject? _wasteTextPanel;
 
     // more info objects
-    private static GameObject _batteryStatus;
-    private static GameObject _batteryTextPanel;
-    private static TextMeshProUGUI _batteryText;
+    private static GameObject? _batteryStatus;
+    private static GameObject? _batteryTextPanel;
+    private static TextMeshProUGUI? _batteryText;
 
-    private static GameObject _filterStatus;
-    private static GameObject _filterTextPanel;
-    private static TextMeshProUGUI _filterText;
+    private static GameObject? _filterStatus;
+    private static GameObject? _filterTextPanel;
+    private static TextMeshProUGUI? _filterText;
 
     private static float smoothUnscaledDeltaTime;
 
@@ -86,13 +86,13 @@ internal static class Functions {
         if (ConfigData.ExtraInfoPower) {
             _batteryStatus = GameObject.Find(ConfigData.BatteryStatus);
             _batteryTextPanel = UnityObject.Instantiate(_wasteTextPanel, _batteryStatus.transform);
-            _batteryText = _batteryTextPanel.GetComponentInChildren<TextMeshProUGUI>();
+            _batteryText = _batteryTextPanel?.GetComponentInChildren<TextMeshProUGUI>();
         }
 
         if (ConfigData.ExtraInfoFilter) {
             _filterStatus = GameObject.Find(ConfigData.FilterStatus);
             _filterTextPanel = UnityObject.Instantiate(_wasteTextPanel, _filterStatus.transform);
-            _filterText = _filterTextPanel.GetComponentInChildren<TextMeshProUGUI>();
+            _filterText = _filterTextPanel?.GetComponentInChildren<TextMeshProUGUI>();
         }
     }
 
@@ -105,33 +105,33 @@ internal static class Functions {
         }
 
         // Suit stuff
-        Human human = window.Parent;
-        Suit suit = human?.SuitSlot.Get<Suit>();
-        AdvancedSuit advancedSuit = suit is AdvancedSuit ? suit as AdvancedSuit : null;
+        Human? human = window.Parent;
+        Suit? suit = human?.SuitSlot.Get<Suit>();
+        AdvancedSuit? advancedSuit = suit is AdvancedSuit ? suit as AdvancedSuit : null;
 
         // Suit slot stuff
-        BatteryCell suitBattery = suit?.BatterySlot.Get<BatteryCell>();
-        GasFilter filter1 = suit?.FilterSlot1.Get<GasFilter>();
-        GasFilter filter2 = suit?.FilterSlot2.Get<GasFilter>();
-        GasFilter filter3 = suit?.FilterSlot3.Get<GasFilter>();
-        GasFilter filter4 = advancedSuit?.FilterSlot4.Get<GasFilter>();
+        BatteryCell? suitBattery = suit?.BatterySlot.Get<BatteryCell>();
+        GasFilter? filter1 = suit?.FilterSlot1.Get<GasFilter>();
+        GasFilter? filter2 = suit?.FilterSlot2.Get<GasFilter>();
+        GasFilter? filter3 = suit?.FilterSlot3.Get<GasFilter>();
+        GasFilter? filter4 = advancedSuit?.FilterSlot4.Get<GasFilter>();
 
         // Jetpack stuff
-        Jetpack jetpack = human?.BackpackSlot.Get<Jetpack>();
-        GasCanister jetpackPropellant = jetpack?.PropellentSlot.Get<GasCanister>();
+        Jetpack? jetpack = human?.BackpackSlot.Get<Jetpack>();
+        GasCanister? jetpackPropellant = jetpack?.PropellentSlot.Get<GasCanister>();
 
         // Set Pressure Unit
-        _internalPressureUnit.text = _externalPressureUnit.text = _jetpackPressureUnit.text = Utilities.GetPressureSymbol(ConfigData.PreferredPressureUnit);
+        _internalPressureUnit?.text = _externalPressureUnit?.text = _jetpackPressureUnit?.text = Utilities.GetPressureSymbol(ConfigData.PreferredPressureUnit);
 
         // Set Temperature Unit
-        _internalTempUnit.text = _externalTempUnit.text = Utilities.GetTemperatureSymbol(ConfigData.PreferredTemperatureUnit);
+        _internalTempUnit?.text = _externalTempUnit?.text = Utilities.GetTemperatureSymbol(ConfigData.PreferredTemperatureUnit);
 
         // Change battery percentage text
         if (ConfigData.ExtraInfoPower && (StatusUpdates.Instance.IsPowerCaution() || StatusUpdates.Instance.IsPowerCritical())) {
             float ratio = suitBattery?.PowerRatio ?? 0f;
             float percentage = ratio * 100f;
 
-            _batteryText.text = $"{percentage.ToStringRounded()}%";
+            _batteryText?.text = $"{percentage.ToStringRounded()}%";
         }
 
         // Change filter percentage text
@@ -140,7 +140,7 @@ internal static class Functions {
             float filterRatio = Mathf.Min(filterRatios.Where((value) => value != -1f).ToArray());
             float percentage = filterRatio * 100f;
 
-            _filterText.text = $"{percentage.ToStringRounded()}%";
+            _filterText?.text = $"{percentage.ToStringRounded()}%";
         }
 
         // Suit External Pressure

@@ -5,7 +5,7 @@
 namespace BetterPowerMod;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+    public static Plugin? Instance { get; private set; }
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterPowerMod",
         Guid = "betterpowermod",
-        Version = new Version(1, 6, 0, 8),
+        Version = new Version(1, 6, 0, 17),
         WorkshopId = 3234916147ul,
         GameType = GameType.Both,
     };
@@ -92,36 +92,45 @@ internal struct ConfigData {
         ];
 
     //
-    public static ConfigEntry<bool> enableSolarPanel;
+    public static ConfigEntry<bool>? enableSolarPanel;
     public static bool EnableSolarPanel => enableSolarPanel?.Value ?? false;
 
     //
-    public static ConfigEntry<bool> enableWindTurbine;
+    public static ConfigEntry<bool>? enableWindTurbine;
     public static bool EnableWindTurbine => enableWindTurbine?.Value ?? false;
 
     //
-    public static ConfigEntry<bool> enableTurbine;
+    public static ConfigEntry<bool>? enableTurbine;
     public static bool EnableTurbine => enableTurbine?.Value ?? false;
 
     //
-    public static ConfigEntry<bool> enableStirling;
+    public static ConfigEntry<bool>? enableStirling;
     public static bool EnableStirling => enableStirling?.Value ?? false;
 
-    public static ConfigEntry<float> stirlingEnergy;
+    public static ConfigEntry<float>? stirlingEnergy;
     public static float StirlingEnergy => stirlingEnergy?.Value ?? Constants.TWENTY_KILOWATTS;
 
     //
-    public static ConfigEntry<bool> enableFasterCharging;
+    public static ConfigEntry<bool>? enableFasterCharging;
     public static bool EnableFasterCharging => enableWindTurbine?.Value ?? false;
 
     //
-    public static ConfigEntry<float> fastChargeRate;
+    public static ConfigEntry<float>? fastChargeRate;
     public static float FastChargeRate => fastChargeRate?.Value ?? Constants.TWO_POINT_FIVE_KILOWATTS;
 
     //
-    public static ConfigEntry<float> turbineMultiplier;
+    public static ConfigEntry<float>? turbineMultiplier;
     public static float TurbineMultiplier => turbineMultiplier?.Value ?? 10f;
 }
+
+
+
+
+
+
+
+
+
 
 
 

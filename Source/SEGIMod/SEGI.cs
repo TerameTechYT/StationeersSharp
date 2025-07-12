@@ -9,8 +9,7 @@ namespace SEGI;
 [RequireComponent(typeof(Camera))]
 [AddComponentMenu("Image Effects/Sonic Ether/SEGI")]
 public class SEGI : MonoBehaviour {
-    private static AssetBundle _bundle;
-    public static AssetBundle Bundle => _bundle ??= AssetBundle.LoadFromMemory(SEGIResources.SEGI);
+    public static AssetBundle Bundle => field ??= AssetBundle.LoadFromMemory(SEGIResources.SEGI);
 
     #region Parameters
     [Serializable]
@@ -27,9 +26,9 @@ public class SEGI : MonoBehaviour {
 
     public bool updateGI = true;
     public LayerMask giCullingMask = int.MaxValue;
-    public Light sun;
+    public Light? sun;
     public Color skyColor;
-    public Transform followTransform;
+    public Transform? followTransform;
 
     #endregion
 
@@ -53,35 +52,35 @@ public class SEGI : MonoBehaviour {
     private float shadowSpaceDepthRatio = 10.0f;
     private float VoxelScaleFactor => (float) ConfigData.VoxelResolution / 256.0f;
 
-    private Material material;
-    private Camera attachedCamera;
-    private Transform shadowCameraTransform;
-    private Camera shadowCamera;
-    private GameObject shadowCameraGameObject;
-    private Texture2D[] blueNoise;
-    private Shader sunDepthShader;
-    private RenderTexture sunDepthTexture;
-    private RenderTexture previousGIResult;
-    private RenderTexture previousCameraDepth;
-    private RenderTexture integerVolume;
-    private RenderTexture[] volumeTextures;
-    private RenderTexture secondaryIrradianceVolume;
-    private RenderTexture volumeTextureB;
-    private RenderTexture activeVolume;
-    private RenderTexture previousActiveVolume;
-    private RenderTexture dummyVoxelTextureAAScaled;
-    private RenderTexture dummyVoxelTextureFixed;
+    private Material? material;
+    private Camera? attachedCamera;
+    private Transform? shadowCameraTransform;
+    private Camera? shadowCamera;
+    private GameObject? shadowCameraGameObject;
+    private Texture2D[]? blueNoise;
+    private Shader? sunDepthShader;
+    private RenderTexture? sunDepthTexture;
+    private RenderTexture? previousGIResult;
+    private RenderTexture? previousCameraDepth;
+    private RenderTexture? integerVolume;
+    private RenderTexture[]? volumeTextures;
+    private RenderTexture? secondaryIrradianceVolume;
+    private RenderTexture? volumeTextureB;
+    private RenderTexture? activeVolume;
+    private RenderTexture? previousActiveVolume;
+    private RenderTexture? dummyVoxelTextureAAScaled;
+    private RenderTexture? dummyVoxelTextureFixed;
 
-    private Shader voxelizationShader;
-    private Shader voxelTracingShader;
-    private ComputeShader clearCompute;
-    private ComputeShader transferIntsCompute;
-    private ComputeShader mipFilterCompute;
+    private Shader? voxelizationShader;
+    private Shader? voxelTracingShader;
+    private ComputeShader? clearCompute;
+    private ComputeShader? transferIntsCompute;
+    private ComputeShader? mipFilterCompute;
 
-    private Camera voxelCamera;
-    private GameObject voxelCameraGameObject;
-    private GameObject leftViewPoint;
-    private GameObject topViewPoint;
+    private Camera? voxelCamera;
+    private GameObject? voxelCameraGameObject;
+    private GameObject? leftViewPoint;
+    private GameObject? topViewPoint;
     private Vector3 voxelSpaceOrigin;
     private Vector3 previousVoxelSpaceOrigin;
     private Vector3 voxelSpaceOriginDelta;
@@ -691,7 +690,7 @@ public class SEGI : MonoBehaviour {
             //Manually filter/render mip maps
             Shader.SetGlobalTexture("SEGIVolumeLevel0", activeVolume);
             for (int i = 0; i < mipLevels - 1; i++) {
-                RenderTexture source = volumeTextures[i];
+                RenderTexture? source = volumeTextures[i];
 
                 if (i == 0) {
                     source = activeVolume;
@@ -796,7 +795,7 @@ public class SEGI : MonoBehaviour {
         //Setup temporary textures
         RenderTexture gi1 = RenderTexture.GetTemporary(source.width / GIRenderRes, source.height / GIRenderRes, 0, RenderTextureFormat.ARGBHalf);
         RenderTexture gi2 = RenderTexture.GetTemporary(source.width / GIRenderRes, source.height / GIRenderRes, 0, RenderTextureFormat.ARGBHalf);
-        RenderTexture reflections = null;
+        RenderTexture? reflections = null;
 
         //If reflections are enabled, create a temporary render buffer to hold them
         if (ConfigData.DoReflections) {

@@ -5,7 +5,7 @@
 namespace StationeersLibrary;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+    public static Plugin? Instance { get; private set; }
 
     public override bool UseConfig => true;
     public override bool UseHarmony => false;
@@ -13,7 +13,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
         Guid = "stationeerslibrary",
-        Version = new Version(2, 0, 0, 8),
+        Version = new Version(2, 0, 0, 17),
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };
@@ -23,7 +23,16 @@ public class Plugin : Mod {
     public override void OnAwake() { }
 }
 
-internal struct ConfigData {}
+internal struct ConfigData { }
+
+
+
+
+
+
+
+
+
 
 
 

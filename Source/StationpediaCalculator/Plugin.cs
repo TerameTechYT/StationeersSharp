@@ -5,7 +5,7 @@
 namespace StationpediaCalculator;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+    public static Plugin? Instance { get; private set; }
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "StationpediaCalculator",
         Guid = "stationpediacalculator",
-        Version = new Version(1, 5, 0, 8),
+        Version = new Version(1, 5, 0, 17),
         WorkshopId = 3305312105ul,
         GameType = GameType.Client,
     };
@@ -25,8 +25,17 @@ public class Plugin : Mod {
 }
 
 internal struct ConfigData {
-    public static SPDAListItem CalculatorItem;
+    public static SPDAListItem? CalculatorItem;
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -2,7 +2,6 @@
 
 using LaunchPadBooster;
 using LaunchPadBooster.Networking;
-using LaunchPadBooster.Utils;
 using StationeersLaunchPad;
 using System.Diagnostics;
 using Logger = StationeersLaunchPad.Logger;
@@ -213,7 +212,7 @@ public abstract class Mod : MonoBehaviour {
         }
 
         if (this.UseConfig) {
-            var path = Path.Combine(Constants.BIE_CONFIG_FOLDER, this.ModGuid);
+            string path = Path.Combine(Constants.BIE_CONFIG_FOLDER, this.ModGuid);
             if (File.Exists(path)) {
                 // made oopsie, forgot to add .cfg to the config file path...
                 File.Delete(path);
@@ -398,7 +397,7 @@ public abstract class Mod : MonoBehaviour {
     /// <typeparam name="T">The script for your prefab.</typeparam>
     /// <param name="prefab">The name of your prefab.</param>
     /// <returns>Prefab setup object.</returns>
-    public PrefabSetup<T> RegisterPrefab<T>(string prefab) where T : Thing => this.InternalMod?.SetupPrefabs<T>(prefab);
+    public PrefabSetup<T>? RegisterPrefab<T>(string prefab) where T : Thing => this.InternalMod?.SetupPrefabs<T>(prefab);
 
     /// <summary>
     /// Registers a savedata type.

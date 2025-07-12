@@ -5,7 +5,7 @@
 namespace ExternalSuitReader;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+    public static Plugin? Instance { get; private set; }
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "ExternalSuitReader",
         Guid = "externalsuitreader",
-        Version = new Version(1, 8, 0, 8),
+        Version = new Version(1, 8, 0, 17),
         WorkshopId = 3071985478ul,
         GameType = GameType.Both,
     };
@@ -114,6 +114,15 @@ internal struct Data {
 
     public static readonly Dictionary<LogicType, Action<AdvancedSuit, double>> LogicWriteDictionary = [];
 }
+
+
+
+
+
+
+
+
+
 
 
 

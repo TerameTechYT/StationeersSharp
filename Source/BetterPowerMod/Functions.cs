@@ -22,7 +22,7 @@ internal static class Functions {
 
     internal static bool IsCurrentlyStorm() => WeatherManager.IsWeatherEventRunning && WeatherManager.CurrentWeatherEvent != null;
 
-    internal static WeatherEvent GetWeatherEvent() => Functions.IsCurrentlyStorm() ? WeatherManager.CurrentWeatherEvent : null;
+    internal static WeatherEvent? GetWeatherEvent() => Functions.IsCurrentlyStorm() ? WeatherManager.CurrentWeatherEvent : null;
     internal static float GetWeatherWindStrength() => Functions.GetWeatherEvent()?.WindStrength ?? 1f;
 
     internal static float GetWindTurbineRPM(WindTurbineGenerator generator) => 720f * GameManager.DeltaTime * generator.GenerationRate;

@@ -14,7 +14,7 @@ internal static class Functions {
         bool found = false;
         while (atmosphereNumber < 50 && !found) {
             try {
-                Atmosphere atmosphere = null;
+                Atmosphere? atmosphere = null;
                 atmosphere = atmospheres.Pick();
                 atmosphereNumber++;
 

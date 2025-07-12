@@ -5,7 +5,7 @@
 namespace BetterWasteTank;
 
 internal static class Functions {
-    internal static Suit GetSuit(Human human) => human.SuitSlot.Contains(out Suit suit) ? suit : null;
+    internal static Suit? GetSuit(Human human) => human.SuitSlot.Contains(out Suit suit) ? suit : null;
 
     internal static float GetCanisterFullRatio(GasCanister canister) => canister == null ? 0.0f : (canister.Pressure / canister.MaxPressure).ToFloat();
     internal static float GetCanisterDelta(GasCanister canister) => canister == null ? 0.0f : (canister.MaxPressure - canister.Pressure).ToFloat();

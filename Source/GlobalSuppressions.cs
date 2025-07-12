@@ -13,6 +13,8 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Globalization", "CA1305:Specify IFormatProvider")]
 
 [assembly: SuppressMessage("Usage", "CA2243:Attribute string literals should parse correctly")]
+[assembly: SuppressMessage("Usage", "CS8602:Dereference of a possibly null reference")]
+[assembly: SuppressMessage("Usage", "CS8601:Possible null reference assignment")]
 
 [assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
 [assembly: SuppressMessage("Naming", "CA1708:Identifiers should differ by more than case")]

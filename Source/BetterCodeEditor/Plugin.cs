@@ -5,7 +5,7 @@
 namespace BetterCodeEditor;
 
 public class Plugin : Mod {
-    public static Plugin Instance {
+    public static Plugin? Instance {
         get; private set;
     }
 
@@ -16,7 +16,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 8),
+        Version = new Version(1, 4, 0, 17),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };
@@ -39,15 +39,24 @@ public class Plugin : Mod {
 }
 
 internal struct ConfigData {
-    public static ConfigEntry<int> codeEditorLines;
+    public static ConfigEntry<int>? codeEditorLines;
     public static int CodeEditorLines => codeEditorLines?.Value ?? InputSourceCode.MAX_LINES;
 
-    public static ConfigEntry<int> codeEditorLineLength;
+    public static ConfigEntry<int>? codeEditorLineLength;
     public static int CodeEditorLineLength => codeEditorLineLength?.Value ?? InputSourceCode.LINE_LENGTH_LIMIT;
 
     public static int BytesPerLine => InputSourceCode.MAX_FILE_SIZE / InputSourceCode.MAX_LINES;
     public static int MaxFileSize => BytesPerLine * CodeEditorLines;
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -5,7 +5,7 @@
 namespace BetterWasteTank;
 
 public class Plugin : Mod {
-    public static Plugin Instance { get; private set; }
+    public static Plugin? Instance { get; private set; }
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWasteTank",
         Guid = "betterwastetank",
-        Version = new Version(1, 8, 0, 8),
+        Version = new Version(1, 8, 0, 17),
         WorkshopId = 3071913936ul,
         GameType = GameType.Both,
     };
@@ -48,29 +48,38 @@ public class Plugin : Mod {
 
 internal struct ConfigData {
     //
-    public static ConfigEntry<float> wasteCriticalRatio;
+    public static ConfigEntry<float>? wasteCriticalRatio;
     public static float WasteCriticalRatio => wasteCriticalRatio?.Value ?? 0.75f;
 
     //
-    public static ConfigEntry<float> wasteCautionRatio;
+    public static ConfigEntry<float>? wasteCautionRatio;
     public static float WasteCautionRatio => wasteCautionRatio?.Value ?? 0.975f;
 
     //
-    public static ConfigEntry<bool> airCountOnlyBreathable;
+    public static ConfigEntry<bool>? airCountOnlyBreathable;
     public static bool AirCountOnlyBreathable => airCountOnlyBreathable?.Value ?? false;
 
     //
-    public static ConfigEntry<float> airCautionMoles;
+    public static ConfigEntry<float>? airCautionMoles;
     public static float AirCautionMoles => airCautionMoles?.Value ?? 7.5f;
 
     //
-    public static ConfigEntry<float> airCriticalMoles;
+    public static ConfigEntry<float>? airCriticalMoles;
     public static float AirCriticalMoles => airCriticalMoles?.Value ?? 50f;
 
     //
     internal static float AirTankMolesCritical => Human.MolesPerMinute.ToFloat() * AirCriticalMoles;
     internal static float AirTankMolesCaution => Human.MolesPerMinute.ToFloat() * AirCautionMoles;
 }
+
+
+
+
+
+
+
+
+
 
 
 

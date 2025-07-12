@@ -22,6 +22,7 @@
         <DebugType>embedded</DebugType>
         <WarningLevel>4</WarningLevel>
         <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
 
         <!-- Change this to the path to your Stationeers Directory -->
         <StationeersDirectory>D:\SteamLibrary\steamapps\common\Stationeers</StationeersDirectory>
@@ -55,6 +56,7 @@
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
+        <Copy SourceFiles="$(SolutionDir)LICENSE.md" DestinationFolder="$(StationeersDocumentsDirectory)\mods\LICENSE.md" ContinueOnError="false" />
         <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
         <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
         <Copy SourceFiles="@(CopyItemsTextures)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\Textures\%(RecursiveDir)" ContinueOnError="true" />

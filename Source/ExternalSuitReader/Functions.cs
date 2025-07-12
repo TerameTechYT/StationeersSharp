@@ -26,7 +26,7 @@ public class AdvancedSuitSaveData(List<DoubleReference> channels) : SuitSaveData
     [XmlArrayItem("Channel")]
     public List<DoubleReference> Channels = channels;
 
-    public static AdvancedSuitSaveData Create(ThingSaveData reference, List<DoubleReference> channels) {
+    public static AdvancedSuitSaveData? Create(ThingSaveData reference, List<DoubleReference> channels) {
         if (reference is AdvancedSuitSaveData data) {
             data.Channels = channels;
 

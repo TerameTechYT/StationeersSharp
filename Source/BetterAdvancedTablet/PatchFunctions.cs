@@ -11,7 +11,7 @@ public static class PatchFunctions {
     [HarmonyPrefix]
     public static bool PrefabLoadAll() {
         try {
-            AdvancedTablet tabletPrefab = WorldManager.Instance.SourcePrefabs.Find((thing) => thing.PrefabName == ConfigData.AdvancedTabletPrefabName) as AdvancedTablet;
+            AdvancedTablet? tabletPrefab = WorldManager.Instance.SourcePrefabs.Find((thing) => thing.PrefabName == ConfigData.AdvancedTabletPrefabName) as AdvancedTablet;
             if (tabletPrefab == null) {
                 return true;
             }

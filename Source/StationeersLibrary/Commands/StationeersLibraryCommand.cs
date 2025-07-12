@@ -14,7 +14,7 @@ public class StationeersLibraryCommand : CommandBase {
 
     public override bool IsLaunchCmd => false;
 
-    public override string Execute(string[] args) {
+    public override string? Execute(string[] args) {
         if (args.First() == "report") {
             string logName = "LogForGithub";
 

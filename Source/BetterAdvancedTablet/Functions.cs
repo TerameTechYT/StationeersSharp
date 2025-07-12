@@ -124,9 +124,9 @@ public static class Functions {
 
         Atmosphere atmosphere = new();
         Traverse traverse = Traverse.Create(cursorThing);
-        Atmosphere internalAtmosphere1 = traverse.Field("InternalAtmosphere2")?.GetValue<Atmosphere>();
-        Atmosphere internalAtmosphere2 = traverse.Field("InternalAtmosphere2")?.GetValue<Atmosphere>();
-        Atmosphere internalAtmosphere3 = traverse.Field("InternalAtmosphere3")?.GetValue<Atmosphere>();
+        Atmosphere? internalAtmosphere1 = traverse.Field("InternalAtmosphere2")?.GetValue<Atmosphere>();
+        Atmosphere? internalAtmosphere2 = traverse.Field("InternalAtmosphere2")?.GetValue<Atmosphere>();
+        Atmosphere? internalAtmosphere3 = traverse.Field("InternalAtmosphere3")?.GetValue<Atmosphere>();
 
         if (cursorThing.InternalAtmosphere != null) {
             atmosphere.Add(cursorThing.InternalAtmosphere.GasMixture);

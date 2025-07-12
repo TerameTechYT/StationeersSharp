@@ -13,7 +13,7 @@ public static class Functions {
         Slot slotToFill = Functions.GetSlotToFill(selectedOccupant, selectedSlot.Type);
     }
 
-    public static Slot GetSlotToFill(Stackable stackable, Slot.Class slotType) {
+    public static Slot? GetSlotToFill(Stackable stackable, Slot.Class slotType) {
         if (stackable == null) {
             return null;
         }
