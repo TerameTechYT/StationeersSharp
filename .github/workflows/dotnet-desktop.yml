@@ -32,7 +32,7 @@ jobs:
             -anonymous `
             -app 600760 `
             -depot 600761 `
-            -filelist ../REQUIRED.md
+            -filelist ../../REQUIRED.md
 
       - name: Copy Libraries
         run: |
