@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterFabricator", "Source\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterInventory", "Source\BetterInventory\BetterInventory.csproj", "{F9C66D78-6FEF-8C5D-5091-9937361389AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template", "Template\Template.csproj", "{A4F6432E-650D-227A-08A0-8733AEB4B29B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -242,6 +244,18 @@ Global
 		{F9C66D78-6FEF-8C5D-5091-9937361389AC}.Release|x64.Build.0 = Release|x64
 		{F9C66D78-6FEF-8C5D-5091-9937361389AC}.Release|x86.ActiveCfg = Release|x86
 		{F9C66D78-6FEF-8C5D-5091-9937361389AC}.Release|x86.Build.0 = Release|x86
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Debug|Any CPU.Build.0 = Debug|x64
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Debug|x64.ActiveCfg = Debug|x64
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Debug|x64.Build.0 = Debug|x64
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Debug|x86.ActiveCfg = Debug|x86
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Debug|x86.Build.0 = Debug|x86
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Release|Any CPU.ActiveCfg = Release|x64
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Release|Any CPU.Build.0 = Release|x64
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Release|x64.ActiveCfg = Release|x64
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Release|x64.Build.0 = Release|x64
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Release|x86.ActiveCfg = Release|x86
+		{A4F6432E-650D-227A-08A0-8733AEB4B29B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

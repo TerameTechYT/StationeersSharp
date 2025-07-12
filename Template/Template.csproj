@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <ModName>Template</ModName>
+        <AssemblyName>$(ModName)</AssemblyName>
+        <RootNamespace>$(ModName)</RootNamespace>
+    </PropertyGroup>
+
+    <!-- Import Stationeers VS properties - paths etc. -->
+    <Import Project="$(SolutionDir)Stationeers.VS.props" />
+
+    <!-- Import Game/Unity DLL references -->
+    <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
+
+    <ItemGroup>
+        <CopyItemsGameData Include="$(ProjectDir)\GameData\**\*.*" />
+        <CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="$(SolutionDir)\Source\StationeersLibrary\StationeersLibrary.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="GameData\" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
+        <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
+        <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
+    </Target>
+</Project>
