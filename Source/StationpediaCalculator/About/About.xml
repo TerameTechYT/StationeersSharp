@@ -14,7 +14,7 @@
         (cos, sin, tan, acos, asin, atan, floor, ceiling, abs, pow, exp, sqrt)
         
         you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-        https://github.com/TerameTechYT/StationeersSharp/releases/latest
+        https://github.com/TerameTechYT/StationeersSharp/actions
     </Description>
     <WorkshopHandle>3305312105</WorkshopHandle>
     <Tags>

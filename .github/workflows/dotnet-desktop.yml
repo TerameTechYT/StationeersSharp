@@ -106,7 +106,7 @@ jobs:
           mkdir -Force Libraries
           mkdir -Force Libraries\rocketstation_Data
           mkdir -Force Libraries\rocketstation_Data\Managed
-          Get-ChildItem -Path "DepotDownloader/out/files -Filter *.dll | `
+          Get-ChildItem -Path "DepotDownloader/out/files" -Filter *.dll | `
             Copy-Item -Destination Libraries/rocketstation_Data/Managed -Force
 
       - name: Download BepInEx

@@ -12,7 +12,7 @@
         This does not remove any water, you will still get 100% of the water you produce, however it will be added to the combustor as steam instead of liquid water.
 
         you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-        https://github.com/TerameTechYT/StationeersSharp/releases/latest
+        https://github.com/TerameTechYT/StationeersSharp/actions
     </Description>
     <WorkshopHandle>3404201609</WorkshopHandle>
     <Tags>
