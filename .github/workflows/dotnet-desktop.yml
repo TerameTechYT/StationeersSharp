@@ -1,0 +1,71 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "development" ]
+  pull_request:
+    branches: [ "development" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Main Repository
+        uses: actions/checkout@v4
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Clone and Build DepotDownloader
+        run: |
+          git clone https://github.com/SteamRE/DepotDownloader.git
+          cd DepotDownloader
+          dotnet publish -c Release -o out
+
+      - name: Download Libraries from Steam
+        run: |
+          cd DepotDownloader\out
+          dotnet DepotDownloader.dll `
+            -anonymous `
+            -app 600760 `
+            -depot 600761 `
+            -dir "rocketstation_Data/Managed"
+
+      - name: Copy Libraries
+        run: |
+          mkdir -Force Libraries
+          mkdir -Force Libraries\rocketstation_Data
+          mkdir -Force Libraries\rocketstation_Data\Managed
+          Get-ChildItem -Path "DepotDownloader/out/rocketstation_Data/Managed" -Filter *.dll | `
+            Copy-Item -Destination Libraries/rocketstation_Data/Managed -Force
+
+      - name: Download BepInEx
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/BepInEx_x64_5.4.22.0.zip" -OutFile "bepinex.zip"
+          Expand-Archive -Path "bepinex.zip" -DestinationPath "bepinex"
+          mv -Force bepinex Libraries
+          mkdir -Force Libraries/BepInEx/plugins
+
+      - name: Download StationeersLaunchPad  
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/StationeersLaunchPad/StationeersLaunchPad/releases/download/v0.2.1/StationeersLaunchPad-v0.2.1.zip" -OutFile "slp.zip"
+          Expand-Archive -Path "slp.zip" -DestinationPath "slp"
+          mv -Force slp Libraries/BepInEx/plugins
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Solution
+        run: |
+          msbuild StationeersSharp.sln `
+            /p:Configuration=Publish `
+            /restore
+
+      - name: Upload  Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Mods
+          path: Build/
