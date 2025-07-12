@@ -12,7 +12,7 @@
         You can change these settings using the config.
         
         you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-        https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+        https://github.com/TerameTechYT/StationeersSharp/releases/latest
     </Description>
     <Tags>
         <Tag>Mod</Tag>
