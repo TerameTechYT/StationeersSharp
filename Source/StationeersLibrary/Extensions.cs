@@ -5,15 +5,77 @@
 namespace StationeersLibrary;
 
 public static class StringExtensions {
+    /// <summary>
+    /// Convert a double to a prefixed string
+    /// </summary>
+    /// <param name="value">Value to convert</param>
+    /// <param name="unit">Unit string (optional)</param>
+    /// <param name="color">Color name (optional)</param>
+    /// <returns></returns>
     public static string ToStringPrefix(this double value, string unit = "", string color = "") => value.ToStringPrefix(unit, color);
+
+    /// <summary>
+    /// Convert a float to a prefixed string
+    /// </summary>
+    /// <param name="value">Value to convert</param>
+    /// <param name="unit">Unit string (optional)</param>
+    /// <param name="color">Color name (optional)</param>
+    /// <returns></returns>
     public static string ToStringPrefix(this float value, string unit = "", string color = "") => value.ToStringPrefix(unit, color);
+
+    /// <summary>
+    /// Convert a PressurekPa to a prefixed string
+    /// </summary>
+    /// <param name="value">Value to convert</param>
+    /// <param name="unit">Unit string (optional)</param>
+    /// <param name="color">Color name (optional)</param>
+    /// <returns></returns>
     public static string ToStringPrefix(this PressurekPa value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
+
+    /// <summary>
+    /// Convert a TemperatureKelvin to a prefixed string
+    /// </summary>
+    /// <param name="value">Value to convert</param>
+    /// <param name="unit">Unit string (optional)</param>
+    /// <param name="color">Color name (optional)</param>
+    /// <returns></returns>
     public static string ToStringPrefix(this TemperatureKelvin value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
+
+    /// <summary>
+    /// Convert a VolumeLitres to a prefixed string
+    /// </summary>
+    /// <param name="value">Value to convert</param>
+    /// <param name="unit">Unit string (optional)</param>
+    /// <param name="color">Color name (optional)</param>
+    /// <returns></returns>
     public static string ToStringPrefix(this VolumeLitres value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
+
+    /// <summary>
+    /// Convert a MoleQuantity to a prefixed string
+    /// </summary>
+    /// <param name="value">Value to convert</param>
+    /// <param name="unit">Unit string (optional)</param>
+    /// <param name="color">Color name (optional)</param>
+    /// <returns></returns>
     public static string ToStringPrefix(this MoleQuantity value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
+
+    /// <summary>
+    /// Convert a MoleEnergy to a prefixed string
+    /// </summary>
+    /// <param name="value">Value to convert</param>
+    /// <param name="unit">Unit string (optional)</param>
+    /// <param name="color">Color name (optional)</param>
+    /// <returns></returns>
+    public static string ToStringPrefix(this MoleEnergy value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
 }
 
 public static class CodeInstructionExtensions {
+    /// <summary>
+    /// Returns true of the CodeInstructions opcode is equal to the given opcode
+    /// </summary>
+    /// <param name="instruction">Instruction</param>
+    /// <param name="opcode">Oppcode</param>
+    /// <returns></returns>
     public static bool OpcodeIs(this CodeInstruction instruction, OpCode opcode) => instruction?.opcode == opcode;
 }
 
