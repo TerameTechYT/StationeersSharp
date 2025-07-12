@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Water Combustor [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.4.0.54</Version>
+    <Version>1.4.0.59</Version>
     <Description>
         [h1]Better Water Combustor[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -37,8 +37,11 @@
     </LoadAfter>
 
 
+
+
+
 <ChangeLog>
-- push changelog updated
+- update powershell script
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: a5725c41eb18bd10c1cd7b9a1275e2c9fde7349c -->
+<!-- LastProcessedCommit: 725bf1be52765e031b859ea23daeb0946202dee5 -->
