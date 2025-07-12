@@ -1,4 +1,4 @@
-# Increment-Version.ps1 v1.0.5.0
+# Increment-Version.ps1 v1.0.7.0
 
 $sourceFile = "Plugin.cs"
 $assemblyInfoFile = "AssemblyInfo.cs"
@@ -70,5 +70,5 @@ $assemblyContent = @"
 "@
 
 $assemblyPath = Join-Path $parentFolder $assemblyInfoFile
-Set-Content -Path $assemblyPath -Value $assemblyContent -Encoding UTF8
+[System.IO.File]::WriteAllText($assemblyPath, $assemblyContent, [System.Text.Encoding]::UTF8)
 Write-Host "AssemblyInfo.cs generated at: $assemblyPath"
