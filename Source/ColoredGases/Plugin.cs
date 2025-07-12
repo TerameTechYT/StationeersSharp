@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "ColoredGases",
         Guid = "coloredgases",
-        Version = new Version(1, 4, 0, 50),
+        Version = new Version(1, 4, 0, 51),
         WorkshopId = 3523162910ul,
         GameType = GameType.Client,
     };
