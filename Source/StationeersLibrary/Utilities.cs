@@ -156,6 +156,11 @@ public static class ReflectionUtilities {
     public static Attribute Attribute(Type type, Type attributeType) =>
             type?.GetCustomAttribute(attributeType);
 
+    public static bool HasAttribute<T>(Type type) where T : Attribute =>
+            type?.GetCustomAttribute<T>() != null;
+    public static bool HasAttribute(Type type, Type attributeType) =>
+            type?.GetCustomAttribute(attributeType) != null;
+
     public static Type Interface(Type type, string name) =>
             type?.GetInterface(name);
     public static InterfaceMapping? InterfaceMapping(Type type, Type interfaceType) =>
