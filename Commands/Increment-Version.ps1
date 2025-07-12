@@ -1,14 +1,16 @@
-# Increment-Version.ps1 v1.0.7.0
+﻿# Increment-Version.ps1 v1.1.0.0
 
 $sourceFile = "Plugin.cs"
 $assemblyInfoFile = "AssemblyInfo.cs"
+$aboutFile = "About.xml"
 
+# --- Changelog Section --- #
 $fullPath = Resolve-Path $sourceFile
 $parentFolder = Split-Path $fullPath -Parent
 $folderName = Split-Path $parentFolder -Leaf
 
 if ($folderName -ieq "Template") {
-    Write-Host "Versioning cancelled: Plugin.cs is inside a 'Template' folder."
+    Write-Host "Versioning cancelled: $sourceFile is inside a 'Template' folder."
     exit 0
 }
 
@@ -51,10 +53,11 @@ if ($content -match $versionPattern) {
     [System.IO.File]::WriteAllText($fullPath, $newContent, [System.Text.Encoding]::UTF8)
     Write-Host "Version updated to $newVersionString"
 } else {
-    Write-Warning "Version pattern not found in Plugin.cs"
+    Write-Warning "Version pattern not found in $sourceFile"
     exit 1
 }
 
+# --- AssemblyInfo.cs Section --- #
 $name = if ($nameMatch) { $nameMatch.Matches[0].Groups[1].Value } else { "unknown" }
 $guid = if ($guidMatch) { $guidMatch.Matches[0].Groups[1].Value } else { "unknown" }
 $workshopId = if ($workshopIdMatch) { $workshopIdMatch.Matches[0].Groups[1].Value } else { "unknown" }
@@ -71,8 +74,9 @@ $assemblyContent = @"
 
 $assemblyPath = Join-Path $parentFolder $assemblyInfoFile
 [System.IO.File]::WriteAllText($assemblyPath, $assemblyContent, [System.Text.Encoding]::UTF8)
-Write-Host "AssemblyInfo.cs generated at: $assemblyPath"
+Write-Host "$assemblyInfoFile generated at: $assemblyPath"
 
+# --- About.xml Section --- #
 $aboutPath = Join-Path $parentFolder "About/About.xml"
 if (Test-Path $aboutPath) {
     $aboutContent = Get-Content $aboutPath -Raw
@@ -90,4 +94,51 @@ if (Test-Path $aboutPath) {
     }
 } else {
     Write-Warning "About.xml not found in $parentFolder"
+}
+
+# --- Changelog Section --- #
+$commitCommentPattern = '<!--\s*LastProcessedCommit:\s*([a-f0-9]{7,40})\s*-->'
+$lastProcessedCommit = $null
+
+if ($aboutContent -match $commitCommentPattern) {
+    $lastProcessedCommit = $matches[1]
+    Write-Host "Found last processed commit: $lastProcessedCommit"
+}
+
+$currentCommit = (git rev-parse HEAD).Trim()
+if (-not $currentCommit) {
+    Write-Warning "Unable to get current commit hash"
+} else {
+    if ($lastProcessedCommit) {
+        $gitMessages = git log "$lastProcessedCommit..HEAD" --pretty=format:"- %s" 2>&1
+    } else {
+        $gitMessages = git log -n 5 --pretty=format:"- %s" 2>&1
+    }
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warning "Git log failed: $gitMessages"
+    } else {
+        $logBody = ($gitMessages -join "`n")
+        $changelogText = "<ChangeLog>`n$logBody`n</ChangeLog>"
+
+        if ($aboutContent -match '<ChangeLog>.*?</ChangeLog>') {
+            $aboutContent = [regex]::Replace(
+                $aboutContent,
+                '<ChangeLog>.*?</ChangeLog>',
+                $changelogText
+            )
+        } else {
+            $aboutContent = $aboutContent -replace '</ModMetadata>', "$changelogText`n</ModMetadata>"
+        }
+
+        $commitComment = "<!-- LastProcessedCommit: $currentCommit -->"
+        if ($aboutContent -match $commitCommentPattern) {
+            $aboutContent = [regex]::Replace($aboutContent, $commitCommentPattern, $commitComment)
+        } else {
+            $aboutContent += "`n$commitComment"
+        }
+
+        [System.IO.File]::WriteAllText($aboutPath, $aboutContent, [System.Text.Encoding]::UTF8)
+        Write-Host "ChangeLog updated from commits since $lastProcessedCommit"
+    }
 }
