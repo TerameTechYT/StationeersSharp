@@ -172,7 +172,7 @@ public abstract class Mod : MonoBehaviour {
             this.LoadedMod = mod;
 
             if (this.UseLogger) {
-                this.Logger = Plugin.Instance.Logger.CreateChild(this.ModName);
+                this.Logger = Logger.Global.CreateChild(this.ModName);
                 this.DoLoggerMove();
             }
         }
@@ -186,7 +186,7 @@ public abstract class Mod : MonoBehaviour {
     /// Internal <see cref="Awake"/> method.
     /// Called when <see cref="MonoBehaviour"/> is initalized
     /// </summary>
-    private void Awake() => this.OnAwake();
+    private void Awake() => this.Start();
 
     /// <summary>
     /// Called by <see cref="StationeersLaunchPad"/> with any prefabs.
@@ -256,6 +256,8 @@ public abstract class Mod : MonoBehaviour {
         }
 
         this.LogDebug($"{this} is now loaded!");
+
+        this.Start();
     }
 
     /// <summary>
@@ -479,7 +481,12 @@ public abstract class Mod : MonoBehaviour {
     /// <summary>
     /// Called by <see cref="Mod"/> after core initialization is done.
     /// </summary>
-    public abstract void OnAwake();
+    public abstract void Start();
+
+    /// <summary>
+    /// Called by <see cref="Mod"/> when the GameObject is created is done.
+    /// </summary>
+    public virtual void OnAwake() { }
 
     /// <summary>
     /// Called by <see cref="Mod"/> when configuration is ready to be binded.

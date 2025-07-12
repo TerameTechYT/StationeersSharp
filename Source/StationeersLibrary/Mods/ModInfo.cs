@@ -84,7 +84,7 @@ public sealed class ModInfo {
     /// ModInfo as a string
     /// </summary>
     /// <returns></returns>
-    public override string ToString() => $"{this.Name} ({this.Guid}) - {this.Version} {(this.WorkshopId == 0ul ? "" : $" - {this.WorkshopId}")}";
+    public override string ToString() => $"{this.Name} ({this.Guid}) - {this.Version} {(this.WorkshopId == 0ul ? "" : $"- {this.WorkshopId}")}";
 
     /// <summary>
     /// Hashcode of ModInfo

@@ -20,7 +20,7 @@ public class Plugin : Mod {
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct ConfigData {
