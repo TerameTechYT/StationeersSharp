@@ -23,8 +23,4 @@ public class Plugin : Mod {
     public override void OnAwake() { }
 }
 
-internal struct ConfigData {
-    //
-    public static ConfigEntry<bool> debugMode;
-    public static bool DebugMode => debugMode?.Value ?? false;
-}
+internal struct ConfigData {}

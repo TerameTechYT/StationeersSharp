@@ -26,6 +26,6 @@ public class Plugin : Mod {
 
 internal struct ConfigData {
     //
-    public static ConfigEntry<bool> spawnWrecks;
-    public static bool SpawnWrecks => spawnWrecks?.Value ?? false;
+    //public static ConfigEntry<bool> spawnWrecks;
+    //public static bool SpawnWrecks => spawnWrecks?.Value ?? false;
 }

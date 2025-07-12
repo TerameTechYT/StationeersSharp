@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>Better Hydroponics [StationeersLaunchPad]</Name>
-	<Author>vinus</Author>
-	<Version>1.0.0</Version>
-	<Description>
-		[h1]Better Hydroponics[/h1]
-		[b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
-		See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
+    <Name>Better Hydroponics [StationeersLaunchPad]</Name>
+    <Author>vinus</Author>
+    <Version>1.0.0</Version>
+    <Description>
+        [h1]Better Hydroponics[/h1]
+        [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
+        See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
 
-		Adds more readable logic values to hydroponics devices.
+        Adds more readable logic values to hydroponics devices.
 
-		Due to limited amount of slot logic variables, there arent many well named varibles, so i had to just use whatever wasnt used already.
+        Due to limited amount of slot logic variables, there arent many well named varibles, so i had to just use whatever wasnt used already.
 
-		Using `ls [r?] [d?] slotIndex logicSlotType
-		[i][d?] should be a Automated Hydroponics, Hydroponics Device, or a Hydroponics Station[/i]
+        Using `ls [r?] [d?] slotIndex logicSlotType
+        [i][d?] should be a Automated Hydroponics, Hydroponics Device, or a Hydroponics Station[/i]
 
-		[b]Temperature[/b]: reads the temperature efficency of plant.
-		[b]Pressure[/b]: reads pressure efficency of plant.
-		[b]PressureAir[/b]: reads breathing efficency of plant.
-		[b]Volume[/b]: reads hydration efficency of plant.
-		[b]Charge[/b]: reads light efficency of plant.
-		[b]On[/b]: reads age of plant.
-		[b]Lock[/b]: reads light stress of plant.
-		[b]Open[/b]: reads lit time ratio of plant.
-		[b]Mode[/b]: reads dark time ratio of plant.
+        [b]Temperature[/b]: reads the temperature efficency of plant.
+        [b]Pressure[/b]: reads pressure efficency of plant.
+        [b]PressureAir[/b]: reads breathing efficency of plant.
+        [b]Volume[/b]: reads hydration efficency of plant.
+        [b]Charge[/b]: reads light efficency of plant.
+        [b]On[/b]: reads age of plant.
+        [b]Lock[/b]: reads light stress of plant.
+        [b]Open[/b]: reads lit time ratio of plant.
+        [b]Mode[/b]: reads dark time ratio of plant.
 
-		you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-		https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
-	</Description>
-	<WorkshopHandle>3449149492</WorkshopHandle>
-	<Tags>
-		<Tag>Mod</Tag>
-		<Tag>BepInEx</Tag>
-		<Tag>StationeersLaunchPad</Tag>
-	</Tags>
+        you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+        https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+    </Description>
+    <WorkshopHandle>3449149492</WorkshopHandle>
+    <Tags>
+        <Tag>Mod</Tag>
+        <Tag>BepInEx</Tag>
+        <Tag>StationeersLaunchPad</Tag>
+    </Tags>
 
-	<Dependencies>
-		<Mod>
-			<Id>3389894703</Id>
-		</Mod>
-	</Dependencies>
+    <Dependencies>
+        <Mod>
+            <Id>3389894703</Id>
+        </Mod>
+    </Dependencies>
 
-	<LoadBefore>
-		<Mod>
-			<Id>3389894703</Id>
-		</Mod>
-	</LoadBefore>
+    <LoadBefore>
+        <Mod>
+            <Id>3389894703</Id>
+        </Mod>
+    </LoadBefore>
 
-	<LoadAfter>
-	</LoadAfter>
+    <LoadAfter>
+    </LoadAfter>
 </ModMetadata>

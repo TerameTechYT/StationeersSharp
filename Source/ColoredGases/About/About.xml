@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>Colored Gases [StationeersLaunchPad]</Name>
-	<Author>vinus</Author>
-	<Version>1.0.0</Version>
-	<Description>
+    <Name>Colored Gases [StationeersLaunchPad]</Name>
+    <Author>vinus</Author>
+    <Version>1.0.0</Version>
+    <Description>
         [h1]Colored Gases[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
         See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
@@ -21,18 +21,18 @@
         <Tag>StationeersLaunchPad</Tag>
     </Tags>
     <WorkshopHandle>3523162910</WorkshopHandle>
-	<Dependencies>
-		<Mod>
-			<Id>3389894703</Id>
-		</Mod>
-	</Dependencies>
+    <Dependencies>
+        <Mod>
+            <Id>3389894703</Id>
+        </Mod>
+    </Dependencies>
 
-	<LoadBefore>
-		<Mod>
-			<Id>3389894703</Id>
-		</Mod>
-	</LoadBefore>
+    <LoadBefore>
+        <Mod>
+            <Id>3389894703</Id>
+        </Mod>
+    </LoadBefore>
 
-	<LoadAfter>
-	</LoadAfter>
+    <LoadAfter>
+    </LoadAfter>
 </ModMetadata>

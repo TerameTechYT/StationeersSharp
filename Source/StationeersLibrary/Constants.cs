@@ -11,8 +11,6 @@ public static class Constants {
     public static string STATIONEERS_LIBRARY_GUID => Plugin.Instance.ModGuid;
     public static ulong STATIONEERS_LIBRARY_HANDLE => Plugin.Instance.ModWorkshopId;
 
-    public static bool DEBUG_MODE => ConfigData.DebugMode;
-
     public static GameType GameType => GameManager.IsBatchMode ? GameType.Server : GameType.Client;
 
     // REPO

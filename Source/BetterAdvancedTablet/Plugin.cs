@@ -17,7 +17,7 @@ public class Plugin : Mod {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
         Version = new Version(1, 1, 0),
-        WorkshopId = 0ul,
+        WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };
 

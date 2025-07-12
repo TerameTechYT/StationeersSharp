@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>Better Advanced Tablet [StationeersLaunchPad]</Name>
-	<Author>vinus</Author>
-	<Version>1.0.0</Version>
-	<Description>
-		[h1]Better Advanced Tablet[/h1]
-		[b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
-		See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
+    <Name>Better Advanced Tablet [StationeersLaunchPad]</Name>
+    <Author>vinus</Author>
+    <Version>1.0.0</Version>
+    <Description>
+        [h1]Better Advanced Tablet[/h1]
+        [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
+        See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
 
-		you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-		https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
-	</Description>
-	<Tags>
-		<Tag>Mod</Tag>
-		<Tag>BepInEx</Tag>
-		<Tag>StationeersLaunchPad</Tag>
-	</Tags>
+        you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
+        https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
+    </Description>
+    <WorkshopHandle>3523321721</WorkshopHandle>
+    <Tags>
+        <Tag>Mod</Tag>
+        <Tag>BepInEx</Tag>
+        <Tag>StationeersLaunchPad</Tag>
+    </Tags>
 
-	<Dependencies>
-		<Mod>
-			<Id>3389894703</Id>
-		</Mod>
-	</Dependencies>
+    <Dependencies>
+        <Mod>
+            <Id>3389894703</Id>
+        </Mod>
+    </Dependencies>
 
-	<LoadBefore>
-		<Mod>
-			<Id>3389894703</Id>
-		</Mod>
-	</LoadBefore>
+    <LoadBefore>
+        <Mod>
+            <Id>3389894703</Id>
+        </Mod>
+    </LoadBefore>
 
-	<LoadAfter>
-	</LoadAfter>
+    <LoadAfter>
+    </LoadAfter>
 </ModMetadata>

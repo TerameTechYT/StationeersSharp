@@ -41,8 +41,8 @@ public class SEGI : MonoBehaviour {
 
     private RenderState renderState = RenderState.Voxelize;
 
-    private bool initalized;
-    private bool notReadyToRender;
+    private bool initalized = false;
+    private bool notReadyToRender = false;
 
     private const int mipLevels = 6;
     private int sunShadowResolution = 256;
@@ -95,7 +95,7 @@ public class SEGI : MonoBehaviour {
     #region SupportingObjectsAndProperties
 
     private struct Pass {
-        public static int DiffuseTrace;
+        public static int DiffuseTrace = 0;
         public static int BilateralBlur = 1;
         public static int BlendWithScene = 2;
         public static int TemporalBlend = 3;

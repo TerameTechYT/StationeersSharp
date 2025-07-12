@@ -2,7 +2,33 @@
 
 #endregion
 
+using Assets.Scripts.Util;
+using System.Collections.Generic;
+
 namespace StationeersLibrary;
+
+public static class HarmonyExtensions {
+    public static List<PatchClassProcessor> CreatePatchersForAssembly(this Harmony harmony, Assembly assembly) {
+        List<PatchClassProcessor> processors = [];
+
+        foreach (Type type in AccessTools.GetTypesFromAssembly(assembly)) {
+            PatchClassProcessor procesor = harmony.CreateClassProcessor(type);
+            processors.Add(procesor);
+        }
+
+        return processors;
+    }
+
+    public static Dictionary<Assembly, List<PatchClassProcessor>> CreatePatchersForAssemblies(this Harmony harmony, IEnumerable<Assembly> assemblies) {
+        Dictionary<Assembly, List<PatchClassProcessor>> processors = [];
+
+        foreach (Assembly assembly in assemblies) {
+            processors.TryAdd(assembly, harmony.CreatePatchersForAssembly(assembly));
+        }
+
+        return processors;
+    }
+}
 
 public static class StringExtensions {
     /// <summary>

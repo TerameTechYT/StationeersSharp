@@ -1,14 +1,10 @@
 ﻿#region
 
-using BepInEx.Harmony;
 using LaunchPadBooster;
 using LaunchPadBooster.Networking;
 using LaunchPadBooster.Utils;
-using RootMotion.Demos;
 using StationeersLaunchPad;
-using System;
 using System.Diagnostics;
-using UnityEngine;
 using Logger = StationeersLaunchPad.Logger;
 
 #endregion
@@ -26,6 +22,13 @@ public abstract class Mod : MonoBehaviour {
     public static readonly List<Mod> AllMods = [];
 
     /// <summary>
+    /// 
+    /// </summary>
+    private static readonly object _lock = new();
+
+    #region LOGGER
+
+    /// <summary>
     /// Should this mod initalize the logger?
     /// </summary>
     public virtual bool UseLogger { get; protected set; } = true;
@@ -34,6 +37,20 @@ public abstract class Mod : MonoBehaviour {
     /// This mods <see cref="StationeersLaunchPad.Logger"/> instance
     /// </summary>
     public Logger Logger { get; private set; }
+
+    /// <summary>
+    /// This mods <see cref="StationeersLaunchPad.LogBuffer"/> instance
+    /// </summary>
+    protected LogBuffer Buffer => this.Logger.Buffer;
+
+    /// <summary>
+    /// This mods <see cref="Logger"/> name
+    /// </summary>
+    public string LoggerName => this.Logger.Name;
+
+    #endregion // LOGGER
+
+    #region CONFIG
 
     /// <summary>
     /// Should this mod initalize the config?
@@ -55,6 +72,9 @@ public abstract class Mod : MonoBehaviour {
     /// </summary>
     public ConfigFile Config { get; private set; }
 
+    #endregion // CONFIG
+
+    #region HARMONY
     /// <summary>
     /// Should this mod initalize harmony?
     /// </summary>
@@ -69,6 +89,10 @@ public abstract class Mod : MonoBehaviour {
     /// This mods <see cref="HarmonyLib.Harmony"/> instance.
     /// </summary>
     public Harmony Harmony { get; private set; }
+
+    #endregion // HARMONY
+
+    #region INTERNAL
 
     /// <summary>
     /// Override to provide your own version checking function.
@@ -85,6 +109,14 @@ public abstract class Mod : MonoBehaviour {
     /// Internal <see cref="StationeersLaunchPad.LoadedMod"/> instance.
     /// </summary>
     protected LoadedMod LoadedMod { get; private set; }
+
+    protected Logger LoadedLogger => this.LoadedMod.Logger;
+
+    protected LogBuffer LoadedBuffer => this.LoadedLogger.Buffer;
+
+    #endregion // INTERNAL
+
+    #region MOD INFO
 
     /// <summary>
     /// This mods list of prefabs.
@@ -130,6 +162,7 @@ public abstract class Mod : MonoBehaviour {
     /// Quick accessor for <see cref="ModInfo.GameType"/>
     /// </summary>
     public GameType ModGameType => this.Data.GameType;
+    #endregion // MOD INFO
 
     /// <summary>
     /// Default constructor
@@ -138,12 +171,15 @@ public abstract class Mod : MonoBehaviour {
         // Fetches the caller of this constructor, which should be the class that inherits this one.
         if (ModLoader.TryGetStackTraceMod(new StackTrace(1), out LoadedMod mod)) {
             this.LoadedMod = mod;
+
             if (this.UseLogger) {
-                this.Logger = this.LoadedMod.Logger;
+                this.Logger = Plugin.Instance.Logger.CreateChild(this.ModName);
+                this.DoLoggerMove();
             }
         }
         else {
-            UnityEngine.Debug.LogError("Could not get LoadedMod");
+            Logger.Global.LogError($"Could not get LoadedMod for {this}");
+            LaunchPadConfig.AutoLoad = false;
         }
     }
 
@@ -154,22 +190,24 @@ public abstract class Mod : MonoBehaviour {
     private void Awake() => this.OnAwake();
 
     /// <summary>
-    /// Called by <see cref="StationeersLaunchPad"/> with configuration and any prefabs.
+    /// Called by <see cref="StationeersLaunchPad"/> with any prefabs.
     /// </summary>
     /// <param name="prefabs">Prefabs this mod should have</param>
     public void OnLoaded(List<GameObject> prefabs) {
+        this.Log($"{this} is now loading...");
+
         if (this.UseLogger && this.Logger == null) {
             this.Logger = Logger.Global.CreateChild(this.ModName);
         }
 
         if (Utilities.IsLoaded(this.ModGuid)) {
-            this.LogError($"Mod {this.ModName} ({this.ModGuid}) - {this.ModVersion} has already been loaded!");
+            this.LogError($"{this} has already been loaded!");
             LaunchPadConfig.AutoLoad = false;
             return;
         }
 
         if (!this.Data.IsGameCompatible()) {
-            this.LogError($"Mod cannot be run on {this.ModGameType}, requires {Constants.GameType}");
+            this.LogError($"{this} cannot be run on {this.ModGameType}, requires {Constants.GameType}");
             LaunchPadConfig.AutoLoad = false;
             return;
         }
@@ -214,7 +252,40 @@ public abstract class Mod : MonoBehaviour {
         SceneManager.sceneUnloaded += this.SceneUnloaded;
         MainMenuWindowManager.OnPageEnabled += this.MenuPageEnabled;
 
-        AllMods.Add(this);
+        lock (_lock) {
+            Mod.AllMods.Add(this);
+        }
+
+        this.LogDebug($"{this} is now loaded!");
+    }
+
+    /// <summary>
+    /// Called when the mod is being unloaded
+    /// </summary>
+    public void OnUnloaded() {
+        this.Log($"{this} is now unloading...");
+
+        if (this.UseConfig) {
+            this.Config.Save();
+        }
+
+        if (this.UseHarmony) {
+            this.UndoHarmonyPatch();
+        }
+
+        if (this.HasPrefabs) {
+            this.Prefabs.Clear();
+        }
+
+        SceneManager.sceneLoaded -= this.SceneLoaded;
+        SceneManager.sceneUnloaded -= this.SceneUnloaded;
+        MainMenuWindowManager.OnPageEnabled -= this.MenuPageEnabled;
+
+        lock (_lock) {
+            Mod.AllMods.Remove(this);
+        }
+
+        this.LogDebug($"{this} is now unloaded!");
     }
 
     /// <summary>
@@ -252,6 +323,20 @@ public abstract class Mod : MonoBehaviour {
     private void FixedUpdate() => this.OnLateUpdate(Time.fixedDeltaTime);
 
     /// <summary>
+    /// Internal logger move function, moves the contents of SLP's logger into ours
+    /// </summary>
+    private void DoLoggerMove() {
+        // i know this is jank, but we dont really want to have 2 logger instances for the same mod
+
+        for (int i = 0; i < this.LoadedBuffer.Count; i++) {
+            LogLine line = this.LoadedBuffer[i];
+            this.Buffer.Add(this.LoggerName, line.Message, line.Severity);
+        }
+        this.LoadedMod.Logger.Clear();
+        this.LoadedMod.Logger = this.Logger;
+    }
+
+    /// <summary>
     /// Internal <see cref="DoLoadConfiguration"/> method.
     /// Called when mod is ready to load configuration
     /// </summary>
@@ -270,26 +355,41 @@ public abstract class Mod : MonoBehaviour {
     private void DoHarmonyPatch() {
         bool success = true;
         if (this.AutoPatch) {
-            foreach (Assembly assembly in this.LoadedMod.Assemblies) {
-                try {
-                    this.LogDebug("Harmony patching starting...");
+            this.LogDebug("Harmony patching starting...");
+            try {
+                foreach ((Assembly assembly, List<PatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
                     AssemblyName name = assembly.GetName();
+                    this.LogDebug($"Harmony patching assembly ({name.FullName})");
 
-                    this.Logger.Log($"Harmony patching assembly ({name.FullName})");
-                    this.Harmony.PatchAll(assembly);
-                    this.Logger.Log($"Harmony patched assembly ({name.FullName})");
+                    int patches = 0;
+                    foreach (PatchClassProcessor processor in processors) {
+                        List<MethodInfo> methods = processor.Patch();
+                        patches += methods?.Count ?? 0;
+                    }
+
+                    this.LogDebug($"Harmony finished patching assembly ({name.Name}) with {patches} patches");
                 }
-                catch (Exception ex) {
-                    this.LogException(ex);
-                    this.LogError("Failed to patch harmony!");
-                    success = false;
-                }
-                finally {
-                    this.LogDebug("Harmony patching finished!");
-                }
+            }
+            catch (Exception ex) {
+                this.LogError("Harmony patch failed!");
+                this.LogException(ex);
+                LaunchPadConfig.AutoLoad = success = false;
+            }
+            finally {
+                this.LogDebug("Harmony patching finished...");
             }
         }
         this.OnHarmonyPatched(success);
+    }
+
+    /// <summary>
+    /// Internal <see cref="UndoHarmonyPatch"/>
+    /// Called when mod is ready to remove patches.
+    /// </summary>
+    private void UndoHarmonyPatch() {
+        this.Harmony.UnpatchSelf();
+
+        this.OnHarmonyUnpatched();
     }
 
     /// <summary>
@@ -443,122 +543,138 @@ public abstract class Mod : MonoBehaviour {
     public virtual void OnHarmonyPatched(bool success) { }
 
     /// <summary>
+    /// Called by <see cref="Mod"/> when harmony patches are completed.
+    /// If <seealso cref="AutoPatch"/> is false, implement your unpatching logic here.
+    /// </summary>
+    /// <param name="success"></param>
+    public virtual void OnHarmonyUnpatched() { }
+
+    /// <summary>
     /// Called when any scene is loaded
     /// </summary>
-    /// <param name="args">SceneLoadArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnSceneLoaded(SceneLoadArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the inital game loading scene is loaded. 
     /// This is unlikely to ever be called.
     /// </summary>
-    /// <param name="args">SceneLoadArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnSplashLoaded(SceneLoadArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the base scene is loaded.
     /// </summary>
     /// <param name="args"></param>
-    /// <returns>SceneLoadArgs</returns>
+    /// <returns></returns>
     public virtual UniTask OnBaseLoaded(SceneLoadArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the character customization screen is loaded.
     /// </summary>
-    /// <param name="args">SceneLoadArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnCharacterCustomizationLoaded(SceneLoadArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when any scene is unloaded.
     /// </summary>
-    /// <param name="args">SceneLoadArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnSceneUnloaded(SceneLoadArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when inital game loading scene is unloaded.
     /// </summary>
-    /// <param name="args">SceneLoadArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnSplashUnloaded(SceneLoadArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the base scene is unloaded.
     /// </summary>
-    /// <param name="args">SceneLoadArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnBaseUnloaded(SceneLoadArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the character customization screen is unloaded.
     /// </summary>
-    /// <param name="args">SceneLoadArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnCharacterCustomizationUnloaded(SceneLoadArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when any main menu page is enabled.
     /// </summary>
-    /// <param name="args">MenuPageEnabledArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnMenuPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the main menu is enabled.
     /// </summary>
-    /// <param name="args">MenuPageEnabledArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnMainMenuPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the new game menu is enabled.
     /// </summary>
-    /// <param name="args">MenuPageEnabledArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnNewGamePageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the load game menu is enabled.
     /// </summary>
-    /// <param name="args">MenuPageEnabledArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnLoadGamePageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the difficulty selection menu is enabled.
     /// </summary>
-    /// <param name="args">MenuPageEnabledArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnDifficultySelectionPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the start conditions menu is enabled.
     /// </summary>
-    /// <param name="args">MenuPageEnabledArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnStartingConditionsPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the tutorials menu is enabled.
     /// </summary>
-    /// <param name="args">MenuPageEnabledArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnTutorialsPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the workshop mods menu is enabled.
     /// </summary>
-    /// <param name="args">MenuPageEnabledArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnWorkshopPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Called when the settings menu is enabled.
     /// </summary>
-    /// <param name="args">MenuPageEnabledArgs</param>
+    /// <param name="args"></param>
     public virtual UniTask OnSettingsPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
 
     /// <summary>
     /// Log function that is redirected to <see cref="Logger"/>
     /// Can be overriden to add or remove functionality.
     /// </summary>
-    /// <param name="message">string</param>
-    /// <param name="severity">LogSeverity</param>
+    /// <param name="message"></param>
+    /// <param name="severity"></param>
     public virtual void Log(string message, LogSeverity severity = LogSeverity.Information) {
         if (!this.UseLogger) {
             return;
         }
 
-        this.Logger?.Log(message, severity);
+        this.Logger?.Log(message, severity, false);
+        this.LogStationeers(message, severity);
+    }
 
+    /// <summary>
+    /// Log function that logs to stationeers console.
+    /// Can be overriden to add or remove functionality.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="severity"></param>
+    public virtual void LogStationeers(string message, LogSeverity severity) {
         switch (severity) {
             default:
             case LogSeverity.Debug:
@@ -645,8 +761,18 @@ public abstract class Mod : MonoBehaviour {
             return;
         }
 
-        this.Logger?.LogFormat(true, severity, format, args);
+        this.Logger?.LogFormat(false, severity, format, args);
+        this.LogFormatStationeers(severity, format, args);
+    }
 
+    /// <summary>
+    /// Log function that logs to stationeers console.
+    /// Can be overriden to add or remove functionality.
+    /// </summary>
+    /// <param name="severity"></param>
+    /// <param name="format"></param>
+    /// <param name="args"></param>
+    public virtual void LogFormatStationeers(LogSeverity severity, string format, params object[] args) {
         switch (severity) {
             default:
             case LogSeverity.Debug:
@@ -696,4 +822,30 @@ public abstract class Mod : MonoBehaviour {
     /// </summary>
     /// <param name="message">string</param>
     public void LogFatalFormat(string message, params object[] args) => this.LogFormat(LogSeverity.Fatal, message, args);
+
+    /// <summary>
+    /// Note: this only compares mod info, as its the most significant.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    public override bool Equals(object other) => other is Mod mod && this.Equals(mod);
+
+    /// <summary>
+    /// Note: this only compares mod info, as its the most significant.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    public bool Equals(Mod mod) => this.Data.Equals(mod?.Data);
+
+    /// <summary>
+    /// Returns identifier to distinguish mod.
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString() => this.Data.ToString();
+
+    /// <summary>
+    /// Hash code for this mod.
+    /// </summary>
+    /// <returns></returns>
+    public override int GetHashCode() => this.Data.GetHashCode();
 }

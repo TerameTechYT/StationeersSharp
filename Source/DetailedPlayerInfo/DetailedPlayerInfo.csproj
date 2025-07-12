@@ -1,52 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
-		<ModName>DetailedPlayerInfo</ModName>
-		<AssemblyName>$(ModName)</AssemblyName>
-		<RootNamespace>$(ModName)</RootNamespace>
+    <PropertyGroup>
+        <ModName>DetailedPlayerInfo</ModName>
+        <AssemblyName>$(ModName)</AssemblyName>
+        <RootNamespace>$(ModName)</RootNamespace>
+    </PropertyGroup>
 
-		<AnalysisLevel>latest-all</AnalysisLevel>
-		<LangVersion>preview</LangVersion>
-		<ErrorReport>none</ErrorReport>
+    <!-- Import Stationeers VS properties - paths etc. -->
+    <Import Project="$(SolutionDir)Stationeers.VS.props" />
 
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!-- Import Game/Unity DLL references -->
+    <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
 
-		<RepositoryType>git</RepositoryType>
-		<PackageProjectUrl>https://github.com/TerameTechYT/StationeersSharp</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/TerameTechYT/StationeersSharp</RepositoryUrl>
-		<PackageLicenseFile>$(SolutionDir)LICENSE.md</PackageLicenseFile>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+    <ItemGroup>
+        <CopyItemsGameData Include="$(ProjectDir)\GameData\**\*.*" />
+        <CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
+    </ItemGroup>
 
-		<PlatformTarget>x64</PlatformTarget>
-		<Platforms>x64;x86</Platforms>
-		<DebugType>embedded</DebugType>
-		<WarningLevel>4</WarningLevel>
-		<ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
-	<!-- Import Stationeers VS properties - paths etc. -->
-	<Import Project="$(SolutionDir)Stationeers.VS.props" />
+    <ItemGroup>
+        <ProjectReference Include="$(SolutionDir)\Source\StationeersLibrary\StationeersLibrary.csproj" />
+    </ItemGroup>
 
-	<!-- Import Game/Unity DLL references -->
-	<Import Project="$(SolutionDir)Stationeers.VS.References.props" />
+    <ItemGroup>
+        <Folder Include="GameData\" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<CopyItemsGameData Include="$(ProjectDir)\GameData\**\*.*" />
-		<CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="$(SolutionDir)\Source\StationeersLibrary\StationeersLibrary.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="GameData\" />
-	</ItemGroup>
-
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
-		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
-		<Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
-		<Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
-	</Target>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
+        <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
+        <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
+    </Target>
 </Project>

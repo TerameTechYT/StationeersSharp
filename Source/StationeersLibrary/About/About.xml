@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>Stationeers Library [StationeersLaunchPad]</Name>
-	<Author>vinus</Author>
-	<Version>1.0.0</Version>
-	<Description>
+    <Name>Stationeers Library [StationeersLaunchPad]</Name>
+    <Author>vinus</Author>
+    <Version>1.0.0</Version>
+    <Description>
         [h1] This is [b]NOT[/b] StationeersLaunchPad [/h1]
 
         [h1]Stationeers Library[/h1]
@@ -15,22 +15,22 @@
         you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
         https://github.com/TerameTechYT/StationeersSharp/tree/development/Build/x64/Release
     </Description>
-	<WorkshopHandle>3389894703</WorkshopHandle>
-	<Tags>
-		<Tag>Mod</Tag>
-		<Tag>BepInEx</Tag>
-		<Tag>StationeersLaunchPad</Tag>
-	</Tags>
+    <WorkshopHandle>3389894703</WorkshopHandle>
+    <Tags>
+        <Tag>Mod</Tag>
+        <Tag>BepInEx</Tag>
+        <Tag>StationeersLaunchPad</Tag>
+    </Tags>
 
-	<Dependencies>
-	</Dependencies>
+    <Dependencies>
+    </Dependencies>
 
-	<LoadBefore>
-		<Mod>
-			<Id>1</Id>
-		</Mod>
-	</LoadBefore>
+    <LoadBefore>
+        <Mod>
+            <Id>1</Id>
+        </Mod>
+    </LoadBefore>
 
-	<LoadAfter>
-	</LoadAfter>
+    <LoadAfter>
+    </LoadAfter>
 </ModMetadata>
