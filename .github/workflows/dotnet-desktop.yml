@@ -29,7 +29,6 @@ jobs:
         run: |
           cd DepotDownloader\out\
           dotnet DepotDownloader.dll `
-            -anonymous `
             -app 600760 `
             -depot 600761 `
             -filelist ../../REQUIRED.md
