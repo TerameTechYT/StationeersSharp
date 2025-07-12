@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Waste Tank [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.8.0.59</Version>
+    <Version>1.8.0.60</Version>
     <Description>
         [h1]Better Waste Tank[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -44,8 +44,9 @@
 
 
 
+
 <ChangeLog>
-- update powershell script
+- 
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 725bf1be52765e031b859ea23daeb0946202dee5 -->
+<!-- LastProcessedCommit: 8ee7e088b8a42353deb0c1a4b537a5700aa0dfc1 -->

@@ -13,7 +13,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
         Guid = "stationeerslibrary",
-        Version = new Version(2, 0, 0, 59),
+        Version = new Version(2, 0, 0, 60),
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };

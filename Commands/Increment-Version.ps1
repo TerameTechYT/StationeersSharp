@@ -1,5 +1,5 @@
 ﻿# Increment-Version.ps1 v1.1.1
-
+ 
 $sourceFile = "Plugin.cs"
 $assemblyInfoFile = "AssemblyInfo.cs"
 $aboutFolder = "About"
