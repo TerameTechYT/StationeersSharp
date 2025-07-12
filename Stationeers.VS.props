@@ -56,7 +56,8 @@
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
-        <Copy SourceFiles="$(SolutionDir)LICENSE.md" DestinationFolder="$(StationeersDocumentsDirectory)\mods\LICENSE.md" ContinueOnError="false" />
+        <Copy SourceFiles="$(TargetDir)$(ModName).deps.json" DestinationFiles="$(StationeersDocumentsDirectory)\mods\$(ModName)\$(ModName).deps.json" ContinueOnError="false" />
+        <Copy SourceFiles="$(PackageLicenseFile)" DestinationFiles="$(StationeersDocumentsDirectory)\mods\$(ModName)\LICENSE.md" ContinueOnError="false" />
         <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
         <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
         <Copy SourceFiles="@(CopyItemsTextures)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\Textures\%(RecursiveDir)" ContinueOnError="true" />

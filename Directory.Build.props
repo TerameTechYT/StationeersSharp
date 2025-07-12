@@ -2,5 +2,6 @@
     <PropertyGroup>
         <BaseOutputPath>$(SolutionDir)Build\</BaseOutputPath>
         <BaseIntermediateOutputPath>$(SolutionDir)Objects\</BaseIntermediateOutputPath>
+        <MSBuildProjectExtensionsPath>$(SolutionDir)Objects\</MSBuildProjectExtensionsPath>
     </PropertyGroup>
 </Project>
