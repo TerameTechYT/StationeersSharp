@@ -72,3 +72,22 @@ $assemblyContent = @"
 $assemblyPath = Join-Path $parentFolder $assemblyInfoFile
 [System.IO.File]::WriteAllText($assemblyPath, $assemblyContent, [System.Text.Encoding]::UTF8)
 Write-Host "AssemblyInfo.cs generated at: $assemblyPath"
+
+$aboutPath = Join-Path $parentFolder "About/About.xml"
+if (Test-Path $aboutPath) {
+    $aboutContent = Get-Content $aboutPath -Raw
+
+    if ($aboutContent -match '<Version>\s*([\d\.]+)\s*</Version>') {
+        $aboutContent = [regex]::Replace(
+            $aboutContent,
+            '<Version>\s*([\d\.]+)\s*</Version>',
+            "<Version>$newVersionString</Version>"
+        )
+        [System.IO.File]::WriteAllText($aboutPath, $aboutContent, [System.Text.Encoding]::UTF8)
+        Write-Host "About.xml version updated to $newVersionString"
+    } else {
+        Write-Warning "<Version> tag not found in About.xml"
+    }
+} else {
+    Write-Warning "About.xml not found in $parentFolder"
+}
