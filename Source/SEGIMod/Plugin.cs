@@ -13,7 +13,7 @@ public class Plugin : Mod {
 
 
     public override bool UseConfig => true;
-    public override bool UseHarmony => true;
+    public override bool UseHarmony => false;
 
 
     public override ModInfo Data => new ModInfo() {

@@ -8,8 +8,7 @@ public class Plugin : Mod {
     public static Plugin Instance { get; private set; }
 
     public override bool UseConfig => true;
-    public override bool UseHarmony => true;
-
+    public override bool UseHarmony => false;
 
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
@@ -18,7 +17,6 @@ public class Plugin : Mod {
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };
-
 
     public Plugin() => Plugin.Instance = this;
 
