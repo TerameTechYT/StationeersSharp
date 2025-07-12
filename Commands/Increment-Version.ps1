@@ -48,7 +48,7 @@ if ($content -match $versionPattern) {
         param($m) $newVersionCode
     })
 
-    Set-Content -Path $fullPath -Value $newContent -Encoding UTF8
+    [System.IO.File]::WriteAllText($fullPath, $newContent, [System.Text.Encoding]::UTF8)
     Write-Host "Version updated to $newVersionString"
 } else {
     Write-Warning "Version pattern not found in Plugin.cs"

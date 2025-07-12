@@ -14,14 +14,14 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterInventory",
         Guid = "betterinventory",
-        Version = new Version(1, 4, 0, 17),
+        Version = new Version(1, 4, 0, 49),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct Data {
@@ -29,19 +29,3 @@ internal struct Data {
     public static List<KeyItem> ControlKeys => [
     ];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

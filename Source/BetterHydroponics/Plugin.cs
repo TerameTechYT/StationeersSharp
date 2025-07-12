@@ -14,14 +14,14 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterHydroponics",
         Guid = "betterhydroponics",
-        Version = new Version(1, 4, 0, 17),
+        Version = new Version(1, 4, 0, 49),
         WorkshopId = 3449149492ul,
         GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct ConfigData {
@@ -49,19 +49,3 @@ internal struct ConfigData {
             { LogicType.Time, (plant) => plant?.PlantRecord.Age ?? 0.0 },
     };*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -14,14 +14,14 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "LoulanRevived",
         Guid = "loulanrevived",
-        Version = new Version(1, 2, 0, 17),
+        Version = new Version(1, 2, 0, 49),
         WorkshopId = 3255025164ul,
         GameType = GameType.Client,
     };
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct ConfigData {
@@ -29,19 +29,3 @@ internal struct ConfigData {
     //public static ConfigEntry<bool> spawnWrecks;
     //public static bool SpawnWrecks => spawnWrecks?.Value ?? false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

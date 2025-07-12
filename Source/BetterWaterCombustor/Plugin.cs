@@ -14,32 +14,16 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWaterCombustor",
         Guid = "betterwatercombustor",
-        Version = new Version(1, 4, 0, 17),
+        Version = new Version(1, 4, 0, 49),
         WorkshopId = 3404201609ul,
         GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct ConfigData {
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

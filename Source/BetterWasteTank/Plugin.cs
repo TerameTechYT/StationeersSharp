@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWasteTank",
         Guid = "betterwastetank",
-        Version = new Version(1, 8, 0, 17),
+        Version = new Version(1, 8, 0, 49),
         WorkshopId = 3071913936ul,
         GameType = GameType.Both,
     };
@@ -43,7 +43,7 @@ public class Plugin : Mod {
                 new ConfigDescription("Quanitity of moles when \"Air Tank Caution\" alarm goes off. (this number will be multiplied by how many moles a human breaths per tick)"));
     }
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct ConfigData {
@@ -71,19 +71,3 @@ internal struct ConfigData {
     internal static float AirTankMolesCritical => Human.MolesPerMinute.ToFloat() * AirCriticalMoles;
     internal static float AirTankMolesCaution => Human.MolesPerMinute.ToFloat() * AirCautionMoles;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

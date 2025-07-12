@@ -14,14 +14,14 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "ExternalSuitReader",
         Guid = "externalsuitreader",
-        Version = new Version(1, 8, 0, 17),
+        Version = new Version(1, 8, 0, 49),
         WorkshopId = 3071985478ul,
         GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct Data {
@@ -114,19 +114,3 @@ internal struct Data {
 
     public static readonly Dictionary<LogicType, Action<AdvancedSuit, double>> LogicWriteDictionary = [];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

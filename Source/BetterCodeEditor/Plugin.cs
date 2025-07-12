@@ -16,7 +16,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 17),
+        Version = new Version(1, 4, 0, 49),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };
@@ -35,7 +35,7 @@ public class Plugin : Mod {
                 "The length of the code editor lines");
     }
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct ConfigData {
@@ -48,19 +48,3 @@ internal struct ConfigData {
     public static int BytesPerLine => InputSourceCode.MAX_FILE_SIZE / InputSourceCode.MAX_LINES;
     public static int MaxFileSize => BytesPerLine * CodeEditorLines;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

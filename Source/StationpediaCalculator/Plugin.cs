@@ -14,32 +14,16 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "StationpediaCalculator",
         Guid = "stationpediacalculator",
-        Version = new Version(1, 5, 0, 17),
+        Version = new Version(1, 5, 0, 49),
         WorkshopId = 3305312105ul,
         GameType = GameType.Client,
     };
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct ConfigData {
     public static SPDAListItem? CalculatorItem;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

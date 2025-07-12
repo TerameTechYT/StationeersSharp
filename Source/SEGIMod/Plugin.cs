@@ -17,7 +17,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "SEGIMod",
         Guid = "segimod",
-        Version = new Version(1, 6, 0, 17),
+        Version = new Version(1, 6, 0, 49),
         WorkshopId = 3281346086ul,
         GameType = GameType.Client,
     };
@@ -256,7 +256,7 @@ public class Plugin : Mod {
         ));
     }
 
-    public override void OnAwake() { }
+    public override void Start() {}
 }
 
 internal struct ConfigData {
@@ -368,19 +368,3 @@ internal struct ConfigData {
     public static ConfigEntry<float>? temporalBlendWeight;
     public static float TemporalBlendWeight => temporalBlendWeight?.Value ?? 0.1f;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

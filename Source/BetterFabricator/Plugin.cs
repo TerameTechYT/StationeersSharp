@@ -14,34 +14,17 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterFabricator",
         Guid = "betterfabricator",
-        Version = new Version(1, 3, 0, 17),
+        Version = new Version(1, 3, 0, 49),
         WorkshopId = 0ul,
         GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
-
 
 internal struct ConfigData {
     // Yes, this is purposefully empty, technically you could add some hardcoded recipes.
     public static List<WorldManager.RecipeData> FabricatorRecipes = [];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

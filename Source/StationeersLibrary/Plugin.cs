@@ -13,30 +13,14 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
         Guid = "stationeerslibrary",
-        Version = new Version(2, 0, 0, 17),
+        Version = new Version(2, 0, 0, 49),
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct ConfigData { }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

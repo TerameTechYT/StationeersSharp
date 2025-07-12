@@ -16,7 +16,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
-        Version = new Version(1, 3, 0, 17),
+        Version = new Version(1, 3, 0, 49),
         WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };
@@ -30,7 +30,7 @@ public class Plugin : Mod {
                     new AcceptableValueRange<int>(0, 6))
             );
 
-    public override void OnAwake() { }
+    public override void Start() { }
 }
 
 internal struct ConfigData {
@@ -44,19 +44,3 @@ internal struct ConfigData {
     public static ConfigEntry<int>? additionalTabletSlots;
     public static int AdditionalTabletSlots = additionalTabletSlots?.Value ?? 2;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
