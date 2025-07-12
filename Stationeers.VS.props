@@ -42,6 +42,10 @@
         <StationeersLaunchPadDirectory>$(BIEPluginsDirectory)\StationeersLaunchPad</StationeersLaunchPadDirectory>
     </PropertyGroup>
 
+    <Target Name="IncrementVersion" BeforeTargets="BeforeBuild">
+        <Exec Command="powershell -File &quot;$(SolutionDir)\Commands\Increment-Version.ps1&quot;" />
+    </Target>
+
     <ItemGroup>
         <!-- Extra File Compilations -->
         <Compile Include="$(SolutionDir)Source\GlobalSuppressions.cs" />

@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterHydroponics",
         Guid = "betterhydroponics",
-        Version = new Version(1, 1, 0),
+        Version = new Version(1, 4, 0, 3),
         WorkshopId = 3449149492ul,
         GameType = GameType.Both,
     };
@@ -49,3 +49,5 @@ internal struct ConfigData {
             { LogicType.Time, (plant) => plant?.PlantRecord.Age ?? 0.0 },
     };*/
 }
+
+

@@ -12,6 +12,6 @@ obj/
 .vs/
 
 #
-Template/
+!Commands/*.*
 Objects/
 Build/

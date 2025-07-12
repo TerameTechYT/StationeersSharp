@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "ColoredGases",
         Guid = "coloredgases",
-        Version = new Version(1, 2, 0),
+        Version = new Version(1, 4, 0, 3),
         WorkshopId = 3523162910ul,
         GameType = GameType.Client,
     };
@@ -47,3 +47,5 @@ internal struct ConfigData {
     public static ConfigEntry<bool> enableFogVisualizer;
     public static bool EnableFogVisualizer => enableFogVisualizer?.Value ?? false;
 }
+
+

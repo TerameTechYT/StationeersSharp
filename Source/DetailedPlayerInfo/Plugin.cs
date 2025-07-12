@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(1, 8, 0),
+        Version = new Version(2, 0, 0, 3),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };
@@ -136,3 +136,5 @@ internal struct ConfigData {
     public const string FilterStatus =
             "GameCanvas/StatusIcons/Filter";
 }
+
+

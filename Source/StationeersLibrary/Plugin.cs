@@ -13,7 +13,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
         Guid = "stationeerslibrary",
-        Version = new Version(1, 2, 0),
+        Version = new Version(2, 0, 0, 3),
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };
@@ -24,3 +24,5 @@ public class Plugin : Mod {
 }
 
 internal struct ConfigData {}
+
+
