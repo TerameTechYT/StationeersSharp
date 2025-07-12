@@ -16,7 +16,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 3),
+        Version = new Version(1, 4, 0, 8),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };
@@ -48,5 +48,10 @@ internal struct ConfigData {
     public static int BytesPerLine => InputSourceCode.MAX_FILE_SIZE / InputSourceCode.MAX_LINES;
     public static int MaxFileSize => BytesPerLine * CodeEditorLines;
 }
+
+
+
+
+
 
 

@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterInventory",
         Guid = "betterinventory",
-        Version = new Version(1, 4, 0, 3),
+        Version = new Version(1, 4, 0, 8),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };
@@ -29,5 +29,10 @@ internal struct Data {
     public static List<KeyItem> ControlKeys => [
     ];
 }
+
+
+
+
+
 
 

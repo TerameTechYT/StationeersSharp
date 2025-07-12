@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterPowerMod",
         Guid = "betterpowermod",
-        Version = new Version(1, 6, 0, 3),
+        Version = new Version(1, 6, 0, 8),
         WorkshopId = 3234916147ul,
         GameType = GameType.Both,
     };
@@ -122,5 +122,10 @@ internal struct ConfigData {
     public static ConfigEntry<float> turbineMultiplier;
     public static float TurbineMultiplier => turbineMultiplier?.Value ?? 10f;
 }
+
+
+
+
+
 
 

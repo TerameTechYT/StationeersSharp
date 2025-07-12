@@ -14,7 +14,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "LoulanRevived",
         Guid = "loulanrevived",
-        Version = new Version(1, 2, 0, 3),
+        Version = new Version(1, 2, 0, 8),
         WorkshopId = 3255025164ul,
         GameType = GameType.Client,
     };
@@ -29,5 +29,10 @@ internal struct ConfigData {
     //public static ConfigEntry<bool> spawnWrecks;
     //public static bool SpawnWrecks => spawnWrecks?.Value ?? false;
 }
+
+
+
+
+
 
 

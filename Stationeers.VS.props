@@ -47,6 +47,20 @@
     </Target>
 
     <ItemGroup>
+        <CopyItemsGameData Include="$(ProjectDir)\GameData\**\*.*" />
+        <CopyItemsAbout Include="$(ProjectDir)\About\**\*.*" />
+        <CopyItemsTextures Include="$(ProjectDir)\Textures\**\*.*" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
+        <Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />
+        <Copy SourceFiles="@(CopyItemsAbout)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\About\%(RecursiveDir)" ContinueOnError="true" />
+        <Copy SourceFiles="@(CopyItemsTextures)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\Textures\%(RecursiveDir)" ContinueOnError="true" />
+    </Target>
+
+    <ItemGroup>
         <!-- Extra File Compilations -->
         <Compile Include="$(SolutionDir)Source\GlobalSuppressions.cs" />
 

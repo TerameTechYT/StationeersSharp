@@ -12,6 +12,7 @@ obj/
 .vs/
 
 #
+AssemblyInfo.cs
 !Commands/*.*
 Objects/
 Build/

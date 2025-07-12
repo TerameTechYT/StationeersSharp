@@ -16,7 +16,7 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
-        Version = new Version(1, 3, 0, 3),
+        Version = new Version(1, 3, 0, 8),
         WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };
@@ -44,5 +44,10 @@ internal struct ConfigData {
     public static ConfigEntry<int> additionalTabletSlots;
     public static int AdditionalTabletSlots = additionalTabletSlots?.Value ?? 2;
 }
+
+
+
+
+
 
 
