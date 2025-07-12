@@ -1,4 +1,4 @@
-﻿# Increment-Version.ps1 v1.1.0.0
+﻿# Increment-Version.ps1 v1.1.1
 
 $sourceFile = "Plugin.cs"
 $assemblyInfoFile = "AssemblyInfo.cs"
@@ -121,15 +121,15 @@ if (-not $currentCommit) {
         $logBody = ($gitMessages -join "`n")
         $changelogText = "<ChangeLog>`n$logBody`n</ChangeLog>"
 
-        if ($aboutContent -match '<ChangeLog>.*?</ChangeLog>') {
-            $aboutContent = [regex]::Replace(
-                $aboutContent,
-                '<ChangeLog>.*?</ChangeLog>',
-                $changelogText
-            )
-        } else {
-            $aboutContent = $aboutContent -replace '</ModMetadata>', "$changelogText`n</ModMetadata>"
-        }
+        $aboutContent = [regex]::Replace(
+            $aboutContent,
+            '<ChangeLog>.*?</ChangeLog>',
+            '',
+            [System.Text.RegularExpressions.RegexOptions]::Singleline
+        )
+
+        # Re-insert new <ChangeLog> before </ModMetadata>
+        $aboutContent = $aboutContent -replace '</ModMetadata>', "$changelogText`n</ModMetadata>"
 
         $commitComment = "<!-- LastProcessedCommit: $currentCommit -->"
         if ($aboutContent -match $commitCommentPattern) {
