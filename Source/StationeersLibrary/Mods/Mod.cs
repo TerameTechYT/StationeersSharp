@@ -1,5 +1,6 @@
 ﻿#region
 
+using BepInEx.Harmony;
 using LaunchPadBooster;
 using LaunchPadBooster.Networking;
 using LaunchPadBooster.Utils;
@@ -128,9 +129,16 @@ public abstract class Mod : MonoBehaviour {
     public GameType ModGameType => this.Data.GameType;
 
     /// <summary>
+    /// 
+    /// </summary>
+    protected List<Type> PatchClasses { get; private set; }
+
+    /// <summary>
     /// Default constructor
     /// </summary>
     protected Mod() {
+        AllMods.Add(this);
+
         // Fetches the caller of this constructor, which should be the class that inherits this one.
         if (ModLoader.TryGetStackTraceMod(new StackTrace(1), out LoadedMod mod)) {
             this.LoadedMod = mod;
@@ -169,7 +177,13 @@ public abstract class Mod : MonoBehaviour {
         }
 
         if (this.UseConfig) {
-            this.Config = new ConfigFile(Path.Combine(Constants.BIE_CONFIG_FOLDER, this.ModGuid), this.SaveConfigOnCreate) {
+            var path = Path.Combine(Constants.BIE_CONFIG_FOLDER, this.ModGuid);
+            if (File.Exists(path)) {
+                // made oopsie, forgot to add .cfg to the config file path...
+                File.Delete(path);
+            }
+
+            this.Config = new ConfigFile($"{path}.cfg", this.SaveConfigOnCreate) {
                 SaveOnConfigSet = this.AutoSaveConfig
             };
             this.Config.SettingChanged += this.ConfigChanged;
@@ -272,21 +286,31 @@ public abstract class Mod : MonoBehaviour {
     private void DoHarmonyPatch() {
         bool success = true;
         if (this.AutoPatch) {
-            try {
-                this.LogDebug("Harmony patching starting...");
-                this.Harmony.PatchAll(Assembly.GetExecutingAssembly());
-            }
-            catch (Exception ex) {
-                this.LogException(ex);
-                this.LogError("Failed to patch harmony!");
-                success = false;
-            }
-            finally {
-                this.LogDebug("Harmony patching finished!");
+            foreach (Assembly assembly in this.LoadedMod.Assemblies) {
+                try {
+                    this.LogDebug("Harmony patching starting...");
+                    AssemblyName name = assembly.GetName();
+
+                    this.Logger.Log($"Harmony patching assembly ({name.FullName})");
+                    this.Harmony.PatchAll(assembly);
+                    this.Logger.Log($"Harmony patched assembly ({name.FullName})");
+                }
+                catch (Exception ex) {
+                    this.LogException(ex);
+                    this.LogError("Failed to patch harmony!");
+                    success = false;
+                }
+                finally {
+                    this.LogDebug("Harmony patching finished!");
+                }
             }
         }
         this.OnHarmonyPatched(success);
     }
+
+    public void RegisterPatchClass(Type type) => this.PatchClasses.Add(type);
+
+    public void RegisterPatchClass<T>() => this.RegisterPatchClass(typeof(T));
 
     /// <summary>
     /// Registers a prefab.
