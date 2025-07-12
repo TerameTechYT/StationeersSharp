@@ -6,8 +6,6 @@ namespace BetterWaterCombustor;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
-
     [UsedImplicitly]
     [HarmonyPatch(typeof(Atmosphere), nameof(Atmosphere.CombustForWater))]
     [HarmonyTranspiler]
@@ -34,14 +32,7 @@ public static class PatchFunctions {
             return newInstructions.AsEnumerable();
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
 
         return instructions;

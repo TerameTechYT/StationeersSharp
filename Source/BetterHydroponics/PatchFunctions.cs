@@ -2,7 +2,7 @@
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
+
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(HydroponicsTrayDevice), nameof(HydroponicsTrayDevice.CanLogicRead), [typeof(LogicSlotType), typeof(int)])]
@@ -16,14 +16,7 @@ public static class PatchFunctions {
             __result = __result || Functions.CanLogicRead(logicSlotType);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 
@@ -43,14 +36,7 @@ public static class PatchFunctions {
             __result = Functions.GetLogicValue(__instance.Plant, logicSlotType, slotId);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 
@@ -66,14 +52,7 @@ public static class PatchFunctions {
             __result = __result || Functions.CanLogicRead(logicSlotType);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 
@@ -93,14 +72,7 @@ public static class PatchFunctions {
             __result = Functions.GetLogicValue(__instance.Plant, logicSlotType, slotId);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 
@@ -116,14 +88,7 @@ public static class PatchFunctions {
             __result = __result || Functions.CanLogicRead(logicSlotType);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 
@@ -143,14 +108,7 @@ public static class PatchFunctions {
             __result = Functions.GetLogicValue(__instance.Plant(slotId), logicSlotType, slotId);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 
@@ -172,14 +130,7 @@ public static class PatchFunctions {
                     __result = __result || Functions.CanLogicRead(logicType);
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogException(ex);
-                    }
+                    Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
     }*/
 
@@ -208,14 +159,7 @@ public static class PatchFunctions {
                     }
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogException(ex);
-                    }
+                 Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
     }*/
 }

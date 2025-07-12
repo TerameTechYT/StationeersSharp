@@ -2,8 +2,6 @@
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
-
     [HarmonyPatch(typeof(InventoryManager), nameof(InventoryManager.SmartStow))]
     [HarmonyPrefix]
     public static void InventoryManagerSmartStow(Slot selectedSlot) {
@@ -15,14 +13,7 @@ public static class PatchFunctions {
             Functions.CustomSmartStow(ref selectedSlot);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 
@@ -41,14 +32,7 @@ public static class PatchFunctions {
             }
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 }

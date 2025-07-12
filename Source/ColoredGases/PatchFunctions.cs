@@ -6,7 +6,7 @@ namespace ColoredGases;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
+
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(AtmosphericsManager), "Emit")]
@@ -16,14 +16,7 @@ public static class PatchFunctions {
             return ConfigData.EnableAirVisualizer && Functions.EmitAirParticles(targetContainer, emitter, particleAtmosphereSpawnOffset, emitCondition, localSpace);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
 
         return true;
@@ -37,14 +30,7 @@ public static class PatchFunctions {
             return ConfigData.EnableFogVisualizer && Functions.EmitFogParticles();
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
 
         return true;

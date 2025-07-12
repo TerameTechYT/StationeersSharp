@@ -19,14 +19,7 @@ public static class PatchFunctions {
                     Functions.LoadIncidents(ref __instance);
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogException(ex);
-                    }
+                    Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
     }
 
@@ -42,14 +35,7 @@ public static class PatchFunctions {
                     Functions.GenerateRandomIncident(ref __instance, tileData, onTileEnter);
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogError(ex);
-                    }
+                    Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
 
             return false;
@@ -69,14 +55,7 @@ public static class PatchFunctions {
                     return false;
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogException(ex);
-                    }
+                    Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
             return false;
     }*/

@@ -8,7 +8,7 @@ namespace DetailedPlayerInfo;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
+
 
     [UsedImplicitly]
     [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.UpdateFrameRate))]
@@ -22,14 +22,7 @@ public static class PatchFunctions {
             Functions.EnableFrameCounter(ref ___FrameRate);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
 
         return false;
@@ -47,14 +40,7 @@ public static class PatchFunctions {
             Functions.Initialize();
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 
@@ -70,14 +56,7 @@ public static class PatchFunctions {
             Functions.Update(ref __instance);
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
     }
 
@@ -94,14 +73,7 @@ public static class PatchFunctions {
                     Functions.UpdateAnalyzer(ref __instance, ref ____isGasPipe, ref ____pressureValueText, ref ____liquidVolumeValueText, ref ____capacityValueText, ref ____temperatureValueText, ref ____energyConvectedText, ref ____energyRadiatedText, ref ____latentText, ref ____stressText);
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogException(ex);
-                    }
+                    Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
     }*/
 
@@ -122,14 +94,7 @@ public static class PatchFunctions {
                     Functions.UpdateMoleDisplays(ref __instance, ref mole, ref atmos, ref volumeTextColor, ref item);
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogException(ex);
-                    }
+                    Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
 
             return false;
@@ -147,14 +112,7 @@ public static class PatchFunctions {
                     Functions.DisplayGasInfo(ref stringBuilder, ref contentType, ref atmosphere);
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogException(ex);
-                    }
+                    Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
 
             return false;

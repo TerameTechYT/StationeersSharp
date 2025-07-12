@@ -6,8 +6,6 @@ namespace BetterAdvancedTablet;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    private static readonly Dictionary<MethodInfo, bool> _patches = typeof(PatchFunctions).GetMethods().ToDictionary(info => info, key => false);
-
     [UsedImplicitly]
     [HarmonyPatch(typeof(Prefab), nameof(Prefab.LoadAll))]
     [HarmonyPrefix]
@@ -28,14 +26,7 @@ public static class PatchFunctions {
             Plugin.Instance.LogDebug($"Added {ConfigData.AdditionalTabletSlots} slots to {ConfigData.AdvancedTabletPrefabName} Prefab");
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
 
         return true;
@@ -71,15 +62,9 @@ public static class PatchFunctions {
             }
         }
         catch (Exception ex) {
-            MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-            if (!_patches[currentMethod]) {
-                _patches[currentMethod] = true;
-
-                Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                Plugin.Instance.LogException(ex);
-            }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
         }
+
         return true;
     }
 
@@ -99,14 +84,7 @@ public static class PatchFunctions {
                     Functions.ToNextCartridge(ref advancedTablet);
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogException(ex);
-                    }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
 
             return true;
@@ -124,14 +102,7 @@ public static class PatchFunctions {
                     __result = Functions.GetScannedAtmosphere(ref __instance, ref ____selectedText);
             }
             catch (Exception ex) {
-                    MethodInfo currentMethod = (MethodInfo) MethodBase.GetCurrentMethod();
-
-                    if (!_patches[currentMethod]) {
-                            _patches[currentMethod] = true;
-
-                            Plugin.Instance.LogError($"Exception in method: {currentMethod.Name}! Please press {Utilities.GetConsoleKeyCode()} and run 'slib report'!");
-                            Plugin.Instance.LogException(ex);
-                    }
+            Utilities.ExceptionReporter(Plugin.Instance, ex);
             }
 
             return false;
