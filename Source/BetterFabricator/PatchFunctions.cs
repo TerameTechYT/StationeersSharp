@@ -38,7 +38,7 @@ public static class PatchFunctions {
             return instructionsList;
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return instructions;

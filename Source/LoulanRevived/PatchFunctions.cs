@@ -19,7 +19,7 @@ public static class PatchFunctions {
                     Functions.LoadIncidents(ref __instance);
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }
 
@@ -35,7 +35,7 @@ public static class PatchFunctions {
                     Functions.GenerateRandomIncident(ref __instance, tileData, onTileEnter);
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
 
             return false;
@@ -55,7 +55,7 @@ public static class PatchFunctions {
                     return false;
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
             return false;
     }*/

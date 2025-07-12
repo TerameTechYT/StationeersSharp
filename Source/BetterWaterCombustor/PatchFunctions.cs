@@ -32,7 +32,7 @@ public static class PatchFunctions {
             return newInstructions.AsEnumerable();
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return instructions;

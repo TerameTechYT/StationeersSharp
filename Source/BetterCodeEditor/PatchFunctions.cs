@@ -14,7 +14,7 @@ public static class PatchFunctions {
             return instructions.ReplaceMaxLines(true).ReplaceMaxLineLength();
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return instructions;
@@ -28,7 +28,7 @@ public static class PatchFunctions {
             return instructions.ReplaceMaxLineLength();
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return instructions;
@@ -42,7 +42,7 @@ public static class PatchFunctions {
             return instructions.ReplaceMaxFileSize();
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return instructions;
@@ -56,7 +56,7 @@ public static class PatchFunctions {
             return instructions.ReplaceMaxLines().ReplaceMaxLineLength();
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return instructions;
@@ -70,7 +70,7 @@ public static class PatchFunctions {
             return instructions.ReplaceMaxFileSize().ReplaceMaxLineLength();
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return instructions;
@@ -84,7 +84,7 @@ public static class PatchFunctions {
             return instructions.ReplaceMaxLineLength();
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return instructions;

@@ -20,7 +20,7 @@ public static class PatchFunctions {
             __result = __result || Functions.CanLogicRead(logicType);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -40,7 +40,7 @@ public static class PatchFunctions {
             __result = Functions.GetLogicValue(__instance, logicType);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -61,7 +61,7 @@ public static class PatchFunctions {
                     Data.AllAdvancedSuits.Add(__instance.ReferenceId, channels);
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }*/
 
@@ -77,7 +77,7 @@ public static class PatchFunctions {
                     Data.AllAdvancedSuits.Remove(__instance.ReferenceId);
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }*/
 
@@ -97,7 +97,7 @@ public static class PatchFunctions {
                     __result = AdvancedSuitSaveData.Create(__result, channels);
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }*/
 
@@ -121,7 +121,7 @@ public static class PatchFunctions {
                     }
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }*/
 
@@ -141,7 +141,7 @@ public static class PatchFunctions {
                     }
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }
 
@@ -161,7 +161,7 @@ public static class PatchFunctions {
                     }
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }*/
 }

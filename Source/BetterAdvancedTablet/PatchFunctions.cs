@@ -26,7 +26,7 @@ public static class PatchFunctions {
             Plugin.Instance.LogDebug($"Added {ConfigData.AdditionalTabletSlots} slots to {ConfigData.AdvancedTabletPrefabName} Prefab");
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return true;
@@ -62,7 +62,7 @@ public static class PatchFunctions {
             }
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return true;
@@ -84,7 +84,7 @@ public static class PatchFunctions {
                     Functions.ToNextCartridge(ref advancedTablet);
             }
             catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
 
             return true;
@@ -102,7 +102,7 @@ public static class PatchFunctions {
                     __result = Functions.GetScannedAtmosphere(ref __instance, ref ____selectedText);
             }
             catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
 
             return false;

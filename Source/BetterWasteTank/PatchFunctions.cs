@@ -21,7 +21,7 @@ public static class PatchFunctions {
             __instance.wasteMaxPressure = Functions.GetCanisterMax(__instance.WasteTank);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -38,7 +38,7 @@ public static class PatchFunctions {
             suit.wasteMaxPressure = Functions.GetCanisterMax(suit.WasteTank);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -55,7 +55,7 @@ public static class PatchFunctions {
             __instance.TexAirTank.text = $"{Mathf.FloorToInt(Functions.GetCanisterMoles(____suit.AirTank, ____suit.ParentEntity.SpeciesClass) / ConfigData.AirTankMolesCaution * 100f)}%";
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -73,7 +73,7 @@ public static class PatchFunctions {
             __result = Functions.IsWasteCritical(ref ____suit);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return false;
@@ -92,7 +92,7 @@ public static class PatchFunctions {
             __result = Functions.IsWasteCaution(ref ____suit);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return false;
@@ -111,7 +111,7 @@ public static class PatchFunctions {
             __result = Functions.IsAirCritical(ref ____suit, ____suit.ParentEntity.SpeciesClass);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return false;
@@ -130,7 +130,7 @@ public static class PatchFunctions {
             __result = Functions.IsAirCaution(ref ____suit, ____suit.ParentEntity.SpeciesClass);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return false;
@@ -144,7 +144,7 @@ public static class PatchFunctions {
             __result = $"{val.ToStringRounded()}%";
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return false;

@@ -20,7 +20,7 @@ public static class PatchFunctions {
             Functions.CalculateSearch(searchText);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -43,7 +43,7 @@ public static class PatchFunctions {
             Functions.CreateCalculator(ref list);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 }

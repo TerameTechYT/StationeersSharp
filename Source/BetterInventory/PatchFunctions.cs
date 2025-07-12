@@ -13,7 +13,7 @@ public static class PatchFunctions {
             Functions.CustomSmartStow(ref selectedSlot);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -32,7 +32,7 @@ public static class PatchFunctions {
             }
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 }

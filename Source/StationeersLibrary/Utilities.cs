@@ -36,7 +36,7 @@ public static class Utilities {
         _ => Constants.CELCIUS_SYMBOL,
     };
 
-    public static void ExceptionReporter(Mod mod, Exception ex) {
+    public static void ExceptionReporter(Mod mod, ref Exception ex) {
         StackTrace stackTrace = new StackTrace(1);
         StackFrame stackFrame = stackTrace.GetFrame(0);
         MethodInfo method = (MethodInfo) stackFrame.GetMethod();

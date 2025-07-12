@@ -22,7 +22,7 @@ public static class PatchFunctions {
             Functions.EnableFrameCounter(ref ___FrameRate);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return false;
@@ -40,7 +40,7 @@ public static class PatchFunctions {
             Functions.Initialize();
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -56,7 +56,7 @@ public static class PatchFunctions {
             Functions.Update(ref __instance);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -73,7 +73,7 @@ public static class PatchFunctions {
                     Functions.UpdateAnalyzer(ref __instance, ref ____isGasPipe, ref ____pressureValueText, ref ____liquidVolumeValueText, ref ____capacityValueText, ref ____temperatureValueText, ref ____energyConvectedText, ref ____energyRadiatedText, ref ____latentText, ref ____stressText);
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }*/
 
@@ -94,7 +94,7 @@ public static class PatchFunctions {
                     Functions.UpdateMoleDisplays(ref __instance, ref mole, ref atmos, ref volumeTextColor, ref item);
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
 
             return false;
@@ -112,7 +112,7 @@ public static class PatchFunctions {
                     Functions.DisplayGasInfo(ref stringBuilder, ref contentType, ref atmosphere);
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
 
             return false;

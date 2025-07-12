@@ -18,7 +18,7 @@ public static class PatchFunctions {
             __result = Functions.GetPotentialSolarPowerGenerated(__instance);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -42,7 +42,7 @@ public static class PatchFunctions {
                     return false;
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
 
             return true;
@@ -63,7 +63,7 @@ public static class PatchFunctions {
                     return false;
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
 
             return true;
@@ -84,7 +84,7 @@ public static class PatchFunctions {
             }
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -100,7 +100,7 @@ public static class PatchFunctions {
             __result = Functions.GetPotentialWindPowerGenerated(__instance);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -116,7 +116,7 @@ public static class PatchFunctions {
             __result *= ConfigData.TurbineMultiplier;
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -132,7 +132,7 @@ public static class PatchFunctions {
             __result = new MoleEnergy(ConfigData.StirlingEnergy);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -148,7 +148,7 @@ public static class PatchFunctions {
             ____maximumPowerUsage = ConfigData.FastChargeRate;
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -164,7 +164,7 @@ public static class PatchFunctions {
             __instance.BatteryChargeRate = ConfigData.FastChargeRate;
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -180,7 +180,7 @@ public static class PatchFunctions {
             __instance.BatteryChargeRate = __instance.PrefabName == ConfigData.BatteryChargerSmall ? ConfigData.FastChargeRate / 2f : ConfigData.FastChargeRate;
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -196,7 +196,7 @@ public static class PatchFunctions {
             __instance.BatteryChargeRate = ConfigData.FastChargeRate / 2f;
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 }

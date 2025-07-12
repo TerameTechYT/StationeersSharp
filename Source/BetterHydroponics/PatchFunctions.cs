@@ -16,7 +16,7 @@ public static class PatchFunctions {
             __result = __result || Functions.CanLogicRead(logicSlotType);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -36,7 +36,7 @@ public static class PatchFunctions {
             __result = Functions.GetLogicValue(__instance.Plant, logicSlotType, slotId);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -52,7 +52,7 @@ public static class PatchFunctions {
             __result = __result || Functions.CanLogicRead(logicSlotType);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -72,7 +72,7 @@ public static class PatchFunctions {
             __result = Functions.GetLogicValue(__instance.Plant, logicSlotType, slotId);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -88,7 +88,7 @@ public static class PatchFunctions {
             __result = __result || Functions.CanLogicRead(logicSlotType);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -108,7 +108,7 @@ public static class PatchFunctions {
             __result = Functions.GetLogicValue(__instance.Plant(slotId), logicSlotType, slotId);
         }
         catch (Exception ex) {
-            Utilities.ExceptionReporter(Plugin.Instance, ex);
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
@@ -130,7 +130,7 @@ public static class PatchFunctions {
                     __result = __result || Functions.CanLogicRead(logicType);
             }
             catch (Exception ex) {
-                    Utilities.ExceptionReporter(Plugin.Instance, ex);
+                    Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }*/
 
@@ -159,7 +159,7 @@ public static class PatchFunctions {
                     }
             }
             catch (Exception ex) {
-                 Utilities.ExceptionReporter(Plugin.Instance, ex);
+                 Utilities.ExceptionReporter(Plugin.Instance, ref ex);
             }
     }*/
 }
