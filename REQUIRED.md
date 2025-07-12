@@ -1,1 +1,1 @@
-regex: .+dll
+.+dll
