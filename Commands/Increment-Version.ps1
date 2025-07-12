@@ -2,6 +2,7 @@
 
 $sourceFile = "Plugin.cs"
 $assemblyInfoFile = "AssemblyInfo.cs"
+$aboutFolder = "About"
 $aboutFile = "About.xml"
 
 # --- Changelog Section --- #
@@ -77,7 +78,7 @@ $assemblyPath = Join-Path $parentFolder $assemblyInfoFile
 Write-Host "$assemblyInfoFile generated at: $assemblyPath"
 
 # --- About.xml Section --- #
-$aboutPath = Join-Path $parentFolder "About/About.xml"
+$aboutPath = Join-Path $parentFolder "$aboutFolder/$aboutFile"
 if (Test-Path $aboutPath) {
     $aboutContent = Get-Content $aboutPath -Raw
 
@@ -88,12 +89,12 @@ if (Test-Path $aboutPath) {
             "<Version>$newVersionString</Version>"
         )
         [System.IO.File]::WriteAllText($aboutPath, $aboutContent, [System.Text.Encoding]::UTF8)
-        Write-Host "About.xml version updated to $newVersionString"
+        Write-Host "$aboutFile version updated to $newVersionString"
     } else {
-        Write-Warning "<Version> tag not found in About.xml"
+        Write-Warning "<Version> tag not found in $aboutFile"
     }
 } else {
-    Write-Warning "About.xml not found in $parentFolder"
+    Write-Warning "$aboutFile not found in $parentFolder"
 }
 
 # --- Changelog Section --- #
@@ -103,12 +104,15 @@ $lastProcessedCommit = $null
 if ($aboutContent -match $commitCommentPattern) {
     $lastProcessedCommit = $matches[1]
     Write-Host "Found last processed commit: $lastProcessedCommit"
+} else {
+    Write-Warning "Could not find last processed commit"
 }
 
 $currentCommit = (git rev-parse HEAD).Trim()
 if (-not $currentCommit) {
     Write-Warning "Unable to get current commit hash"
 } else {
+    $gitMessages = @()
     if ($lastProcessedCommit) {
         $gitMessages = git log "$lastProcessedCommit..HEAD" --pretty=format:"- %s" 2>&1
     } else {
@@ -116,7 +120,9 @@ if (-not $currentCommit) {
     }
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Warning "Git log failed: $gitMessages"
+        Write-Warning "⚠Git log failed: $gitMessages"
+    } elseif ($gitMessages.Count -eq 0) {
+        Write-Host "No new commits since last version — changelog not updated."
     } else {
         $logBody = ($gitMessages -join "`n")
         $changelogText = "<ChangeLog>`n$logBody`n</ChangeLog>"
@@ -128,7 +134,6 @@ if (-not $currentCommit) {
             [System.Text.RegularExpressions.RegexOptions]::Singleline
         )
 
-        # Re-insert new <ChangeLog> before </ModMetadata>
         $aboutContent = $aboutContent -replace '</ModMetadata>', "$changelogText`n</ModMetadata>"
 
         $commitComment = "<!-- LastProcessedCommit: $currentCommit -->"
@@ -139,6 +144,6 @@ if (-not $currentCommit) {
         }
 
         [System.IO.File]::WriteAllText($aboutPath, $aboutContent, [System.Text.Encoding]::UTF8)
-        Write-Host "ChangeLog updated from commits since $lastProcessedCommit"
+        Write-Host "ChangeLog updated with new commits."
     }
 }
