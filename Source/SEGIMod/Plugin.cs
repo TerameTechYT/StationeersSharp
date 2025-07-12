@@ -2,12 +2,15 @@
 
 #endregion
 
+using Util;
+
 namespace SEGI;
 
 public class Plugin : Mod {
     public static Plugin Instance { get; private set; }
 
-    public static GameObject SEGIGameObject { get; private set; }
+    public static SEGI SEGIInstance { get; private set; }
+
 
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
@@ -15,7 +18,7 @@ public class Plugin : Mod {
 
     public override ModInfo Data => new ModInfo() {
         Name = "SEGIMod",
-        Guid = "segiMod",
+        Guid = "segimod",
         Version = new Version(1, 4, 0),
         WorkshopId = 3281346086ul,
         GameType = GameType.Client,
@@ -24,11 +27,15 @@ public class Plugin : Mod {
     public Plugin() => Plugin.Instance = this;
 
     public override UniTask OnMainMenuPageEnabled(MenuPageEnabledArgs args) {
-        Plugin.SEGIGameObject = GameObject.Find("SEGIManager") ?? new GameObject("SEGIManager");
-        Plugin.SEGIGameObject.AddComponent<SEGIManager>();
-        GameObject.DontDestroyOnLoad(SEGIGameObject);
+        Plugin.SEGIInstance = Camera.main.gameObject.AddComponent<SEGI>();
+        Plugin.SEGIInstance.sun = WorldManager.Instance.WorldSun.TargetLight;
+        GameObject.DontDestroyOnLoad(SEGIInstance);
 
         return UniTask.CompletedTask;
+    }
+
+    public override void OnUpdate(float deltaTime) {
+        Plugin.SEGIInstance?.enabled = ConfigData.Enabled;
     }
 
     public override void OnLoadConfiguration() {
