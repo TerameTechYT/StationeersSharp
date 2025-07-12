@@ -27,7 +27,7 @@ jobs:
 
       - name: Download Libraries from Steam
         run: |
-          cd out\
+          cd DepotDownloader\out\
           dotnet DepotDownloader.dll `
             -anonymous `
             -app 600760 `
