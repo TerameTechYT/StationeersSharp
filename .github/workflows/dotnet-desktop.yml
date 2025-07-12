@@ -32,7 +32,7 @@ jobs:
             -anonymous `
             -app 600760 `
             -depot 600761 `
-            -dir "rocketstation_Data/Managed"
+            -filelist REQUIRED.md
 
       - name: Copy Libraries
         run: |
@@ -62,7 +62,7 @@ jobs:
         run: |
           msbuild StationeersSharp.sln `
             /p:Configuration=Publish `
-            /p:Platform="x64")
+            /p:Platform="x64"
             /restore
 
       - name: Upload  Artifact
