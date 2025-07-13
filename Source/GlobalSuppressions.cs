@@ -1,7 +1,5 @@
 ﻿#region
 
-using System.Diagnostics.CodeAnalysis;
-
 #endregion
 
 [assembly: SuppressMessage("Performance", "CA1805:Do not initialize unnecessarily")]
@@ -22,7 +20,8 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Naming", "CA1720:Identifier contains type name")]
 [assembly: SuppressMessage("Naming", "CA1724:Type names should not match namespaces")]
 
-[assembly: SuppressMessage("Style", "IDE0009:Member access should be qualified.")]
+[assembly: SuppressMessage("Style", "IDE0022:Use expression body for method")]
+[assembly: SuppressMessage("Style", "IDE0009:Member access should be qualified")]
 [assembly: SuppressMessage("Style", "IDE0058:Expression value is never used")]
 [assembly: SuppressMessage("Style", "IDE0060:Remove unused parameter")]
 
