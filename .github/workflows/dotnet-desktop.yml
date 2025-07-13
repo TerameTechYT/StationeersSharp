@@ -19,11 +19,15 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
       - name: Clone and Build DepotDownloader
         run: |
           git clone https://github.com/SteamRE/DepotDownloader.git
           cd DepotDownloader
           dotnet publish -c Release -o out
+          dir/a
 
       - name: Download Libraries from Steam
         run: |
@@ -100,6 +104,7 @@ jobs:
             -file "UnityEngine.VRModule.dll" `
             -file "UnityEngine.WindModule.dll" `
             -file "UnityEngine.XRModule.dll"
+          dir/a
 
       - name: Copy Libraries
         run: |
@@ -108,6 +113,7 @@ jobs:
           mkdir -Force Libraries\rocketstation_Data\Managed
           Get-ChildItem -Path "files" -Filter *.dll | `
             Copy-Item -Destination Libraries/rocketstation_Data/Managed -Force
+          dir/a
 
       - name: Download BepInEx
         run: |
@@ -115,15 +121,14 @@ jobs:
           Expand-Archive -Path "bepinex.zip" -DestinationPath "bepinex"
           mv -Force bepinex Libraries
           mkdir -Force Libraries/BepInEx/plugins
+          dir/a
 
       - name: Download StationeersLaunchPad  
         run: |
           Invoke-WebRequest -Uri "https://github.com/StationeersLaunchPad/StationeersLaunchPad/releases/download/v0.2.1/StationeersLaunchPad-v0.2.1.zip" -OutFile "slp.zip"
           Expand-Archive -Path "slp.zip" -DestinationPath "slp"
           mv -Force slp Libraries/BepInEx/plugins
-
-      - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v2
+          dir/a
 
       - name: Build Solution
         run: |
@@ -131,6 +136,7 @@ jobs:
             /p:Configuration=Publish `
             /p:Platform="x64" `
             /restore
+          dir/a
 
       - name: Upload  Artifact
         uses: actions/upload-artifact@v4
