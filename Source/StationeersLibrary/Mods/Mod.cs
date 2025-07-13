@@ -358,13 +358,14 @@ public abstract class Mod : ModBase {
                     foreach (PatchClassProcessor processor in processors) {
                         List<MethodInfo> methods = processor.Patch();
 
+                        if (methods?.Count > 0) {
 #if DEBUG
-                        foreach (MethodInfo method in methods) {
-                            this.LogDebug($"Harmony patched method {method.FullDescription()}");
-                        }
+                            foreach (MethodInfo method in methods) {
+                                this.LogDebug($"Harmony patched method {method.FullDescription()}");
+                            }
 #endif
-
-                        patches += methods?.Count ?? 0;
+                            patches += methods.Count;
+                        }
                     }
 
                     this.LogDebug($"Harmony finished patching assembly ({name.Name}) with {patches} patches");
