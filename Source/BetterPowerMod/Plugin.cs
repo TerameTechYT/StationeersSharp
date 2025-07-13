@@ -4,7 +4,7 @@
 
 namespace BetterPowerMod;
 
-public class Plugin : Mod {
+public class Plugin : Mod, IModSingleton<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -14,12 +14,12 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterPowerMod",
         Guid = "betterpowermod",
-        Version = new Version(1, 6, 0, 93),
+        Version = new Version(1, 6, 0, 140),
         WorkshopId = 3234916147ul,
         GameType = GameType.Both,
     };
 
-    public Plugin() => Plugin.Instance = this;
+    public Plugin() : base() => Plugin.Instance = this;
 
     public override void OnLoadConfiguration() {
         ConfigData.enableSolarPanel = this.RegisterConfig(new ConfigData<bool>(

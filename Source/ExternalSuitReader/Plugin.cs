@@ -4,7 +4,7 @@
 
 namespace ExternalSuitReader;
 
-public class Plugin : Mod {
+public class Plugin : Mod, IModSingleton<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -14,12 +14,12 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "ExternalSuitReader",
         Guid = "externalsuitreader",
-        Version = new Version(1, 8, 0, 93),
+        Version = new Version(1, 8, 0, 140),
         WorkshopId = 3071985478ul,
         GameType = GameType.Both,
     };
 
-    public Plugin() => Plugin.Instance = this;
+    public Plugin() : base() => Plugin.Instance = this;
 
     public override void OnStart() {}
 }

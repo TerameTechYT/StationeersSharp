@@ -4,7 +4,7 @@
 
 namespace SEGI;
 
-public class Plugin : Mod {
+public class Plugin : Mod, IModSingleton<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public static SEGI? SEGIInstance { get; private set; }
@@ -17,12 +17,12 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "SEGIMod",
         Guid = "segimod",
-        Version = new Version(1, 6, 0, 93),
+        Version = new Version(1, 6, 0, 140),
         WorkshopId = 3281346086ul,
         GameType = GameType.Client,
     };
 
-    public Plugin() => Plugin.Instance = this;
+    public Plugin() : base() => Plugin.Instance = this;
 
     public override UniTask OnMainMenuPageEnabled(MenuPageEnabledArgs args) {
         Plugin.SEGIInstance = Camera.main.gameObject.AddComponent<SEGI>();

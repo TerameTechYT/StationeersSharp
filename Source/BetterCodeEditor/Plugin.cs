@@ -4,7 +4,7 @@
 
 namespace BetterCodeEditor;
 
-public class Plugin : Mod {
+public class Plugin : Mod, IModSingleton<Plugin> {
     public static Plugin? Instance {
         get; private set;
     }
@@ -16,12 +16,12 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 93),
+        Version = new Version(1, 4, 0, 140),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };
 
-    public Plugin() => Plugin.Instance = this;
+    public Plugin() : base() => Plugin.Instance = this;
 
     public override void OnLoadConfiguration() {
         ConfigData.codeEditorLines = this.RegisterConfig(new ConfigData<int>(

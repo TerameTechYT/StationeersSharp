@@ -5,7 +5,7 @@
 
 namespace Template;
 
-public class Plugin : Mod {
+public class Plugin : Mod, IModSingleton<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -20,7 +20,7 @@ public class Plugin : Mod {
         GameType = GameType.Both,
     };
 
-    public Plugin() => Plugin.Instance = this;
+    public Plugin() : base() => Plugin.Instance = this;
 
     public override void OnStart() {}
 }

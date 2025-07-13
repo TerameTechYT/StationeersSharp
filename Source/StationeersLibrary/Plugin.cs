@@ -4,7 +4,7 @@
 
 namespace StationeersLibrary;
 
-public class Plugin : Mod {
+public class Plugin : Mod, IModSingleton<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -14,12 +14,12 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
         Guid = "stationeerslibrary",
-        Version = new Version(2, 0, 0, 93),
+        Version = new Version(2, 0, 0, 141),
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };
 
-    public Plugin() => Plugin.Instance = this;
+    public Plugin() : base() => Plugin.Instance = this;
 
     public override void OnStart() {}
 }

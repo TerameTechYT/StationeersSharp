@@ -4,7 +4,7 @@
 
 namespace BetterAdvancedTablet;
 
-public class Plugin : Mod {
+public class Plugin : Mod, IModSingleton<Plugin> {
     public static Plugin? Instance {
         get; private set;
     }
@@ -16,12 +16,12 @@ public class Plugin : Mod {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
-        Version = new Version(1, 3, 0, 93),
+        Version = new Version(1, 3, 0, 140),
         WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };
 
-    public Plugin() => Plugin.Instance = this;
+    public Plugin() : base() => Plugin.Instance = this;
 
     public override void OnLoadConfiguration() {
         ConfigData.additionalTabletSlots = this.RegisterConfig(new ConfigData<int>(
