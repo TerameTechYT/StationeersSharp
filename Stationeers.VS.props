@@ -45,7 +45,7 @@
         <StationeersLaunchPadDirectory>$(BIEPluginsDirectory)\StationeersLaunchPad</StationeersLaunchPadDirectory>
     </PropertyGroup>
 
-    <Target Name="IncrementVersion" BeforeTargets="BeforeBuild">
+    <Target Name="IncrementVersion" BeforeTargets="BeforeBuild" Condition="'$(Configuration)' != 'Publish'">
         <Exec Command="powershell -File &quot;$(SolutionDir)\Commands\Increment-Version.ps1&quot;" />
     </Target>
 
@@ -55,7 +55,7 @@
         <CopyItemsTextures Include="$(ProjectDir)\Textures\**\*.*" />
     </ItemGroup>
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'Publish'">
         <RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
         <Copy SourceFiles="$(TargetDir)$(ModName).deps.json" DestinationFiles="$(StationeersDocumentsDirectory)\mods\$(ModName)\$(ModName).deps.json" ContinueOnError="false" />
@@ -109,6 +109,9 @@
 
         <Using Include="System.Runtime" />
         <Using Include="System.Runtime.CompilerServices" />
+        
+        <Using Include="System.Diagnostics" />
+        <Using Include="System.Diagnostics.CodeAnalysis" />
         
         <!-- Cysharp -->
         <Using Include="Cysharp" />
