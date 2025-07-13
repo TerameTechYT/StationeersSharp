@@ -17,10 +17,18 @@ public static class Utilities {
     /// <param name="guid"></param>
     /// <returns>If mod's guid is loaded</returns>
     public static bool IsLoaded(string guid) =>
-            Harmony.HasAnyPatches(guid) ||
-            Mod.AllMods.Find((mod) => mod.ModGuid == guid) != null ||
-            LaunchPadBooster.Mod.AllMods.Find((mod) => mod.ID.Name == guid) != null ||
-            Chainloader.PluginInfos.ContainsKey(guid);
+            IsHarmonyPatched(guid) ||
+            IsModLoaded(guid) ||
+            IsBoosterModLoaded(guid) ||
+            IsBepInExModLoaded(guid);
+
+    private static bool IsHarmonyPatched(string guid) => Harmony.HasAnyPatches(guid);
+
+    private static bool IsModLoaded(string guid) => Mod.AllMods.Find((modb) => modb is Mod mod && mod.ModGuid == guid) != null;
+
+    private static bool IsBoosterModLoaded(string guid) => LaunchPadBooster.Mod.AllMods.Find((mod) => mod.ID.Name == guid) != null;
+
+    private static bool IsBepInExModLoaded(string guid) => Chainloader.PluginInfos.ContainsKey(guid);
 
     public static KeyCode GetConsoleKeyCode() => KeyManager.AllKeys.Find((key) => key.Name == "ToggleConsole").Key;
 
