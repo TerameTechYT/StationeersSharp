@@ -9,8 +9,8 @@ public static class HarmonyExtensions {
         List<PatchClassProcessor> processors = [];
 
         foreach (Type type in AccessTools.GetTypesFromAssembly(assembly)) {
-            PatchClassProcessor procesor = harmony.CreateClassProcessor(type);
-            processors.Add(procesor);
+            PatchClassProcessor processor = harmony.CreateClassProcessor(type);
+            processors.Add(processor);
         }
 
         return processors;
@@ -25,6 +25,77 @@ public static class HarmonyExtensions {
 
         return processors;
     }
+}
+
+public static class ReflectionExtensions {
+    public static string FullName(this Assembly method) => method.GetName().FullName;
+    public static string FullName(this MethodInfo method) => method.GetType().FullName;
+
+    public static string FullDescription(this MethodInfo method) {
+        if (method == null) {
+            return "null";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        if (method.IsAssembly) {
+            stringBuilder.Append("internal ");
+        }
+        else {
+            if (method.IsPublic) {
+                stringBuilder.Append("public ");
+            }
+            else {
+                if (method.IsFamily) {
+                    stringBuilder.Append("protected ");
+                }
+                else {
+                    stringBuilder.Append("private ");
+                }
+            }
+        }
+
+        if (method.IsStatic) {
+            stringBuilder.Append("static ");
+        }
+
+        if (method.IsAbstract) {
+            stringBuilder.Append("abstract ");
+        }
+
+        if (method.IsVirtual) {
+            stringBuilder.Append("virtual ");
+        }
+
+        if (method.ReturnType != null) {
+            stringBuilder.Append(method.ReturnType.FullDescription() + " ");
+        }
+
+        if (method.DeclaringType != null) {
+            stringBuilder.Append(method.DeclaringType.FullDescription() + "::");
+        }
+
+        if (method.IsConstructor) {
+            stringBuilder.Append($".cctor{method.FormatParameters()}\n");
+        }
+        else {
+            stringBuilder.Append($"{method.Name}{method.FormatParameters()}\n");
+        }
+
+        return stringBuilder.ToString();
+    }
+
+    public static string FormatParameters(this MethodInfo method) =>
+        method.GetParameters().FormatParameters();
+
+    public static string FormatParameters(this ParameterInfo[] parameters) =>
+        $"({(
+            parameters?.Length == 0
+            ? ""
+            : $"\n{parameters?.Join((type) => $"\t{type?.FullDescription() ?? "null"} {type?.Name ?? "null"}", $",\n")}\n"
+        )})";
+
+    public static string FullDescription(this ParameterInfo parameter) =>
+        parameter?.ParameterType?.FullDescription() ?? "null";
 }
 
 public static class StringExtensions {
