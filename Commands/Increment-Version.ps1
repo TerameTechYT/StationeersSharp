@@ -27,8 +27,8 @@ $major = [int]0
 $minor = [int]0
 $build = [int]0
 $revision = [int]0
-$versionString = "x.x.x.x"
-$newVersionString = "x.x.x.x"
+$versionString = $null
+$newVersionString = $null
 
 if ($content -match $versionPattern) {
     $major = [int]$matches[1]
@@ -111,6 +111,14 @@ if (Test-Path $aboutPath) {
 $commitCommentPattern = '<!--\s*LastProcessedCommit:\s*([a-f0-9]{7,40})\s*-->'
 $lastProcessedCommit = $null
 
+$versionCommentPattern = '<!--\s*LastProcessedVersion:\s*?([\d\.]+)\s*-->'
+$lastProcessedVersion = $null
+
+if ($aboutContent -match $versionCommentPattern) {
+    $lastProcessedVersion = $matches[1]
+    Write-Host "Last processed version: $lastProcessedVersion"
+}
+
 if ($aboutContent -match $commitCommentPattern) {
     $lastProcessedCommit = $matches[1]
     Write-Host "Found last processed commit: $lastProcessedCommit"
@@ -125,7 +133,7 @@ if (-not $currentCommit) {
 } else {
     $gitMessages = @()
     if ($lastProcessedCommit) {
-        $gitMessages = git log "$lastProcessedCommit..HEAD" --pretty=format:"- %s" 2>&1
+        $gitMessages = git log "$lastProcessedCommit..HEAD" --pretty=format:"%s" 2>&1
     } else {
         exit 1
     }
@@ -136,11 +144,9 @@ if (-not $currentCommit) {
     } elseif ($gitMessages.Count -eq 0) {
         Write-Host "No new commits since last version — changelog not updated."
     } else {
-        $logBody = ($gitMessages -join "`n")
-        $changelogText = "<ChangeLog>`n$logBody`n</ChangeLog>"
-
-        $logBody = "[h1]v$versionString to v$newVersionString[/h1]`n[list]`n" + ($gitMessages | ForEach-Object { "[*] $_" } -join "`n") + "`n[/list]"
-        $changelogText = "<ChangeLog>`n$logBody`n</ChangeLog>"
+        $formattedCommits = $gitMessages | ForEach-Object { "`t`t[*] $_" }
+        $logBody = "[h1]Update v$lastProcessedVersion to v$newVersionString[/h1]`n`t[list]`n" + ($formattedCommits -join "`n") + "`n`t[/list]"
+        $changelogText = "<ChangeLog>`n`t$logBody`n</ChangeLog>"
 
         $aboutContent = [regex]::Replace(
             $aboutContent,
@@ -149,13 +155,21 @@ if (-not $currentCommit) {
             [System.Text.RegularExpressions.RegexOptions]::Singleline
         )
 
-        $aboutContent = $aboutContent -replace '</ModMetadata>', "$changelogText`n</ModMetadata>"
+        $aboutContent = $aboutContent -replace '\s*</ModMetadata>', "`n$changelogText`n</ModMetadata>"
 
         $commitComment = "<!-- LastProcessedCommit: $currentCommit -->"
         if ($aboutContent -match $commitCommentPattern) {
             $aboutContent = [regex]::Replace($aboutContent, $commitCommentPattern, $commitComment)
         } else {
             $aboutContent += "`n$commitComment"
+        }
+
+        $versionComment = "<!-- LastProcessedVersion: $newVersionString -->"
+
+        if ($aboutContent -match $versionCommentPattern) {
+            $aboutContent = [regex]::Replace($aboutContent, $versionCommentPattern, $versionComment)
+        } else {
+            $aboutContent += "`n$versionComment"
         }
 
         [System.IO.File]::WriteAllText($aboutPath, $aboutContent, [System.Text.Encoding]::UTF8)
