@@ -1,9 +1,9 @@
 ﻿#region
 
+using Assets.Scripts.Objects;
 using LaunchPadBooster;
 using LaunchPadBooster.Networking;
 using StationeersLaunchPad;
-using System.Diagnostics;
 using Logger = StationeersLaunchPad.Logger;
 
 #endregion
@@ -171,6 +171,7 @@ public abstract class Mod : ModBase {
             if (this.UseLogger) {
                 this.Logger = Logger.Global.CreateChild(this.ModName);
                 this.DoLoggerMove();
+                this.LogDebug("Fetched and moved logger.");
             }
         }
         else {
@@ -181,7 +182,7 @@ public abstract class Mod : ModBase {
 
     /// <inheritdoc/>
     public override void OnLoaded(List<GameObject> prefabs) {
-        this.Log($"{this} is now loading...");
+        this.LogDebug($"{this} is now loading...");
 
         if (this.UseLogger && this.Logger == null) {
             this.Logger = Logger.Global.CreateChild(this.ModName);
@@ -243,14 +244,19 @@ public abstract class Mod : ModBase {
             ModBase.AllMods.Add(this);
         }
 
-        this.LogDebug($"{this} is now loaded!");
+        this.Log($"{this} is now loaded!");
+
+        // pause so we can look at logs
+        if (LaunchPadConfig.Debug) {
+            LaunchPadConfig.AutoLoad = false;
+        }
 
         this.OnStart();
     }
 
     /// <inheritdoc/>
     public override void OnUnloaded() {
-        this.Log($"{this} is now unloading...");
+        this.LogDebug($"{this} is now unloading...");
 
         if (this.UseConfig) {
             this.Config.Save();
@@ -272,7 +278,7 @@ public abstract class Mod : ModBase {
             ModBase.AllMods.Remove(this);
         }
 
-        this.LogDebug($"{this} is now unloaded!");
+        this.Log($"{this} is now unloaded!");
     }
 
     /// <summary>
@@ -338,7 +344,7 @@ public abstract class Mod : ModBase {
 
         this.OnLoadConfiguration();
 
-        this.LogDebug("Loaded configuration!");
+        this.Log($"Loaded configuration with {this.Config.Count} value{(this.Config.Count == 0 ? "s" : this.Config.Count == 1 ? "" : "s")}!");
     }
 
     /// <summary>
@@ -348,36 +354,39 @@ public abstract class Mod : ModBase {
     private void DoHarmonyPatch() {
         bool success = true;
         if (this.AutoPatch) {
-            this.LogDebug("Harmony patching starting...");
+            this.LogDebug("Harmony patching assemblies starting...");
+
+            int assemblies = 0;
             try {
                 foreach ((Assembly assembly, List<PatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
-                    AssemblyName name = assembly.GetName();
-                    this.LogDebug($"Harmony patching assembly ({name.FullName})");
+                    assemblies++;
+
+                    this.LogDebug($"Harmony patching assembly ({assembly.FullName()})");
 
                     int patches = 0;
+                    this.LogDebug($"Harmony patching methods...");
                     foreach (PatchClassProcessor processor in processors) {
                         List<MethodInfo> methods = processor.Patch();
 
                         if (methods?.Count > 0) {
-#if DEBUG
-                            foreach (MethodInfo method in methods) {
-                                this.LogDebug($"Harmony patched method {method.FullDescription()}");
+                            if (LaunchPadConfig.Debug) {
+                                this.LogDebug($"Harmony patched methods: \n\n{methods.Join((method) => $"{method.FullDescription()}", "\n")}\n");
                             }
-#endif
+
                             patches += methods.Count;
                         }
                     }
 
-                    this.LogDebug($"Harmony finished patching assembly ({name.Name}) with {patches} patches");
+                    this.LogDebug($"Harmony patched assembly with {patches} patch{(patches == 0 ? "es" : patches == 1 ? "" : "es")}!");
                 }
             }
             catch (Exception ex) {
-                this.LogError("Harmony patch failed!");
+                this.LogError("Harmony patching failed!");
                 this.LogException(ex);
                 LaunchPadConfig.AutoLoad = success = false;
             }
             finally {
-                this.LogDebug("Harmony patching finished...");
+                this.LogDebug($"Harmony patched {assemblies} assemblies!");
             }
         }
         this.OnHarmonyPatched(success);
@@ -544,49 +553,59 @@ public abstract class Mod : ModBase {
     /// <typeparam name="T">The script for your prefab.</typeparam>
     /// <param name="prefab">The name of your prefab.</param>
     /// <returns>Prefab setup object.</returns>
-    public PrefabSetup<T>? RegisterPrefab<T>(string prefab) where T : Thing =>
-        this.InternalMod?.SetupPrefabs<T>(prefab);
+    public PrefabSetup<T>? RegisterPrefab<T>(string prefab) where T : Thing {
+        this.LogDebug($"Registering prefab {typeof(T).Name} with name {prefab}.");
+        return this.InternalMod?.SetupPrefabs<T>(prefab);
+    }
 
     /// <summary>
     /// Registers a savedata type.
     /// </summary>
     /// <typeparam name="T">A thing savedata type.</typeparam>
-    public void RegisterSaveDataType<T>() where T : ThingSaveData =>
+    public void RegisterSaveData<T>() where T : ThingSaveData {
+        this.LogDebug($"Registering SaveData {typeof(T).Name}...");
         this.InternalMod?.AddSaveDataType<T>();
+        this.LogDebug($"Registered SaveData!");
+    }
 
     /// <summary>
     /// Registers a network message.
     /// </summary>
     /// <typeparam name="T">A network message type.</typeparam>
-    public void RegisterNetworkMessage<T>() where T : ModNetworkMessage<T>, new() =>
+    public void RegisterNetworkMessage<T>() where T : ModNetworkMessage<T>, new() {
+        this.LogDebug($"Registering NetworkMessage {typeof(T).Name }...");
         this.InternalMod?.RegisterNetworkMessage<T>();
+        this.LogDebug($"Registered NetworkMessage!");
+    }
 
     /// <summary>
     /// Register a new configuration value.
     /// </summary>
     /// <typeparam name="T">A primitive type, enum or similar.</typeparam>
     /// <param name="data">Config data</param>
-    public ConfigEntry<T> RegisterConfig<T>(ConfigData<T> data) where T : unmanaged {
-        this.LogDebug($"Registering config {data}");
-        return this.Config.Bind<T>(data.Definition, data.DefaultValue, data.Description);
+    public ConfigEntry<T> RegisterConfig<T>(ConfigData<T> data) where T : notnull {
+        this.LogDebug($"Registering ConfigEntry ({data}) - default: {data.DefaultValue}");
+        ConfigEntry<T> entry = this.Config.Bind<T>(data.Definition, data.DefaultValue, data.Description);
+        this.LogDebug($"Registered ConfigEntry has value: {entry.Value}");
+        return entry;
     }
 
-    public ConfigEntry<T>? GetConfigEntry<T>(string section, string key) where T : unmanaged =>
+    public ConfigEntry<T>? GetConfigEntry<T>(string section, string key) where T : notnull =>
         this.GetConfigEntry<T>(new(section, key));
 
-    public ConfigEntry<T>? GetConfigEntry<T>(ConfigDefinition definition) where T : unmanaged =>
+    public ConfigEntry<T>? GetConfigEntry<T>(ConfigDefinition definition) where T : notnull =>
         this.Config.TryGetEntry<T>(definition, out ConfigEntry<T> entry) ? entry : null;
 
-    public T? GetConfigValue<T>(string section, string key, T? defaultValue = null) where T : unmanaged =>
+    public T? GetConfigValue<T>(string section, string key, T defaultValue) where T : notnull =>
         this.GetConfigValue<T>(new(section, key), defaultValue);
 
-    public T? GetConfigValue<T>(ConfigDefinition definition, T? defaultValue = null) where T : unmanaged =>
-        this.GetConfigEntry<T>(definition)?.Value ?? defaultValue;
+    public T? GetConfigValue<T>(ConfigDefinition definition, T defaultValue) where T : notnull =>
+        this.GetConfigEntry<T>(definition).Value ?? defaultValue;
 
-    public void SetConfigValue<T>(string section, string key, T value) where T : unmanaged =>
+    public void SetConfigValue<T>(string section, string key, T value) where T : notnull =>
         this.SetConfigValue<T>(new(section, key), value);
 
-    public void SetConfigValue<T>(ConfigDefinition definition, T value) where T : unmanaged =>
+    public void SetConfigValue<T>(ConfigDefinition definition, T value) where T : notnull =>
         this.GetConfigEntry<T>(definition)?.Value = value;
 
     /// <summary>
@@ -618,7 +637,7 @@ public abstract class Mod : ModBase {
     #endregion // PUBLIC METHODS
 }
 
-public struct ConfigData<T> where T : notnull {
+public struct ConfigData<T> : IEquatable<ConfigData<T>> where T : notnull {
     public T DefaultValue { get; set; }
     public ConfigDefinition Definition { get; set; }
     public ConfigDescription Description { get; set; }
@@ -643,7 +662,7 @@ public struct ConfigData<T> where T : notnull {
         this.Definition.Equals(data.Definition) &&
         this.Description.Equals(data.Description);
 
-    public override int GetHashCode() => 
+    public override int GetHashCode() =>
         HashCode.Combine(
             this.DefaultValue,
             this.Definition.Section,
@@ -653,5 +672,8 @@ public struct ConfigData<T> where T : notnull {
             this.Description.Tags
         );
 
-    public override string ToString() => $"[{this.Definition}] : {this.DefaultValue}";
+    public override string ToString() => $"{this.Definition}";
+
+    public static bool operator ==(ConfigData<T> left, ConfigData<T> right) => left.Equals(right);
+    public static bool operator !=(ConfigData<T> left, ConfigData<T> right) => !left.Equals(right);
 }
