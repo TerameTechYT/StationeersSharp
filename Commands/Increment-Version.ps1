@@ -139,6 +139,9 @@ if (-not $currentCommit) {
         $logBody = ($gitMessages -join "`n")
         $changelogText = "<ChangeLog>`n$logBody`n</ChangeLog>"
 
+        $logBody = "[h1]v$versionString to v$newVersionString[/h1]`n[list]`n" + ($gitMessages | ForEach-Object { "[*] $_" } -join "`n") + "`n[/list]"
+        $changelogText = "<ChangeLog>`n$logBody`n</ChangeLog>"
+
         $aboutContent = [regex]::Replace(
             $aboutContent,
             '<ChangeLog>.*?</ChangeLog>',
