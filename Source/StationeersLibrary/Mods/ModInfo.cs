@@ -3,7 +3,7 @@
 /// <summary>
 /// Mod Information Class
 /// </summary>
-public sealed class ModInfo : IModInfo {
+public sealed class ModInfo : IEquatable<ModInfo>, IModInfo {
     /// <inheritdoc/>
     public string? Name { get; set; }
 
@@ -17,7 +17,6 @@ public sealed class ModInfo : IModInfo {
     /// Mod Version (as a string)
     /// </summary>
     public string VersionString => this.Version.ToString();
-
 
     /// <inheritdoc/>
     public ulong WorkshopId { get; set; }
