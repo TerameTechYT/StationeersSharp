@@ -2,11 +2,13 @@
 
 #endregion
 
+
 namespace Template;
 
 public class Plugin : Mod {
     public static Plugin? Instance { get; private set; }
 
+    public override bool UseLogger => true;
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
 
@@ -20,9 +22,5 @@ public class Plugin : Mod {
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void Start() { }
-}
-
-internal struct ConfigData {
-
+    public override void OnStart() {}
 }

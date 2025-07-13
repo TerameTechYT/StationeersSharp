@@ -7,14 +7,14 @@ namespace DetailedPlayerInfo;
 public class Plugin : Mod {
     public static Plugin? Instance { get; private set; }
 
+    public override bool UseLogger => true;
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
-
 
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 64),
+        Version = new Version(2, 0, 0, 93),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };
@@ -65,7 +65,7 @@ public class Plugin : Mod {
                 new AcceptableValueRange<int>(14, 28)));
     }
 
-    public override void Start() { }
+    public override void OnStart() {}
 }
 
 internal struct ConfigData {

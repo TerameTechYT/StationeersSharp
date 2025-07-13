@@ -9,14 +9,14 @@ public class Plugin : Mod {
         get; private set;
     }
 
+    public override bool UseLogger => true;
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
-
 
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 64),
+        Version = new Version(1, 4, 0, 93),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };
@@ -24,18 +24,20 @@ public class Plugin : Mod {
     public Plugin() => Plugin.Instance = this;
 
     public override void OnLoadConfiguration() {
-        ConfigData.codeEditorLines = Config.Bind("Configurables",
-             "Code Editor Lines",
+        ConfigData.codeEditorLines = this.RegisterConfig(new ConfigData<int>(
              InputSourceCode.MAX_LINES,
-             "Number of lines in the code editor.");
+             "Configurables", "Code Editor Lines",
+             "Number of lines in the code editor."
+        ));
 
-        ConfigData.codeEditorLineLength = Config.Bind("Configurables",
-                "Code Editor Line Length",
-                InputSourceCode.LINE_LENGTH_LIMIT,
-                "The length of the code editor lines");
+        ConfigData.codeEditorLineLength = this.RegisterConfig(new ConfigData<int>(
+             InputSourceCode.LINE_LENGTH_LIMIT,
+             "Configurables", "Code Editor Line Length",
+             "The length of the code editor lines."
+        ));
     }
 
-    public override void Start() { }
+    public override void OnStart() {}
 }
 
 internal struct ConfigData {

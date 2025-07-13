@@ -7,14 +7,14 @@ namespace BetterPowerMod;
 public class Plugin : Mod {
     public static Plugin? Instance { get; private set; }
 
+    public override bool UseLogger => true;
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
-
 
     public override ModInfo Data => new ModInfo() {
         Name = "BetterPowerMod",
         Guid = "betterpowermod",
-        Version = new Version(1, 6, 0, 64),
+        Version = new Version(1, 6, 0, 93),
         WorkshopId = 3234916147ul,
         GameType = GameType.Both,
     };
@@ -22,59 +22,59 @@ public class Plugin : Mod {
     public Plugin() => Plugin.Instance = this;
 
     public override void OnLoadConfiguration() {
-        ConfigData.enableSolarPanel = Config.Bind(
-                new ConfigDefinition("Configurables", "Solar Panel Patches"),
-                true,
-                new ConfigDescription("Should the max power output be set to the worlds Solar Irradiance"
+        ConfigData.enableSolarPanel = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            "Configurables", "Solar Panel Patches",
+            "Should the max power output be set to the worlds Solar Irradiance"
         ));
 
-        ConfigData.enableWindTurbine = Config.Bind(
-                new ConfigDefinition("Configurables", "Wind Turbine Patches"),
-                true,
-                new ConfigDescription("Should the max power output be set higher based on the atmospheric pressure")
-        );
-
-        ConfigData.enableTurbine = Config.Bind(
-                new ConfigDefinition("Configurables", "Wall Turbine Patches"),
-                true,
-                new ConfigDescription("Should the max power output be multipled by 10")
-         );
-
-        ConfigData.enableStirling = Config.Bind(
-                new ConfigDefinition("Configurables", "Stirling Patches"),
-                true,
-                new ConfigDescription($"Should the max power output be changed to Stirling Energy Output")
-        );
-
-        ConfigData.stirlingEnergy = Config.Bind(
-                new ConfigDefinition("Configurables", "Stirling Energy Output"),
-                Constants.TWENTY_KILOWATTS,
-                new ConfigDescription("The max power output of the Stirling Engine",
-                new AcceptableValueRange<float>(Constants.EIGHT_KILOWATTS, Constants.TWENTY_FIVE_KILOWATTS)
+        ConfigData.enableWindTurbine = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            "Configurables", "Wind Turbine Patches",
+            "Should the max power output be set higher based on the atmospheric pressure"
         ));
 
-        ConfigData.enableFasterCharging = Config.Bind(
-                new ConfigDefinition("Configurables", "Charging Patches"),
-                true,
-                new ConfigDescription("Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate")
-        );
-
-        ConfigData.fastChargeRate = Config.Bind(
-                new ConfigDefinition("Configurables", "Fast Charging Charging Rate"),
-                Constants.TWO_POINT_FIVE_KILOWATTS,
-                new ConfigDescription("The max input power of the (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter)",
-                new AcceptableValueRange<float>(1f, Constants.FIVE_KILOWATTS)
+        ConfigData.enableTurbine = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            "Configurables", "Wall Turbine Patches",
+            "Should the max power output be multipled by 10"
         ));
 
-        ConfigData.turbineMultiplier = Config.Bind(
-                new ConfigDefinition("Configurables", "Turbine Power Multiplier"),
-                10f,
-                new ConfigDescription("The power output on the Turbine Generator (not wind turbine, the one that looks like a wall)",
-                new AcceptableValueRange<float>(1f, 25f)
+        ConfigData.enableStirling = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            "Configurables", "Stirling Patches",
+            "Should the max power output be changed to Stirling Energy Output"
+        ));
+
+        ConfigData.stirlingEnergy = this.RegisterConfig(new ConfigData<float>(
+            Constants.TWENTY_KILOWATTS,
+            "Configurables", "Stirling Energy Output",
+            "The max power output of the Stirling Engine",
+            new AcceptableValueRange<float>(Constants.EIGHT_KILOWATTS, Constants.TWENTY_FIVE_KILOWATTS)
+        ));
+
+        ConfigData.enableFasterCharging = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            new ConfigDefinition("Configurables", "Charging Patches"),
+            new ConfigDescription("Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate")
+        ));
+
+        ConfigData.fastChargeRate = this.RegisterConfig(new ConfigData<float>(
+            Constants.TWO_POINT_FIVE_KILOWATTS,
+            "Configurables", "Fast Charging Charging Rate",
+            "The max input power of the (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter)",
+            new AcceptableValueRange<float>(1f, Constants.FIVE_KILOWATTS)
+        ));
+
+        ConfigData.turbineMultiplier = this.RegisterConfig(new ConfigData<float>(
+            10f,
+            "Configurables", "Turbine Power Multiplier",
+            "The power output on the Turbine Generator (not wind turbine, the one that looks like a wall)",
+            new AcceptableValueRange<float>(1f, 25f)
         ));
     }
 
-    public override void Start() { }
+    public override void OnStart() {}
 }
 
 internal struct ConfigData {

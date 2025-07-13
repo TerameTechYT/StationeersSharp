@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Waste Tank [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.8.0.64</Version>
+    <Version>1.8.0.93</Version>
     <Description>
         [h1]Better Waste Tank[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -39,19 +39,22 @@
 
     <LoadAfter>
     </LoadAfter>
-
-
-
-
-
-
-
-
 <ChangeLog>
-- change platform to x64
-- change workflow upload-artfact to v4
-- push directory config
-- test workflow
+	[h1]Update v1.8.0.64 to v1.8.0.93[/h1]
+	[list]
+		[*] fix steam formatted changelog and make version update header
+		[*] push make powershell script format commit messages in steam markdown
+		[*] modify powershell script
+		[*] add System.Diagnostics to global usings
+		[*] add a global suppression
+		[*] make seperate functions for load detection
+		[*] modify Mod class to be a subclass of ModBase class
+		[*] make new ModBase class
+		[*] make ModInfo interit IModInfo
+		[*] add IModInfo interface
+		[*] add IMod interface
+	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 0151b8d31642fa786ced58eb93ce39fa60a6a9ac -->
+<!-- LastProcessedCommit: 123ce505936a932cc171a8a65ba75e2a23a20b9a -->
+<!-- LastProcessedVersion: 1.8.0.93 -->

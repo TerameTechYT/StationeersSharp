@@ -10,14 +10,14 @@ public class Plugin : Mod {
     public static SEGI? SEGIInstance { get; private set; }
 
 
+    public override bool UseLogger => true;
     public override bool UseConfig => true;
     public override bool UseHarmony => false;
-
 
     public override ModInfo Data => new ModInfo() {
         Name = "SEGIMod",
         Guid = "segimod",
-        Version = new Version(1, 6, 0, 64),
+        Version = new Version(1, 6, 0, 93),
         WorkshopId = 3281346086ul,
         GameType = GameType.Client,
     };
@@ -256,7 +256,7 @@ public class Plugin : Mod {
         ));
     }
 
-    public override void Start() {}
+    public override void OnStart() {}
 }
 
 internal struct ConfigData {

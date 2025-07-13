@@ -7,14 +7,14 @@ namespace BetterWasteTank;
 public class Plugin : Mod {
     public static Plugin? Instance { get; private set; }
 
+    public override bool UseLogger => true;
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
-
 
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWasteTank",
         Guid = "betterwastetank",
-        Version = new Version(1, 8, 0, 64),
+        Version = new Version(1, 8, 0, 93),
         WorkshopId = 3071913936ul,
         GameType = GameType.Both,
     };
@@ -22,28 +22,40 @@ public class Plugin : Mod {
     public Plugin() => Plugin.Instance = this;
 
     public override void OnLoadConfiguration() {
-        ConfigData.wasteCriticalRatio = Config.Bind(new ConfigDefinition("Configurables", "Waste Critical Ratio"),
-                0.975f,
-                new ConfigDescription("Ratio when \"Waste Tank Critical!\" alarm goes off.", new AcceptableValueRange<float>(0.0f, 1.0f)));
+        ConfigData.wasteCriticalRatio = this.RegisterConfig(new ConfigData<float>(
+            0.975f,
+            "Configurables", "Waste Critical Ratio",
+            "Ratio when \"Waste Tank Critical!\" alarm goes off.",
+            new AcceptableValueRange<float>(0.0f, 1.0f)
+        ));
 
-        ConfigData.wasteCautionRatio = Config.Bind(new ConfigDefinition("Configurables", "Waste Caution Ratio"),
-                0.75f,
-                new ConfigDescription("Ratio when \"Waste Tank Caution\" alarm goes off.", new AcceptableValueRange<float>(0.0f, 1.0f)));
+        ConfigData.wasteCautionRatio = this.RegisterConfig(new ConfigData<float>(
+            0.75f,
+            "Configurables", "Waste Caution Ratio",
+            "Ratio when \"Waste Tank Caution!\" alarm goes off.",
+            new AcceptableValueRange<float>(0.0f, 1.0f)
+        ));
 
-        ConfigData.airCountOnlyBreathable = Config.Bind(new ConfigDefinition("Configurables", "Air Count Only Breathable"),
-                true,
-                new ConfigDescription("Should Air Tank warnings count moles of only breathable gas or total moles"));
+        ConfigData.airCountOnlyBreathable = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            "Configurables", "Air Critical Moles",
+            "Should Air Tank warnings count moles of only breathable gas or total moles"
+        ));
 
-        ConfigData.airCriticalMoles = Config.Bind(new ConfigDefinition("Configurables", "Air Critical Moles"),
-                7.5f,
-                new ConfigDescription("Quantity of moles when \"Air Tank Critical!\" alarm goes off. (this number will be multiplied by how many moles a human breaths per tick)"));
+        ConfigData.airCriticalMoles = this.RegisterConfig(new ConfigData<float>(
+            7.5f,
+            "Configurables", "Air Critical Moles",
+            "Quantity of moles when \"Air Tank Critical!\" alarm goes off. (this number will be multiplied by how many moles a human breaths per tick)"
+        ));
 
-        ConfigData.airCautionMoles = Config.Bind(new ConfigDefinition("Configurables", "Air Caution Moles"),
-                50f,
-                new ConfigDescription("Quanitity of moles when \"Air Tank Caution\" alarm goes off. (this number will be multiplied by how many moles a human breaths per tick)"));
+        ConfigData.airCautionMoles = this.RegisterConfig(new ConfigData<float>(
+            50f,
+            "Configurables", "Air Caution Moles",
+            "Quanitity of moles when \"Air Tank Caution\" alarm goes off. (this number will be multiplied by how many moles a human breaths per tick)"
+        ));
     }
 
-    public override void Start() { }
+    public override void OnStart() {}
 }
 
 internal struct ConfigData {

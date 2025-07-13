@@ -7,27 +7,27 @@ namespace ExternalSuitReader;
 public class Plugin : Mod {
     public static Plugin? Instance { get; private set; }
 
+    public override bool UseLogger => true;
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
-
 
     public override ModInfo Data => new ModInfo() {
         Name = "ExternalSuitReader",
         Guid = "externalsuitreader",
-        Version = new Version(1, 8, 0, 64),
+        Version = new Version(1, 8, 0, 93),
         WorkshopId = 3071985478ul,
         GameType = GameType.Both,
     };
 
     public Plugin() => Plugin.Instance = this;
 
-    public override void Start() { }
+    public override void OnStart() {}
 }
 
 internal struct Data {
     // Config Data
     //public static ConfigEntry<bool> enableExperimentalSaving;
-    //public static bool EnableExperimentalSaving => enableExperimentalSaving?.Value ?? false;
+    //public static bool EnableExperimentalSaving => enableExperimentalSaving?.DefaultValue ?? false;
 
     /*
      * Base Allowed Logic Types:
