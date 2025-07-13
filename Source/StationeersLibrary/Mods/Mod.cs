@@ -12,16 +12,11 @@ namespace StationeersLibrary.Mods;
 
 /// <summary>
 /// Main class for handling modding with <see cref="StationeersLaunchPad"/>
-/// Inherits the <see cref="MonoBehaviour"/> class
+/// Inherits the <see cref="ModBase"/> class
 /// </summary>
-public abstract class Mod : MonoBehaviour {
+public abstract class Mod : ModBase {
     /// <summary>
-    /// Instance for all mods
-    /// </summary>
-    public static readonly List<Mod> AllMods = [];
-
-    /// <summary>
-    /// 
+    /// Locker object.
     /// </summary>
     private static readonly object _lock = new();
 
@@ -30,7 +25,7 @@ public abstract class Mod : MonoBehaviour {
     /// <summary>
     /// Should this mod initalize the logger?
     /// </summary>
-    public virtual bool UseLogger { get; protected set; } = true;
+    public abstract bool UseLogger { get; }
 
     /// <summary>
     /// This mods <see cref="StationeersLaunchPad.Logger"/> instance
@@ -95,23 +90,22 @@ public abstract class Mod : MonoBehaviour {
 
     /// <summary>
     /// Override to provide your own version checking function.
-    /// <see cref="https://github.com/StationeersLaunchPad/LaunchPadBooster/blob/master/README.md#multiplayer"/>
     /// </summary>
     public virtual Func<string, bool> VersionCheck { get; private set; }
 
     /// <summary>
     /// Internal <see cref="LaunchPadBooster.Mod"/> instance.
     /// </summary>
-    protected LaunchPadBooster.Mod InternalMod { get; private set; }
+    internal LaunchPadBooster.Mod InternalMod { get; private set; }
 
     /// <summary>
     /// Internal <see cref="StationeersLaunchPad.LoadedMod"/> instance.
     /// </summary>
-    protected LoadedMod LoadedMod { get; private set; }
+    internal LoadedMod LoadedMod { get; private set; }
 
-    protected Logger LoadedLogger => this.LoadedMod.Logger;
+    internal Logger LoadedLogger => this.LoadedMod.Logger;
 
-    protected LogBuffer LoadedBuffer => this.LoadedLogger.Buffer;
+    internal LogBuffer LoadedBuffer => this.LoadedLogger.Buffer;
 
     #endregion // INTERNAL
 
@@ -161,7 +155,10 @@ public abstract class Mod : MonoBehaviour {
     /// Quick accessor for <see cref="ModInfo.GameType"/>
     /// </summary>
     public GameType ModGameType => this.Data.GameType;
+
     #endregion // MOD INFO
+
+    #region INTERNAL METHODS
 
     /// <summary>
     /// Default constructor
@@ -182,17 +179,8 @@ public abstract class Mod : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Internal <see cref="Awake"/> method.
-    /// Called when <see cref="MonoBehaviour"/> is initalized
-    /// </summary>
-    private void Awake() => this.Start();
-
-    /// <summary>
-    /// Called by <see cref="StationeersLaunchPad"/> with any prefabs.
-    /// </summary>
-    /// <param name="prefabs">Prefabs this mod should have</param>
-    public void OnLoaded(List<GameObject> prefabs) {
+    /// <inheritdoc/>
+    public override void OnLoaded(List<GameObject> prefabs) {
         this.Log($"{this} is now loading...");
 
         if (this.UseLogger && this.Logger == null) {
@@ -252,18 +240,16 @@ public abstract class Mod : MonoBehaviour {
         MainMenuWindowManager.OnPageEnabled += this.MenuPageEnabled;
 
         lock (_lock) {
-            Mod.AllMods.Add(this);
+            ModBase.AllMods.Add(this);
         }
 
         this.LogDebug($"{this} is now loaded!");
 
-        this.Start();
+        this.OnStart();
     }
 
-    /// <summary>
-    /// Called when the mod is being unloaded
-    /// </summary>
-    public void OnUnloaded() {
+    /// <inheritdoc/>
+    public override void OnUnloaded() {
         this.Log($"{this} is now unloading...");
 
         if (this.UseConfig) {
@@ -283,7 +269,7 @@ public abstract class Mod : MonoBehaviour {
         MainMenuWindowManager.OnPageEnabled -= this.MenuPageEnabled;
 
         lock (_lock) {
-            Mod.AllMods.Remove(this);
+            ModBase.AllMods.Remove(this);
         }
 
         this.LogDebug($"{this} is now unloaded!");
@@ -304,6 +290,12 @@ public abstract class Mod : MonoBehaviour {
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void ConfigReloaded(object sender, EventArgs e) => this.OnConfigReloaded();
+
+    /// <summary>
+    /// Internal <see cref="Awake"/> method.
+    /// Called when <see cref="MonoBehaviour"/> is initalized
+    /// </summary>
+    private void Awake() => this.OnStart();
 
     /// <summary>
     /// Internal <see cref="Awake"/> method.
@@ -393,100 +385,14 @@ public abstract class Mod : MonoBehaviour {
         this.OnHarmonyUnpatched();
     }
 
-    /// <summary>
-    /// Registers a prefab.
-    /// </summary>
-    /// <typeparam name="T">The script for your prefab.</typeparam>
-    /// <param name="prefab">The name of your prefab.</param>
-    /// <returns>Prefab setup object.</returns>
-    public PrefabSetup<T>? RegisterPrefab<T>(string prefab) where T : Thing => this.InternalMod?.SetupPrefabs<T>(prefab);
+    #endregion // INTERNAL METHODS
+
+    #region EVENT METHODS
 
     /// <summary>
-    /// Registers a savedata type.
+    /// Called by <see cref="IMod"/> after core initialization is done.
     /// </summary>
-    /// <typeparam name="T">A thing savedata type.</typeparam>
-    public void RegisterSaveDataType<T>() where T : ThingSaveData => this.InternalMod?.AddSaveDataType<T>();
-
-    /// <summary>
-    /// Registers a network message.
-    /// </summary>
-    /// <typeparam name="T">A network message type.</typeparam>
-    public void RegisterNetworkMessage<T>() where T : ModNetworkMessage<T>, new() => this.InternalMod?.RegisterNetworkMessage<T>();
-
-    /// <summary>
-    /// Internal <see cref="Mod.SceneLoaded"/> method.
-    /// Called when a scene is loaded.
-    /// </summary>
-    /// <param name="scene">The scene being loaded</param>
-    /// <param name="loadSceneMode">The scenes loading mode</param>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private void SceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
-        SceneLoadArgs args = new SceneLoadArgs(scene, loadSceneMode);
-
-        UniTask task = scene.name switch {
-            Constants.SPLASH_SCENE_NAME => this.OnSplashLoaded(args),
-            Constants.BASE_SCENE_NAME => this.OnBaseLoaded(args),
-            Constants.CHARACTER_CUSTOMIZATION_SCENE_NAME => this.OnCharacterCustomizationLoaded(args),
-            _ => throw new ArgumentOutOfRangeException($"Unknown Scene Loaded, name: {scene.name}"),
-        };
-
-        this.OnSceneLoaded(args).Forget();
-        task.Forget();
-    }
-
-    /// <summary>
-    /// Internal <see cref="Mod.SceneUnloaded"/> method,
-    /// Called when a scene is unloaded.
-    /// </summary>
-    /// <param name="scene">The scene being unloaded</param>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private void SceneUnloaded(Scene scene) {
-        SceneLoadArgs args = new SceneLoadArgs(scene);
-
-        UniTask task = scene.name switch {
-            Constants.SPLASH_SCENE_NAME => this.OnSplashUnloaded(args),
-            Constants.BASE_SCENE_NAME => this.OnBaseUnloaded(args),
-            Constants.CHARACTER_CUSTOMIZATION_SCENE_NAME => this.OnCharacterCustomizationUnloaded(args),
-            _ => throw new ArgumentOutOfRangeException($"Unknown Scene Unloaded, name: {scene.name}"),
-        };
-
-        this.OnSceneLoaded(args).Forget();
-        task.Forget();
-    }
-
-    /// <summary>
-    /// Internal <see cref="Mod.MenuPageEnabled"/> method.
-    /// Called when a main menu page is enabled.
-    /// </summary>
-    /// <param name="page">The oage being enabled</param>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private void MenuPageEnabled(string page) {
-        MenuPageEnabledArgs args = new MenuPageEnabledArgs(page);
-        UniTask task = page switch {
-            Constants.MAIN_MENU_PAGE => this.OnMainMenuPageEnabled(args),
-            Constants.NEW_GAME_PAGE => this.OnNewGamePageEnabled(args),
-            Constants.LOAD_GAME_PAGE => this.OnLoadGamePageEnabled(args),
-            Constants.DIFFICULTY_SELECTION_PAGE => this.OnDifficultySelectionPageEnabled(args),
-            Constants.STARTING_CONDITIONS_PAGE => this.OnStartingConditionsPageEnabled(args),
-            Constants.TUTORIALS_PAGE => this.OnTutorialsPageEnabled(args),
-            Constants.WORKSHOP_PAGE => this.OnWorkshopPageEnabled(args),
-            Constants.SETTINGS_PAGE => this.OnSettingsPageEnabled(args),
-            _ => throw new ArgumentOutOfRangeException($"Unknown Page Enabled, name: {page}"),
-        };
-
-        this.OnMenuPageEnabled(args).Forget();
-        task.Forget();
-    }
-
-    /// <summary>
-    /// Called by <see cref="Mod"/> after core initialization is done.
-    /// </summary>
-    public abstract void Start();
-
-    /// <summary>
-    /// Called by <see cref="Mod"/> when the GameObject is created is done.
-    /// </summary>
-    public virtual void OnAwake() { }
+    public abstract void OnStart();
 
     /// <summary>
     /// Called by <see cref="Mod"/> when configuration is ready to be binded.
@@ -501,45 +407,8 @@ public abstract class Mod : MonoBehaviour {
     /// <param name="args"></param>
     public virtual void OnConfigChanged(ConfigEntryBase entry, SettingChangedEventArgs args) { }
 
-    /// <summary>
-    /// Called by <see cref="Mod"/> when the configuration is reloaded.
-    /// </summary>
+    /// <inheritdoc/>
     public virtual void OnConfigReloaded() { }
-
-    /// <summary>
-    /// Called by <see cref="Mod"/> every frame.
-    /// </summary>
-    public virtual void OnUpdate(float deltaTime) { }
-
-    /// <summary>
-    /// Called by <see cref="Mod"/> after <see cref="OnUpdate"/>
-    /// </summary>
-    public virtual void OnLateUpdate(float deltaTime) { }
-
-    /// <summary>
-    /// Called by <see cref="Mod"/> on a fixed framerate.
-    /// </summary>
-    public virtual void OnFixedUpdate(float deltaTime) { }
-
-    /// <summary>
-    /// Called by Unity for handling UGUI events.
-    /// </summary>
-    public virtual void OnGUI() { }
-
-    /// <summary>
-    /// Called when the <see cref="GameObject"/> with this <see cref="Mod"/> attached is enabled.
-    /// </summary>
-    public virtual void OnEnable() { }
-
-    /// <summary>
-    /// Called when the <see cref="GameObject"/> with this <see cref="Mod"/> attached is disabled.
-    /// </summary>
-    public virtual void OnDisable() { }
-
-    /// <summary>
-    /// Called when the <see cref="GameObject"/> with this <see cref="Mod"/> attached is about to be destroyed.
-    /// </summary>
-    public virtual void OnDestroy() { }
 
     /// <summary>
     /// Called by <see cref="Mod"/> when harmony patches are completed.
@@ -555,109 +424,9 @@ public abstract class Mod : MonoBehaviour {
     /// <param name="success"></param>
     public virtual void OnHarmonyUnpatched() { }
 
-    /// <summary>
-    /// Called when any scene is loaded
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnSceneLoaded(SceneLoadArgs args) => UniTask.CompletedTask;
+    #endregion // EVENT METHODS
 
-    /// <summary>
-    /// Called when the inital game loading scene is loaded. 
-    /// This is unlikely to ever be called.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnSplashLoaded(SceneLoadArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the base scene is loaded.
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    public virtual UniTask OnBaseLoaded(SceneLoadArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the character customization screen is loaded.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnCharacterCustomizationLoaded(SceneLoadArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when any scene is unloaded.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnSceneUnloaded(SceneLoadArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when inital game loading scene is unloaded.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnSplashUnloaded(SceneLoadArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the base scene is unloaded.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnBaseUnloaded(SceneLoadArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the character customization screen is unloaded.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnCharacterCustomizationUnloaded(SceneLoadArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when any main menu page is enabled.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnMenuPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the main menu is enabled.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnMainMenuPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the new game menu is enabled.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnNewGamePageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the load game menu is enabled.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnLoadGamePageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the difficulty selection menu is enabled.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnDifficultySelectionPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the start conditions menu is enabled.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnStartingConditionsPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the tutorials menu is enabled.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnTutorialsPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the workshop mods menu is enabled.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnWorkshopPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
-
-    /// <summary>
-    /// Called when the settings menu is enabled.
-    /// </summary>
-    /// <param name="args"></param>
-    public virtual UniTask OnSettingsPageEnabled(MenuPageEnabledArgs args) => UniTask.CompletedTask;
+    #region LOGGING METHODS
 
     /// <summary>
     /// Log function that is redirected to <see cref="Logger"/>
@@ -665,13 +434,27 @@ public abstract class Mod : MonoBehaviour {
     /// </summary>
     /// <param name="message"></param>
     /// <param name="severity"></param>
-    public virtual void Log(string message, LogSeverity severity = LogSeverity.Information) {
+    public override void Log(string message, LogSeverity severity = LogSeverity.Information) {
         if (!this.UseLogger) {
             return;
         }
 
         this.Logger?.Log(message, severity, false);
         this.LogStationeers(message, severity);
+    }
+
+    /// <summary>
+    /// Log function that is redirected to <see cref="Logger"/>
+    /// Can be overriden to add or remove functionality.
+    /// </summary>
+    /// <param name="exception">Exception</param>
+    public override void Log(Exception exception) {
+        if (!this.UseLogger) {
+            return;
+        }
+
+        this.Logger?.Log(exception);
+        ConsoleWindow.PrintError(exception);
     }
 
     /// <summary>
@@ -704,65 +487,10 @@ public abstract class Mod : MonoBehaviour {
     /// Log function that is redirected to <see cref="Logger"/>
     /// Can be overriden to add or remove functionality.
     /// </summary>
-    /// <param name="exception">Exception</param>
-    public virtual void Log(Exception exception) {
-        if (!this.UseLogger) {
-            return;
-        }
-
-        this.Logger?.Log(exception);
-        ConsoleWindow.PrintError(exception);
-    }
-
-    /// <summary>
-    /// Shortcut function <see cref="Log"/> to log a <see cref="LogSeverity.Debug"/> severity message.
-    /// Does not log anything if not in debug mode.
-    /// </summary>
-    /// <param name="message">string</param>
-    public void LogDebug(string message) {
-        if (LaunchPadConfig.Debug) {
-            this.Log(message, LogSeverity.Debug);
-        }
-    }
-
-    /// <summary>
-    /// Shortcut function <see cref="Log"/> to log a <see cref="LogSeverity.Information"/> severity message.
-    /// </summary>
-    /// <param name="message">string</param>
-    public void LogInfo(string message) => this.Log(message, LogSeverity.Information);
-
-    /// <summary>
-    /// Shortcut function <see cref="Log"/> to log a <see cref="LogSeverity.Warning"/> severity message.
-    /// </summary>
-    /// <param name="message">string</param>
-    public void LogWarning(string message) => this.Log(message, LogSeverity.Warning);
-
-    /// <summary>
-    /// Shortcut function <see cref="Log"/> to log a <see cref="LogSeverity.Error"/> severity message.
-    /// </summary>
-    /// <param name="message">string</param>
-    public void LogError(string message) => this.Log(message, LogSeverity.Error);
-
-    /// <summary>
-    /// Shortcut function <see cref="Log"/> to log a <see cref="Exception"/>
-    /// </summary>
-    /// <param name="message">string</param>
-    public void LogException(Exception exception) => this.Log(exception);
-
-    /// <summary>
-    /// Shortcut function <see cref="Log"/> to log a <see cref="LogSeverity.Fatal"/> severity message.
-    /// </summary>
-    /// <param name="message">string</param>
-    public void LogFatal(string message) => this.Log(message, LogSeverity.Fatal);
-
-    /// <summary>
-    /// Log function that is redirected to <see cref="Logger"/>
-    /// Can be overriden to add or remove functionality.
-    /// </summary>
     /// <param name="severity">LogSeverity</param>
     /// <param name="format">string</param>
     /// <param name="args">params object[]</param>
-    public virtual void LogFormat(LogSeverity severity, string format, params object[] args) {
+    public override void LogFormat(LogSeverity severity, string format, params object[] args) {
         if (!this.UseLogger) {
             return;
         }
@@ -798,36 +526,60 @@ public abstract class Mod : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Shortcut function <see cref="LogFormat"/> to log a formatted <see cref="LogSeverity.Debug"/> severity message.
-    /// Does not log anything if not in debug mode.
-    /// </summary>
-    /// <param name="message">string</param>
-    public void LogDebugFormat(string message, params object[] args) => this.LogFormat(LogSeverity.Debug, message, args);
+    #endregion // LOGGING METHODS
+
+    #region METHODS
 
     /// <summary>
-    /// Shortcut function <see cref="LogFormat"/> to log a formatted <see cref="LogSeverity.Information"/> severity message.
+    /// Registers a prefab.
     /// </summary>
-    /// <param name="message">string</param>
-    public void LogInfoFormat(string message, params object[] args) => this.LogFormat(LogSeverity.Information, message, args);
+    /// <typeparam name="T">The script for your prefab.</typeparam>
+    /// <param name="prefab">The name of your prefab.</param>
+    /// <returns>Prefab setup object.</returns>
+    public PrefabSetup<T>? RegisterPrefab<T>(string prefab) where T : Thing =>
+        this.InternalMod?.SetupPrefabs<T>(prefab);
 
     /// <summary>
-    /// Shortcut function <see cref="LogFormat"/> to log a formatted <see cref="LogSeverity.Warning"/> severity message.
+    /// Registers a savedata type.
     /// </summary>
-    /// <param name="message">string</param>
-    public void LogWarningFormat(string message, params object[] args) => this.LogFormat(LogSeverity.Warning, message, args);
+    /// <typeparam name="T">A thing savedata type.</typeparam>
+    public void RegisterSaveDataType<T>() where T : ThingSaveData =>
+        this.InternalMod?.AddSaveDataType<T>();
 
     /// <summary>
-    /// Shortcut function <see cref="LogFormat"/> to log a formatted <see cref="LogSeverity.Exception"/> severity message.
+    /// Registers a network message.
     /// </summary>
-    /// <param name="message">string</param>
-    public void LogErrorFormat(string message, params object[] args) => this.LogFormat(LogSeverity.Error, message, args);
+    /// <typeparam name="T">A network message type.</typeparam>
+    public void RegisterNetworkMessage<T>() where T : ModNetworkMessage<T>, new() =>
+        this.InternalMod?.RegisterNetworkMessage<T>();
 
     /// <summary>
-    /// Shortcut function <see cref="LogFormat"/> to log a formatted <see cref="LogSeverity.Fatal"/> severity message.
+    /// Register a new configuration value.
     /// </summary>
-    /// <param name="message">string</param>
-    public void LogFatalFormat(string message, params object[] args) => this.LogFormat(LogSeverity.Fatal, message, args);
+    /// <typeparam name="T">A primitive type, enum or similar.</typeparam>
+    /// <param name="data">Config data</param>
+    public ConfigEntry<T> RegisterConfig<T>(ConfigData<T> data) where T : unmanaged {
+        this.LogDebug($"Registering config {data}");
+        return this.Config.Bind<T>(data.Definition, data.DefaultValue, data.Description);
+    }
+
+    public ConfigEntry<T>? GetConfigEntry<T>(string section, string key) where T : unmanaged =>
+        this.GetConfigEntry<T>(new(section, key));
+
+    public ConfigEntry<T>? GetConfigEntry<T>(ConfigDefinition definition) where T : unmanaged =>
+        this.Config.TryGetEntry<T>(definition, out ConfigEntry<T> entry) ? entry : null;
+
+    public T? GetConfigValue<T>(string section, string key, T? defaultValue = null) where T : unmanaged =>
+        this.GetConfigValue<T>(new(section, key), defaultValue);
+
+    public T? GetConfigValue<T>(ConfigDefinition definition, T? defaultValue = null) where T : unmanaged =>
+        this.GetConfigEntry<T>(definition)?.Value ?? defaultValue;
+
+    public void SetConfigValue<T>(string section, string key, T value) where T : unmanaged =>
+        this.SetConfigValue<T>(new(section, key), value);
+
+    public void SetConfigValue<T>(ConfigDefinition definition, T value) where T : unmanaged =>
+        this.GetConfigEntry<T>(definition)?.Value = value;
 
     /// <summary>
     /// Note: this only compares mod info, as its the most significant.
@@ -854,4 +606,44 @@ public abstract class Mod : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public override int GetHashCode() => this.Data.GetHashCode();
+
+    #endregion // PUBLIC METHODS
+}
+
+public struct ConfigData<T> where T : notnull {
+    public T DefaultValue { get; set; }
+    public ConfigDefinition Definition { get; set; }
+    public ConfigDescription Description { get; set; }
+
+    public ConfigData(T defaultValue, ConfigDefinition definition, ConfigDescription description) {
+        this.DefaultValue = defaultValue;
+        this.Definition = definition;
+        this.Description = description;
+    }
+
+    public ConfigData(T defaultValue, string section, string key, string description, AcceptableValueBase? acceptableValues = null, params object[] tags) {
+        this.DefaultValue = defaultValue;
+        this.Definition = new(section, key);
+        this.Description = new(description, acceptableValues, tags);
+    }
+
+    public override bool Equals(object obj)  =>
+        obj is ConfigData<T> data && this.Equals(data);
+
+    public bool Equals(ConfigData<T> data) =>
+        this.DefaultValue.Equals(data.DefaultValue) &&
+        this.Definition.Equals(data.Definition) &&
+        this.Description.Equals(data.Description);
+
+    public override int GetHashCode() => 
+        HashCode.Combine(
+            this.DefaultValue,
+            this.Definition.Section,
+            this.Definition.Key,
+            this.Description.Description,
+            this.Description.AcceptableValues,
+            this.Description.Tags
+        );
+
+    public override string ToString() => $"[{this.Definition}] : {this.DefaultValue}";
 }
