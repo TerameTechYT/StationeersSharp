@@ -23,14 +23,21 @@ $workshopIdMatch = $content | Select-String 'WorkshopId\s*=\s*([0-9]+)ul'
 $gameTypeMatch = $content | Select-String 'GameType\s*=\s*GameType\.([A-Za-z]+)'
 $versionPattern = 'Version\s*=\s*new\s+Version\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)'
 
+$major = [int]0
+$minor = [int]0
+$build = [int]0
+$revision = [int]0
+$versionString = "x.x.x.x"
+$newVersionString = "x.x.x.x"
+
 if ($content -match $versionPattern) {
     $major = [int]$matches[1]
     $minor = [int]$matches[2]
     $build = [int]$matches[3]
     $revision = [int]$matches[4]
+    $versionString = "$major.$minor.$build.$revision"
 
     $revision++
-
     if ($revision -ge 1000) {
         $revision = 0
         $build++
@@ -67,7 +74,7 @@ $gameType = if ($gameTypeMatch) { $gameTypeMatch.Matches[0].Groups[1].Value } el
 $assemblyContent = @"
 [assembly: AssemblyTitle("$name")]
 [assembly: AssemblyDescription("Workshop ID: $workshopId | GameType: $gameType")]
-[assembly: AssemblyCompany("Viven (@mommyvivi on discord)")]
+[assembly: AssemblyCompany("vivien (@mommyvivi on discord)")]
 [assembly: AssemblyProduct("$name")]
 [assembly: AssemblyVersion("$newVersionString")]
 [assembly: AssemblyFileVersion("$newVersionString")]
@@ -79,6 +86,7 @@ Write-Host "$assemblyInfoFile generated at: $assemblyPath"
 
 # --- About.xml Section --- #
 $aboutPath = Join-Path $parentFolder "$aboutFolder/$aboutFile"
+$aboutContent = ""
 if (Test-Path $aboutPath) {
     $aboutContent = Get-Content $aboutPath -Raw
 
@@ -88,10 +96,11 @@ if (Test-Path $aboutPath) {
             '<Version>\s*([\d\.]+)\s*</Version>',
             "<Version>$newVersionString</Version>"
         )
-        [System.IO.File]::WriteAllText($aboutPath, $aboutContent, [System.Text.Encoding]::UTF8)
+
         Write-Host "$aboutFile version updated to $newVersionString"
     } else {
         Write-Warning "<Version> tag not found in $aboutFile"
+        exit 1
     }
 } else {
     Write-Warning "$aboutFile not found in $parentFolder"
@@ -123,6 +132,7 @@ if (-not $currentCommit) {
 
     if ($LASTEXITCODE -ne 0) {
         Write-Warning "Git log failed: $gitMessages"
+        exit 1
     } elseif ($gitMessages.Count -eq 0) {
         Write-Host "No new commits since last version — changelog not updated."
     } else {
