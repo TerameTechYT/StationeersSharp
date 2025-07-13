@@ -357,6 +357,13 @@ public abstract class Mod : ModBase {
                     int patches = 0;
                     foreach (PatchClassProcessor processor in processors) {
                         List<MethodInfo> methods = processor.Patch();
+
+#if DEBUG
+                        foreach (MethodInfo method in methods) {
+                            this.LogDebug($"Harmony patched method {method.FullDescription()}");
+                        }
+#endif
+
                         patches += methods?.Count ?? 0;
                     }
 
