@@ -38,7 +38,7 @@ public class Plugin : Mod {
 
         ConfigData.airCountOnlyBreathable = this.RegisterConfig(new ConfigData<bool>(
             true,
-            "Configurables", "Air Critical Moles",
+            "Configurables", "Air Count Only Breathable",
             "Should Air Tank warnings count moles of only breathable gas or total moles"
         ));
 
