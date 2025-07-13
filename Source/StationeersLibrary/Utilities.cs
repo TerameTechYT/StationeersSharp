@@ -140,6 +140,12 @@ public static class ReflectionUtilities {
     public static FieldInfo? Field(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
             type?.GetField(name, bindingFlags);
 
+    public static T? FieldGetValue<T>(this Type type, string name, object? obj = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+            (T?) Field(type, name, bindingFlags)?.GetValue(obj);
+
+    public static void FieldGetValue<T>(this Type type, string name, T value, object? obj = null, BindingFlags bindingFlags = BindingFlags.Default) =>
+            Field(type, name, bindingFlags)?.SetValue(obj, value);
+
     public static PropertyInfo? Property(this Type type, string name, BindingFlags bindingFlags = BindingFlags.Default) =>
             type?.GetProperty(name, bindingFlags);
 

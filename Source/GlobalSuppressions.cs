@@ -25,6 +25,7 @@
 [assembly: SuppressMessage("Style", "IDE0058:Expression value is never used")]
 [assembly: SuppressMessage("Style", "IDE0060:Remove unused parameter")]
 
+[assembly: SuppressMessage("Design", "CA1000:Do not declare static members on generic types")]
 [assembly: SuppressMessage("Design", "CA1002:Do not expose generic lists")]
 [assembly: SuppressMessage("Design", "CA1016:Mark assemblies with AssemblyVersionAttribute")]
 [assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types")]
