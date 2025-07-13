@@ -3,20 +3,14 @@
 /// <summary>
 /// Mod Information Class
 /// </summary>
-public sealed class ModInfo {
-    /// <summary>
-    /// Mod Name
-    /// </summary>
+public sealed class ModInfo : IModInfo {
+    /// <inheritdoc/>
     public string? Name { get; set; }
 
-    /// <summary>
-    /// Mod GUID
-    /// </summary>
+    /// <inheritdoc/>
     public string? Guid { get; set; }
 
-    /// <summary>
-    /// Mod Version
-    /// </summary>
+    /// <inheritdoc/>
     public Version? Version { get; set; }
 
     /// <summary>
@@ -24,14 +18,11 @@ public sealed class ModInfo {
     /// </summary>
     public string VersionString => this.Version.ToString();
 
-    /// <summary>
-    /// Mod Workshop Id
-    /// </summary>
+
+    /// <inheritdoc/>
     public ulong WorkshopId { get; set; }
 
-    /// <summary>
-    /// Mod Game Type
-    /// </summary>
+    /// <inheritdoc/>
     public GameType GameType { get; set; }
 
     /// <summary>
@@ -84,7 +75,7 @@ public sealed class ModInfo {
     /// ModInfo as a string
     /// </summary>
     /// <returns></returns>
-    public override string ToString() => $"{this.Name} ({this.Guid}) - {this.Version} {(this.WorkshopId == 0ul ? "" : $"- {this.WorkshopId}")}";
+    public override string ToString() => $"{this.Name} ({this.Guid}) - v{this.Version} {(this.WorkshopId == 0ul ? "" : $"- {this.WorkshopId}")}";
 
     /// <summary>
     /// Hashcode of ModInfo
