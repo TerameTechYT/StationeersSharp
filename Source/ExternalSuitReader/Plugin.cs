@@ -14,14 +14,16 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "ExternalSuitReader",
         Guid = "externalsuitreader",
-        Version = new Version(1, 8, 0, 140),
+        Version = new Version(1, 8, 0, 172),
         WorkshopId = 3071985478ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
 
-    public override void OnStart() {}
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
 }
 
 internal struct Data {

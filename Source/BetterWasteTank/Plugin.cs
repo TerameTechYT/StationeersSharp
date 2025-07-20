@@ -14,14 +14,18 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWasteTank",
         Guid = "betterwastetank",
-        Version = new Version(1, 8, 0, 140),
+        Version = new Version(1, 8, 0, 172),
         WorkshopId = 3071913936ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
 
-    public override void OnLoadConfiguration() {
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
+
+    public override void OnConfigLoad() {
         ConfigData.wasteCriticalRatio = this.RegisterConfig(new ConfigData<float>(
             0.975f,
             "Configurables", "Waste Critical Ratio",
@@ -54,8 +58,6 @@ public class Plugin : Mod, IModSingleton<Plugin> {
             "Quanitity of moles when \"Air Tank Caution\" alarm goes off. (this number will be multiplied by how many moles a human breaths per tick)"
         ));
     }
-
-    public override void OnStart() {}
 }
 
 internal struct ConfigData {

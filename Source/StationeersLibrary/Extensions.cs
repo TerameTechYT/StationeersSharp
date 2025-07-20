@@ -1,14 +1,18 @@
 ﻿#region
 
+using Mono.Cecil;
+using StationeersLaunchPad;
+
 #endregion
+
 
 namespace StationeersLibrary;
 
 public static class HarmonyExtensions {
-    public static List<PatchClassProcessor> CreatePatchersForAssembly(this Harmony harmony, Assembly assembly) {
+    public static List<PatchClassProcessor> CreatePatchersForAssembly(this Harmony harmony, LoadedAssembly assembly) {
         List<PatchClassProcessor> processors = [];
 
-        foreach (Type type in AccessTools.GetTypesFromAssembly(assembly)) {
+        foreach (Type type in AccessTools.GetTypesFromAssembly(assembly.Assembly)) {
             PatchClassProcessor processor = harmony.CreateClassProcessor(type);
             processors.Add(processor);
         }
@@ -16,10 +20,10 @@ public static class HarmonyExtensions {
         return processors;
     }
 
-    public static Dictionary<Assembly, List<PatchClassProcessor>> CreatePatchersForAssemblies(this Harmony harmony, IEnumerable<Assembly> assemblies) {
-        Dictionary<Assembly, List<PatchClassProcessor>> processors = [];
+    public static Dictionary<LoadedAssembly, List<PatchClassProcessor>> CreatePatchersForAssemblies(this Harmony harmony, IEnumerable<LoadedAssembly> assemblies) {
+        Dictionary<LoadedAssembly, List<PatchClassProcessor>> processors = [];
 
-        foreach (Assembly assembly in assemblies) {
+        foreach (LoadedAssembly assembly in assemblies) {
             processors.TryAdd(assembly, harmony.CreatePatchersForAssembly(assembly));
         }
 

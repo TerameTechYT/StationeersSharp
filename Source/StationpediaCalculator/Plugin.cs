@@ -14,14 +14,16 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "StationpediaCalculator",
         Guid = "stationpediacalculator",
-        Version = new Version(1, 5, 0, 140),
+        Version = new Version(1, 5, 0, 172),
         WorkshopId = 3305312105ul,
         GameType = GameType.Client,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
 
-    public override void OnStart() {}
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
 }
 
 internal struct ConfigData {

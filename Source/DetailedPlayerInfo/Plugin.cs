@@ -14,14 +14,18 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 140),
+        Version = new Version(2, 0, 0, 172),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
 
-    public override void OnLoadConfiguration() {
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
+
+    public override void OnConfigLoad() {
         ConfigData.preferredPressureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Pressure Unit"),
                              PressureUnit.Pascal,
                              new ConfigDescription("Will change most things to use this unit of measurement."));
@@ -64,8 +68,6 @@ public class Plugin : Mod, IModSingleton<Plugin> {
                 new ConfigDescription("What font size should the labels be changed to.",
                 new AcceptableValueRange<int>(14, 28)));
     }
-
-    public override void OnStart() {}
 }
 
 internal struct ConfigData {

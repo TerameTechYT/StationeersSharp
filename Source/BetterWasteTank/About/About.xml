@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Waste Tank [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.8.0.140</Version>
+    <Version>1.8.0.141</Version>
     <Description>
         [h1]Better Waste Tank[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -40,32 +40,11 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.8.0.94 to v1.8.0.140[/h1]
+	[h1]Update v1.8.0.140 to v1.8.0.141[/h1]
 	[list]
-		[*] disable building for template mod on debug builds
-		[*] add IEquatable to ModInfo
-		[*] add global suppresions and fieldset and fieldget
-		[*] add IModSingleton to Plugin classes
-		[*] add method extensions
-		[*] add extra debug logging
-		[*] add IModSingleton interface
-		[*] fix NREf
-		[*] log patched methods in debug builds
-		[*] fix config bug with BWT
-		[*] update versions
-		[*] fix steam formatted changelog and make version update header
-		[*] push make powershell script format commit messages in steam markdown
-		[*] modify powershell script
-		[*] add System.Diagnostics to global usings
-		[*] add a global suppression
-		[*] make seperate functions for load detection
-		[*] modify Mod class to be a subclass of ModBase class
-		[*] make new ModBase class
-		[*] make ModInfo interit IModInfo
-		[*] add IModInfo interface
-		[*] add IMod interface
+		[*] push changelog changes
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: c8f5fd3a4f9c5111b8dab147a38dc2c17509aad6 -->
-<!-- LastProcessedVersion: 1.8.0.140 -->
+<!-- LastProcessedCommit: 3ec628314afb56535088b0bf804ed8747fcdb53a -->
+<!-- LastProcessedVersion: 1.8.0.141 -->

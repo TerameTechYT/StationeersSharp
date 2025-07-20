@@ -16,14 +16,18 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 140),
+        Version = new Version(1, 4, 0, 172),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
 
-    public override void OnLoadConfiguration() {
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
+
+    public override void OnConfigLoad() {
         ConfigData.codeEditorLines = this.RegisterConfig(new ConfigData<int>(
              InputSourceCode.MAX_LINES,
              "Configurables", "Code Editor Lines",
@@ -37,7 +41,6 @@ public class Plugin : Mod, IModSingleton<Plugin> {
         ));
     }
 
-    public override void OnStart() {}
 }
 
 internal struct ConfigData {

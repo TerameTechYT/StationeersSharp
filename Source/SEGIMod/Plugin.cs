@@ -17,12 +17,18 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "SEGIMod",
         Guid = "segimod",
-        Version = new Version(1, 6, 0, 140),
+        Version = new Version(1, 6, 0, 173),
         WorkshopId = 3281346086ul,
         GameType = GameType.Client,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
+
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
+
+    public override void OnUpdate(float deltaTime) => Plugin.SEGIInstance?.enabled = ConfigData.Enabled;
 
     public override UniTask OnMainMenuPageEnabled(MenuPageEnabledArgs args) {
         Plugin.SEGIInstance = Camera.main.gameObject.AddComponent<SEGI>();
@@ -32,9 +38,8 @@ public class Plugin : Mod, IModSingleton<Plugin> {
         return UniTask.CompletedTask;
     }
 
-    public override void OnUpdate(float deltaTime) => Plugin.SEGIInstance?.enabled = ConfigData.Enabled;
 
-    public override void OnLoadConfiguration() {
+    public override void OnConfigLoad() {
         ConfigData.enabled = Config.Bind(
                 new ConfigDefinition("General", "Enabled"),
                 true
@@ -255,8 +260,6 @@ public class Plugin : Mod, IModSingleton<Plugin> {
                 new AcceptableValueRange<float>(0.01f, 1f)
         ));
     }
-
-    public override void OnStart() {}
 }
 
 internal struct ConfigData {

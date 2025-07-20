@@ -14,14 +14,18 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "ColoredGases",
         Guid = "coloredgases",
-        Version = new Version(1, 4, 0, 140),
+        Version = new Version(1, 4, 0, 172),
         WorkshopId = 3523162910ul,
         GameType = GameType.Client,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
 
-    public override void OnLoadConfiguration() {
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
+
+    public override void OnConfigLoad() {
         ConfigData.enableAirVisualizer = this.RegisterConfig(new ConfigData<bool>(
             true,
             "Configurables", "Enable Colored Air Visualier",
@@ -35,7 +39,6 @@ public class Plugin : Mod, IModSingleton<Plugin> {
         ));
     }
 
-    public override void OnStart() {}
 }
 
 internal struct ConfigData {

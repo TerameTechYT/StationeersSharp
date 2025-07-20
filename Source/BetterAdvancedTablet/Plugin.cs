@@ -16,14 +16,18 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
-        Version = new Version(1, 3, 0, 140),
+        Version = new Version(1, 3, 0, 172),
         WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
 
-    public override void OnLoadConfiguration() {
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
+
+    public override void OnConfigLoad() {
         ConfigData.additionalTabletSlots = this.RegisterConfig(new ConfigData<int>(
             2,
             "Configurables", "Additonal Tablet Slots",
@@ -31,8 +35,6 @@ public class Plugin : Mod, IModSingleton<Plugin> {
             new AcceptableValueRange<int>(0, 6)
         ));
     }
-
-    public override void OnStart() {}
 }
 
 internal struct ConfigData {

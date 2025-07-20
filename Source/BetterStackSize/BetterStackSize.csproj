@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <ModName>Template</ModName>
+        <ModName>BetterStackSize</ModName>
         <AssemblyName>$(ModName)</AssemblyName>
         <RootNamespace>$(ModName)</RootNamespace>
     </PropertyGroup>

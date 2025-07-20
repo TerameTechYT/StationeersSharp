@@ -247,9 +247,11 @@ public abstract class Mod : ModBase {
         this.Log($"{this} is now loaded!");
 
         // pause so we can look at logs
+#if DEBUG
         if (LaunchPadConfig.Debug) {
             LaunchPadConfig.AutoLoad = false;
         }
+#endif
 
         this.OnStart();
     }
@@ -342,7 +344,7 @@ public abstract class Mod : ModBase {
     private void DoLoadConfiguration() {
         this.LogDebug("Loading configuration...");
 
-        this.OnLoadConfiguration();
+        this.OnConfigLoad();
 
         this.Log($"Loaded configuration with {this.Config.Count} value{(this.Config.Count == 0 ? "s" : this.Config.Count == 1 ? "" : "s")}!");
     }
@@ -358,10 +360,10 @@ public abstract class Mod : ModBase {
 
             int assemblies = 0;
             try {
-                foreach ((Assembly assembly, List<PatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
+                foreach ((LoadedAssembly assembly, List<PatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
                     assemblies++;
 
-                    this.LogDebug($"Harmony patching assembly ({assembly.FullName()})");
+                    this.LogDebug($"Harmony patching assembly ({assembly.Assembly.FullName()})");
 
                     int patches = 0;
                     this.LogDebug($"Harmony patching methods...");
@@ -402,7 +404,7 @@ public abstract class Mod : ModBase {
         this.OnHarmonyUnpatched();
     }
 
-    #endregion // INTERNAL METHODS
+#endregion // INTERNAL METHODS
 
     #region EVENT METHODS
 
@@ -415,7 +417,7 @@ public abstract class Mod : ModBase {
     /// Called by <see cref="Mod"/> when configuration is ready to be binded.
     /// Implement your configurations here.
     /// </summary>
-    public virtual void OnLoadConfiguration() { }
+    public virtual void OnConfigLoad() { }
 
     /// <summary>
     /// Called by <see cref="Mod"/> when any configuration has been changed.
@@ -423,6 +425,12 @@ public abstract class Mod : ModBase {
     /// <param name="entry"></param>
     /// <param name="args"></param>
     public virtual void OnConfigChanged(ConfigEntryBase entry, SettingChangedEventArgs args) { }
+
+    /// <summary>
+    /// Called when a config value is registered.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public virtual void OnConfigRegistered<T>(ConfigEntry<T> entry) { }
 
     /// <inheritdoc/>
     public virtual void OnConfigReloaded() { }
@@ -583,10 +591,11 @@ public abstract class Mod : ModBase {
     /// </summary>
     /// <typeparam name="T">A primitive type, enum or similar.</typeparam>
     /// <param name="data">Config data</param>
-    public ConfigEntry<T> RegisterConfig<T>(ConfigData<T> data) where T : notnull {
+    public ConfigEntry<T> RegisterConfig<T>(ConfigData<T> data) where T : notnull, IComparable {
         this.LogDebug($"Registering ConfigEntry ({data}) - default: {data.DefaultValue}");
         ConfigEntry<T> entry = this.Config.Bind<T>(data.Definition, data.DefaultValue, data.Description);
         this.LogDebug($"Registered ConfigEntry has value: {entry.Value}");
+        this.OnConfigRegistered<T>(entry);
         return entry;
     }
 
@@ -637,7 +646,7 @@ public abstract class Mod : ModBase {
     #endregion // PUBLIC METHODS
 }
 
-public struct ConfigData<T> : IEquatable<ConfigData<T>> where T : notnull {
+public struct ConfigData<T> : IEquatable<ConfigData<T>> where T : notnull, IComparable {
     public T DefaultValue { get; set; }
     public ConfigDefinition Definition { get; set; }
     public ConfigDescription Description { get; set; }
@@ -648,10 +657,22 @@ public struct ConfigData<T> : IEquatable<ConfigData<T>> where T : notnull {
         this.Description = description;
     }
 
+    public ConfigData(T defaultValue, T min, T max, ConfigDefinition definition, ConfigDescription description) {
+        this.DefaultValue = defaultValue;
+        this.Definition = definition;
+        this.Description = new ConfigDescription(description.Description, new AcceptableValueRange<T>(min, max), description.Tags);
+    }
+
     public ConfigData(T defaultValue, string section, string key, string description, AcceptableValueBase? acceptableValues = null, params object[] tags) {
         this.DefaultValue = defaultValue;
         this.Definition = new(section, key);
         this.Description = new(description, acceptableValues, tags);
+    }
+
+    public ConfigData(T defaultValue, T min, T max, string section, string key, string description, params object[] tags) {
+        this.DefaultValue = defaultValue;
+        this.Definition = new(section, key);
+        this.Description = new(description, new AcceptableValueRange<T>(min, max), tags);
     }
 
     public override bool Equals(object obj)  =>

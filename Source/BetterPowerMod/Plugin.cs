@@ -14,14 +14,18 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterPowerMod",
         Guid = "betterpowermod",
-        Version = new Version(1, 6, 0, 140),
+        Version = new Version(1, 6, 0, 172),
         WorkshopId = 3234916147ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
 
-    public override void OnLoadConfiguration() {
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
+
+    public override void OnConfigLoad() {
         ConfigData.enableSolarPanel = this.RegisterConfig(new ConfigData<bool>(
             true,
             "Configurables", "Solar Panel Patches",
@@ -73,8 +77,6 @@ public class Plugin : Mod, IModSingleton<Plugin> {
             new AcceptableValueRange<float>(1f, 25f)
         ));
     }
-
-    public override void OnStart() {}
 }
 
 internal struct ConfigData {

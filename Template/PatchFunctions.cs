@@ -6,7 +6,7 @@ namespace Template;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    [UsedImplicitly]
+    /*[UsedImplicitly]
     [HarmonyPatch(typeof(string), nameof(string.Equals))]
     [HarmonyPostfix]
     public static void StringEquals(ref string __instance) {
@@ -16,5 +16,5 @@ public static class PatchFunctions {
         catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
-    }
+    }*/
 }

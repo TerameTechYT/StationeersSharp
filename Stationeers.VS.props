@@ -46,7 +46,7 @@
     </PropertyGroup>
 
     <Target Name="IncrementVersion" BeforeTargets="BeforeBuild" Condition="'$(Configuration)' != 'Publish'">
-        <Exec Command="powershell -File &quot;$(SolutionDir)\Commands\Increment-Version.ps1&quot;" />
+        <Exec Command="powershell -File &quot;$(SolutionDir)\Commands\Increment-Version.ps1&quot;" ContinueOnError="true" />
     </Target>
 
     <ItemGroup>

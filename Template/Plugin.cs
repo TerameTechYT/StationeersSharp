@@ -22,5 +22,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
 
     public Plugin() : base() => Plugin.Instance = this;
 
-    public override void OnStart() {}
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
+
+    public override void OnStart() { }
 }

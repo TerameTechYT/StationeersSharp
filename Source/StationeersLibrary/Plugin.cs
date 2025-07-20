@@ -2,6 +2,7 @@
 
 #endregion
 
+
 namespace StationeersLibrary;
 
 public class Plugin : Mod, IModSingleton<Plugin> {
@@ -14,12 +15,14 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
         Guid = "stationeerslibrary",
-        Version = new Version(2, 0, 0, 141),
+        Version = new Version(2, 0, 0, 174),
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
+
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
     public override void OnStart() {}
 }

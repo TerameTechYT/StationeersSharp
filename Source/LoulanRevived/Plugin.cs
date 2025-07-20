@@ -14,12 +14,14 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "LoulanRevived",
         Guid = "loulanrevived",
-        Version = new Version(1, 2, 0, 140),
+        Version = new Version(1, 2, 0, 172),
         WorkshopId = 3255025164ul,
         GameType = GameType.Client,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
+
+    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
     public override void OnStart() {}
 }
