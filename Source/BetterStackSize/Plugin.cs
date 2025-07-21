@@ -174,11 +174,6 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     }
 
     private void ProcessStackableFallback(ref Stackable stackable) {
-        if (!stackable.CompareTag("NotSpawnable")) {
-            ProcessDeprecated(ref stackable);
-            return;
-        }
-
         this.RegisterConfig(new ConfigData<int>(
             stackable.MaxQuantity,
             1, MAX_STACK_SIZE,
@@ -427,26 +422,6 @@ public class Plugin : Mod, IModSingleton<Plugin> {
             case Ingot ingot: {
                 ProcessIngot(ref ingot);
             } return;
-
-            case DisposableBatteryCharger:
-            case MoonFries:
-            case PumpkinPie:
-            case WaterBottle:
-            case SprayCan:
-            case CannedFood:
-            case RocketScanningHead:
-            case RocketMiningDrillHead:
-            case HandSanitizer:
-            case Cake:
-            case CerealBar:
-            case DuctTape:
-            case GasFilter:
-            case Bread: return;
-            }
-
-        if (!stackable.CompareTag("NotSpawnable")) {
-            ProcessDeprecated(ref stackable);
-            return;
         }
     }
 
