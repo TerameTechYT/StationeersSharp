@@ -26,7 +26,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
         Version = new Version(1, 0, 0, 31),
-        WorkshopId = 0ul,
+        WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };
 
