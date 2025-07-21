@@ -8,8 +8,8 @@
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
         See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
 
-        This mod allows to configure nearly all stackable items max stack size.
-
+        This mod allows to configure nearly all stackable items max stack size. The settings are dynamic, meaning any modded items will be configurable too.
+        
         you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
         https://github.com/TerameTechYT/StationeersSharp/actions
     </Description>
