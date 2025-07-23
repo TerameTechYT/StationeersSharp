@@ -289,7 +289,7 @@ public abstract class Mod : ModBase {
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ConfigChanged(object sender, SettingChangedEventArgs e) => this.OnConfigChanged(sender as ConfigEntryBase, e);
+    private void ConfigChanged(object sender, SettingChangedEventArgs e) => this.OnConfigChanged(e.ChangedSetting);
 
     /// <summary>
     /// Internal <see cref="ConfigFile.ConfigReloaded"/> event connection.
@@ -344,9 +344,17 @@ public abstract class Mod : ModBase {
     private void DoLoadConfiguration() {
         this.LogDebug("Loading configuration...");
 
-        this.OnConfigLoad();
-
-        this.Log($"Loaded configuration with {this.Config.Count} value{(this.Config.Count == 0 ? "s" : this.Config.Count == 1 ? "" : "s")}!");
+        try {
+            this.OnConfigLoad();
+        }
+        catch (Exception ex) {
+            this.LogError("Failed to load configuration!");
+            this.LogException(ex);
+            LaunchPadConfig.AutoLoad = false;
+        }
+        finally {
+            this.Log($"Loaded configuration with {this.Config.Count} value{(this.Config.Count == 0 ? "s" : this.Config.Count == 1 ? "" : "s")}!");
+        }
     }
 
     /// <summary>
@@ -423,8 +431,7 @@ public abstract class Mod : ModBase {
     /// Called by <see cref="Mod"/> when any configuration has been changed.
     /// </summary>
     /// <param name="entry"></param>
-    /// <param name="args"></param>
-    public virtual void OnConfigChanged(ConfigEntryBase entry, SettingChangedEventArgs args) { }
+    public virtual void OnConfigChanged(ConfigEntryBase entry) { }
 
     /// <summary>
     /// Called when a config value is registered.
