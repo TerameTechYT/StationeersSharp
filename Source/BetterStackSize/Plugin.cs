@@ -2,6 +2,7 @@
 
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Items;
+using BepInEx.Configuration;
 using Flour = Assets.Scripts.Objects.Items.Flour;
 using Milk = Assets.Scripts.Objects.Items.Milk;
 using Sugar = Assets.Scripts.Objects.Items.Sugar;
@@ -25,7 +26,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
-        Version = new Version(1, 0, 0, 31),
+        Version = new Version(1, 0, 0, 40),
         WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };
@@ -34,55 +35,53 @@ public class Plugin : Mod, IModSingleton<Plugin> {
 
     public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
-    public override void OnStart() {}
+    public override void OnStart() {
+        Prefab.OnPrefabsLoaded += this.OnPrefabsLoaded;
+    }
 
     public override void OnConfigLoad() {
         this.RegisterConfig(new ConfigData<int>(
             DEFAULT_MAX_STACK_SIZE,
-            "Configurables", "Max Stack Size",
+            SECTION, KEY,
             "The max stack size for stack size values."
         ));
     }
 
     public override void OnConfigRegistered<T>(ConfigEntry<T> entry) {
-        object? prefabHash = entry.Description?.Tags?.First();
-        if (prefabHash is int prefab) {
-            if (entry.BoxedValue is float v1) {
-                SetStacksize(prefab, v1);
-            }
+        this.SetStackSize(entry);
+    }
 
-            if (entry.BoxedValue is int v2) {
-                SetStacksize(prefab, v2);
-            }
+    public override void OnConfigChanged(ConfigEntryBase entry) {
+        this.SetStackSize(entry);
+    }
+
+    //
+    private void OnPrefabsLoaded() {
+        foreach (Thing prefab in Prefab.AllPrefabs) {
+            this.ProcessThing(prefab);
         }
     }
 
-    public override void OnConfigChanged(ConfigEntryBase entry, SettingChangedEventArgs args) {
+    private void SetStackSize(ConfigEntryBase entry) {
         object? prefabHash = entry.Description?.Tags?.First();
         if (prefabHash is int prefab) {
-            if (entry.BoxedValue is float v1) {
-                SetStacksize(prefab, v1);
-            }
-
-            if (entry.BoxedValue is int v2) {
-                SetStacksize(prefab, v2);
-            }
+            this.SetStackSize(prefab, entry.BoxedValue);
         }
     }
 
-    public void SetStacksize(int hash, float value) {
+    private void SetStackSize<T>(int hash, T value) {
         if (Prefab.TryFind(hash, out Thing thing)) {
-             this.SetStacksize(thing, value);
+             this.SetStackSize(thing, value);
         }
     }
 
-    public void SetStacksize(Thing thing, float value) {
-        if (thing is Stackable stackable) {
-            stackable.MaxQuantity = Mathf.CeilToInt(value);
+    private void SetStackSize<T>(Thing thing, T value) {
+        if (value is float v1 && thing is Consumable consumable) {
+            consumable.MaxQuantity = v1;
         }
 
-        if (thing is Consumable consumable) {
-            consumable.MaxQuantity = value;
+        if (value is int v2 && thing is Stackable stackable) {
+            stackable.MaxQuantity = Mathf.CeilToInt(v2);
         }
     }
 
@@ -91,11 +90,13 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public void ProcessThing(Thing thing) {
         switch (thing) {
             case Stackable stackable: {
-                Plugin.Instance.ProcessStackable(ref stackable);
-            } return;
+                this.ProcessStackable(ref stackable);
+            }
+            return;
             case Consumable consumable: {
-                Plugin.Instance.ProcessConsumable(ref consumable);
-            } return;
+                this.ProcessConsumable(ref consumable);
+            }
+            return;
         }
     }
 
@@ -122,55 +123,55 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public void ProcessStackable(ref Stackable stackable) {
         switch (stackable) {
             case Constructor constructor: {
-                ProcessConstructor(ref constructor);
+                this.ProcessConstructor(ref constructor);
             } return;
             case MultiConstructor multiConstructor: {
-                ProcessMultiConstructor(ref multiConstructor);
+                this.ProcessMultiConstructor(ref multiConstructor);
             } return;
 
             case DynamicThingConstructor dynamicConstructor: {
-                ProcessDynamicConstructor(ref dynamicConstructor);
+                this.ProcessDynamicConstructor(ref dynamicConstructor);
             } return;
 
             //
             case Ore ore: {
-                ProcessOre(ref ore);
+                this.ProcessOre(ref ore);
             } return;
             case DirtyOre dirtyOre: {
-                ProcessDirtyOre(ref dirtyOre);
+                this.ProcessDirtyOre(ref dirtyOre);
             } return;
 
             // Consumables
             case StackableFood stackableFood: {
-                ProcessStackableFood(ref stackableFood);
+                this.ProcessStackableFood(ref stackableFood);
             } return;
             case Pill pill: {
-                ProcessPill(ref pill);
+                this.ProcessPill(ref pill);
             } return;
 
             case Hay hay: {
-                ProcessHay(ref hay);
+                this.ProcessHay(ref hay);
             } return;
             case Plant plant: {
-                ProcessPlant(ref plant);
+                this.ProcessPlant(ref plant);
             } return;
             case DecayedFood decayedFood: {
-                ProcessDecayedFood(ref decayedFood);
+                this.ProcessDecayedFood(ref decayedFood);
             } return;
 
             case StackableLight stackableLight: {
-                ProcessStackableLight(ref stackableLight);
+                this.ProcessStackableLight(ref stackableLight);
             } return;
 
             case ItemExplosive explosive: {
-                ProcessExplosive(ref explosive);
+                this.ProcessExplosive(ref explosive);
             } return;
 
             case ResearchPod:
             case Wreckage: return;
         }
 
-        ProcessStackableFallback(ref stackable);
+       this.ProcessStackableFallback(ref stackable);
     }
 
     private void ProcessStackableFallback(ref Stackable stackable) {
@@ -221,7 +222,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     }
 
     private void ProcessConstructor(ref Constructor stackable) {
-        string type = GetDescriptor(stackable.BuildStructure);
+        string type = this.GetDescriptor(stackable.BuildStructure);
         this.RegisterConfig(new ConfigData<int>(
             stackable.MaxQuantity,
             1, MAX_STACK_SIZE,
@@ -232,7 +233,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     }
 
     private void ProcessMultiConstructor(ref MultiConstructor stackable) {
-        string type = GetDescriptor(stackable.Constructables.First());
+        string type = this.GetDescriptor(stackable.Constructables.First());
         this.RegisterConfig(new ConfigData<int>(
             stackable.MaxQuantity,
             1, MAX_STACK_SIZE,
@@ -255,7 +256,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     private void ProcessOre(ref Ore stackable) {
         switch (stackable) {
             case Ice ice: {
-                ProcessIce(ref ice);
+                this.ProcessIce(ref ice);
             } return;
         }
 
@@ -281,7 +282,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     private void ProcessIce(ref Ice stackable) {
         switch (stackable) {
             case PureIce pureIce: {
-                ProcessPureIce(ref pureIce);
+                this.ProcessPureIce(ref pureIce);
             } return;
         }
 
@@ -337,10 +338,10 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     private void ProcessPlant(ref Plant stackable) {
         switch (stackable) {
             case Seed seed: {
-                ProcessSeed(ref seed);
+                this.ProcessSeed(ref seed);
             } return;
             case Flower flower: {
-                ProcessFlower(ref flower);
+                this.ProcessFlower(ref flower);
             } return;
         }
 
@@ -412,15 +413,15 @@ public class Plugin : Mod, IModSingleton<Plugin> {
             case SoyOil:
             case Sugar:
             {
-                ProcessCookingIngredient(ref stackable);
+                this.ProcessCookingIngredient(ref stackable);
             } return;
 
             case IngredientBase ingredientBase: {
-                ProcessIngridientBase(ref ingredientBase);
+                this.ProcessIngridientBase(ref ingredientBase);
             } return;
 
             case Ingot ingot: {
-                ProcessIngot(ref ingot);
+                this.ProcessIngot(ref ingot);
             } return;
         }
     }
@@ -438,10 +439,10 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     private void ProcessIngridientBase(ref IngredientBase stackable) {
         switch (stackable) {
             case ColorDye colorDye: {
-                ProcessColorDye(ref colorDye);
+                this.ProcessColorDye(ref colorDye);
             } return;
             case Ingredient ingredient: {
-                ProcessIngredient(ref ingredient);
+                this.ProcessIngredient(ref ingredient);
             } return;
         }
 
