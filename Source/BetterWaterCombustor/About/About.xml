@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Water Combustor [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.4.0.182</Version>
+    <Version>1.4.0.183</Version>
     <Description>
         [h1]Better Water Combustor[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -36,12 +36,14 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.4.0.173 to v1.4.0.182[/h1]
+	[h1]Update v1.4.0.182 to v1.4.0.183[/h1]
 	[list]
-		[*] update mods for updated library mod
-		[*] update library mod
+		[*] Update README.md
+		[*] Update README.md
+		[*] add Stationeers.VS.User.props to gitignore
+		[*] push new props files
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: bba4c46da2ac2b312f3dd21a7e58f83ac4ddf34d -->
-<!-- LastProcessedVersion: 1.4.0.182 -->
+<!-- LastProcessedCommit: b4053fb42569144418f46647e2461ae2ac5a5da6 -->
+<!-- LastProcessedVersion: 1.4.0.183 -->

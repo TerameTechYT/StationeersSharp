@@ -5,7 +5,7 @@
 namespace StationeersLibrary.Mods;
 
 public interface IModInfo {
-    // <summary>
+    /// <summary>
     /// Mod Name
     /// </summary>
     public string? Name { get; set; }
@@ -24,9 +24,4 @@ public interface IModInfo {
     /// Mod Workshop Id
     /// </summary>
     public ulong WorkshopId { get; set; }
-
-    /// <summary>
-    /// Mod Game Type
-    /// </summary>
-    public GameType GameType { get; set; }
 }

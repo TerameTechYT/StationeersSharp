@@ -49,6 +49,26 @@ public abstract class ModBase : MonoBehaviour, IMod, ILogger, IEquatable<ModBase
     public ulong ModWorkshopId => this.Data.WorkshopId;
 
     /// <summary>
+    /// Quick accessor for <see cref="ModInfo.Incompatibilities"/>
+    /// </summary>
+    public List<ModIncompatibilityInfo> ModIncompatibilities => this.Data.Incompatibilities;
+
+    /// <summary>
+    /// Quick accessor for <see cref="ModInfo.HasIncompatibilities"/>
+    /// </summary>
+    public bool ModHasIncompatibilities => this.Data.HasIncompatibilities;
+
+    /// <summary>
+    /// Quick accessor for <see cref="ModInfo.Dependencies"/>
+    /// </summary>
+    public List<ModDependencyInfo> ModDependencies => this.Data.Dependencies;
+
+    /// <summary>
+    /// Quick accessor for <see cref="ModInfo.HasDependencies"/>
+    /// </summary>
+    public bool ModHasDependencies => this.Data.HasDependencies;
+
+    /// <summary>
     /// Quick accessor for <see cref="ModInfo.GameType"/>
     /// </summary>
     public GameType ModGameType => this.Data.GameType;

@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{0F4A42
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
-		.github\workflows\dotnet-desktop.yml = .github\workflows\dotnet-desktop.yml
-		Source\GlobalSuppressions.cs = Source\GlobalSuppressions.cs
 		LICENSE.md = LICENSE.md
 		MODS.md = MODS.md
 		README.md = README.md
@@ -28,6 +26,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationpediaCalculator", "Source\StationpediaCalculator\StationpediaCalculator.csproj", "{5E37C7D4-C0F5-44DC-940E-5706D2EFC878}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}"
+	ProjectSection(SolutionItems) = preProject
+		Source\GlobalSuppressions.cs = Source\GlobalSuppressions.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{50E1B1AF-F60D-4EEB-B52F-16EB28081E79}"
 	ProjectSection(SolutionItems) = preProject

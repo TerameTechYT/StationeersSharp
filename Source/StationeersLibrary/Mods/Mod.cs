@@ -1,8 +1,8 @@
 ﻿#region
 
-using LaunchPadBooster;
 using LaunchPadBooster.Networking;
 using StationeersLaunchPad;
+using System.Reflection;
 using Logger = StationeersLaunchPad.Logger;
 
 #endregion
@@ -169,6 +169,34 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         if (!this.Data.IsGameCompatible()) {
             this.LogFatal($"{this} cannot be run on {this.ModGameType}, requires {Constants.GameType}");
             return;
+        }
+
+        if (this.ModHasIncompatibilities) {
+            bool incompatible = false;
+            foreach (ModIncompatibilityInfo incompatibility in this.ModIncompatibilities) {
+                if (Utilities.IsLoaded(incompatibility.Guid)) {
+                    incompatible = true;
+                    this.LogFatal($"{this} is incompatible with mod {incompatibility}");
+                }
+            }
+
+            if (incompatible) {
+                return;
+            }
+        }
+
+        if (this.ModHasDependencies) {
+            bool missing = false;
+            foreach (ModDependencyInfo dependency in this.ModDependencies) {
+                if (!Utilities.IsLoaded(dependency.Guid) && dependency.DependencyType == DependencyType.Hard) {
+                    missing = true;
+                    this.LogFatal($"{this} could not find dependency mod {dependency}");
+                }
+            }
+
+            if (missing) {
+                return;
+            }
         }
 
         if (this.UseConfig) {
@@ -568,7 +596,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <typeparam name="TPrefab">The script for your prefab.</typeparam>
     /// <param name="prefab">The name of your prefab.</param>
     /// <returns>Prefab setup object.</returns>
-    public PrefabSetup<TPrefab> RegisterPrefab<TPrefab>(string prefab) where TPrefab : Thing {
+    public LaunchPadBooster.PrefabSetup<TPrefab> RegisterPrefab<TPrefab>(string prefab) where TPrefab : Thing {
         this.LogDebug($"Registering prefab {typeof(TPrefab).Name} with name {prefab}.");
         return this.InternalMod.SetupPrefabs<TPrefab>(prefab);
     }
