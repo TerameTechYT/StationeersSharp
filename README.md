@@ -8,14 +8,14 @@ used in combination with [BepInEx](https://github.com/BepInEx/BepInEx) and [Stat
 ## Supported BepInEx Versions
 The following BepInEx versions are currently being supported with updates.
 
-| Version | Supported                    |
+| Version | Supported          |
 | ------- | ------------------ |
-| 6.0.x     | :x: |
-| 5.4.x     | :white_check_mark: |
-| 5.3         | :x:                                |
-| 5.2         | :x:                                |
-| 5.1         | :x:                                |
-| > 5.0.x     | :x:                                |
+| 6.0.x   | :x:                |
+| 5.4.x   | :white_check_mark: |
+| 5.3     | :x:                |
+| 5.2     | :x:                |
+| 5.1     | :x:                |
+| > 5.0.x | :x:                |
 
 
 # Building
@@ -28,5 +28,5 @@ The following BepInEx versions are currently being supported with updates.
 - Download source code
 - Open project in Visual Studio
 - Expand the `Data` Folder
-- Open `Stationeers.VS.props` and follow the instructions in that file.
+- Open `Stationeers.VS.User.props` and follow the change the steam directory that file, if it not correct.
 - Your now ready to make edit and compile!
