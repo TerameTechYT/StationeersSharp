@@ -16,3 +16,5 @@ AssemblyInfo.cs
 !Commands/*.*
 Objects/
 Build/
+
+Stationeers.VS.User.props
