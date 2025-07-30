@@ -1,10 +1,9 @@
 ﻿#region
 
-using Mono.Cecil;
+using HarmonyLib;
 using StationeersLaunchPad;
 
 #endregion
-
 
 namespace StationeersLibrary;
 
@@ -165,6 +164,8 @@ public static class StringExtensions {
     /// <param name="color">Color name (optional)</param>
     /// <returns></returns>
     public static string ToStringPrefix(this MoleEnergy value, string unit = "", string color = "") => value.ToFloat().ToStringPrefix(unit, color);
+
+    public static string ToStringSuffix(this int value, string word, string singular = "", string plural = "") => $"{value} {word}{(value == 0 ? plural : value == 1 ? singular : plural)}";
 }
 
 public static class CodeInstructionExtensions {

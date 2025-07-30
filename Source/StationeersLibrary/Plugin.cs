@@ -2,10 +2,9 @@
 
 #endregion
 
-
 namespace StationeersLibrary;
 
-public class Plugin : Mod, IModSingleton<Plugin> {
+public class Plugin : Mod<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -15,7 +14,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
         Guid = "stationeerslibrary",
-        Version = new Version(2, 0, 0, 174),
+        Version = new Version(2, 0, 0, 183),
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };

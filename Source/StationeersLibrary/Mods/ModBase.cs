@@ -1,8 +1,8 @@
 ﻿#region
 
-#endregion
-
 using StationeersLaunchPad;
+
+#endregion
 
 namespace StationeersLibrary.Mods;
 
@@ -10,11 +10,52 @@ namespace StationeersLibrary.Mods;
 /// Base class for handling modding
 /// Inherits the <see cref="MonoBehaviour"/> class and <see cref="IMod"/> inteface
 /// </summary>
-public abstract class ModBase : MonoBehaviour, IMod, ILogger {
+public abstract class ModBase : MonoBehaviour, IMod, ILogger, IEquatable<ModBase> {
     /// <summary>
     /// Instance for all mods
     /// </summary>
     public static readonly List<IMod> AllMods = [];
+
+    #region MOD INFO
+
+    /// <summary>
+    /// This mods ModInfo instance.
+    /// </summary>
+    public abstract ModInfo Data { get; }
+
+    /// <summary>
+    /// Quick accessor for <see cref="ModInfo.Name"/>
+    /// </summary>
+    public string ModName => this.Data.Name;
+
+    /// <summary>
+    /// Quick accessor for <see cref="ModInfo.Guid"/>
+    /// </summary>
+    public string ModGuid => this.Data.Guid;
+
+    /// <summary>
+    /// Quick accessor for <see cref="ModInfo.Version"/>
+    /// </summary>
+    public Version ModVersion => this.Data.Version;
+
+    /// <summary>
+    /// Quick accessor for <see cref="ModInfo.ModVersionString"/>
+    /// </summary>
+    public string ModVersionString => this.ModVersionString;
+
+    /// <summary>
+    /// Quick accessor for <see cref="ModInfo.WorkshopId"/>
+    /// </summary>
+    public ulong ModWorkshopId => this.Data.WorkshopId;
+
+    /// <summary>
+    /// Quick accessor for <see cref="ModInfo.GameType"/>
+    /// </summary>
+    public GameType ModGameType => this.Data.GameType;
+
+    #endregion // MOD INFO
+
+    #region METHODS
 
     /// <inheritdoc/>
     public abstract void OnLoaded(List<GameObject> prefabs);
@@ -86,6 +127,34 @@ public abstract class ModBase : MonoBehaviour, IMod, ILogger {
         this.OnMenuPageEnabled(args).Forget();
         task.Forget();
     }
+
+    /// <summary>
+    /// Note: this only compares mod info, as its the most significant.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    public override bool Equals(object other) => other is ModBase mod && this.Equals(mod);
+
+    /// <summary>
+    /// Note: this only compares mod info, as its the most significant.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    public bool Equals(ModBase mod) => this.Data.Equals(mod?.Data);
+
+    /// <summary>
+    /// Returns identifier to distinguish mod.
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString() => this.Data.ToString();
+
+    /// <summary>
+    /// Hash code for this mod.
+    /// </summary>
+    /// <returns></returns>
+    public override int GetHashCode() => this.Data.GetHashCode();
+
+    #endregion
 
     #region EVENT METHODS
 

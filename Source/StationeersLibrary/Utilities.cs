@@ -24,7 +24,7 @@ public static class Utilities {
 
     private static bool IsHarmonyPatched(string guid) => Harmony.HasAnyPatches(guid);
 
-    private static bool IsModLoaded(string guid) => Mod.AllMods.Find((modb) => modb is Mod mod && mod.ModGuid == guid) != null;
+    private static bool IsModLoaded(string guid) => ModBase.AllMods.Find((modb) => modb is ModBase mod && mod.ModGuid == guid) != null;
 
     private static bool IsBoosterModLoaded(string guid) => LaunchPadBooster.Mod.AllMods.Find((mod) => mod.ID.Name == guid) != null;
 
@@ -44,7 +44,7 @@ public static class Utilities {
         _ => Constants.CELCIUS_SYMBOL,
     };
 
-    public static void ExceptionReporter(Mod mod, ref Exception ex) {
+    public static void ExceptionReporter(ModBase mod, ref Exception ex) {
         StackTrace stackTrace = new StackTrace(1);
         StackFrame stackFrame = stackTrace.GetFrame(0);
         MethodInfo method = (MethodInfo) stackFrame.GetMethod();
