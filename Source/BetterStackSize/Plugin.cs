@@ -11,7 +11,7 @@ using Sugar = Assets.Scripts.Objects.Items.Sugar;
 
 namespace BetterStackSize;
 
-public class Plugin : Mod, IModSingleton<Plugin> {
+public class Plugin : Mod<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -26,7 +26,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
-        Version = new Version(1, 0, 0, 40),
+        Version = new Version(1, 0, 0, 49),
         WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };

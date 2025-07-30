@@ -4,7 +4,7 @@
 
 namespace DetailedPlayerInfo;
 
-public class Plugin : Mod, IModSingleton<Plugin> {
+public class Plugin : Mod<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 172),
+        Version = new Version(2, 0, 0, 181),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };

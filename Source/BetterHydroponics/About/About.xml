@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Hydroponics [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.4.0.141</Version>
+    <Version>1.4.0.173</Version>
     <Description>
         [h1]Better Hydroponics[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -50,11 +50,19 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.4.0.140 to v1.4.0.141[/h1]
+	[h1]Update v1.4.0.141 to v1.4.0.173[/h1]
 	[list]
-		[*] push changelog changes
+		[*] remove loulan mod
+		[*] use Prefab.OnPrefabsLoaded event
+		[*] remove Prefab.LoadAll patch
+		[*] change how OnConfigChanged works
+		[*] remove deprecated category
+		[*] update description
+		[*] update stacksize about
+		[*] remove workshop handle from template mod
+		[*] fix for modloader update
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 3ec628314afb56535088b0bf804ed8747fcdb53a -->
-<!-- LastProcessedVersion: 1.4.0.141 -->
+<!-- LastProcessedCommit: 2cd7b1691eacdb31ba48d4d66d6d976c05299522 -->
+<!-- LastProcessedVersion: 1.4.0.173 -->

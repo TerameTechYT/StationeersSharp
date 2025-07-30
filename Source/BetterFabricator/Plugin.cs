@@ -4,7 +4,7 @@
 
 namespace BetterFabricator;
 
-public class Plugin : Mod, IModSingleton<Plugin> {
+public class Plugin : Mod<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterFabricator",
         Guid = "betterfabricator",
-        Version = new Version(1, 3, 0, 172),
+        Version = new Version(1, 3, 0, 181),
         WorkshopId = 0ul,
         GameType = GameType.Both,
     };

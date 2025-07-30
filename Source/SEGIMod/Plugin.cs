@@ -4,7 +4,7 @@
 
 namespace SEGI;
 
-public class Plugin : Mod, IModSingleton<Plugin> {
+public class Plugin : Mod<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public static SEGI? SEGIInstance { get; private set; }
@@ -17,7 +17,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "SEGIMod",
         Guid = "segimod",
-        Version = new Version(1, 6, 0, 173),
+        Version = new Version(1, 6, 0, 182),
         WorkshopId = 3281346086ul,
         GameType = GameType.Client,
     };

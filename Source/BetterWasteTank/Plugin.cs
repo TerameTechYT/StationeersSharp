@@ -4,7 +4,7 @@
 
 namespace BetterWasteTank;
 
-public class Plugin : Mod, IModSingleton<Plugin> {
+public class Plugin : Mod<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWasteTank",
         Guid = "betterwastetank",
-        Version = new Version(1, 8, 0, 172),
+        Version = new Version(1, 8, 0, 181),
         WorkshopId = 3071913936ul,
         GameType = GameType.Both,
     };

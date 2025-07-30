@@ -4,7 +4,7 @@
 
 namespace BetterCodeEditor;
 
-public class Plugin : Mod, IModSingleton<Plugin> {
+public class Plugin : Mod<Plugin> {
     public static Plugin? Instance {
         get; private set;
     }
@@ -16,7 +16,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 172),
+        Version = new Version(1, 4, 0, 181),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };

@@ -4,7 +4,7 @@
 
 namespace BetterHydroponics;
 
-public class Plugin : Mod, IModSingleton<Plugin> {
+public class Plugin : Mod<Plugin> {
     public static Plugin? Instance { get; private set; }
 
     public override bool UseLogger => true;
@@ -14,7 +14,7 @@ public class Plugin : Mod, IModSingleton<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterHydroponics",
         Guid = "betterhydroponics",
-        Version = new Version(1, 4, 0, 172),
+        Version = new Version(1, 4, 0, 181),
         WorkshopId = 3449149492ul,
         GameType = GameType.Both,
     };
