@@ -28,5 +28,5 @@ The following BepInEx versions are currently being supported with updates.
 - Download source code
 - Open project in Visual Studio
 - Expand the `Data` Folder
-- Open `Stationeers.VS.User.props` and follow the change the steam directory that file, if it not correct.
+- Open `Stationeers.VS.User.props` and change the steam directory that file, if it not correct.
 - Your now ready to make edit and compile!
