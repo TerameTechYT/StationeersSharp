@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>External Suit Reader [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.8.0.173</Version>
+    <Version>1.8.0.182</Version>
     <Description>
         [h1]External Suit Reader[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -44,19 +44,12 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.8.0.141 to v1.8.0.173[/h1]
+	[h1]Update v1.8.0.173 to v1.8.0.182[/h1]
 	[list]
-		[*] remove loulan mod
-		[*] use Prefab.OnPrefabsLoaded event
-		[*] remove Prefab.LoadAll patch
-		[*] change how OnConfigChanged works
-		[*] remove deprecated category
-		[*] update description
-		[*] update stacksize about
-		[*] remove workshop handle from template mod
-		[*] fix for modloader update
+		[*] update mods for updated library mod
+		[*] update library mod
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 2cd7b1691eacdb31ba48d4d66d6d976c05299522 -->
-<!-- LastProcessedVersion: 1.8.0.173 -->
+<!-- LastProcessedCommit: bba4c46da2ac2b312f3dd21a7e58f83ac4ddf34d -->
+<!-- LastProcessedVersion: 1.8.0.182 -->

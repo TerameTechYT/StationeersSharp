@@ -1,4 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(SolutionDir)Stationeers.VS.User.props" />
+
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <AnalysisLevel>latest-all</AnalysisLevel>
@@ -26,10 +28,9 @@
         <Nullable>enable</Nullable>
 
         <!-- Change this to the path to your Stationeers Directory -->
-        <StationeersDirectory Condition="'$(Configuration)' != 'Publish'">D:\SteamLibrary\steamapps\common\Stationeers</StationeersDirectory>
-        
+        <StationeersDirectory>$(SteamLibraryDirectory)\Stationeers</StationeersDirectory>
+
         <!-- Do Not Change Anything Below -->
-        <StationeersDirectory Condition="'$(Configuration)' == 'Publish'">$(SolutionDir)Libraries</StationeersDirectory>
         <StationeersDataDirectory>$(StationeersDirectory)\rocketstation_Data</StationeersDataDirectory>
         <StationeersManagedDirectory>$(StationeersDataDirectory)\Managed</StationeersManagedDirectory>
         <StationeersPluginsDirectory>$(StationeersDataDirectory)\Plugins</StationeersPluginsDirectory>

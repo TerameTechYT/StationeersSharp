@@ -34,6 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{50E1B1AF-F
 		Directory.Build.props = Directory.Build.props
 		Stationeers.VS.props = Stationeers.VS.props
 		Stationeers.VS.References.props = Stationeers.VS.References.props
+		Stationeers.VS.User.props = Stationeers.VS.User.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterCodeEditor", "Source\BetterCodeEditor\BetterCodeEditor.csproj", "{CA727438-F2AA-0BC4-C966-061A3E24A1D5}"
