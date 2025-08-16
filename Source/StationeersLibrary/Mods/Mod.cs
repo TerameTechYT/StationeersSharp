@@ -237,7 +237,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
         SceneManager.sceneLoaded += this.SceneLoaded;
         SceneManager.sceneUnloaded += this.SceneUnloaded;
-        MainMenuWindowManager.OnPageEnabled += this.MenuPageEnabled;
+        //MainMenuWindowManager.OnPageEnabled += this.MenuPageEnabled;
 
         lock (_lock) {
             ModBase.AllMods.Add(this);
@@ -273,7 +273,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
         SceneManager.sceneLoaded -= this.SceneLoaded;
         SceneManager.sceneUnloaded -= this.SceneUnloaded;
-        MainMenuWindowManager.OnPageEnabled -= this.MenuPageEnabled;
+        //MainMenuWindowManager.OnPageEnabled -= this.MenuPageEnabled;
 
         lock (_lock) {
             ModBase.AllMods.Remove(this);

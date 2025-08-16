@@ -318,7 +318,7 @@ internal static class Functions {
         moleDisplay.IsActive = mole.Quantity > MoleQuantity.Zero;
     }
 
-    internal static void DisplayGasInfo(ref StringBuilder stringBuilder, ref Pipe.ContentType contentType, ref Atmosphere atmosphere) {
+    /*internal static void DisplayGasInfo(ref StringBuilder stringBuilder, ref Pipe.ContentType contentType, ref Atmosphere atmosphere) {
         string none = GameStrings.None.AsColor("yellow");
 
         float temperature = atmosphere.Temperature.ToPreferredUnit(ConfigData.PreferredTemperatureUnit);
@@ -353,5 +353,5 @@ internal static class Functions {
         else {
             StringManager.DisplayKeyValue(stringBuilder, GameStrings.LiquidsVolume, none);
         }
-    }
+    }*/
 }

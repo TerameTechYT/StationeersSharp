@@ -75,7 +75,7 @@ public static class Functions {
             return;
         }
 
-        recipeData.Recipe.Check();
-        Fabricator.RecipeComparable.AddRecipe(recipeData);
+        //recipeData.Recipe.Check();
+        //Fabricator.RecipeComparable.AddRecipe(recipeData);
     }
 }

@@ -26,7 +26,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
-        Version = new Version(1, 0, 0, 57),
+        Version = new Version(1, 0, 0, 63),
         WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };
@@ -137,9 +137,9 @@ public class Plugin : Mod<Plugin> {
             case Ore ore: {
                 this.ProcessOre(ref ore);
             } return;
-            case DirtyOre dirtyOre: {
+            /*case DirtyOre dirtyOre: {
                 this.ProcessDirtyOre(ref dirtyOre);
-            } return;
+            } return;*/
 
             // Consumables
             case StackableFood stackableFood: {
