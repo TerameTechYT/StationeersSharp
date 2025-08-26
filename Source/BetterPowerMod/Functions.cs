@@ -5,7 +5,7 @@
 namespace BetterPowerMod;
 
 internal static class Functions {
-    internal static float GetPotentialSolarPowerGenerated(SolarPanel panel) => OrbitalSimulation.SolarIrradiance;
+    internal static float GetPotentialSolarPowerGenerated(SolarPanel panel) => OrbitalSimulation.SolarIrradiance * (panel.PanelSize.x * panel.PanelSize.y);
 
     internal static float GetPotentialWindPowerGenerated(WindTurbineGenerator generator) {
         float pressure = generator.GetWorldAtmospherePressure().ToFloat();
