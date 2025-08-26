@@ -5,7 +5,7 @@
 namespace StationeersLibrary.Modding.Enums;
 
 // Adapted from Nautilius
-// https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Utility/EnumCacheManager.cs
+// https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Handlers/Enums/EnumBuilder.cs
 public sealed class EnumBuilder<TEnum> where TEnum : Enum {
     internal static EnumCacheManager<TEnum> CacheManager { get; } = (EnumCacheManager<TEnum>)EnumCacheProvider.EnsureManager<TEnum>();
 

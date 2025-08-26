@@ -5,7 +5,7 @@
 namespace StationeersLibrary.Modding.Enums;
 
 // Adapted from Nautilius
-// https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Utility/EnumCacheManager.cs
+// https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Handlers/Enums/EnumHandler.cs
 public static class EnumHandler {
     public static EnumBuilder<TEnum> AddEntry<TEnum>(string name, Assembly ownerAssembly) where TEnum : Enum {
         return EnumBuilder<TEnum>.CreateInstance(name, ownerAssembly);
