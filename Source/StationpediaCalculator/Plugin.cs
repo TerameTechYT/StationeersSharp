@@ -14,7 +14,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "StationpediaCalculator",
         Guid = "stationpediacalculator",
-        Version = new Version(1, 5, 0, 195),
+        Version = new Version(1, 5, 0, 196),
         WorkshopId = 3305312105ul,
         GameType = GameType.Client,
     };
