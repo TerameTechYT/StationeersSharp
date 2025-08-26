@@ -2,7 +2,7 @@
 
 #endregion
 
-namespace StationeersLibrary.Mods;
+namespace StationeersLibrary.Modding;
 
 public interface IMod {
     /// <summary>

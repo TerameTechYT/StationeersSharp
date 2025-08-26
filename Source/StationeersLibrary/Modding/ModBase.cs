@@ -4,7 +4,7 @@ using StationeersLaunchPad;
 
 #endregion
 
-namespace StationeersLibrary.Mods;
+namespace StationeersLibrary.Modding;
 
 /// <summary>
 /// Base class for handling modding

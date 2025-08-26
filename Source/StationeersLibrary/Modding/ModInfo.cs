@@ -1,5 +1,5 @@
 ﻿
-namespace StationeersLibrary.Mods;
+namespace StationeersLibrary.Modding;
 
 /// <summary>
 /// Mod Information Class

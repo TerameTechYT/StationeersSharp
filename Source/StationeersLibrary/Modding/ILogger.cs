@@ -4,7 +4,7 @@
 
 using StationeersLaunchPad;
 
-namespace StationeersLibrary.Mods;
+namespace StationeersLibrary.Modding;
 public interface ILogger {
     /// <summary>
     /// Log function that is redirected to <see cref="Logger"/>

@@ -2,7 +2,7 @@
 
 #endregion
 
-namespace StationeersLibrary.Mods;
+namespace StationeersLibrary.Modding;
 
 public class ModIncompatibilityInfo : IModInfo {
     /// <inheritdoc/>

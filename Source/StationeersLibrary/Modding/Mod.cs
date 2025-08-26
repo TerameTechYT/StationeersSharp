@@ -7,7 +7,7 @@ using Logger = StationeersLaunchPad.Logger;
 
 #endregion
 
-namespace StationeersLibrary.Mods;
+namespace StationeersLibrary.Modding;
 
 /// <summary>
 /// Main class for handling modding with <see cref="StationeersLaunchPad"/>
