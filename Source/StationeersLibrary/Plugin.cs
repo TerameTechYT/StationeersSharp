@@ -9,12 +9,12 @@ public class Plugin : Mod<Plugin> {
 
     public override bool UseLogger => true;
     public override bool UseConfig => true;
-    public override bool UseHarmony => false;
+    public override bool UseHarmony => true;
 
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
         Guid = "stationeerslibrary",
-        Version = new Version(2, 0, 0, 197),
+        Version = new Version(2, 0, 0, 198),
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };

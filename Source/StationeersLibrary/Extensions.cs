@@ -2,6 +2,7 @@
 
 using HarmonyLib;
 using StationeersLaunchPad;
+using StationeersLibrary.Modding.Enums;
 
 #endregion
 
@@ -27,6 +28,20 @@ public static class HarmonyExtensions {
         }
 
         return processors;
+    }
+}
+
+public static class EnumExtensions {
+    public static bool IsDefinedByDefault<TEnum>(this TEnum enumValue) where TEnum : Enum {
+        if (!EnumCacheProvider.TryGetManager(typeof(TEnum), out var manager)) {
+            return true;
+        }
+
+        if (manager.ModdedKeys.Contains(enumValue)) {
+            return false;
+        }
+
+        return true;
     }
 }
 

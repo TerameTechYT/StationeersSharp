@@ -222,4 +222,26 @@ public static class ReflectionUtilities {
             type?.GetInterface(name);
     public static InterfaceMapping? InterfaceMapping(this Type type, Type interfaceType) =>
             type?.GetInterfaceMap(interfaceType);
+
+    private static readonly Assembly @this = Assembly.GetExecutingAssembly();
+
+    internal static string CallingAssemblyNameByStackTrace() {
+        return CallingAssemblyByStackTrace().GetName().Name;
+    }
+    internal static Assembly CallingAssemblyByStackTrace() {
+        StackTrace stackTrace = new();
+        StackFrame[] frames = stackTrace.GetFrames();
+
+        foreach (StackFrame stackFrame in frames) {
+            Assembly ownerAssembly = stackFrame.GetMethod().DeclaringType.Assembly;
+            if (ownerAssembly.GetName().Name.StartsWith("Unity", StringComparison.InvariantCultureIgnoreCase))
+                return @this;
+
+            if (ownerAssembly != @this) {
+                return ownerAssembly;
+            }
+        }
+
+        return @this;
+    }
 }
