@@ -17,15 +17,15 @@ public static class EnumHandler {
             ? ReflectionUtilities.CallingAssemblyByStackTrace()
             : callingAssembly;
 
-        return AddEntry<TEnum>(name, callingAssembly);
+        return EnumHandler.AddEntry<TEnum>(name, callingAssembly);
     }
 
     public static bool TryAddEntry<TEnum>(string name, Assembly ownerAssembly, out EnumBuilder<TEnum> builder) where TEnum : Enum {
-        return (builder = AddEntry<TEnum>(name, ownerAssembly)) != null;
+        return (builder = EnumHandler.AddEntry<TEnum>(name, ownerAssembly)) != null;
     }
 
     public static bool TryAddEntry<TEnum>(string name, out EnumBuilder<TEnum> builder) where TEnum : Enum {
-        return (builder = AddEntry<TEnum>(name)) != null;
+        return (builder = EnumHandler.AddEntry<TEnum>(name)) != null;
     }
 
     public static bool TryGetValue<TEnum>(string name, out TEnum enumValue) where TEnum : Enum {
@@ -73,6 +73,6 @@ public static class EnumHandler {
     }
 
     public static bool ModdedEnumExists<TEnum>(string name) where TEnum : Enum {
-        return TryGetValue<TEnum>(name, out _);
+        return EnumHandler.TryGetValue<TEnum>(name, out _);
     }
 }

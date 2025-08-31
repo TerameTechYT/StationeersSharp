@@ -1,21 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <Name>Stationeers Library [StationeersLaunchPad]</Name>
+    <Name>Template [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>2.0.0.199</Version>
+    <Version>1.0.0</Version>
     <Description>
-        [h1] This is [b]NOT[/b] StationeersLaunchPad [/h1]
-
-        [h1]Stationeers Library[/h1]
+        [h1]Template[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
         See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
-
-        [h2]This mod adds no extra functionality by itself, it is a library for all of my mods.[/h2]
 
         you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
         https://github.com/TerameTechYT/StationeersSharp/actions
     </Description>
-    <WorkshopHandle>3389894703</WorkshopHandle>
+    <WorkshopHandle>0</WorkshopHandle>
     <Tags>
         <Tag>Mod</Tag>
         <Tag>BepInEx</Tag>
@@ -33,16 +29,6 @@
 
     <LoadAfter>
     </LoadAfter>
-<ChangeLog>
-	[h1]Update v2.0.0.198 to v2.0.0.199[/h1]
-	[list]
-		[*] fix links
-		[*] update namespace
-		[*] update
-		[*] new enum extender
-		[*] fix panel surface area
-	[/list]
-</ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: e2b63bc54221f4ae97849a10838042cbf46fe95a -->
-<!-- LastProcessedVersion: 2.0.0.199 -->
+<!-- LastProcessedCommit: HEAD -->
+<!-- LastProcessedVersion: 1.0.0.0 -->

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <ModName>ExtendedGases</ModName>
+        <AssemblyName>$(ModName)</AssemblyName>
+        <RootNamespace>$(ModName)</RootNamespace>
+    </PropertyGroup>
+
+    <!-- Import Stationeers VS properties - paths etc. -->
+    <Import Project="$(SolutionDir)Stationeers.VS.props" />
+
+    <!-- Import Game/Unity DLL references -->
+    <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
+
+    <ItemGroup>
+        <ProjectReference Include="$(SolutionDir)\Source\StationeersLibrary\StationeersLibrary.csproj" />
+    </ItemGroup>
+</Project>
