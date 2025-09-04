@@ -1,8 +1,6 @@
 ﻿#region
 
-using HarmonyLib;
 using StationeersLaunchPad;
-using StationeersLibrary.Modding.Enums;
 
 #endregion
 
@@ -37,7 +35,7 @@ public static class EnumExtensions {
             return true;
         }
 
-        if (manager.ModdedKeys.Contains(enumValue)) {
+        if (manager.Keys.Contains(enumValue)) {
             return false;
         }
 
@@ -57,16 +55,13 @@ public static class ReflectionExtensions {
         StringBuilder stringBuilder = new StringBuilder();
         if (method.IsAssembly) {
             stringBuilder.Append("internal ");
-        }
-        else {
+        } else {
             if (method.IsPublic) {
                 stringBuilder.Append("public ");
-            }
-            else {
+            } else {
                 if (method.IsFamily) {
                     stringBuilder.Append("protected ");
-                }
-                else {
+                } else {
                     stringBuilder.Append("private ");
                 }
             }
@@ -94,8 +89,7 @@ public static class ReflectionExtensions {
 
         if (method.IsConstructor) {
             stringBuilder.Append($".cctor{method.FormatParameters()}\n");
-        }
-        else {
+        } else {
             stringBuilder.Append($"{method.Name}{method.FormatParameters()}\n");
         }
 

@@ -1,7 +1,6 @@
 ﻿#region
 
 using LaunchPadBooster.Utils;
-using System.Diagnostics;
 using System.Linq.Expressions;
 
 #endregion
@@ -47,7 +46,7 @@ public static class Utilities {
     public static void ExceptionReporter(ModBase mod, ref Exception ex) {
         StackTrace stackTrace = new StackTrace(1);
         StackFrame stackFrame = stackTrace.GetFrame(0);
-        MethodInfo method = (MethodInfo) stackFrame.GetMethod();
+        MethodInfo method = (MethodInfo)stackFrame.GetMethod();
         Type type = method.GetType();
 
         if (mod == null || _patches.TryGetValue(type.FullName, out _)) {
@@ -66,8 +65,7 @@ public static class Utilities {
 
         try {
             return action.Invoke();
-        }
-        catch (TException) {
+        } catch (TException) {
             return fallbackValue;
         }
     }
@@ -141,7 +139,7 @@ public static class ReflectionUtilities {
             type?.GetField(name, bindingFlags);
 
     public static T? FieldGetValue<T>(this Type type, string name, object? obj = null, BindingFlags bindingFlags = BindingFlags.Default) =>
-            (T?) Field(type, name, bindingFlags)?.GetValue(obj);
+            (T?)Field(type, name, bindingFlags)?.GetValue(obj);
 
     public static void FieldGetValue<T>(this Type type, string name, T value, object? obj = null, BindingFlags bindingFlags = BindingFlags.Default) =>
             Field(type, name, bindingFlags)?.SetValue(obj, value);
@@ -157,7 +155,7 @@ public static class ReflectionUtilities {
     public static object? PropertyGetValue(this Type type, string name, object? obj = null, object[]? index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
             type.Property(name, bindingFlags)?.GetValue(obj, index);
     public static T? PropertyGetValue<T>(this Type type, string name, object? obj = null, object[]? index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
-            (T?) type.PropertyGetValue(name, obj, index, bindingFlags);
+            (T?)type.PropertyGetValue(name, obj, index, bindingFlags);
 
     public static void PropertySetValue(this Type type, string name, object value, object? obj = null, object[]? index = null, BindingFlags bindingFlags = BindingFlags.Default) =>
             type.Property(name, bindingFlags)?.SetValue(obj, value, index);

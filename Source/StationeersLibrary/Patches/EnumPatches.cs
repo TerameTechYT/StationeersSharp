@@ -1,7 +1,5 @@
 ﻿#region
 
-using StationeersLibrary.Modding.Enums;
-
 #endregion
 
 
@@ -13,7 +11,7 @@ public static class EnumPatches {
     [HarmonyPatch(typeof(Enum), nameof(Enum.GetValues))]
     public static void EnumGetValuesPostfix(Type enumType, ref Array __result) {
         if (EnumCacheProvider.TryGetManager(enumType, out var manager)) {
-            __result = GetValues(enumType, manager, __result);
+            __result = EnumPatches.GetValues(enumType, manager, __result);
         }
     }
 
@@ -22,7 +20,7 @@ public static class EnumPatches {
     [HarmonyPatch(typeof(Enum), nameof(Enum.GetNames))]
     public static void EnumGetNamesPostfix(Type enumType, ref Array __result) {
         if (EnumCacheProvider.TryGetManager(enumType, out var manager)) {
-            __result = GetNames(manager, __result);
+            __result = EnumPatches.GetNames(manager, __result);
         }
     }
 
@@ -41,7 +39,7 @@ public static class EnumPatches {
     [HarmonyPrefix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.IsDefined))]
     public static bool EnumIsDefinedPrefix(Type enumType, object value, ref bool __result) {
-        if (EnumCacheProvider.TryGetManager(enumType, out var manager) && IsDefined(manager, value)) {
+        if (EnumCacheProvider.TryGetManager(enumType, out var manager) && EnumPatches.IsDefined(manager, value)) {
             __result = true;
             return false;
         }
@@ -52,7 +50,8 @@ public static class EnumPatches {
     [HarmonyPrefix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.Parse), [typeof(Type), typeof(string), typeof(bool)])]
     public static bool EnumParsePrefix(Type enumType, string value, bool ignoreCase, ref object __result) {
-        if (EnumCacheProvider.TryGetManager(enumType, out var manager) && manager.TryParse(value, out __result)) {
+        if (EnumCacheProvider.TryGetManager(enumType, out var manager) && manager.TryParse(value, out var obj)) {
+            __result = obj;
             return false;
         }
 
@@ -80,7 +79,7 @@ public static class EnumPatches {
         foreach (var type in __result) {
             list.Add(type);
         }
-        foreach (var type2 in cacheManager.ModdedKeys) {
+        foreach (var type2 in cacheManager.Keys) {
             list.Add(type2);
         }
 
@@ -96,7 +95,7 @@ public static class EnumPatches {
             list.Add(type);
         }
 
-        foreach (var type in cacheManager.ModdedKeys) {
+        foreach (var type in cacheManager.Keys) {
             if (cacheManager.TryGetValue(type, out string name))
                 list.Add(name);
         }
