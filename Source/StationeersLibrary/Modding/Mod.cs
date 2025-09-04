@@ -2,7 +2,6 @@
 
 using LaunchPadBooster.Networking;
 using StationeersLaunchPad;
-using System.Reflection;
 using Logger = StationeersLaunchPad.Logger;
 
 #endregion
@@ -147,8 +146,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
                 this.DoLoggerMove();
                 this.LogDebug("Fetched and moved logger.");
             }
-        }
-        else {
+        } else {
             Logger.Global.LogError($"Could not get LoadedMod for {this}", false);
         }
     }
@@ -302,7 +300,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// Internal <see cref="Awake"/> method.
     /// Called when <see cref="MonoBehaviour"/> is initalized
     /// </summary>
-    private void Awake() => this.OnStart();
+    private void Awake() => this.OnAwake();
 
     /// <summary>
     /// Internal <see cref="Awake"/> method.
@@ -345,12 +343,10 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
         try {
             this.OnConfigLoad();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             this.LogFatal("Failed to load configuration!");
             this.LogException(ex);
-        }
-        finally {
+        } finally {
             this.Log($"Loaded configuration with {this.Config.Count.ToStringSuffix("value", "", "s")}!");
         }
     }
@@ -367,13 +363,11 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
             int assemblies = 0;
             try {
                 success = DoAssembliesPatch(out assemblies);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 this.LogFatal("Harmony patching failed!");
                 this.LogException(ex);
                 success = false;
-            }
-            finally {
+            } finally {
                 this.LogDebug($"Harmony patched {assemblies.ToStringSuffix("assemblies")}!");
             }
         }
@@ -391,8 +385,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
             int patches = 0;
             try {
                 success = this.DoClassPatch(processors, out patches);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 this.LogFatal("Harmony patching failed!");
                 this.LogException(ex);
                 success = false;
@@ -414,13 +407,11 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
             List<MethodInfo>? methods = null;
             try {
                 methods = processor.Patch();
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 this.LogFatal("Harmony patching failed!");
                 this.LogException(ex);
                 success = false;
-            }
-            finally {
+            } finally {
                 if (methods?.Count > 0) {
                     if (LaunchPadConfig.Debug) {
                         this.LogDebug($"Harmony patched methods: \n\n{methods.Join((method) => $"{method.FullDescription()}", "\n")}\n");
@@ -616,7 +607,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// </summary>
     /// <typeparam name="TNetworkMessage">A network message type.</typeparam>
     public void RegisterNetworkMessage<TNetworkMessage>() where TNetworkMessage : ModNetworkMessage<TNetworkMessage>, new() {
-        this.LogDebug($"Registering NetworkMessage {typeof(TNetworkMessage).Name }...");
+        this.LogDebug($"Registering NetworkMessage {typeof(TNetworkMessage).Name}...");
         this.InternalMod.RegisterNetworkMessage<TNetworkMessage>();
         this.LogDebug($"Registered NetworkMessage!");
     }
@@ -686,7 +677,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="definition"></param>
     /// <returns></returns>
     public TValue? GetConfigValue<TValue>(ConfigDefinition definition) where TValue : IComparable =>
-        (TValue?) this.GetConfigEntry<TValue>(definition)?.BoxedValue;
+        (TValue?)this.GetConfigEntry<TValue>(definition)?.BoxedValue;
 
     /// <summary>
     /// Gets the configuration value from the section and key of a bound entry.
@@ -709,7 +700,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="defaultValue"></param>
     /// <returns></returns>
     public TValue GetConfigValue<TValue>(ConfigDefinition definition, TValue defaultValue) where TValue : IComparable =>
-        (TValue?) this.GetConfigEntry<TValue>(definition)?.BoxedValue ?? defaultValue;
+        (TValue?)this.GetConfigEntry<TValue>(definition)?.BoxedValue ?? defaultValue;
 
     /// <summary>
     /// Sets a configuration value from the section and key of a bound entry.
@@ -789,7 +780,7 @@ public struct ConfigData<T> : IEquatable<ConfigData<T>> where T : IComparable {
         this.Description = new(description, new AcceptableValueRange<T>(min, max), tags);
     }
 
-    public readonly override bool Equals(object obj)  =>
+    public readonly override bool Equals(object obj) =>
         obj is ConfigData<T> data && this.Equals(data);
 
     public readonly bool Equals(ConfigData<T> data) =>

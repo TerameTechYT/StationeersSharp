@@ -65,7 +65,7 @@ public interface ILogger {
     /// <param name="severity">LogSeverity</param>
     /// <param name="format">string</param>
     /// <param name="args">params object[]</param>
-    public  virtual void LogFormat(LogSeverity severity, string format, params object[] args) { }
+    public virtual void LogFormat(LogSeverity severity, string format, params object[] args) { }
 
     /// <summary>
     /// Shortcut function <see cref="LogFormat"/> to log a formatted <see cref="LogSeverity.Debug"/> severity message.
