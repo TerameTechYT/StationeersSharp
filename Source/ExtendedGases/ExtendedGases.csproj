@@ -10,8 +10,15 @@
 
     <!-- Import Game/Unity DLL references -->
     <Import Project="$(SolutionDir)Stationeers.VS.References.props" />
+    <ItemGroup>
+      <Compile Remove="C:\Coding\StationeersSharp\Source\GlobalSuppressions.cs" />
+    </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="$(SolutionDir)\Source\StationeersLibrary\StationeersLibrary.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="GameData\" />
     </ItemGroup>
 </Project>
