@@ -11,7 +11,7 @@ public static class PatchFunctions {
     [UsedImplicitly]
     [HarmonyPatch(typeof(AtmosphericsManager), "Emit")]
     [HarmonyPrefix]
-    public static bool AtmosphericsManagerEmitAirVisualizerParticles(List<Atmosphere> targetContainer, ParticleSystem emitter, Vector3 particleAtmosphereSpawnOffset, Predicate<Atmosphere> emitCondition, bool localSpace = false) {
+    public static bool AtmosphericsManagerEmitAirVisualizerParticles(DensePool<Atmosphere> targetContainer, ParticleSystem emitter, Vector3 particleAtmosphereSpawnOffset, Predicate<Atmosphere> emitCondition, bool localSpace = false) {
         try {
             return ConfigData.EnableAirVisualizer && Functions.EmitAirParticles(targetContainer, emitter, particleAtmosphereSpawnOffset, emitCondition, localSpace);
         }

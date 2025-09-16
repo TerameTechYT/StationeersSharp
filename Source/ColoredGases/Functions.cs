@@ -5,8 +5,8 @@
 namespace ColoredGases;
 
 internal static class Functions {
-    internal static bool EmitAirParticles(List<Atmosphere> atmospheres, ParticleSystem emitter, Vector3 offset, Predicate<Atmosphere> condition, bool localSpace) {
-        if (atmospheres == null || atmospheres.Count <= 0 || emitter == null || condition == null) {
+    internal static bool EmitAirParticles(DensePool<Atmosphere> atmospheres, ParticleSystem emitter, Vector3 offset, Predicate<Atmosphere> condition, bool localSpace) {
+        if (atmospheres == null || atmospheres.ActiveCount <= 0 || emitter == null || condition == null) {
             return false;
         }
 
