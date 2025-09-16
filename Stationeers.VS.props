@@ -89,6 +89,7 @@
          <Using Include="StationeersLibrary.Enums" />
          <Using Include="StationeersLibrary.Exceptions" />
          <Using Include="StationeersLibrary.Modding" />
+         <Using Include="StationeersLibrary.Modding.Enums" />
 
         <!-- System -->
         <Using Include="JetBrains.Annotations" />

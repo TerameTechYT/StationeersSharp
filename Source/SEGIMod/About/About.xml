@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Sonic Ether Global Illumination [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.6.0.197</Version>
+    <Version>1.6.0.225</Version>
     <Description>
         [h1]Sonic Ether Global Illumination[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -40,11 +40,15 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.6.0.184 to v1.6.0.197[/h1]
+	[h1]Update v1.6.0.198 to v1.6.0.225[/h1]
 	[list]
-		[*] update for beta
+		[*] 
+		[*] update elements
+		[*] add patches
+		[*] more enum fixes and remove owner assembly portion
+		[*] fix Awake calling OnStart instead of OnAwake
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: e75ba0714e76e5b3140e8beb23960a718e20c4d3 -->
-<!-- LastProcessedVersion: 1.6.0.197 -->
+<!-- LastProcessedCommit: 0ddcfad50905a4ed36c9c2afe4631c3a69cf5f13 -->
+<!-- LastProcessedVersion: 1.6.0.225 -->

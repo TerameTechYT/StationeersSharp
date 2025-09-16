@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Colored Gases [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.4.0.196</Version>
+    <Version>1.4.0.224</Version>
     <Description>
         [h1]Colored Gases[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -36,11 +36,15 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.4.0.183 to v1.4.0.196[/h1]
+	[h1]Update v1.4.0.197 to v1.4.0.224[/h1]
 	[list]
-		[*] update for beta
+		[*] 
+		[*] update elements
+		[*] add patches
+		[*] more enum fixes and remove owner assembly portion
+		[*] fix Awake calling OnStart instead of OnAwake
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: e75ba0714e76e5b3140e8beb23960a718e20c4d3 -->
-<!-- LastProcessedVersion: 1.4.0.196 -->
+<!-- LastProcessedCommit: 0ddcfad50905a4ed36c9c2afe4631c3a69cf5f13 -->
+<!-- LastProcessedVersion: 1.4.0.224 -->
