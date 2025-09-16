@@ -2,6 +2,20 @@
 
 #endregion
 
+#region
+
+#endregion
+
+#region
+
+#endregion
+
+#region
+
+#endregion
+
+using HarmonyLib.Public.Patching;
+
 namespace DetailedPlayerInfo;
 
 public class Plugin : Mod<Plugin> {
@@ -14,7 +28,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 225),
+        Version = new Version(2, 0, 0, 237),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };
@@ -23,7 +37,20 @@ public class Plugin : Mod<Plugin> {
 
     public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
-    public override void OnStart() { }
+    public override void OnStart() {}
+
+    public override UniTask OnBaseLoaded(SceneLoadArgs args) {
+        try {
+            var type = Type.GetType("PlantsnNutritionRebalance.Scripts.MaxHydrationStoragePatch/PlayerStateWindowPatches, stationeers-PlantsnNutritionRebalance");
+
+            this.Harmony.Patch(type.GetMethod("PlayerStateWindowPatch", BindingFlags.Public | BindingFlags.Static),
+                new HarmonyMethod(typeof(PatchFunctions).GetMethod("PNNPatch", BindingFlags.Public | BindingFlags.Static)));
+        } catch (Exception ex) {
+            this.LogException(ex);
+        }
+
+        return UniTask.CompletedTask;
+    }
 
     public override void OnConfigLoad() {
         ConfigData.preferredPressureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Pressure Unit"),

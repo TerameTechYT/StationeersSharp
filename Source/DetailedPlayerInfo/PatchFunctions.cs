@@ -37,7 +37,7 @@ public static class PatchFunctions {
         }
 
         try {
-            Functions.Initialize();
+            Functions.Initialize(ref __instance);
         }
         catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
@@ -58,6 +58,10 @@ public static class PatchFunctions {
         catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
+    }
+
+    public static bool PNNPatch() {
+        return false;
     }
 
     /*[UsedImplicitly]

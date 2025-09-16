@@ -68,7 +68,7 @@ internal static class Functions {
         FrameCounterUpdate(frameCounter).Forget();
     }
 
-    internal static void Initialize() {
+    internal static void Initialize(ref PlayerStateWindow window) {
         smoothUnscaledDeltaTime = Time.unscaledDeltaTime;
 
         _internalTempUnit = GameObject.Find(ConfigData.InternalTemperatureUnit).GetComponent<TextMeshProUGUI>();
