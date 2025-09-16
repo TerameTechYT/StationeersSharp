@@ -21,4 +21,8 @@
             <Private>false</Private>
         </Reference>
     </ItemGroup>
+
+	<Target Name="PostBuild2" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'Publish'">
+		<Copy SourceFiles="$(ProjectDir)\NCalc.dll" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
+	</Target>
 </Project>
