@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Stationeers Library [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>2.0.0.245</Version>
+    <Version>2.0.0.252</Version>
     <Description>
         [h1] This is [b]NOT[/b] StationeersLaunchPad [/h1]
 
@@ -34,13 +34,12 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v2.0.0.243 to v2.0.0.245[/h1]
+	[h1]Update v2.0.0.246 to v2.0.0.252[/h1]
 	[list]
-		[*] 
-		[*] update elements
-		[*] add patches
+		[*] copy NCalc.dll on build
+		[*] fix colored gases mod
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 0ddcfad50905a4ed36c9c2afe4631c3a69cf5f13 -->
-<!-- LastProcessedVersion: 2.0.0.245 -->
+<!-- LastProcessedCommit: 104af7fdf33d06a502cf2a1e28e33845afd114f3 -->
+<!-- LastProcessedVersion: 2.0.0.252 -->

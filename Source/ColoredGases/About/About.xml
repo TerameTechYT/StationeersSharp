@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Colored Gases [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.4.0.225</Version>
+    <Version>1.4.0.232</Version>
     <Description>
         [h1]Colored Gases[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -36,11 +36,12 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.4.0.224 to v1.4.0.225[/h1]
+	[h1]Update v1.4.0.225 to v1.4.0.232[/h1]
 	[list]
-		[*] push for stable
+		[*] copy NCalc.dll on build
+		[*] fix colored gases mod
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: a7b2cf32c4b268eda967db5852ba981dc32e1be2 -->
-<!-- LastProcessedVersion: 1.4.0.225 -->
+<!-- LastProcessedCommit: 104af7fdf33d06a502cf2a1e28e33845afd114f3 -->
+<!-- LastProcessedVersion: 1.4.0.232 -->

@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Waste Tank [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.8.0.224</Version>
+    <Version>1.8.0.231</Version>
     <Description>
         [h1]Better Waste Tank[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -40,15 +40,12 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.8.0.197 to v1.8.0.224[/h1]
+	[h1]Update v1.8.0.225 to v1.8.0.231[/h1]
 	[list]
-		[*] 
-		[*] update elements
-		[*] add patches
-		[*] more enum fixes and remove owner assembly portion
-		[*] fix Awake calling OnStart instead of OnAwake
+		[*] copy NCalc.dll on build
+		[*] fix colored gases mod
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 0ddcfad50905a4ed36c9c2afe4631c3a69cf5f13 -->
-<!-- LastProcessedVersion: 1.8.0.224 -->
+<!-- LastProcessedCommit: 104af7fdf33d06a502cf2a1e28e33845afd114f3 -->
+<!-- LastProcessedVersion: 1.8.0.231 -->
