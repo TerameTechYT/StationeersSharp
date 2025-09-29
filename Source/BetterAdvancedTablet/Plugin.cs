@@ -13,10 +13,12 @@ public class Plugin : Mod<Plugin> {
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
 
+    public override bool LogToStationeers => true;
+
     public override ModInfo Data => new ModInfo() {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
-        Version = new Version(1, 3, 0, 238),
+        Version = new Version(1, 3, 0, 344),
         WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };
@@ -25,7 +27,9 @@ public class Plugin : Mod<Plugin> {
 
     public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
-    public override void OnStart() { }
+    public override void OnStart() {
+        Prefab.OnPrefabsLoaded += Functions.PrefabsLoaded;
+    }
 
     public override void OnConfigLoad() {
         ConfigData.additionalTabletSlots = this.RegisterConfig(new ConfigData<int>(

@@ -2,6 +2,7 @@
 
 #endregion
 
+
 namespace BetterAdvancedTablet;
 
 public static class Functions {
@@ -24,56 +25,37 @@ public static class Functions {
         OccupantAlwaysVisible = slot.OccupantAlwaysVisible,
     };
 
-    /*internal static ControlsGroup RegisterControlsGroup() => new(ConfigData.ModName);
-    internal static List<KeyItem> RegisterKeys() => [
-            new KeyItem(ConfigData.NextCartridge, KeyCode.PageUp),
-            new KeyItem(ConfigData.PrevCartridge, KeyCode.PageDown),
-    ];*/
+    internal static void PrefabsLoaded() {
+        try {
+            AdvancedTablet? tabletPrefab = Prefab.AllPrefabs.Find((thing) => thing is AdvancedTablet) as AdvancedTablet;
+            if (tabletPrefab == null) {
+                return;
+            }
 
-    internal static void ToNextCartridge(ref AdvancedTablet advancedTablet) {
-        bool alt = KeyManager.GetButton(KeyMap.QuantityModifier);
-        Interaction interaction = new(InventoryManager.Parent, InventoryManager.ActiveHandSlot, CursorManager.CursorThing, alt);
-        Interactable interactable = alt ? advancedTablet.InteractButton2 : advancedTablet.InteractButton1;
-        advancedTablet.InteractWith(interactable, interaction);
+            Plugin.Instance.LogDebug($"Found {ConfigData.AdvancedTabletPrefabName} Prefab!");
+            tabletPrefab.AllowSelfUse = true;
+
+            Slot template = tabletPrefab.Slots.Find((slot) => slot.Type == Slot.Class.Cartridge);
+            tabletPrefab.Slots[1].StringKey = template.StringKey;
+            tabletPrefab.Slots[1].StringHash = template.StringHash;
+            for (int i = 0; i < ConfigData.AdditionalTabletSlots; i++) {
+                tabletPrefab.Slots.Add(Functions.CloneSlot(template));
+            }
+
+            Plugin.Instance.LogDebug($"Added {ConfigData.AdditionalTabletSlots} slots to {ConfigData.AdvancedTabletPrefabName} Prefab");
+        } catch (Exception ex) {
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
+        }
     }
 
-    internal static int GetTabletCartridgeSlot(ref AdvancedTablet advancedTablet, int currentCartSlot, bool next) {
-        int result = currentCartSlot;
+    internal static void UsePrimary(ref AdvancedTablet advancedTablet) {
+        if (KeyManager.GetMouseDown("Primary")) {
+            bool alt = KeyManager.GetButton(KeyMap.QuantityModifier);
+            Interaction interaction = new(InventoryManager.Parent, InventoryManager.ActiveHandSlot, CursorManager.CursorThing, alt);
+            Interactable interactable = alt ? advancedTablet.InteractButton2 : advancedTablet.InteractButton1;
 
-        if (next) {
-            for (int i = currentCartSlot; i <= currentCartSlot + advancedTablet.CartridgeSlots.Count - 1; i++) {
-                int slot = (i + 1) % advancedTablet.CartridgeSlots.Count;
-
-                if (advancedTablet.CartridgeSlots[slot].IsNotEmpty()) {
-                    result = currentCartSlot;
-                    Plugin.Instance.LogDebug($"Next Cartridge not empty, returning {result}");
-
-                    break;
-                }
-
-                result = slot;
-            }
+            OnServer.InteractWith(interactable, interaction);
         }
-        else {
-            for (int i = currentCartSlot; i >= currentCartSlot - advancedTablet.CartridgeSlots.Count + 1; i++) {
-                int slot = (i - 1) % advancedTablet.CartridgeSlots.Count;
-                if (slot < 0) {
-                    slot += advancedTablet.CartridgeSlots.Count;
-                }
-
-                if (advancedTablet.CartridgeSlots[slot].IsNotEmpty()) {
-                    result = currentCartSlot;
-                    Plugin.Instance.LogDebug($"Previous Cartridge not empty, returning {result}");
-
-                    break;
-                }
-
-                result = slot;
-            }
-        }
-
-        Plugin.Instance.LogDebug($"returning {result}");
-        return result;
     }
 
     internal static Atmosphere GetScannedAtmosphere(ref AtmosAnalyser analyzer, ref string selectedText) {
@@ -84,23 +66,36 @@ public static class Functions {
         }
 
         if (cursorThing is GasTankStorage gasTankStorage) {
-            Atmosphere totalAtmosphere = new();
+            Atmosphere totalAtmosphere = new() {
+                Thing = gasTankStorage,
+            };
+
             foreach (GasCanister canister in gasTankStorage.ConnectedGasCanisters) {
                 totalAtmosphere.Add(canister.InternalAtmosphere.GasMixture);
                 totalAtmosphere.Volume += canister.InternalAtmosphere.Volume;
             }
 
-            totalAtmosphere.Thing = gasTankStorage;
             selectedText = gasTankStorage.DisplayName.ToUpperInvariant();
             return totalAtmosphere;
         }
 
-        if (cursorThing is INetworkedAtmospherics networkedAtmospherics && networkedAtmospherics.StructureNetwork is AtmosphericsNetwork atmosphericsNetwork) {
-            return atmosphericsNetwork.Atmosphere;
-        }
+        if (cursorThing is StirlingEngine stirling && stirling.HasReadableAtmosphere) {
+            Atmosphere totalAtmosphere = new() {
+                Thing = stirling,
+            };
 
-        if (cursorThing is VendingMachineRefrigerated vendingMachine && vendingMachine.HasReadableAtmosphere) {
-            return vendingMachine.InternalAtmosphere;
+            foreach (Slot slot in stirling.Slots) {
+                if (slot.Contains<GasCanister>(out GasCanister gasCanister)) {
+                    totalAtmosphere.Add(gasCanister.InternalAtmosphere.GasMixture);
+                    totalAtmosphere.Volume += gasCanister.InternalAtmosphere.Volume;
+                }
+            }
+
+            totalAtmosphere.Add(stirling.InternalAtmosphere.GasMixture);
+            totalAtmosphere.Volume += stirling.InternalAtmosphere.Volume;
+
+            selectedText = stirling.DisplayName.ToUpperInvariant();
+            return totalAtmosphere;
         }
 
         if (cursorThing is Human human) {
@@ -122,9 +117,32 @@ public static class Functions {
             return totalAtmosphere;
         }
 
-        Atmosphere atmosphere = new();
+        if (cursorThing is INetworkedAtmospherics networkedAtmospherics && networkedAtmospherics.StructureNetwork is AtmosphericsNetwork atmosphericsNetwork) {
+            selectedText = atmosphericsNetwork.DisplayName.ToUpperInvariant();
+            return atmosphericsNetwork.Atmosphere;
+        }
+
+        if (cursorThing is Fridge fridge && fridge.HasReadableAtmosphere) {
+            selectedText = fridge.DisplayName.ToUpperInvariant();
+            return fridge.InternalAtmosphere;
+        }
+
+        if (cursorThing is FridgePowered fridge2 && fridge2.HasReadableAtmosphere) {
+            selectedText = fridge2.DisplayName.ToUpperInvariant();
+            return fridge2.InternalAtmosphere;
+        }
+        
+        if (cursorThing is VendingMachineRefrigerated vendingMachine && vendingMachine.HasReadableAtmosphere) {
+            selectedText = vendingMachine.DisplayName.ToUpperInvariant();
+            return vendingMachine.InternalAtmosphere;
+        }
+
+        Atmosphere atmosphere = new() {
+            Thing = cursorThing,
+        };
+
         Traverse traverse = Traverse.Create(cursorThing);
-        Atmosphere? internalAtmosphere1 = traverse.Field("InternalAtmosphere2")?.GetValue<Atmosphere>();
+        Atmosphere? internalAtmosphere1 = traverse.Field("InternalAtmosphere1")?.GetValue<Atmosphere>();
         Atmosphere? internalAtmosphere2 = traverse.Field("InternalAtmosphere2")?.GetValue<Atmosphere>();
         Atmosphere? internalAtmosphere3 = traverse.Field("InternalAtmosphere3")?.GetValue<Atmosphere>();
 
@@ -148,9 +166,7 @@ public static class Functions {
             atmosphere.Volume += internalAtmosphere3.Volume;
         }
 
-        atmosphere.Thing = cursorThing;
         selectedText = cursorThing.DisplayName.ToUpperInvariant();
-
         return atmosphere;
     }
 }

@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Detailed Player Info [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>2.0.0.232</Version>
+    <Version>2.0.0.237</Version>
     <Description>
         [h1]Detailed Player Info[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -23,7 +23,7 @@
         You can now close your suit window for less screen clutter!!
         
         you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-        https://github.com/TerameTechYT/StationeersSharp/actions
+        https://github.com/TerameTechYT/StationeersSharp/
     </Description>
     <WorkshopHandle>3071950159</WorkshopHandle>
     <Tags>
@@ -47,12 +47,12 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v2.0.0.226 to v2.0.0.232[/h1]
+	[h1]Update v2.0.0.232 to v2.0.0.237[/h1]
 	[list]
-		[*] copy NCalc.dll on build
-		[*] fix colored gases mod
+		[*] 
+		[*] fix pnn overiding hydration text
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 104af7fdf33d06a502cf2a1e28e33845afd114f3 -->
-<!-- LastProcessedVersion: 2.0.0.232 -->
+<!-- LastProcessedCommit: cf8dd17b41deb9b583f28f364c2fb134c0e16deb -->
+<!-- LastProcessedVersion: 2.0.0.237 -->

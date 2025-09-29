@@ -2,25 +2,25 @@
 > Adds new slots to Advanced Tablet, and more!<br>
 > [More Details](/Source/betterAdvancedTablet)<br>
 
-### Better Fabricator (BF):
-> Adds every recipe to fabricator (including modded)<br>
-> [More Details](/Source/BetterFabricator)<br>
-
 ### Better Code Editor (BCE):
 > Adds more lines to code editor.<br>
 > [More Details](/Source/BetterCodeEditor)<br>
+
+### Better Fabricator (BF):
+> Adds every recipe to fabricator (including modded)<br>
+> [More Details](/Source/BetterFabricator)<br>
 
 ### Better Hydroponics (BH):
 > Adds more readable logic values to hydroponics devices.<br>
 > [More Details](/Source/BetterHydroponics)<br>
 
-### Better Start Screen (BSS):
-> TODO<br>
-> [More Details](/Source/BetterstartScreen)<br>
-
 ### Better Power Mod (BPM):
 > Fixes the max wattage (500w) of solar panels, and much more!<br>
 > [More Details](/Source/BetterPowerMod)<br>
+
+### Better Stack Size (BSS):
+> TODO<br>
+> [More Details](/Source/BetterStackSize)<br>
 
 ### Better Waste Tank (BWT):
 > Improves the wastetank by making the suit use the full potential of the canisters capacity.<br>
@@ -29,6 +29,10 @@
 ### Better Water Combustor (BWC)
 > Makes H2/Water combustor will no longer have micromoles of hot water that will flow into your condensation valves.<br>
 > [More Details](/Source/BetterWaterCombustor)<br>
+
+### Colored Gases (CG)
+> Makes gas particles and condensation effects color based on the gases in the atmosphere.
+> [More Details](/Source/ColoredGases)
 
 ### Detailed Player Info (DPI):
 > Makes the info windows on the bottom right more informal by untruncating the numbers it displays.<br>

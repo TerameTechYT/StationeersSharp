@@ -11,7 +11,7 @@
         This mod allows to configure nearly all stackable items max stack size. The settings are dynamic, meaning any modded items will be configurable too.
         
         you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-        https://github.com/TerameTechYT/StationeersSharp/actions
+        https://github.com/TerameTechYT/StationeersSharp/
     </Description>
     <WorkshopHandle>3530757130</WorkshopHandle>
     <Tags>

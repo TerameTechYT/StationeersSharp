@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Power Mod [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.6.0.231</Version>
+    <Version>1.6.0.239</Version>
     <Description>
         [h1]Better Power Mod[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -17,7 +17,7 @@
         Battery Chargers, Power Controllers, and Omni Power Transmitters can now use up to 2,500w at once.
         
         you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
-        https://github.com/TerameTechYT/StationeersSharp/actions
+        https://github.com/TerameTechYT/StationeersSharp/
     </Description>
     <WorkshopHandle>3234916147</WorkshopHandle>
     <Tags>
@@ -41,12 +41,12 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.6.0.225 to v1.6.0.231[/h1]
+	[h1]Update v1.6.0.231 to v1.6.0.239[/h1]
 	[list]
-		[*] copy NCalc.dll on build
-		[*] fix colored gases mod
+		[*] 
+		[*] fix pnn overiding hydration text
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 104af7fdf33d06a502cf2a1e28e33845afd114f3 -->
-<!-- LastProcessedVersion: 1.6.0.231 -->
+<!-- LastProcessedCommit: cf8dd17b41deb9b583f28f364c2fb134c0e16deb -->
+<!-- LastProcessedVersion: 1.6.0.239 -->

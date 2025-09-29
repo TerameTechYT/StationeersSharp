@@ -15,6 +15,6 @@ obj/
 AssemblyInfo.cs
 !Commands/*.*
 Objects/
-Build/
+!Build/**/*.dll
 
 Stationeers.VS.User.props
