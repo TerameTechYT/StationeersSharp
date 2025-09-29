@@ -15,7 +15,7 @@ public class StationeersLibraryCommand : CommandBase {
     public override bool IsLaunchCmd => false;
 
     public override string? Execute(string[] args) {
-        if (args.First() == "report") {
+        /*if (args.First() == "report") {
             string logName = "LogForGithub";
 
             CommandLine.CommandsMap["log"].Execute(["logname", logName]);
@@ -27,7 +27,7 @@ public class StationeersLibraryCommand : CommandBase {
             Application.OpenURL($"{Constants.REPOSITORY_ISSUES_NEW_URL}?title={title}&body={body}&labels={labels}");
 
             return "Opened Github issue page.";
-        }
+        }*/
 
         return null;
     }

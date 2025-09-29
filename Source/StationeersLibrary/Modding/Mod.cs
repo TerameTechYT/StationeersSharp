@@ -521,7 +521,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// </summary>
     /// <param name="message"></param>
     /// <param name="severity"></param>
-    public virtual void LogStationeers(string message, LogSeverity severity) {
+    public virtual void LogStationeers(string message, LogSeverity severity = LogSeverity.Information) {
         if (!this.LogToStationeers) {
             return;
         }
