@@ -11,6 +11,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - uses: RageAgainstThePixel/setup-steamcmd@v1
+    
       - name: Checkout Main Repository
         uses: actions/checkout@v4
 
@@ -22,113 +24,24 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
 
-      - name: Clone and Build DepotDownloader
-        run: |
-          git clone https://github.com/SteamRE/DepotDownloader.git
-          cd DepotDownloader
-          dotnet publish -c Release -o out
-          dir /a
-
-      - name: Download Libraries from Steam
-        run: |
-          dotnet DepotDownloader\out\DepotDownloader.dll `
-            -app 600760 `
-            -depot 600761 `
-            -dir files `
-            -file "Assembly-CSharp.dll" `
-            -file "Assembly-CSharp-firstpass.dll" `
-            -file "DOTween.dll" `
-            -file "UniTask.dll" `
-            -file "UniTask.Addressables.dll" `
-            -file "UniTaskDOTween.dll" `
-            -file "UniTask.Linq.dll" `
-            -file "UniTask.TextMeshPro.dll" `
-            -file "Unity.Mathematics.dll" `
-            -file "Unity.TextMeshPro.dll" `
-            -file "UnityEngine.AccessibilityModule.dll" `
-            -file "UnityEngine.AIModule.dll" `
-            -file "UnityEngine.AndroidJNIModule.dll" `
-            -file "UnityEngine.AnimationModule.dll" `
-            -file "UnityEngine.ARModule.dll" `
-            -file "UnityEngine.AssetBundleModule.dll" `
-            -file "UnityEngine.AudioModule.dll" `
-            -file "UnityEngine.ClothModule.dll" `
-            -file "UnityEngine.ClusterInputModule.dll" `
-            -file "UnityEngine.ClusterRendererModule.dll" `
-            -file "UnityEngine.ContentLoadModule.dll" `
-            -file "UnityEngine.CoreModule.dll" `
-            -file "UnityEngine.CrashReportingModule.dll" `
-            -file "UnityEngine.DirectorModule.dll" `
-            -file "UnityEngine.dll" `
-            -file "UnityEngine.DSPGraphModule.dll" `
-            -file "UnityEngine.GameCenterModule.dll" `
-            -file "UnityEngine.GIModule.dll" `
-            -file "UnityEngine.GridModule.dll" `
-            -file "UnityEngine.HotReloadModule.dll" `
-            -file "UnityEngine.ImageConversionModule.dll" `
-            -file "UnityEngine.IMGUIModule.dll" `
-            -file "UnityEngine.InputLegacyModule.dll" `
-            -file "UnityEngine.InputModule.dll" `
-            -file "UnityEngine.JSONSerializeModule.dll" `
-            -file "UnityEngine.LocalizationModule.dll" `
-            -file "UnityEngine.NVIDIAModule.dll" `
-            -file "UnityEngine.ParticleSystemModule.dll" `
-            -file "UnityEngine.PerformanceReportingModule.dll" `
-            -file "UnityEngine.Physics2DModule.dll" `
-            -file "UnityEngine.PhysicsModule.dll" `
-            -file "UnityEngine.ProfilerModule.dll" `
-            -file "UnityEngine.PropertiesModule.dll" `
-            -file "UnityEngine.ScreenCaptureModule.dll" `
-            -file "UnityEngine.SharedInternalsModule.dll" `
-            -file "UnityEngine.SpriteMaskModule.dll" `
-            -file "UnityEngine.SpriteShapeModule.dll" `
-            -file "UnityEngine.StreamingModule.dll" `
-            -file "UnityEngine.SubstanceModule.dll" `
-            -file "UnityEngine.SubsystemsModule.dll" `
-            -file "UnityEngine.TerrainModule.dll" `
-            -file "UnityEngine.TerrainPhysicsModule.dll" `
-            -file "UnityEngine.TextCoreFontEngineModule.dll" `
-            -file "UnityEngine.TextCoreTextEngineModule.dll" `
-            -file "UnityEngine.TextRenderingModule.dll" `
-            -file "UnityEngine.TilemapModule.dll" `
-            -file "UnityEngine.TLSModule.dll" `
-            -file "UnityEngine.UI.dll" `
-            -file "UnityEngine.UIElementsModule.dll" `
-            -file "UnityEngine.UIModule.dll" `
-            -file "UnityEngine.UnityWebRequestModule.dll" `
-            -file "UnityEngine.UmbraModule.dll" `
-            -file "UnityEngine.VehiclesModule.dll" `
-            -file "UnityEngine.VFXModule.dll" `
-            -file "UnityEngine.VideoModule.dll" `
-            -file "UnityEngine.VirtualTexturingModule.dll" `
-            -file "UnityEngine.VRModule.dll" `
-            -file "UnityEngine.WindModule.dll" `
-            -file "UnityEngine.XRModule.dll"
-          dir /a
+      - run: steamcmd +login anonymous +sDepotDownloadFileFilter "*.dll" +app_update 600760 validate +quit
 
       - name: Copy Libraries
         run: |
-          mkdir -Force Libraries
-          mkdir -Force Libraries\rocketstation_Data
-          mkdir -Force Libraries\rocketstation_Data\Managed
-          Get-ChildItem -Path "files" -Filter *.dll | `
-            Copy-Item -Destination Libraries/rocketstation_Data/Managed -Force
-          dir /a
+          mkdir Libraries
+          cp $STEAM_DIR/steamapps/common/Stationeers\ Dedicated\ Server/rocketstation_DedicatedServer_Data/Managed/*.dll ./Libraries
 
       - name: Download BepInEx
         run: |
           Invoke-WebRequest -Uri "https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/BepInEx_x64_5.4.22.0.zip" -OutFile "bepinex.zip"
           Expand-Archive -Path "bepinex.zip" -DestinationPath "bepinex"
-          mv -Force bepinex Libraries
-          mkdir -Force Libraries/BepInEx/plugins
-          dir /a
+          cp ./bepinex/core/*.dll ./Libraries
 
       - name: Download StationeersLaunchPad  
         run: |
-          Invoke-WebRequest -Uri "https://github.com/StationeersLaunchPad/StationeersLaunchPad/releases/download/v0.2.1/StationeersLaunchPad-v0.2.1.zip" -OutFile "slp.zip"
+          Invoke-WebRequest -Uri "https://github.com/StationeersLaunchPad/StationeersLaunchPad/releases/download/v0.2.12/StationeersLaunchPad-v0.2.12.zip" -OutFile "slp.zip"
           Expand-Archive -Path "slp.zip" -DestinationPath "slp"
-          mv -Force slp Libraries/BepInEx/plugins
-          dir /a
+          cp ./slp/StationeersLaunchPad/*.dll ./Libraries
 
       - name: Build Solution
         run: |
@@ -138,7 +51,7 @@ jobs:
             /restore
           dir /a
 
-      - name: Upload  Artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Mods
