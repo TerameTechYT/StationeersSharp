@@ -1,5 +1,7 @@
 ﻿#region
 
+using StationeersLibrary.Modding;
+
 #endregion
 
 namespace StationeersLibrary.Exceptions;

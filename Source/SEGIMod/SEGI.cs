@@ -1,5 +1,9 @@
 #region
+
+using UnityEngine;
+using UnityEngine.Rendering;
 using SEGIResources = SEGI.Properties.Resources;
+
 #endregion
 
 namespace SEGI;
@@ -185,10 +189,8 @@ public class SEGI : MonoBehaviour {
 
     #endregion
 
-    [UsedImplicitly]
     private void Start() => InitCheck();
 
-    [UsedImplicitly]
     private void InitCheck() {
         if (initalized) {
             return;
@@ -197,7 +199,6 @@ public class SEGI : MonoBehaviour {
         Init();
     }
 
-    [UsedImplicitly]
     private void CreateVolumeTextures() {
         if (volumeTextures != null) {
             for (int i = 0; i < mipLevels; i++) {
@@ -314,8 +315,7 @@ public class SEGI : MonoBehaviour {
         if (shadowCameraGameObject.GetComponent<Camera>()) {
             shadowCamera = shadowCameraGameObject.GetComponent<Camera>();
             shadowCameraTransform = shadowCameraGameObject.transform;
-        }
-        else {
+        } else {
             shadowCamera = shadowCameraGameObject.AddComponent<Camera>();
             shadowCamera.enabled = false;
             shadowCamera.depth = attachedCamera.depth - 1;
@@ -336,8 +336,7 @@ public class SEGI : MonoBehaviour {
 
         if (voxelCameraGameObject.GetComponent<Camera>()) {
             voxelCamera = voxelCameraGameObject.GetComponent<Camera>();
-        }
-        else {
+        } else {
             voxelCamera = voxelCameraGameObject.AddComponent<Camera>();
             voxelCamera.enabled = false;
             voxelCamera.orthographic = true;
@@ -390,7 +389,6 @@ public class SEGI : MonoBehaviour {
         initalized = true;
     }
 
-    [UsedImplicitly]
     private void CheckSupport() {
         systemSupported.HDRTextures = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf);
         systemSupported.RIntTextures = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RInt);
@@ -410,7 +408,6 @@ public class SEGI : MonoBehaviour {
         }
     }
 
-    [UsedImplicitly]
     private void OnDrawGizmosSelected() {
         if (!enabled) {
             return;
@@ -423,7 +420,6 @@ public class SEGI : MonoBehaviour {
         Gizmos.color = prevColor;
     }
 
-    [UsedImplicitly]
     private void CleanupTexture(ref RenderTexture texture) {
         if (texture) {
             texture.DiscardContents();
@@ -432,7 +428,6 @@ public class SEGI : MonoBehaviour {
         }
     }
 
-    [UsedImplicitly]
     private void CleanupTextures() {
         CleanupTexture(ref sunDepthTexture);
         CleanupTexture(ref previousGIResult);
@@ -449,7 +444,6 @@ public class SEGI : MonoBehaviour {
         CleanupTexture(ref dummyVoxelTextureFixed);
     }
 
-    [UsedImplicitly]
     private void Cleanup() {
         DestroyImmediate(material);
         DestroyImmediate(voxelCameraGameObject);
@@ -461,7 +455,6 @@ public class SEGI : MonoBehaviour {
         CleanupTextures();
     }
 
-    [UsedImplicitly]
     private void OnEnable() {
         InitCheck();
         ResizeRenderTextures();
@@ -469,10 +462,8 @@ public class SEGI : MonoBehaviour {
         CheckSupport();
     }
 
-    [UsedImplicitly]
     private void OnDisable() => Cleanup();
 
-    [UsedImplicitly]
     private void ResizeRenderTextures() {
         if (previousGIResult) {
             CleanupTexture(ref previousGIResult);
@@ -515,7 +506,6 @@ public class SEGI : MonoBehaviour {
         sunDepthShader.hideFlags = HideFlags.HideAndDontSave;
     }
 
-    [UsedImplicitly]
     private void Update() {
         if (notReadyToRender) {
             return;
@@ -556,7 +546,6 @@ public class SEGI : MonoBehaviour {
         return mat;
     }
 
-    [UsedImplicitly]
     private void OnPreRender() {
         //Force reinitialization to make sure that everything is working properly if one of the cameras was unexpectedly destroyed
         if (!voxelCamera || !shadowCamera) {
@@ -588,8 +577,7 @@ public class SEGI : MonoBehaviour {
             Vector3 origin;
             if (followTransform) {
                 origin = followTransform.position;
-            }
-            else {
+            } else {
                 //GI is still flickering a bit when the scene view and the game view are opened at the same time
                 origin = transform.position + (transform.forward * ConfigData.VoxelSpaceSize / 4.0f);
             }
@@ -711,8 +699,7 @@ public class SEGI : MonoBehaviour {
             if (ConfigData.InfiniteBounces) {
                 renderState = RenderState.Bounce;
             }
-        }
-        else if (renderState == RenderState.Bounce) {
+        } else if (renderState == RenderState.Bounce) {
 
             //Clear the volume texture that is immediately written to in the voxelization scene shader
             clearCompute.SetTexture(0, "RG0", integerVolume);
@@ -744,7 +731,6 @@ public class SEGI : MonoBehaviour {
     }
 
     [ImageEffectOpaque]
-    [UsedImplicitly]
     private void OnRenderImage(RenderTexture source, RenderTexture destination) {
         if (notReadyToRender) {
             Graphics.Blit(source, destination);
@@ -882,9 +868,8 @@ public class SEGI : MonoBehaviour {
             //Release temporary textures
             RenderTexture.ReleaseTemporary(gi3);
             RenderTexture.ReleaseTemporary(gi4);
-        }
-        else        //If Half Resolution tracing is disabled
-        {
+        } else        //If Half Resolution tracing is disabled
+          {
             //Perform temporal reprojection and blending
             if (ConfigData.TemporalBlendWeight < 1.0f) {
                 Graphics.Blit(gi2, gi1, material, Pass.TemporalBlend);

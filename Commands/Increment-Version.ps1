@@ -72,6 +72,12 @@ $workshopId = if ($workshopIdMatch) { $workshopIdMatch.Matches[0].Groups[1].Valu
 $gameType = if ($gameTypeMatch) { $gameTypeMatch.Matches[0].Groups[1].Value } else { "unknown" }
 
 $assemblyContent = @"
+#region
+
+using System.Reflection;
+
+#endregion
+
 [assembly: AssemblyTitle("$name")]
 [assembly: AssemblyDescription("Workshop ID: $workshopId | GameType: $gameType")]
 [assembly: AssemblyCompany("vivien (@mommyvivi on discord)")]

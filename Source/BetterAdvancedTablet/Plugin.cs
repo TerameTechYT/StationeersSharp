@@ -1,5 +1,11 @@
 ﻿#region
 
+using Assets.Scripts.Objects;
+using BepInEx.Configuration;
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using UnityEngine;
+
 #endregion
 
 namespace BetterAdvancedTablet;
@@ -18,7 +24,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
-        Version = new Version(1, 3, 0, 344),
+        Version = new Version(1, 3, 0, 346),
         WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };

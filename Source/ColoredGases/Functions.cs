@@ -1,5 +1,11 @@
 ﻿#region
 
+using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Objects;
+using Assets.Scripts.Util;
+using HarmonyLib;
+using UnityEngine;
+
 #endregion
 
 namespace ColoredGases;
@@ -31,10 +37,8 @@ internal static class Functions {
 
                 emitter.Emit(AtmosphericsManager.emitParams, 1);
                 found = true;
-            }
-            catch (ArgumentOutOfRangeException) {
-            }
-            catch (IndexOutOfRangeException) {
+            } catch (ArgumentOutOfRangeException) {
+            } catch (IndexOutOfRangeException) {
             }
         }
 
@@ -86,11 +90,9 @@ internal static class Functions {
                     unusedFogs--;
                     usedFogs++;
                 }
-            }
-            catch (ArgumentOutOfRangeException) {
+            } catch (ArgumentOutOfRangeException) {
                 _lastIndex = fogNumber;
-            }
-            catch (IndexOutOfRangeException) {
+            } catch (IndexOutOfRangeException) {
                 _lastIndex = fogNumber;
             }
         }

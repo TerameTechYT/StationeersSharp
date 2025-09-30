@@ -1,5 +1,10 @@
 ﻿#region
 
+using Assets.Scripts.UI;
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using UnityEngine;
+
 #endregion
 
 namespace StationpediaCalculator;
@@ -14,7 +19,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "StationpediaCalculator",
         Guid = "stationpediacalculator",
-        Version = new Version(1, 5, 0, 343),
+        Version = new Version(1, 5, 0, 345),
         WorkshopId = 3305312105ul,
         GameType = GameType.Client,
     };

@@ -9,7 +9,7 @@ using static Assets.Scripts.Atmospherics.Chemistry;
 
 namespace ExtendedGases.Patches;
 
-[HarmonyPatch]
+/*[HarmonyPatch]
 public static class ChemistryPatcher {
     [HarmonyPatch(typeof(Chemistry), nameof(Chemistry.SpecificHeat)), HarmonyPrefix]
     public static bool ChemistrySpecificHeatPrefix(GasType gasType, ref double __result) {
@@ -37,4 +37,4 @@ public static class ChemistryPatcher {
         }
         return true;
     }
-}
+}*/

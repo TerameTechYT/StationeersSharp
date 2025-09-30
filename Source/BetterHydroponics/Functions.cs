@@ -1,4 +1,10 @@
-﻿namespace BetterHydroponics;
+﻿#region
+
+using Assets.Scripts.Objects.Items;
+using Assets.Scripts.Objects.Motherboards;
+
+#endregion
+namespace BetterHydroponics;
 
 public static class Functions {
     internal static bool CanLogicRead(LogicSlotType logicSlotType) => ConfigData.PlantReadDictionary.ContainsKey(logicSlotType);

@@ -4,9 +4,9 @@ using static Assets.Scripts.Atmospherics.Chemistry;
 
 #endregion
 
-
 namespace ExtendedGases.Elements;
-public static class ElementManager {
+
+/*public static class ElementManager {
     private static readonly object _lock = new();
 
     private static readonly Dictionary<string, Element> _elements = [];
@@ -45,4 +45,4 @@ public static class ElementManager {
             ElementManager._gasTypeString.Remove(element.LiquidType);
         }
     }
-}
+}*/

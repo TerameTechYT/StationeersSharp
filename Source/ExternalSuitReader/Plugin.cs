@@ -1,5 +1,13 @@
 ﻿#region
 
+using Assets.Scripts;
+using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Objects.Clothing;
+using Assets.Scripts.Objects.Motherboards;
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using UnityEngine;
+
 #endregion
 
 namespace ExternalSuitReader;
@@ -14,7 +22,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "ExternalSuitReader",
         Guid = "externalsuitreader",
-        Version = new Version(1, 8, 0, 343),
+        Version = new Version(1, 8, 0, 345),
         WorkshopId = 3071985478ul,
         GameType = GameType.Both,
     };

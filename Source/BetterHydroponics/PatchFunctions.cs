@@ -1,10 +1,19 @@
-﻿namespace BetterHydroponics;
+﻿#region
+
+using Assets.Scripts.Objects.Electrical;
+using Assets.Scripts.Objects.Motherboards;
+using Assets.Scripts.Objects.Pipes;
+using HarmonyLib;
+using StationeersLibrary;
+
+#endregion
+
+namespace BetterHydroponics;
 
 [HarmonyPatch]
 public static class PatchFunctions {
 
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(HydroponicsTrayDevice), nameof(HydroponicsTrayDevice.CanLogicRead), [typeof(LogicSlotType), typeof(int)])]
     [HarmonyPostfix]
     public static void HydroponicsTrayDeviceCanLogicRead(ref HydroponicsTrayDevice __instance, ref bool __result, LogicSlotType logicSlotType, int slotId) {
@@ -14,13 +23,11 @@ public static class PatchFunctions {
 
         try {
             __result = __result || Functions.CanLogicRead(logicSlotType);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(HydroponicsTrayDevice), nameof(HydroponicsTrayDevice.GetLogicValue), [typeof(LogicSlotType), typeof(int)])]
     [HarmonyPostfix]
     public static void HydroponicsTrayDeviceGetLogicValue(ref HydroponicsTrayDevice __instance, ref double __result, LogicSlotType logicSlotType, int slotId) {
@@ -34,13 +41,11 @@ public static class PatchFunctions {
             }
 
             __result = Functions.GetLogicValue(__instance.Plant, logicSlotType, slotId);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(HydroponicsAutomated), nameof(HydroponicsAutomated.CanLogicRead), [typeof(LogicSlotType), typeof(int)])]
     [HarmonyPostfix]
     public static void HydroponicsAutomatedCanLogicRead(ref HydroponicsAutomated __instance, ref bool __result, LogicSlotType logicSlotType, int slotId) {
@@ -50,13 +55,11 @@ public static class PatchFunctions {
 
         try {
             __result = __result || Functions.CanLogicRead(logicSlotType);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(HydroponicsAutomated), nameof(HydroponicsAutomated.GetLogicValue), [typeof(LogicSlotType), typeof(int)])]
     [HarmonyPostfix]
     public static void HydroponicsAutomatedGetLogicValue(ref HydroponicsAutomated __instance, ref double __result, LogicSlotType logicSlotType, int slotId) {
@@ -70,13 +73,11 @@ public static class PatchFunctions {
             }
 
             __result = Functions.GetLogicValue(__instance.Plant, logicSlotType, slotId);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(HydroponicsStation), nameof(HydroponicsStation.CanLogicRead), [typeof(LogicSlotType), typeof(int)])]
     [HarmonyPostfix]
     public static void HydroponicsStationCanLogicRead(ref HydroponicsStation __instance, ref bool __result, LogicSlotType logicSlotType, int slotId) {
@@ -86,13 +87,11 @@ public static class PatchFunctions {
 
         try {
             __result = __result || Functions.CanLogicRead(logicSlotType);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(HydroponicsStation), nameof(HydroponicsStation.GetLogicValue), [typeof(LogicSlotType), typeof(int)])]
     [HarmonyPostfix]
     public static void HydroponicsStationGetLogicValue(ref HydroponicsStation __instance, ref double __result, LogicSlotType logicSlotType, int slotId) {
@@ -106,8 +105,7 @@ public static class PatchFunctions {
             }
 
             __result = Functions.GetLogicValue(__instance.Plant(slotId), logicSlotType, slotId);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }

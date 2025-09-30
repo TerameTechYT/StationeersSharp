@@ -1,5 +1,12 @@
 ﻿#region
 
+using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Objects;
+using Assets.Scripts.Util;
+using HarmonyLib;
+using StationeersLibrary;
+using UnityEngine;
+
 #endregion
 
 namespace ColoredGases;
@@ -8,7 +15,6 @@ namespace ColoredGases;
 public static class PatchFunctions {
 
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(AtmosphericsManager), "Emit")]
     [HarmonyPrefix]
     public static bool AtmosphericsManagerEmitAirVisualizerParticles(DensePool<Atmosphere> targetContainer, ParticleSystem emitter, Vector3 particleAtmosphereSpawnOffset, Predicate<Atmosphere> emitCondition, bool localSpace = false) {
@@ -22,7 +28,6 @@ public static class PatchFunctions {
         return true;
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(AtmosphericFog), nameof(AtmosphericFog.EmitAtmosphericFogParticles))]
     [HarmonyPrefix]
     public static bool AtmosphericFogEmitAtmosphericFogParticles() {

@@ -1,6 +1,10 @@
 ﻿#region
 
+using Assets.Scripts;
+using Assets.Scripts.UI;
+using Cysharp.Threading.Tasks;
 using NCalc;
+using UnityEngine;
 using UnityObject = UnityEngine.Object;
 
 #endregion
@@ -13,13 +17,11 @@ internal static class Functions {
 
         if (expression.HasErrors()) {
             ConfigData.CalculatorItem.gameObject.SetActive(false);
-        }
-        else {
+        } else {
             object result = "";
             try {
                 result = expression.Evaluate();
-            }
-            catch (EvaluationException) { } // only catch EvaluationException
+            } catch (EvaluationException) { } // only catch EvaluationException
 
             string text = result?.ToString() ?? "invalid";
 

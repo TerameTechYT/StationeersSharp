@@ -1,5 +1,11 @@
 ﻿#region
 
+using BepInEx.Configuration;
+using StationeersLibrary;
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using UnityEngine;
+
 #endregion
 
 namespace BetterPowerMod;
@@ -14,7 +20,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterPowerMod",
         Guid = "betterpowermod",
-        Version = new Version(1, 6, 0, 343),
+        Version = new Version(1, 6, 0, 345),
         WorkshopId = 3234916147ul,
         GameType = GameType.Both,
     };

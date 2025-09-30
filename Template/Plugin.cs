@@ -1,7 +1,10 @@
 ﻿#region
 
-#endregion
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using UnityEngine;
 
+#endregion
 
 namespace Template;
 

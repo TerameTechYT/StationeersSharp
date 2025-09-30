@@ -1,6 +1,21 @@
 ﻿#region
 
+using Assets.Scripts;
+using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Inventory;
+using Assets.Scripts.Objects;
+using Assets.Scripts.Objects.Clothing;
+using Assets.Scripts.Objects.Electrical;
+using Assets.Scripts.Objects.Entities;
+using Assets.Scripts.Objects.Items;
+using Assets.Scripts.Objects.Pipes;
+using HarmonyLib;
+using Networks;
+using Objects.Electrical;
+using StationeersLibrary;
+
 #endregion
+
 
 
 namespace BetterAdvancedTablet;
@@ -131,7 +146,7 @@ public static class Functions {
             selectedText = fridge2.DisplayName.ToUpperInvariant();
             return fridge2.InternalAtmosphere;
         }
-        
+
         if (cursorThing is VendingMachineRefrigerated vendingMachine && vendingMachine.HasReadableAtmosphere) {
             selectedText = vendingMachine.DisplayName.ToUpperInvariant();
             return vendingMachine.InternalAtmosphere;

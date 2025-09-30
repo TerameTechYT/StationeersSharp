@@ -1,5 +1,9 @@
 ﻿#region
 
+using Assets.Scripts.UI;
+using HarmonyLib;
+using StationeersLibrary;
+
 #endregion
 
 namespace StationpediaCalculator;
@@ -8,7 +12,6 @@ namespace StationpediaCalculator;
 public static class PatchFunctions {
 
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(Stationpedia), "ForceSearch")]
     [HarmonyPostfix]
     public static void StationpediaForceSearch(ref Stationpedia __instance, string searchText) {
@@ -18,13 +21,11 @@ public static class PatchFunctions {
 
         try {
             Functions.CalculateSearch(searchText);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(Stationpedia), "AddSearchInsertsToPool")]
     [HarmonyPostfix]
     public static void StationpediaAddSearchInsertsToPool(ref Stationpedia __instance, int numToAdd) {
@@ -41,8 +42,7 @@ public static class PatchFunctions {
             }
 
             Functions.CreateCalculator(ref list);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }

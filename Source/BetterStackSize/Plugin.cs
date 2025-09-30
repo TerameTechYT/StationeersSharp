@@ -1,8 +1,16 @@
 ﻿#region
 
 using Assets.Scripts.Objects;
+using Assets.Scripts.Objects.Electrical;
 using Assets.Scripts.Objects.Items;
+using Assets.Scripts.Objects.Pipes;
 using BepInEx.Configuration;
+using Objects;
+using Objects.Items;
+using Objects.Structures;
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using UnityEngine;
 using Flour = Assets.Scripts.Objects.Items.Flour;
 using Milk = Assets.Scripts.Objects.Items.Milk;
 using Sugar = Assets.Scripts.Objects.Items.Sugar;
@@ -26,7 +34,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
-        Version = new Version(1, 0, 0, 211),
+        Version = new Version(1, 0, 0, 213),
         WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };
@@ -71,7 +79,7 @@ public class Plugin : Mod<Plugin> {
 
     private void SetStackSize<T>(int hash, T value) {
         if (Prefab.TryFind(hash, out Thing thing)) {
-             this.SetStackSize(thing, value);
+            this.SetStackSize(thing, value);
         }
     }
 
@@ -124,19 +132,23 @@ public class Plugin : Mod<Plugin> {
         switch (stackable) {
             case Constructor constructor: {
                 this.ProcessConstructor(ref constructor);
-            } return;
+            }
+            return;
             case MultiConstructor multiConstructor: {
                 this.ProcessMultiConstructor(ref multiConstructor);
-            } return;
+            }
+            return;
 
             case DynamicThingConstructor dynamicConstructor: {
                 this.ProcessDynamicConstructor(ref dynamicConstructor);
-            } return;
+            }
+            return;
 
             //
             case Ore ore: {
                 this.ProcessOre(ref ore);
-            } return;
+            }
+            return;
             /*case DirtyOre dirtyOre: {
                 this.ProcessDirtyOre(ref dirtyOre);
             } return;*/
@@ -144,34 +156,41 @@ public class Plugin : Mod<Plugin> {
             // Consumables
             case StackableFood stackableFood: {
                 this.ProcessStackableFood(ref stackableFood);
-            } return;
+            }
+            return;
             case Pill pill: {
                 this.ProcessPill(ref pill);
-            } return;
+            }
+            return;
 
             case Hay hay: {
                 this.ProcessHay(ref hay);
-            } return;
+            }
+            return;
             case Plant plant: {
                 this.ProcessPlant(ref plant);
-            } return;
+            }
+            return;
             case DecayedFood decayedFood: {
                 this.ProcessDecayedFood(ref decayedFood);
-            } return;
+            }
+            return;
 
             case StackableLight stackableLight: {
                 this.ProcessStackableLight(ref stackableLight);
-            } return;
+            }
+            return;
 
             case ItemExplosive explosive: {
                 this.ProcessExplosive(ref explosive);
-            } return;
+            }
+            return;
 
             case ResearchPod:
             case Wreckage: return;
         }
 
-       this.ProcessStackableFallback(ref stackable);
+        this.ProcessStackableFallback(ref stackable);
     }
 
     private void ProcessStackableFallback(ref Stackable stackable) {
@@ -257,7 +276,8 @@ public class Plugin : Mod<Plugin> {
         switch (stackable) {
             case Ice ice: {
                 this.ProcessIce(ref ice);
-            } return;
+            }
+            return;
         }
 
         this.RegisterConfig(new ConfigData<int>(
@@ -283,7 +303,8 @@ public class Plugin : Mod<Plugin> {
         switch (stackable) {
             case PureIce pureIce: {
                 this.ProcessPureIce(ref pureIce);
-            } return;
+            }
+            return;
         }
 
         this.RegisterConfig(new ConfigData<int>(
@@ -316,13 +337,13 @@ public class Plugin : Mod<Plugin> {
     }
 
     private void ProcessPill(ref Pill stackable) {
-          this.RegisterConfig(new ConfigData<int>(
-            stackable.MaxQuantity,
-            1, MAX_STACK_SIZE,
-            "Consumable (Pill)", $"{stackable.PrefabName}",
-            $"The max stack size for {stackable.DisplayName}",
-            stackable.PrefabHash
-        ));
+        this.RegisterConfig(new ConfigData<int>(
+          stackable.MaxQuantity,
+          1, MAX_STACK_SIZE,
+          "Consumable (Pill)", $"{stackable.PrefabName}",
+          $"The max stack size for {stackable.DisplayName}",
+          stackable.PrefabHash
+      ));
     }
 
     private void ProcessHay(ref Hay stackable) {
@@ -339,10 +360,12 @@ public class Plugin : Mod<Plugin> {
         switch (stackable) {
             case Seed seed: {
                 this.ProcessSeed(ref seed);
-            } return;
+            }
+            return;
             case Flower flower: {
                 this.ProcessFlower(ref flower);
-            } return;
+            }
+            return;
         }
 
         this.RegisterConfig(new ConfigData<int>(
@@ -411,18 +434,20 @@ public class Plugin : Mod<Plugin> {
             case Flour:
             case Milk:
             case SoyOil:
-            case Sugar:
-            {
+            case Sugar: {
                 this.ProcessCookingIngredient(ref stackable);
-            } return;
+            }
+            return;
 
             case IngredientBase ingredientBase: {
                 this.ProcessIngridientBase(ref ingredientBase);
-            } return;
+            }
+            return;
 
             case Ingot ingot: {
                 this.ProcessIngot(ref ingot);
-            } return;
+            }
+            return;
         }
     }
 
@@ -440,10 +465,12 @@ public class Plugin : Mod<Plugin> {
         switch (stackable) {
             case ColorDye colorDye: {
                 this.ProcessColorDye(ref colorDye);
-            } return;
+            }
+            return;
             case Ingredient ingredient: {
                 this.ProcessIngredient(ref ingredient);
-            } return;
+            }
+            return;
         }
 
         this.RegisterConfig(new ConfigData<float>(

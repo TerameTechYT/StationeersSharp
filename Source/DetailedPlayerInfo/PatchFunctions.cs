@@ -1,5 +1,8 @@
 ﻿#region
 
+using Assets.Scripts.UI;
+using HarmonyLib;
+using StationeersLibrary;
 using TMPro;
 
 #endregion
@@ -10,7 +13,6 @@ namespace DetailedPlayerInfo;
 public static class PatchFunctions {
 
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.UpdateFrameRate))]
     [HarmonyPrefix]
     public static bool WorldManagerUpdateFrameRate(ref TextMeshProUGUI ___FrameRate) {
@@ -20,15 +22,13 @@ public static class PatchFunctions {
 
         try {
             Functions.EnableFrameCounter(ref ___FrameRate);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
         return false;
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(PlayerStateWindow), nameof(PlayerStateWindow.Awake))]
     [HarmonyPostfix]
     public static void PlayerStateWindowAwake(ref PlayerStateWindow __instance) {
@@ -38,13 +38,11 @@ public static class PatchFunctions {
 
         try {
             Functions.Initialize(ref __instance);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(PlayerStateWindow), "Update")]
     [HarmonyPostfix]
     public static void PlayerStateWindowUpdate(ref PlayerStateWindow __instance) {
@@ -54,8 +52,7 @@ public static class PatchFunctions {
 
         try {
             Functions.Update(ref __instance);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }

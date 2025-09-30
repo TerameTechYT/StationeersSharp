@@ -1,5 +1,7 @@
 ﻿#region
 
+using System.Diagnostics.CodeAnalysis;
+
 #endregion
 
 [assembly: SuppressMessage("Performance", "CA1805:Do not initialize unnecessarily")]

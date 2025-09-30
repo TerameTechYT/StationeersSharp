@@ -1,5 +1,12 @@
 ﻿#region
 
+using Assets.Scripts;
+using Assets.Scripts.Objects.Electrical;
+using Objects;
+using StationeersLibrary;
+using UnityEngine;
+using Weather;
+
 #endregion
 
 namespace BetterPowerMod;

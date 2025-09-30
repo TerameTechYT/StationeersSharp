@@ -1,4 +1,8 @@
-﻿namespace StationeersLibrary.Enums;
+﻿#region
+
+#endregion
+
+namespace StationeersLibrary.Enums;
 
 public enum EnergyUnit {
     Joule,

@@ -6,7 +6,7 @@ using static Assets.Scripts.Atmospherics.Chemistry;
 
 namespace ExtendedGases.Elements;
 
-public interface IElement {
+/*public interface IElement {
     string LiquidName { get; }
     GasType GasType { get; }
     GasType LiquidType { get; }
@@ -89,4 +89,4 @@ public class Element : IElement {
 
         ElementManager.Add(this);
     }
-}
+}*/

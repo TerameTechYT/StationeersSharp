@@ -8,7 +8,7 @@ using static Assets.Scripts.Atmospherics.Chemistry;
 
 namespace ExtendedGases.Patches;
 
-[HarmonyPatch]
+/*[HarmonyPatch]
 public static class MoleHelperPatcher {
     [HarmonyPatch(typeof(MoleHelper), "EvaporationCoefficientA"), HarmonyPrefix]
     public static bool MoleHelperEvaporationCoefficientAPrefix(GasType gasType, ref double __result) {
@@ -72,4 +72,4 @@ public static class MoleHelperPatcher {
         }
         return true;
     }
-}
+}*/

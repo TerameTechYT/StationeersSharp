@@ -1,4 +1,10 @@
-﻿namespace StationeersLibrary.Exceptions;
+﻿#region
+
+using StationeersLibrary.Enums;
+
+#endregion
+
+namespace StationeersLibrary.Exceptions;
 
 public class IncompatableGameTypeException : Exception {
     public IncompatableGameTypeException() { }

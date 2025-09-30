@@ -1,10 +1,21 @@
 ﻿#region
 
+using Assets.Scripts;
+using Assets.Scripts.Objects;
+using BepInEx.Configuration;
+using HarmonyLib;
 using LaunchPadBooster.Networking;
 using StationeersLaunchPad;
+using StationeersLibrary.Enums;
+using StationeersLibrary.Profiling;
+using System.Diagnostics;
+using System.Reflection;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Logger = StationeersLaunchPad.Logger;
 
 #endregion
+
 
 namespace StationeersLibrary.Modding;
 
@@ -18,7 +29,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// </summary>
     private static readonly object _lock = new();
 
-    #region LOGGER
+    #region MOD LOGGER
 
     /// <summary>
     /// Should this mod initalize the logger?
@@ -66,7 +77,15 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
     #endregion // MOD INFO
 
-    #region CONFIG
+    #region MOD PROFILER
+
+    public virtual bool UseProfiler { get; }
+
+    public ModProfilerManager Profiler { get; private set; }
+
+    #endregion
+
+    #region MOD CONFIG
 
     /// <summary>
     /// Should this mod initalize the config?
@@ -148,6 +167,10 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
             }
         } else {
             Logger.Global.LogError($"Could not get LoadedMod for {this}", false);
+        }
+
+        if (this.UseProfiler) {
+            this.Profiler = new ModProfilerManager(this);
         }
     }
 
@@ -677,7 +700,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="definition"></param>
     /// <returns></returns>
     public TValue? GetConfigValue<TValue>(ConfigDefinition definition) where TValue : IComparable =>
-        (TValue?)this.GetConfigEntry<TValue>(definition)?.BoxedValue;
+        (TValue?) this.GetConfigEntry<TValue>(definition)?.BoxedValue;
 
     /// <summary>
     /// Gets the configuration value from the section and key of a bound entry.
@@ -700,7 +723,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="defaultValue"></param>
     /// <returns></returns>
     public TValue GetConfigValue<TValue>(ConfigDefinition definition, TValue defaultValue) where TValue : IComparable =>
-        (TValue?)this.GetConfigEntry<TValue>(definition)?.BoxedValue ?? defaultValue;
+        (TValue?) this.GetConfigEntry<TValue>(definition)?.BoxedValue ?? defaultValue;
 
     /// <summary>
     /// Sets a configuration value from the section and key of a bound entry.

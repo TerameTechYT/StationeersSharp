@@ -1,12 +1,17 @@
 ﻿#region
 
+using Assets.Scripts.Atmospherics;
+using HarmonyLib;
+using StationeersLibrary;
+using System.Reflection;
+using System.Reflection.Emit;
+
 #endregion
 
 namespace BetterWaterCombustor;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    [UsedImplicitly]
     [HarmonyPatch(typeof(Atmosphere), nameof(Atmosphere.CombustForWater))]
     [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> AtmosphereCombustForWaterTranspiler(IEnumerable<CodeInstruction> instructions) {
@@ -30,8 +35,7 @@ public static class PatchFunctions {
             }
 
             return newInstructions.AsEnumerable();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 

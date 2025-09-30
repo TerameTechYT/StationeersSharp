@@ -1,5 +1,14 @@
 ﻿#region
 
+using BepInEx.Configuration;
+using Cysharp.Threading.Tasks;
+using HarmonyLib;
+using StationeersLibrary.Args;
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using System.Reflection;
+using UnityEngine;
+
 #endregion
 
 namespace DetailedPlayerInfo;
@@ -14,7 +23,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 341),
+        Version = new Version(2, 0, 0, 343),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };
@@ -23,7 +32,7 @@ public class Plugin : Mod<Plugin> {
 
     public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
-    public override void OnStart() {}
+    public override void OnStart() { }
 
     public override UniTask OnBaseLoaded(SceneLoadArgs args) {
         try {
@@ -137,7 +146,7 @@ internal struct ConfigData {
             "GameCanvas/PanelStatusInfo/PanelVerticalGroup/Internals/PanelInternal/PanelPressure/TextUnitPressure";
 
     public const string JetpackPressureUnit =
-    "GameCanvas/PanelStatusInfo/PanelVerticalGroup/PanelJetpack/PanelPressureDelta/TextUnitPressure";
+            "GameCanvas/PanelStatusInfo/PanelVerticalGroup/PanelJetpack/PanelPressureDelta/TextUnitPressure";
 
     public const string NavagationVelocityUnit =
             "GameCanvas/PanelStatusInfo/PanelExternalNavigation/PanelExternal/PanelNavigation/PanelVelocity/ValueVelocity/TextUnitVelocity";

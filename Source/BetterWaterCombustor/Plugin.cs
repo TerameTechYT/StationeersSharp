@@ -1,5 +1,9 @@
 ﻿#region
 
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using UnityEngine;
+
 #endregion
 
 namespace BetterWaterCombustor;
@@ -14,7 +18,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWaterCombustor",
         Guid = "betterwatercombustor",
-        Version = new Version(1, 4, 0, 343),
+        Version = new Version(1, 4, 0, 345),
         WorkshopId = 3404201609ul,
         GameType = GameType.Both,
     };
@@ -23,7 +27,7 @@ public class Plugin : Mod<Plugin> {
 
     public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
-    public override void OnStart() {}
+    public override void OnStart() { }
 }
 
 internal struct ConfigData {

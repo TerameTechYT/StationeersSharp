@@ -1,6 +1,12 @@
 ﻿#region
 
+using Assets.Scripts.Atmospherics;
+using HarmonyLib;
 using StationeersLaunchPad;
+using StationeersLibrary.Enums;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Text;
 
 #endregion
 
@@ -26,20 +32,6 @@ public static class HarmonyExtensions {
         }
 
         return processors;
-    }
-}
-
-public static class EnumExtensions {
-    public static bool IsDefinedByDefault<TEnum>(this TEnum enumValue) where TEnum : Enum {
-        if (!EnumCacheProvider.TryGetManager(typeof(TEnum), out var manager)) {
-            return true;
-        }
-
-        if (manager.Keys.Contains(enumValue)) {
-            return false;
-        }
-
-        return true;
     }
 }
 

@@ -1,10 +1,10 @@
 ﻿#region
 
+using HarmonyLib;
+
 #endregion
 
 namespace BetterStackSize;
 
 [HarmonyPatch]
-public static class PatchFunctions {
-
-}
+public static class PatchFunctions { }

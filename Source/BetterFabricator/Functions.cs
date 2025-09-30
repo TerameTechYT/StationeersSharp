@@ -1,4 +1,12 @@
-﻿namespace BetterFabricator;
+﻿#region 
+
+using Assets.Scripts.Objects.Appliances;
+using Assets.Scripts.Objects.Electrical;
+using HarmonyLib;
+
+#endregion
+
+namespace BetterFabricator;
 
 public static class Functions {
     public static void LoadFabricatorRecipes() {

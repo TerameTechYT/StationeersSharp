@@ -1,5 +1,12 @@
 #region
 
+using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Objects.Clothing;
+using Assets.Scripts.Objects.Entities;
+using Assets.Scripts.Objects.Items;
+using CharacterCustomisation;
+using StationeersLibrary;
+
 #endregion
 
 namespace BetterWasteTank;

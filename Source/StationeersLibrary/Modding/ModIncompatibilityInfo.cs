@@ -30,7 +30,7 @@ public class ModIncompatibilityInfo : IModInfo {
     public string? MaxVersionString => this.MaxVersion?.ToString();
 
     /// <inheritdoc/>
-    public ulong WorkshopId { get; set; } = 0ul;
+    public ulong WorkshopId { get; set; }
 
     /// <summary>
     /// Is this version equal to the given info

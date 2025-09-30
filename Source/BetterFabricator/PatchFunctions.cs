@@ -1,8 +1,16 @@
-﻿namespace BetterFabricator;
+﻿#region
+
+using HarmonyLib;
+using StationeersLibrary;
+using System.Reflection;
+using System.Reflection.Emit;
+
+#endregion
+
+namespace BetterFabricator;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    [UsedImplicitly]
     [HarmonyPriority(Priority.Last)]
     [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.LoadXmlFileData))]
     [HarmonyTranspiler]
@@ -36,8 +44,7 @@ public static class PatchFunctions {
             ]);
 
             return instructionsList;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 

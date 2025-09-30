@@ -9,7 +9,7 @@ using static Assets.Scripts.Atmospherics.Chemistry;
 
 namespace ExtendedGases.Patches;
 
-[HarmonyPatch]
+/*[HarmonyPatch]
 public static class MolePatcher {
     [HarmonyPatch(typeof(Mole), nameof(Mole.FreezingTemperature)), HarmonyPrefix]
     public static bool MoleFreezingTemperaturePrefix(GasType gasType, ref TemperatureKelvin __result) {
@@ -92,14 +92,14 @@ public static class MolePatcher {
         return true;
     }
 
-    /*[HarmonyPatch(typeof(Mole), nameof(Mole.HeatCapacityRatio)), HarmonyPrefix]
+    [HarmonyPatch(typeof(Mole), nameof(Mole.HeatCapacityRatio)), HarmonyPrefix]
     public static bool MoleHeatCapacityRatioPrefix(GasType gasType, ref double __result) {
         if (ElementManager.TryGet(gasType, out Element element)) {
             __result = element;
             return false;
         }
         return true;
-    }*/
+    }
 
     [HarmonyPatch(typeof(Mole), nameof(Mole.ThermalEfficiency)), HarmonyPrefix]
     public static bool MoleThermalEfficiencyPrefix(GasType gasType, ref double __result) {
@@ -118,4 +118,4 @@ public static class MolePatcher {
         }
         return true;
     }
-}
+}*/

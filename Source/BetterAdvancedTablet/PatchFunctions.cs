@@ -1,19 +1,22 @@
 ﻿#region
 
-#endregion
-
+using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Items;
+using HarmonyLib;
+using StationeersLibrary;
+using UnityEngine;
+
+#endregion
 
 namespace BetterAdvancedTablet;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedTablet), nameof(AdvancedTablet.DeserializeSave))]
     [HarmonyPostfix]
     public static void AdvancedTabletDeserializeSave(ref AdvancedTablet __instance, ThingSaveData savedData) => Traverse.Create(__instance).Method("GetCartridge").GetValue();
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedTablet), nameof(AdvancedTablet.InteractWith))]
     [HarmonyPostfix]
     public static void AdvancedTabletInteractWith(ref AdvancedTablet __instance, ref Thing.DelayedActionInstance __result, ref int ___currentCartSlot, Interactable interactable, Interaction interaction, bool doAction) {
@@ -34,7 +37,6 @@ public static class PatchFunctions {
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(Item), nameof(Item.OnUsePrimary))]
     [HarmonyPrefix]
     public static bool ItemOnUsePrimary(Item __instance, Vector3 targetLocation, Quaternion targetRotation, ulong steamId, bool authoringMode) {
@@ -55,7 +57,6 @@ public static class PatchFunctions {
         return true;
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(AtmosAnalyser), "GetScannedAtmosphere")]
     [HarmonyPrefix]
     public static bool AtmosAnalyserGetScannedAtmosphere(ref AtmosAnalyser __instance, ref Atmosphere __result, ref string ____selectedText) {

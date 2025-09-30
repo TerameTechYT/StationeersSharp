@@ -1,10 +1,11 @@
 ﻿#region
 
-#endregion
-
 using StationeersLaunchPad;
 
+#endregion
+
 namespace StationeersLibrary.Modding;
+
 public interface ILogger {
     /// <summary>
     /// Log function that is redirected to <see cref="Logger"/>

@@ -1,4 +1,9 @@
-﻿
+﻿#region
+
+using StationeersLibrary.Enums;
+
+#endregion
+
 namespace StationeersLibrary.Modding;
 
 /// <summary>

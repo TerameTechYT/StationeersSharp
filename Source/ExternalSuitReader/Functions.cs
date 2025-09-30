@@ -1,5 +1,10 @@
 ﻿#region
 
+using Assets.Scripts.Objects;
+using Assets.Scripts.Objects.Clothing;
+using Assets.Scripts.Objects.Motherboards;
+using System.Xml.Serialization;
+
 #endregion
 
 namespace ExternalSuitReader;

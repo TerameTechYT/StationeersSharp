@@ -1,12 +1,20 @@
 ﻿#region
 
+using Assets.Scripts;
+using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Objects.Electrical;
+using Assets.Scripts.Objects.Structures;
+using HarmonyLib;
+using Objects;
+using StationeersLibrary;
+using UnityEngine;
+
 #endregion
 
 namespace BetterPowerMod;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    [UsedImplicitly]
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.PowerGenerated), MethodType.Getter)]
     [HarmonyPostfix]
     public static void SolarPanelPowerGeneratedGetter(ref SolarPanel __instance, ref float __result) {
@@ -16,8 +24,7 @@ public static class PatchFunctions {
 
         try {
             __result = Functions.GetPotentialSolarPowerGenerated(__instance);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
@@ -69,7 +76,6 @@ public static class PatchFunctions {
             return true;
     }*/
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(WindTurbineGenerator), "SetTurbineRotationSpeed")]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorSetTurbineRotationSpeed(ref WindTurbineGenerator __instance, float speed, ref Transform ___bladesTransform) {
@@ -82,13 +88,11 @@ public static class PatchFunctions {
                 __instance.BaseAnimator?.SetFloat(WindTurbineGenerator.SpeedState, speed);
                 ___bladesTransform?.Rotate(__instance is LargeWindTurbineGenerator ? Vector3.forward : Vector3.up, 720f * GameManager.DeltaTime * speed);
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.GenerationRate), MethodType.Getter)]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorGenerationRateGetter(ref WindTurbineGenerator __instance, ref float __result) {
@@ -98,13 +102,11 @@ public static class PatchFunctions {
 
         try {
             __result = Functions.GetPotentialWindPowerGenerated(__instance);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(TurbineGenerator), nameof(TurbineGenerator.GetGeneratedPower))]
     [HarmonyPostfix]
     public static void TurbineGeneratorGetGeneratedPower(ref TurbineGenerator __instance, ref float __result) {
@@ -114,13 +116,11 @@ public static class PatchFunctions {
 
         try {
             __result *= ConfigData.TurbineMultiplier;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(StirlingEngine), nameof(StirlingEngine.MaxPower), MethodType.Getter)]
     [HarmonyPostfix]
     public static void StirlingEngineMaxPowerGetter(ref StirlingEngine __instance, ref MoleEnergy __result) {
@@ -130,13 +130,11 @@ public static class PatchFunctions {
 
         try {
             __result = new MoleEnergy(ConfigData.StirlingEnergy);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(PowerTransmitterOmni), nameof(PowerTransmitterOmni.GetUsedPower))]
     [HarmonyPostfix]
     public static void PowerTransmitterOmniGetUsedPower(ref PowerTransmitterOmni __instance, ref float ____maximumPowerUsage) {
@@ -146,13 +144,11 @@ public static class PatchFunctions {
 
         try {
             ____maximumPowerUsage = ConfigData.FastChargeRate;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(AreaPowerControl), nameof(AreaPowerControl.GetUsedPower))]
     [HarmonyPostfix]
     public static void AreaPowerControlGetUsedPower(ref AreaPowerControl __instance) {
@@ -162,13 +158,11 @@ public static class PatchFunctions {
 
         try {
             __instance.BatteryChargeRate = ConfigData.FastChargeRate;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(BatteryCellCharger), nameof(BatteryCellCharger.GetUsedPower))]
     [HarmonyPostfix]
     public static void BatteryCellChargerGetUsedPower(ref BatteryCellCharger __instance) {
@@ -178,13 +172,11 @@ public static class PatchFunctions {
 
         try {
             __instance.BatteryChargeRate = __instance.PrefabName == ConfigData.BatteryChargerSmall ? ConfigData.FastChargeRate / 2f : ConfigData.FastChargeRate;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(WallLightBattery), nameof(WallLightBattery.GetUsedPower))]
     [HarmonyPostfix]
     public static void WallLightBatteryGetUsedPower(ref WallLightBattery __instance) {
@@ -194,8 +186,7 @@ public static class PatchFunctions {
 
         try {
             __instance.BatteryChargeRate = ConfigData.FastChargeRate / 2f;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }

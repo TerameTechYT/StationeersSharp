@@ -5,5 +5,5 @@
 namespace StationeersLibrary.Modding;
 
 public interface IModSingleton<T> where T : IMod {
-    //static T? Instance;
+    static T? Instance;
 }

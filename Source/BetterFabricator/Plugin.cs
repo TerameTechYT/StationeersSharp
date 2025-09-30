@@ -1,6 +1,11 @@
 ﻿#region
 
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using UnityEngine;
+
 #endregion
+
 
 namespace BetterFabricator;
 
@@ -14,7 +19,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterFabricator",
         Guid = "betterfabricator",
-        Version = new Version(1, 3, 0, 343),
+        Version = new Version(1, 3, 0, 345),
         WorkshopId = 0ul,
         GameType = GameType.Both,
     };
@@ -23,7 +28,7 @@ public class Plugin : Mod<Plugin> {
 
     public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
-    public override void OnStart() {}
+    public override void OnStart() { }
 }
 
 internal struct ConfigData {

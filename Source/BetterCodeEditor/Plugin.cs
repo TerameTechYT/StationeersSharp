@@ -1,5 +1,11 @@
 ﻿#region
 
+using Assets.Scripts.UI;
+using BepInEx.Configuration;
+using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
+using UnityEngine;
+
 #endregion
 
 namespace BetterCodeEditor;
@@ -16,7 +22,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 343),
+        Version = new Version(1, 4, 0, 345),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };

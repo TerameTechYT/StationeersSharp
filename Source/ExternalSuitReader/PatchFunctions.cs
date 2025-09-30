@@ -1,5 +1,10 @@
 ﻿#region
 
+using Assets.Scripts.Objects.Clothing;
+using Assets.Scripts.Objects.Motherboards;
+using HarmonyLib;
+using StationeersLibrary;
+
 #endregion
 
 namespace ExternalSuitReader;
@@ -7,8 +12,6 @@ namespace ExternalSuitReader;
 [HarmonyPatch]
 public static class PatchFunctions {
 
-
-    [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.CanLogicRead))]
     [HarmonyPostfix]
     public static void AdvancedSuitCanLogicRead(ref AdvancedSuit __instance, ref bool __result, LogicType logicType) {
@@ -18,13 +21,11 @@ public static class PatchFunctions {
 
         try {
             __result = __result || Functions.CanLogicRead(logicType);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [UsedImplicitly]
     [HarmonyPatch(typeof(AdvancedSuit), nameof(AdvancedSuit.GetLogicValue))]
     [HarmonyPostfix]
     public static void AdvancedSuitGetLogicValue(ref AdvancedSuit __instance, ref double __result, LogicType logicType) {
@@ -38,8 +39,7 @@ public static class PatchFunctions {
             }
 
             __result = Functions.GetLogicValue(__instance, logicType);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }

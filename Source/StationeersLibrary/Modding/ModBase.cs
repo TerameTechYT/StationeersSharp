@@ -1,6 +1,12 @@
 ﻿#region
 
+using Cysharp.Threading.Tasks;
 using StationeersLaunchPad;
+using StationeersLibrary.Args;
+using StationeersLibrary.Enums;
+using StationeersLibrary.Profiling;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 #endregion
 
@@ -74,6 +80,12 @@ public abstract class ModBase : MonoBehaviour, IMod, ILogger, IEquatable<ModBase
     public GameType ModGameType => this.Data.GameType;
 
     #endregion // MOD INFO
+
+    #region MOD PROFILER
+
+    public ModProfilerManager Profiler { get; }
+
+    #endregion
 
     #region METHODS
 

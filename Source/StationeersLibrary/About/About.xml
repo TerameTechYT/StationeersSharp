@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Stationeers Library [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>2.0.0.260</Version>
+    <Version>2.0.0.366</Version>
     <Description>
         [h1] This is [b]NOT[/b] StationeersLaunchPad [/h1]
 
@@ -34,12 +34,16 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v2.0.0.252 to v2.0.0.260[/h1]
+	[h1]Update v2.0.0.260 to v2.0.0.366[/h1]
 	[list]
+		[*] dlls
 		[*] 
-		[*] fix pnn overiding hydration text
+		[*] update
+		[*] update stationeers library for net4.8
+		[*] remove old mod
+		[*] Update dotnet-desktop.yml
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: cf8dd17b41deb9b583f28f364c2fb134c0e16deb -->
-<!-- LastProcessedVersion: 2.0.0.260 -->
+<!-- LastProcessedCommit: 6ea4e40c0a840af9d103879a4e1a376378987c7b -->
+<!-- LastProcessedVersion: 2.0.0.366 -->
