@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using StationeersLaunchPad;
 using StationeersLibrary.Args;
 using StationeersLibrary.Enums;
-using StationeersLibrary.Profiling;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -80,12 +80,6 @@ public abstract class ModBase : MonoBehaviour, IMod, ILogger, IEquatable<ModBase
     public GameType ModGameType => this.Data.GameType;
 
     #endregion // MOD INFO
-
-    #region MOD PROFILER
-
-    public ModProfilerManager Profiler { get; }
-
-    #endregion
 
     #region METHODS
 
@@ -213,6 +207,15 @@ public abstract class ModBase : MonoBehaviour, IMod, ILogger, IEquatable<ModBase
 
     /// <inheritdoc/>
     public virtual void OnDestroy() { }
+
+    /// <inheritdoc/>
+    public virtual void OnApplicationFocus(bool hasFocus) { }
+
+    /// <inheritdoc/>
+    public virtual void OnApplicationPause(bool pauseStatus) { }
+
+    /// <inheritdoc/>
+    public virtual void OnApplicationQuit() { }
 
     #endregion // EVENT METHODS
 

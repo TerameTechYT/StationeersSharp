@@ -24,7 +24,7 @@ public class Plugin : Mod<Plugin> {
 
     public override bool UseLogger => true;
     public override bool UseConfig => true;
-    public override bool UseHarmony => true;
+    public override bool UseHarmony => false;
 
     public const string SECTION = "Configurables";
     public const string KEY = "Max Stack Size";
@@ -34,7 +34,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
-        Version = new Version(1, 0, 0, 213),
+        Version = new Version(1, 0, 0, 244),
         WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };
@@ -71,7 +71,7 @@ public class Plugin : Mod<Plugin> {
     }
 
     private void SetStackSize(ConfigEntryBase entry) {
-        object? prefabHash = entry.Description?.Tags?.First();
+        object? prefabHash = entry.Description?.Tags?.Length > 0 ? entry.Description?.Tags?[0] : null;
         if (prefabHash is int prefab) {
             this.SetStackSize(prefab, entry.BoxedValue);
         }

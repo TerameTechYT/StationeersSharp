@@ -2,6 +2,7 @@
 
 using Cysharp.Threading.Tasks;
 using StationeersLibrary.Args;
+using System.Collections;
 using UnityEngine;
 
 #endregion
@@ -59,6 +60,21 @@ public interface IMod {
     /// Called when the <see cref="GameObject"/> with this <see cref="IMod"/> attached is about to be destroyed.
     /// </summary>
     public abstract void OnDestroy();
+
+    /// <summary>
+    /// Called when the application focus has changed.
+    /// </summary>
+    public abstract void OnApplicationFocus(bool hasFocus);
+
+    /// <summary>
+    /// Called when the application pause status has changed.
+    /// </summary>
+    public abstract void OnApplicationPause(bool pauseStatus);
+
+    /// <summary>
+    /// Called when the application is quitting.
+    /// </summary>
+    public abstract void OnApplicationQuit();
 
     /// <summary>
     /// Called when any scene is loaded

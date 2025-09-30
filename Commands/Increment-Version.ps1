@@ -114,7 +114,7 @@ if (Test-Path $aboutPath) {
 }
 
 # --- Changelog Section --- #
-$commitCommentPattern = '<!--\s*LastProcessedCommit:\s*([a-f0-9]{7,40})\s*-->'
+$commitCommentPattern = '<!--\s*LastProcessedCommit:\s*([a-f0-9]{7,40}|HEAD)\s*-->'
 $lastProcessedCommit = $null
 
 $versionCommentPattern = '<!--\s*LastProcessedVersion:\s*?([\d\.]+)\s*-->'

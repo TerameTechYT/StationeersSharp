@@ -7,9 +7,9 @@ using HarmonyLib;
 using LaunchPadBooster.Networking;
 using StationeersLaunchPad;
 using StationeersLibrary.Enums;
-using StationeersLibrary.Profiling;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Logger = StationeersLaunchPad.Logger;
@@ -80,8 +80,9 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     #region MOD PROFILER
 
     public virtual bool UseProfiler { get; }
-
-    public ModProfilerManager Profiler { get; private set; }
+#if DEBUG
+    = true;
+#endif
 
     #endregion
 
@@ -168,14 +169,12 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         } else {
             Logger.Global.LogError($"Could not get LoadedMod for {this}", false);
         }
-
-        if (this.UseProfiler) {
-            this.Profiler = new ModProfilerManager(this);
-        }
     }
 
     /// <inheritdoc/>
     public override void OnLoaded(List<GameObject> prefabs) {
+        using ModProfiler? _ = this.Profile();
+
         this.LogDebug($"{this} is now loading...");
 
         if (this.UseLogger && this.Logger == null) {
@@ -278,6 +277,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
     /// <inheritdoc/>
     public override void OnUnloaded() {
+        using ModProfiler? _ = this.Profile();
+
         this.LogDebug($"{this} is now unloading...");
 
         if (this.UseConfig) {
@@ -309,7 +310,11 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ConfigChanged(object sender, SettingChangedEventArgs e) => this.OnConfigChanged(e.ChangedSetting);
+    private void ConfigChanged(object sender, SettingChangedEventArgs e) {
+        using ModProfiler? _ = this.Profile();
+
+        this.OnConfigChanged(e.ChangedSetting);
+    }
 
     /// <summary>
     /// Internal <see cref="ConfigFile.ConfigReloaded"/> event connection.
@@ -317,38 +322,59 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ConfigReloaded(object sender, EventArgs e) => this.OnConfigReloaded();
+    private void ConfigReloaded(object sender, EventArgs e) {
+        using ModProfiler? _ = this.Profile();
+
+        this.OnConfigReloaded();
+    }
 
     /// <summary>
     /// Internal <see cref="Awake"/> method.
     /// Called when <see cref="MonoBehaviour"/> is initalized
     /// </summary>
-    private void Awake() => this.OnAwake();
+    private void Awake() {
+        using ModProfiler? _ = this.Profile();
+
+        this.OnAwake();
+    }
 
     /// <summary>
     /// Internal <see cref="Awake"/> method.
     /// Called every frame before <see cref="LateUpdate"/>
     /// </summary>
-    private void Update() => this.OnUpdate(Time.deltaTime);
+    private void Update() {
+        using ModProfiler? _ = this.Profile(true);
+
+        this.OnUpdate(Time.deltaTime);
+    }
 
     /// <summary>
     /// Internal <see cref="LateUpdate"/> method.
     /// Called after <see cref="Update"/>
     /// </summary>
-    private void LateUpdate() => this.OnLateUpdate(Time.deltaTime);
+    private void LateUpdate() {
+        using ModProfiler? _ = this.Profile(true);
+
+        this.OnLateUpdate(Time.deltaTime);
+    }
 
     /// <summary>
     /// Internal <see cref="FixedUpdate"/> method.
     /// Called on a fixed framerate frames.
     /// </summary>
-    private void FixedUpdate() => this.OnLateUpdate(Time.fixedDeltaTime);
+    private void FixedUpdate() {
+        using ModProfiler? _ = this.Profile(true);
+
+        this.OnLateUpdate(Time.fixedDeltaTime);
+    }
 
     /// <summary>
     /// Internal logger move function, moves the contents of SLP's logger into ours
     /// </summary>
     private void DoLoggerMove() {
-        // i know this is jank, but we dont really want to have 2 logger instances for the same mod
+        using ModProfiler? _ = this.Profile();
 
+        // i know this is jank, but we dont really want to have 2 logger instances for the same mod
         for (int i = 0; i < this.LoadedBuffer.Count; i++) {
             LogLine line = this.LoadedBuffer[i];
             this.Buffer.Add(this.LoggerName, line.Message, line.Severity);
@@ -362,6 +388,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// Called when mod is ready to load configuration
     /// </summary>
     private void DoLoadConfiguration() {
+        using ModProfiler? _ = this.Profile();
+
         this.LogDebug("Loading configuration...");
 
         try {
@@ -379,13 +407,15 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// Called when mod is ready to do patches.
     /// </summary>
     private void DoHarmonyPatch() {
+        using ModProfiler? _ = this.Profile();
+
         bool success = true;
         if (this.AutoPatch) {
             this.LogDebug("Harmony patching assemblies starting...");
 
             int assemblies = 0;
             try {
-                success = DoAssembliesPatch(out assemblies);
+                success = this.DoAssembliesPatch(out assemblies);
             } catch (Exception ex) {
                 this.LogFatal("Harmony patching failed!");
                 this.LogException(ex);
@@ -398,6 +428,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     }
 
     private bool DoAssembliesPatch(out int patched) {
+        using ModProfiler? _ = this.Profile();
+
         int assemblies = 0;
         bool success = true;
         foreach ((LoadedAssembly assembly, List<PatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
@@ -422,6 +454,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     }
 
     private bool DoClassPatch(List<PatchClassProcessor> processors, out int patched) {
+        using ModProfiler? _ = this.Profile();
+
         int patches = 0;
         bool success = true;
 
@@ -453,6 +487,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// Called when mod is ready to remove patches.
     /// </summary>
     private void UndoHarmonyPatch() {
+        using ModProfiler? _ = this.Profile();
+
         this.Harmony.UnpatchSelf();
 
         this.OnHarmonyUnpatched();
@@ -598,7 +634,9 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="severity"></param>
     /// <param name="format"></param>
     /// <param name="args"></param>
-    public virtual void LogFormatStationeers(LogSeverity severity, string format, params object[] args) => this.LogStationeers(string.Format(format, args), severity);
+    public virtual void LogFormatStationeers(LogSeverity severity, string format, params object[] args) {
+        this.LogStationeers(string.Format(format, args), severity);
+    }
 
     #endregion // LOGGING METHODS
 
@@ -611,6 +649,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="prefab">The name of your prefab.</param>
     /// <returns>Prefab setup object.</returns>
     public LaunchPadBooster.PrefabSetup<TPrefab> RegisterPrefab<TPrefab>(string prefab) where TPrefab : Thing {
+        using ModProfiler? _ = this.Profile();
+
         this.LogDebug($"Registering prefab {typeof(TPrefab).Name} with name {prefab}.");
         return this.InternalMod.SetupPrefabs<TPrefab>(prefab);
     }
@@ -620,6 +660,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// </summary>
     /// <typeparam name="TSaveData">A thing savedata type.</typeparam>
     public void RegisterSaveData<TSaveData>() where TSaveData : ThingSaveData {
+        using ModProfiler? _ = this.Profile();
+
         this.LogDebug($"Registering SaveData {typeof(TSaveData).Name}...");
         this.InternalMod.AddSaveDataType<TSaveData>();
         this.LogDebug($"Registered SaveData!");
@@ -630,6 +672,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// </summary>
     /// <typeparam name="TNetworkMessage">A network message type.</typeparam>
     public void RegisterNetworkMessage<TNetworkMessage>() where TNetworkMessage : ModNetworkMessage<TNetworkMessage>, new() {
+        using ModProfiler? _ = this.Profile();
+
         this.LogDebug($"Registering NetworkMessage {typeof(TNetworkMessage).Name}...");
         this.InternalMod.RegisterNetworkMessage<TNetworkMessage>();
         this.LogDebug($"Registered NetworkMessage!");
@@ -641,6 +685,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <typeparam name="TValue">A primitive type, enum or similar.</typeparam>
     /// <param name="data">Config data</param>
     public ConfigEntry<TValue> RegisterConfig<TValue>(ConfigData<TValue> data) where TValue : IComparable {
+        using ModProfiler? _ = this.Profile();
+
         this.LogDebug($"Registering Config({data}) - default: {data.DefaultValue}");
         ConfigEntry<TValue> entry = this.Config.Bind<TValue>(data.Definition, data.DefaultValue, data.Description);
         this.LogDebug($"Registered Config has value: {entry.Value}");
@@ -657,11 +703,20 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="description"></param>
     /// <returns></returns>
     public ConfigEntry<TValue> RegisterConfig<TValue>(TValue defaultValue, ConfigDefinition definition, ConfigDescription description) where TValue : IComparable {
+        using ModProfiler? _ = this.Profile();
+
         this.LogDebug($"Registering Config ({definition}) - default: {defaultValue}");
         ConfigEntry<TValue> entry = this.Config.Bind<TValue>(definition, defaultValue, description);
         this.LogDebug($"Registered Config has value: {entry.Value}");
         this.OnConfigRegistered<TValue>(entry);
         return entry;
+    }
+
+    public ModProfiler? Profile(bool isUpdateMethod = false) {
+        StackTrace stackTrace = new StackTrace();
+        StackFrame frame = stackTrace.GetFrame(1);
+
+        return new ModProfiler(this.Logger, frame.GetMethod(), isUpdateMethod);
     }
 
     /// <summary>
