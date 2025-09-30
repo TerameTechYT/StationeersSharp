@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Sonic Ether Global Illumination [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.6.0.345</Version>
+    <Version>1.6.0.378</Version>
     <Description>
         [h1]Sonic Ether Global Illumination[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -40,16 +40,11 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.6.0.240 to v1.6.0.345[/h1]
+	[h1]Update v1.6.0.345 to v1.6.0.378[/h1]
 	[list]
-		[*] dlls
 		[*] 
-		[*] update
-		[*] update stationeers library for net4.8
-		[*] remove old mod
-		[*] Update dotnet-desktop.yml
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 6ea4e40c0a840af9d103879a4e1a376378987c7b -->
-<!-- LastProcessedVersion: 1.6.0.345 -->
+<!-- LastProcessedCommit: 93ca5fee6560256a67d3399f09938c3cef8b6886 -->
+<!-- LastProcessedVersion: 1.6.0.378 -->
