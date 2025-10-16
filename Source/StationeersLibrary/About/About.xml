@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Stationeers Library [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>2.0.0.429</Version>
+    <Version>2.0.0.430</Version>
     <Description>
         [h1] This is [b]NOT[/b] StationeersLaunchPad [/h1]
 
@@ -34,12 +34,11 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v2.0.0.402 to v2.0.0.429[/h1]
+	[h1]Update v2.0.0.429 to v2.0.0.430[/h1]
 	[list]
-		[*] 
-		[*] Update BPM, fix solar panel tooltips and readd wind turbine tooltips
+		[*] update
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: bebbf52b90a8205aa4ee76f39d8f4e0afe4879ba -->
-<!-- LastProcessedVersion: 2.0.0.429 -->
+<!-- LastProcessedCommit: bfc0b41a50d550328e6c0bdfd0f1d99802b84e82 -->
+<!-- LastProcessedVersion: 2.0.0.430 -->

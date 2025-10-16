@@ -23,7 +23,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "SEGIMod",
         Guid = "segimod",
-        Version = new Version(1, 6, 0, 408),
+        Version = new Version(1, 6, 0, 411),
         WorkshopId = 3281346086ul,
         GameType = GameType.Client,
     };
