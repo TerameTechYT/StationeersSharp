@@ -1,5 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <SteamLibraryDirectory>Z:\Steam\steamapps\common</SteamLibraryDirectory>
+		<!-- Change this to the path to your Stationeers Directory -->
+		<SteamLibraryDirectory>Z:\Steam\steamapps\common</SteamLibraryDirectory>
     </PropertyGroup>
 </Project>

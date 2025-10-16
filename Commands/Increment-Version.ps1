@@ -80,7 +80,7 @@ using System.Reflection;
 
 [assembly: AssemblyTitle("$name")]
 [assembly: AssemblyDescription("Workshop ID: $workshopId | GameType: $gameType")]
-[assembly: AssemblyCompany("vivien (@mommyvivi on discord)")]
+[assembly: AssemblyCompany("vivien (@vinuswastaken on discord)")]
 [assembly: AssemblyProduct("$name")]
 [assembly: AssemblyVersion("$newVersionString")]
 [assembly: AssemblyFileVersion("$newVersionString")]

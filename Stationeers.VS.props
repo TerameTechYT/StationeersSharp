@@ -27,7 +27,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<!-- Change this to the path to your Stationeers Directory -->
 		<StationeersDirectory>$(SteamLibraryDirectory)\Stationeers</StationeersDirectory>
 
 		<!-- Do Not Change Anything Below -->
