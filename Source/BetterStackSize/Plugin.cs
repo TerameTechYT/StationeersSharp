@@ -34,7 +34,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
-        Version = new Version(1, 0, 0, 275),
+        Version = new Version(1, 0, 0, 277),
         WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };
@@ -203,7 +203,7 @@ public class Plugin : Mod<Plugin> {
         ));
     }
 
-    public string GetDescriptor(Structure structure) {
+    public string GetDescriptor(Structure? structure) {
         return structure switch {
             Cable => "Cable",
             DeviceCableMounted => "Cable Mounted",
@@ -252,7 +252,7 @@ public class Plugin : Mod<Plugin> {
     }
 
     private void ProcessMultiConstructor(ref MultiConstructor stackable) {
-        string type = this.GetDescriptor(stackable.Constructables.First());
+        string type = this.GetDescriptor(stackable.Constructables.Count > 0 ? stackable.Constructables[0] : null);
         this.RegisterConfig(new ConfigData<int>(
             stackable.MaxQuantity,
             1, MAX_STACK_SIZE,
@@ -274,8 +274,30 @@ public class Plugin : Mod<Plugin> {
 
     private void ProcessOre(ref Ore stackable) {
         switch (stackable) {
+            case Slag slag: {
+                this.ProcessSlag(ref slag);
+            }
+            return;
+
             case Ice ice: {
                 this.ProcessIce(ref ice);
+            }
+            return;
+        }
+
+        this.RegisterConfig(new ConfigData<int>(
+            stackable.MaxQuantity,
+            1, MAX_STACK_SIZE,
+            "Ore", $"{stackable.PrefabName}",
+            $"The max stack size for {stackable.DisplayName}",
+            stackable.PrefabHash
+        ));
+    }
+
+    private void ProcessSlag(ref Slag stackable) {
+        switch (stackable) {
+            case DirtyOre dirtyOre: {
+                this.ProcessDirtyOre(ref dirtyOre);
             }
             return;
         }
