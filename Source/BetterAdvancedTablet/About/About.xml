@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Advanced Tablet [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.3.0.408</Version>
+    <Version>1.3.0.409</Version>
     <Description>
         [h1]Better Advanced Tablet[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -35,12 +35,11 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.3.0.381 to v1.3.0.408[/h1]
+	[h1]Update v1.3.0.408 to v1.3.0.409[/h1]
 	[list]
-		[*] 
-		[*] Update BPM, fix solar panel tooltips and readd wind turbine tooltips
+		[*] update
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: bebbf52b90a8205aa4ee76f39d8f4e0afe4879ba -->
-<!-- LastProcessedVersion: 1.3.0.408 -->
+<!-- LastProcessedCommit: bfc0b41a50d550328e6c0bdfd0f1d99802b84e82 -->
+<!-- LastProcessedVersion: 1.3.0.409 -->

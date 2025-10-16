@@ -73,7 +73,7 @@ public static class Functions {
         }
     }
 
-    internal static Atmosphere GetScannedAtmosphere(ref AtmosAnalyser analyzer, ref string selectedText) {
+    /*internal static Atmosphere GetScannedAtmosphere(ref AtmosAnalyser analyzer, ref string selectedText) {
         Thing cursorThing = CursorManager.CursorThing;
 
         if (cursorThing == null || (cursorThing.RootParent && cursorThing.RootParent.HasAuthority)) {
@@ -183,5 +183,5 @@ public static class Functions {
 
         selectedText = cursorThing.DisplayName.ToUpperInvariant();
         return atmosphere;
-    }
+    }*/
 }

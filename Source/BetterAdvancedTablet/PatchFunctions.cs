@@ -57,7 +57,7 @@ public static class PatchFunctions {
         return true;
     }
 
-    [HarmonyPatch(typeof(AtmosAnalyser), "GetScannedAtmosphere")]
+    /*[HarmonyPatch(typeof(AtmosAnalyser), "GetScannedAtmosphere")]
     [HarmonyPrefix]
     public static bool AtmosAnalyserGetScannedAtmosphere(ref AtmosAnalyser __instance, ref Atmosphere __result, ref string ____selectedText) {
         if (__instance == null) {
@@ -71,5 +71,5 @@ public static class PatchFunctions {
         }
 
         return false;
-    }
+    }*/
 }
