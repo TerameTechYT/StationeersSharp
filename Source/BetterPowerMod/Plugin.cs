@@ -20,7 +20,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterPowerMod",
         Guid = "betterpowermod",
-        Version = new Version(1, 6, 0, 379),
+        Version = new Version(1, 6, 0, 406),
         WorkshopId = 3234916147ul,
         GameType = GameType.Both,
     };
@@ -65,8 +65,8 @@ public class Plugin : Mod<Plugin> {
 
         ConfigData.enableFasterCharging = this.RegisterConfig(new ConfigData<bool>(
             true,
-            new ConfigDefinition("Configurables", "Charging Patches"),
-            new ConfigDescription("Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate")
+            "Configurables", "Charging Patches",
+            "Should the max input power of (Area Power Controller, Small and Large Battery Charger, Omni Power Transmitter) be set to Fast Charge Rate"
         ));
 
         ConfigData.fastChargeRate = this.RegisterConfig(new ConfigData<float>(
@@ -79,7 +79,7 @@ public class Plugin : Mod<Plugin> {
         ConfigData.turbineMultiplier = this.RegisterConfig(new ConfigData<float>(
             10f,
             "Configurables", "Turbine Power Multiplier",
-            "The power output on the Turbine Generator (not wind turbine, the one that looks like a wall)",
+            "(THIS OBJECT WAS REMOVED FROM THE GAME, LEFT FOR COMPATIBILITY) The power output on the Turbine Generator (not wind turbine, the one that looks like a wall)",
             new AcceptableValueRange<float>(1f, 25f)
         ));
     }
@@ -91,13 +91,13 @@ internal struct ConfigData {
 
     //
     public static List<string> FlatSolarPanelPrefabs => [
-            "StructureSolarPanelFlat", "StructureSolarPanel45", "StructureSolarPanelFlatReinforced", "StructureSolarPanel45Reinforced"
+        "StructureSolarPanelFlat", "StructureSolarPanel45", "StructureSolarPanelFlatReinforced", "StructureSolarPanel45Reinforced"
     ];
 
     //
     public static List<string> WindTurbinePrefabs => [
             "StructureUprightWindTurbine", "StructureWindTurbine",
-        ];
+    ];
 
     //
     public static ConfigEntry<bool>? enableSolarPanel;

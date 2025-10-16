@@ -12,6 +12,7 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using Objects;
 using StationeersLibrary;
+using StationeersLibrary.Exceptions;
 using UnityEngine;
 
 #endregion
@@ -28,46 +29,78 @@ public static class PatchFunctions {
         }
 
         try {
-            __instance.MaxPowerGenerated = Functions.GetPotentialSolarPowerGenerated(ref __instance);
+            __instance.MaxPowerGenerated = OrbitalSimulation.SolarIrradiance;
         } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.SolarInfo))]
-    [HarmonyPrefix]
-    public static bool SolarPanelGetSolarPanelInfo(ref SolarPanel __instance, ref string __result) {
+    [HarmonyPostfix]
+    public static void SolarPanelGetSolarPanelInfo(ref SolarPanel __instance, ref string __result) {
         if (!ConfigData.EnableSolarPanel || GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
-            return true;
+            return;
         }
 
         try {
-            __result = Functions.GetSolarPanelInfo(ref __instance);
+            __result += Functions.GetSolarPanelInfo(ref __instance);
+        } catch (Exception ex) {
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
+        }
+    }
 
-            return false;
+    [HarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
+    [HarmonyPostfix]
+    public static void DeviceGetPassiveTooltipPrefix(ref Device __instance, ref PassiveTooltip __result, ref Collider hitCollider) {
+        if (!ConfigData.EnableWindTurbine || __instance is not WindTurbineGenerator windTurbineGenerator || !__instance.IsStructureCompleted) {
+            return;
+        }
+
+        try {
+            float turbineRotationSpeed = Traverse.Create(windTurbineGenerator).Field("_turbineRotationSpeed").GetValue<float>();
+
+            __result = new() {
+                Title = windTurbineGenerator.DisplayName,
+                State = Functions.GetWindTurbineInfo(ref windTurbineGenerator, turbineRotationSpeed),
+                Slider = windTurbineGenerator.ThingHealth,
+            };
         } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
-        return true;
     }
 
-    [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.GetWorldAtmospherePressureClamped))]
+    [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.MAXPowerOutput), MethodType.Getter)]
     [HarmonyPostfix]
-    public static void WindTurbineGeneratorGetWorldAtmospherePressureClamped(ref WindTurbineGenerator __instance, ref PressurekPa __result) {
+    public static void WindTurbineGeneratorMAXPowerOutputGetter(ref WindTurbineGenerator __instance, ref float __result) {
         if (!ConfigData.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
         try {
             PressurekPa pressure = __instance.GetWorldAtmospherePressure();
-            __result = pressure > PressurekPa.One ? PressurekPa.Zero : RocketMath.Clamp(pressure, PressurekPa.One, PressurekPa.One * Constants.ONE_ATMOSPHERE_PRESSURE_KPA);
+            __result += pressure.ToFloat();
         } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
     }
 
-    [HarmonyPatch(typeof(TurbineGenerator), nameof(TurbineGenerator.GetGeneratedPower))]
+    [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.MaxPowerOutputStorm), MethodType.Getter)]
+    [HarmonyPostfix]
+    public static void WindTurbineGeneratorMaxPowerOutputStormGetter(ref WindTurbineGenerator __instance, ref float __result) {
+        if (!ConfigData.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted) {
+            return;
+        }
+
+        try {
+            PressurekPa pressure = __instance.GetWorldAtmospherePressure();
+            __result += pressure.ToFloat();
+        } catch (Exception ex) {
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
+        }
+    }
+
+    /*[HarmonyPatch(typeof(TurbineGenerator), nameof(TurbineGenerator.GetGeneratedPower))]
     [HarmonyPostfix]
     public static void TurbineGeneratorGetGeneratedPower(ref TurbineGenerator __instance, ref float __result, CableNetwork cableNetwork) {
         if (!ConfigData.EnableTurbine || __instance == null || !__instance.IsStructureCompleted || __instance.PowerCableNetwork != cableNetwork) {
@@ -79,17 +112,17 @@ public static class PatchFunctions {
         } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
-    }
+    }*/
 
-    [HarmonyPatch(typeof(StirlingEngine), nameof(StirlingEngine.MaxPower), MethodType.Getter)]
-    [HarmonyPostfix]
-    public static void StirlingEngineMaxPowerGetter(ref StirlingEngine __instance, ref MoleEnergy __result) {
+    [HarmonyPatch(typeof(StirlingEngine), nameof(StirlingEngine.GetGeneratedPower))]
+    [HarmonyPrefix]
+    public static void StirlingEngineMaxPowerGetter(ref StirlingEngine __instance, ref float ___maxPower) {
         if (!ConfigData.EnableStirling || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
         try {
-            __result = new MoleEnergy(ConfigData.StirlingEnergy);
+            ___maxPower = ConfigData.StirlingEnergy;
         } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
