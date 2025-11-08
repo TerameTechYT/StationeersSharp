@@ -26,7 +26,7 @@ public static class SettingsPatcher {
     public static SettingItem SliderItem { get => field ??= SettingsPatcher.SettingItems.Where((item) => item.SettingType == SettingsPatcher.SliderType).FirstOrDefault(); } = null;
     public static SettingItem DropdownItem { get => field ??= SettingsPatcher.SettingItems.Where((item) => item.SettingType == SettingsPatcher.DropdownType).FirstOrDefault(); } = null;
 
-    [HarmonyPatch(typeof(Settings), "PopulateSettingItems"), HarmonyPrefix]
+    //[HarmonyPatch(typeof(Settings), "PopulateSettingItems"), HarmonyPrefix]
     public static void SettingsPopulateSettingItemsPrefix() {
 
     }

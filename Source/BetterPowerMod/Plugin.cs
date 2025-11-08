@@ -20,7 +20,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterPowerMod",
         Guid = "betterpowermod",
-        Version = new Version(1, 6, 0, 454),
+        Version = new Version(1, 6, 0, 455),
         WorkshopId = 3234916147ul,
         GameType = GameType.Both,
     };
