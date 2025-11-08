@@ -3,7 +3,7 @@
 using Cysharp.Threading.Tasks;
 using StationeersLaunchPad;
 using StationeersLibrary.Args;
-using StationeersLibrary.Enums;
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -296,11 +296,7 @@ public abstract class ModBase : MonoBehaviour, IMod, ILogger, IEquatable<ModBase
     /// Does not log anything if not in debug mode.
     /// </summary>
     /// <param name="message">string</param>
-    public void LogDebug(string message) {
-        if (LaunchPadConfig.Debug) {
-            this.Log(message, LogSeverity.Debug);
-        }
-    }
+    public void LogDebug(string message) => this.Log(message, LogSeverity.Debug);
 
     /// <summary>
     /// Shortcut function <see cref="Log"/> to log a <see cref="LogSeverity.Information"/> severity message.

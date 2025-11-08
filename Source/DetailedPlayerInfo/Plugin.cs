@@ -3,8 +3,9 @@
 using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
+using StationeersLibrary;
 using StationeersLibrary.Args;
-using StationeersLibrary.Enums;
+
 using StationeersLibrary.Modding;
 using System.Reflection;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 408),
+        Version = new Version(2, 0, 0, 452),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };

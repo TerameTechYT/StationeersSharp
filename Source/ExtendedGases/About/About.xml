@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Extended Gases [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.0.0.222</Version>
+    <Version>1.0.0.225</Version>
     <Description>
 		[h1]Extended Gases[/h1]
 		[b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -30,11 +30,13 @@
     <LoadAfter>
     </LoadAfter>
 <ChangeLog>
-	[h1]Update v1.0.0.221 to v1.0.0.222[/h1]
+	[h1]Update v1.0.0.222 to v1.0.0.225[/h1]
 	[list]
-		[*] update
+		[*] upd
+		[*] fix bss
+		[*] disable testing atmos patches
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: bfc0b41a50d550328e6c0bdfd0f1d99802b84e82 -->
-<!-- LastProcessedVersion: 1.0.0.222 -->
+<!-- LastProcessedCommit: 05ed50532aa550fa8c0c4d19987e17441aad3f5c -->
+<!-- LastProcessedVersion: 1.0.0.225 -->

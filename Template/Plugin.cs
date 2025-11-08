@@ -1,6 +1,6 @@
 ﻿#region
 
-using StationeersLibrary.Enums;
+
 using StationeersLibrary.Modding;
 using UnityEngine;
 

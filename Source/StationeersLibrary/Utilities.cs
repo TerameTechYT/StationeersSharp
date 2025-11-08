@@ -5,7 +5,7 @@ using BepInEx.Bootstrap;
 using CharacterCustomisation;
 using HarmonyLib;
 using LaunchPadBooster.Utils;
-using StationeersLibrary.Enums;
+
 using StationeersLibrary.Modding;
 using System.Diagnostics;
 using System.Linq.Expressions;

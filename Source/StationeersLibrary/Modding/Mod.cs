@@ -6,7 +6,7 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using LaunchPadBooster.Networking;
 using StationeersLaunchPad;
-using StationeersLibrary.Enums;
+
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -187,7 +187,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         }
 
         if (!this.Data.IsGameCompatible()) {
-            this.LogFatal($"{this} cannot be run on {this.ModGameType}, requires {Constants.GameType}");
+            this.LogFatal($"{this} cannot be run on {this.ModGameType}, requires {Constants.GAME_TYPE}");
             return;
         }
 
@@ -428,11 +428,11 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     }
 
     private bool DoAssembliesPatch(out int patched) {
-        using ModProfiler? _ = this.Profile();
-
         int assemblies = 0;
         bool success = true;
-        foreach ((LoadedAssembly assembly, List<PatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
+        foreach ((LoadedAssembly assembly, List<ConditionalPatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
+            using ModProfiler? _ = this.Profile();
+
             assemblies++;
 
             this.LogDebug($"Harmony patching assembly ({assembly.Assembly.FullName()})");
@@ -453,14 +453,14 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         return success;
     }
 
-    private bool DoClassPatch(List<PatchClassProcessor> processors, out int patched) {
-        using ModProfiler? _ = this.Profile();
-
+    private bool DoClassPatch(List<ConditionalPatchClassProcessor> processors, out int patched) {
         int patches = 0;
         bool success = true;
 
         this.LogDebug($"Harmony patching methods...");
-        foreach (PatchClassProcessor processor in processors) {
+        foreach (ConditionalPatchClassProcessor processor in processors) {
+            using ModProfiler? _ = this.Profile();
+
             List<MethodInfo>? methods = null;
             try {
                 methods = processor.Patch();
@@ -470,9 +470,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
                 success = false;
             } finally {
                 if (methods?.Count > 0) {
-                    if (LaunchPadConfig.Debug) {
-                        this.LogDebug($"Harmony patched methods: \n\n{methods.Join((method) => $"{method.FullDescription()}", "\n")}\n");
-                    }
+                    this.LogDebug($"Harmony patched methods: \n\n{methods.Join((method) => $"{method.FullDescription()}", "\n")}\n");
 
                     patches += methods.Count;
                 }
@@ -549,11 +547,6 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="message"></param>
     /// <param name="severity"></param>
     public override void Log(string message, LogSeverity severity = LogSeverity.Information) {
-        if (severity == LogSeverity.Fatal) {
-            LaunchPadConfig.AutoLoad = false;
-            LaunchPadLoaderGUI.SelectedInfo = this.LoadedMod.Info;
-        }
-
         if (this.UseLogger) {
             this.Logger?.Log(message, severity, false);
         }

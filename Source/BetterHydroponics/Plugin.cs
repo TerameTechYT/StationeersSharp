@@ -2,7 +2,7 @@
 
 using Assets.Scripts.Objects.Items;
 using Assets.Scripts.Objects.Motherboards;
-using StationeersLibrary.Enums;
+using StationeersLibrary;
 using StationeersLibrary.Modding;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterHydroponics",
         Guid = "betterhydroponics",
-        Version = new Version(1, 4, 0, 410),
+        Version = new Version(1, 4, 0, 454),
         WorkshopId = 3449149492ul,
         GameType = GameType.Both,
     };

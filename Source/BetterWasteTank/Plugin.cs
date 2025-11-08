@@ -2,7 +2,7 @@
 
 using Assets.Scripts.Objects.Entities;
 using BepInEx.Configuration;
-using StationeersLibrary.Enums;
+using StationeersLibrary;
 using StationeersLibrary.Modding;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWasteTank",
         Guid = "betterwastetank",
-        Version = new Version(1, 8, 0, 410),
+        Version = new Version(1, 8, 0, 454),
         WorkshopId = 3071913936ul,
         GameType = GameType.Both,
     };

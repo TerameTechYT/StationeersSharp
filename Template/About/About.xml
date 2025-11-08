@@ -12,23 +12,23 @@
         https://github.com/TerameTechYT/StationeersSharp/
     </Description>
     <WorkshopHandle>0</WorkshopHandle>
-    <Tags>
-        <Tag>Mod</Tag>
-        <Tag>BepInEx</Tag>
-        <Tag>StationeersLaunchPad</Tag>
-    </Tags>
+	<Tags>
+		<Tag>Mod</Tag>
+		<Tag>BepInEx</Tag>
+		<Tag>StationeersLaunchPad</Tag>
+	</Tags>
 
-    <Dependencies>
-    </Dependencies>
+	<Dependencies>
+		<Mod>
+			<Id>3389894703</Id>
+		</Mod>
+	</Dependencies>
 
-    <LoadBefore>
-        <Mod>
-            <Id>1</Id>
-        </Mod>
-    </LoadBefore>
-
-    <LoadAfter>
-    </LoadAfter>
+	<LoadBefore>
+		<Mod>
+			<Id>3389894703</Id>
+		</Mod>
+	</LoadBefore>
 </ModMetadata>
 <!-- LastProcessedCommit: HEAD -->
 <!-- LastProcessedVersion: 1.0.0.0 -->

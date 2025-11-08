@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Stack Size [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.0.0.276</Version>
+    <Version>1.0.0.278</Version>
     <Description>
         [h1]Better Stack Size[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -20,23 +20,25 @@
         <Tag>StationeersLaunchPad</Tag>
     </Tags>
 
-    <Dependencies>
-    </Dependencies>
+	<Dependencies>
+		<Mod>
+			<Id>3389894703</Id>
+		</Mod>
+	</Dependencies>
 
-    <LoadBefore>
-        <Mod>
-            <Id>1</Id>
-        </Mod>
-    </LoadBefore>
-
-    <LoadAfter>
-    </LoadAfter>
+	<LoadBefore>
+		<Mod>
+			<Id>3389894703</Id>
+		</Mod>
+	</LoadBefore>
 <ChangeLog>
-	[h1]Update v1.0.0.275 to v1.0.0.276[/h1]
+	[h1]Update v1.0.0.276 to v1.0.0.278[/h1]
 	[list]
-		[*] update
+		[*] upd
+		[*] fix bss
+		[*] disable testing atmos patches
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: bfc0b41a50d550328e6c0bdfd0f1d99802b84e82 -->
-<!-- LastProcessedVersion: 1.0.0.276 -->
+<!-- LastProcessedCommit: 05ed50532aa550fa8c0c4d19987e17441aad3f5c -->
+<!-- LastProcessedVersion: 1.0.0.278 -->

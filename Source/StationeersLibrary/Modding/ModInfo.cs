@@ -1,6 +1,6 @@
 ﻿#region
 
-using StationeersLibrary.Enums;
+
 
 #endregion
 
@@ -44,7 +44,7 @@ public sealed class ModInfo : IEquatable<ModInfo>, IModInfo {
     /// Is the current game type compatible
     /// </summary>
     /// <returns></returns>
-    public bool IsGameCompatible() => this.GameType == GameType.Both || this.GameType == Constants.GameType;
+    public bool IsGameCompatible() => this.GameType == GameType.Both || this.GameType == Constants.GAME_TYPE;
 
     /// <summary>
     /// Is this version equal to the given info

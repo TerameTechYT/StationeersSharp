@@ -1,7 +1,5 @@
 ﻿#region
 
-using StationeersLibrary.Enums;
-
 #endregion
 
 namespace StationeersLibrary.Exceptions;

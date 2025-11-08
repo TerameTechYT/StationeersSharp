@@ -13,6 +13,7 @@ using JetBrains.Annotations;
 using Objects;
 using StationeersLibrary;
 using StationeersLibrary.Exceptions;
+using StationeersLibrary.Modding;
 using UnityEngine;
 
 #endregion
@@ -22,9 +23,10 @@ namespace BetterPowerMod;
 [HarmonyPatch]
 public static class PatchFunctions {
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.PowerGenerated))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Solar Panel Patches")]
     [HarmonyPrefix]
     public static void SolarPowerGenerated(ref SolarPanel __instance) {
-        if (!ConfigData.EnableSolarPanel || __instance == null) {
+        if (__instance == null) {
             return;
         }
 
@@ -36,9 +38,10 @@ public static class PatchFunctions {
     }
 
     [HarmonyPatch(typeof(SolarPanel), nameof(SolarPanel.SolarInfo))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Solar Panel Patches")]
     [HarmonyPostfix]
     public static void SolarPanelGetSolarPanelInfo(ref SolarPanel __instance, ref string __result) {
-        if (!ConfigData.EnableSolarPanel || GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
+        if (GameManager.IsBatchMode || __instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -50,9 +53,10 @@ public static class PatchFunctions {
     }
 
     [HarmonyPatch(typeof(Device), nameof(Device.GetPassiveTooltip))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Wind Turbine Patches")]
     [HarmonyPostfix]
     public static void DeviceGetPassiveTooltipPrefix(ref Device __instance, ref PassiveTooltip __result, ref Collider hitCollider) {
-        if (!ConfigData.EnableWindTurbine || __instance is not WindTurbineGenerator windTurbineGenerator || !__instance.IsStructureCompleted) {
+        if (__instance is not WindTurbineGenerator windTurbineGenerator || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -71,9 +75,10 @@ public static class PatchFunctions {
     }
 
     [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.MAXPowerOutput), MethodType.Getter)]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Wind Turbine Patches")]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorMAXPowerOutputGetter(ref WindTurbineGenerator __instance, ref float __result) {
-        if (!ConfigData.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted) {
+        if (__instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -86,9 +91,10 @@ public static class PatchFunctions {
     }
 
     [HarmonyPatch(typeof(WindTurbineGenerator), nameof(WindTurbineGenerator.MaxPowerOutputStorm), MethodType.Getter)]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Wind Turbine Patches")]
     [HarmonyPostfix]
     public static void WindTurbineGeneratorMaxPowerOutputStormGetter(ref WindTurbineGenerator __instance, ref float __result) {
-        if (!ConfigData.EnableWindTurbine || __instance == null || !__instance.IsStructureCompleted) {
+        if (__instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -101,9 +107,10 @@ public static class PatchFunctions {
     }
 
     /*[HarmonyPatch(typeof(TurbineGenerator), nameof(TurbineGenerator.GetGeneratedPower))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Wall Turbine Patches")]
     [HarmonyPostfix]
     public static void TurbineGeneratorGetGeneratedPower(ref TurbineGenerator __instance, ref float __result, CableNetwork cableNetwork) {
-        if (!ConfigData.EnableTurbine || __instance == null || !__instance.IsStructureCompleted || __instance.PowerCableNetwork != cableNetwork) {
+        if (__instance == null || !__instance.IsStructureCompleted || __instance.PowerCableNetwork != cableNetwork) {
             return;
         }
 
@@ -115,9 +122,10 @@ public static class PatchFunctions {
     }*/
 
     [HarmonyPatch(typeof(StirlingEngine), nameof(StirlingEngine.GetGeneratedPower))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Stirling Patches")]
     [HarmonyPrefix]
     public static void StirlingEngineMaxPowerGetter(ref StirlingEngine __instance, ref float ___maxPower) {
-        if (!ConfigData.EnableStirling || __instance == null || !__instance.IsStructureCompleted) {
+        if (__instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -129,9 +137,10 @@ public static class PatchFunctions {
     }
 
     [HarmonyPatch(typeof(PowerTransmitterOmni), nameof(PowerTransmitterOmni.GetUsedPower))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Charging Patches")]
     [HarmonyPostfix]
     public static void PowerTransmitterOmniGetUsedPower(ref PowerTransmitterOmni __instance, ref float ____maximumPowerUsage) {
-        if (!ConfigData.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
+        if (__instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -143,9 +152,10 @@ public static class PatchFunctions {
     }
 
     [HarmonyPatch(typeof(AreaPowerControl), nameof(AreaPowerControl.GetUsedPower))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Charging Patches")]
     [HarmonyPostfix]
     public static void AreaPowerControlGetUsedPower(ref AreaPowerControl __instance) {
-        if (!ConfigData.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
+        if (__instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -157,9 +167,10 @@ public static class PatchFunctions {
     }
 
     [HarmonyPatch(typeof(BatteryCellCharger), nameof(BatteryCellCharger.GetUsedPower))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Charging Patches")]
     [HarmonyPostfix]
     public static void BatteryCellChargerGetUsedPower(ref BatteryCellCharger __instance) {
-        if (!ConfigData.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
+        if (__instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 
@@ -171,9 +182,10 @@ public static class PatchFunctions {
     }
 
     [HarmonyPatch(typeof(WallLightBattery), nameof(WallLightBattery.GetUsedPower))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Charging Patches")]
     [HarmonyPostfix]
     public static void WallLightBatteryGetUsedPower(ref WallLightBattery __instance) {
-        if (!ConfigData.EnableFasterCharging || __instance == null || !__instance.IsStructureCompleted) {
+        if (__instance == null || !__instance.IsStructureCompleted) {
             return;
         }
 

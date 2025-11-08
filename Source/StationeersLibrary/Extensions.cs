@@ -4,6 +4,7 @@ using Assets.Scripts.Atmospherics;
 using HarmonyLib;
 using StationeersLaunchPad;
 using StationeersLibrary.Enums;
+using StationeersLibrary.Modding;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -13,25 +14,42 @@ using System.Text;
 namespace StationeersLibrary;
 
 public static class HarmonyExtensions {
-    public static List<PatchClassProcessor> CreatePatchersForAssembly(this Harmony harmony, LoadedAssembly assembly) {
-        List<PatchClassProcessor> processors = [];
+    public static List<ConditionalPatchClassProcessor> CreateConditionalClassProcessors(this Harmony harmony, Assembly? assembly = null) {
+        List<ConditionalPatchClassProcessor> processors = [];
 
-        foreach (Type type in AccessTools.GetTypesFromAssembly(assembly.Assembly)) {
-            PatchClassProcessor processor = harmony.CreateClassProcessor(type);
-            processors.Add(processor);
+        foreach (Type type in AccessTools.GetTypesFromAssembly(assembly ?? Assembly.GetCallingAssembly())) {
+            bool cancel = false;
+            foreach (HarmonyPatchCondition condition in type.GetCustomAttributes(true).OfType<HarmonyPatchCondition>()) {
+                if (!condition.ShouldPatch) {
+                    cancel = true;
+                    break;
+                }
+            }
+
+            if (cancel) {
+                continue;
+            }
+
+            processors.Add(new ConditionalPatchClassProcessor(harmony, type));
         }
 
         return processors;
     }
 
-    public static Dictionary<LoadedAssembly, List<PatchClassProcessor>> CreatePatchersForAssemblies(this Harmony harmony, IEnumerable<LoadedAssembly> assemblies) {
-        Dictionary<LoadedAssembly, List<PatchClassProcessor>> processors = [];
+    public static Dictionary<LoadedAssembly, List<ConditionalPatchClassProcessor>> CreatePatchersForAssemblies(this Harmony harmony, IEnumerable<LoadedAssembly> assemblies) {
+        Dictionary<LoadedAssembly, List<ConditionalPatchClassProcessor>> processors = [];
 
         foreach (LoadedAssembly assembly in assemblies) {
-            processors.TryAdd(assembly, harmony.CreatePatchersForAssembly(assembly));
+            processors.TryAdd(assembly, harmony.CreateConditionalClassProcessors(assembly.Assembly));
         }
 
         return processors;
+    }
+}
+
+public static class EnumExtensions {
+    public static bool IsDefinedByDefault<TEnum>(this TEnum enumValue) where TEnum : Enum {
+        return !EnumCacheProvider.TryGetManager(typeof(TEnum), out IEnumCache? manager) || !manager.Keys.Contains(enumValue);
     }
 }
 
@@ -44,7 +62,7 @@ public static class ReflectionExtensions {
             return "null";
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new();
         if (method.IsAssembly) {
             stringBuilder.Append("internal ");
         } else {

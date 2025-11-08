@@ -3,6 +3,7 @@
 using Assets.Scripts.UI;
 using HarmonyLib;
 using StationeersLibrary;
+using StationeersLibrary.Modding;
 using TMPro;
 
 #endregion
@@ -14,9 +15,10 @@ public static class PatchFunctions {
 
 
     [HarmonyPatch(typeof(WorldManager), nameof(WorldManager.UpdateFrameRate))]
+    [HarmonyPatchConfig<Plugin>("Configurables", "CustomFramerate")]
     [HarmonyPrefix]
     public static bool WorldManagerUpdateFrameRate(ref TextMeshProUGUI ___FrameRate) {
-        if (!ConfigData.CustomFramerate || ___FrameRate == null) {
+        if (___FrameRate == null) {
             return true;
         }
 

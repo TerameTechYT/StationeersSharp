@@ -2,8 +2,8 @@
 
 using Assets.Scripts;
 using BepInEx;
-using StationeersLibrary.Enums;
 using StationeersLibrary.Modding;
+using Steamworks;
 
 #endregion
 
@@ -16,7 +16,18 @@ public static class Constants {
     public static string STATIONEERS_LIBRARY_GUID => Plugin.Instance.ModGuid;
     public static ulong STATIONEERS_LIBRARY_HANDLE => Plugin.Instance.ModWorkshopId;
 
-    public static GameType GameType => GameManager.IsBatchMode ? GameType.Server : GameType.Client;
+    public static GameType GAME_TYPE => GameManager.IsBatchMode ? GameType.Server : GameType.Client;
+
+    public static Version GAME_VERSION => GameManager.Version;
+
+    public static GameBranch GAME_BRANCH => SteamApps.CurrentBetaName switch {
+        "beta" => GameBranch.Beta,
+        "previous" => GameBranch.Previous,
+        "devbranch" => GameBranch.DevBranch,
+        "prerocket" => GameBranch.PreRocket,
+        "preterrain" => GameBranch.PreTerrain,
+        _ => GameBranch.None,
+    };
 
     // REPO
     public const string GITHUB_URL = "https://github.com";
@@ -65,9 +76,18 @@ public static class Constants {
     public const string WORKSHOP_PAGE = "WorkshopMods";
     public const string SETTINGS_PAGE = "Settings";
 
-    public const string DEGREE_SYMBOL = "°";
+    // SETTING PAGE NAMES
+    public const string GAMEPLAY_SETTINGS_PAGE = "Gameplay";
+    public const string VIDEO_SETTINGS_PAGE = "Video";
+    public const string ADVANCED_SETTINGS_PAGE = "Advanced";
+    public const string AUDIO_SETTINGS_PAGE = "Audio";
+    public const string CONTROLS_SETTINGS_PAGE = "Controls";
+    public const string MULTIPLAYER_SETTINGS_PAGE = "Multiplayer";
+    public const string MISC_SETTINGS_PAGE = "Misc";
+
 
     // UNITS
+    public const string DEGREE_SYMBOL = "°";
     public const string FAHRENHEIT_SYMBOL = "°F";
     public const string CELCIUS_SYMBOL = "°C";
     public const string KELVIN_SYMBOL = "°K";

@@ -8,7 +8,7 @@ using BepInEx.Configuration;
 using Objects;
 using Objects.Items;
 using Objects.Structures;
-using StationeersLibrary.Enums;
+using StationeersLibrary;
 using StationeersLibrary.Modding;
 using UnityEngine;
 using Flour = Assets.Scripts.Objects.Items.Flour;
@@ -34,7 +34,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
-        Version = new Version(1, 0, 0, 277),
+        Version = new Version(1, 0, 0, 321),
         WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };
@@ -149,9 +149,6 @@ public class Plugin : Mod<Plugin> {
                 this.ProcessOre(ref ore);
             }
             return;
-            /*case DirtyOre dirtyOre: {
-                this.ProcessDirtyOre(ref dirtyOre);
-            } return;*/
 
             // Consumables
             case StackableFood stackableFood: {
