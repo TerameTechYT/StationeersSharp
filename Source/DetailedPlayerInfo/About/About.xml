@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Detailed Player Info [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>2.0.0.454</Version>
+    <Version>2.0.0.489</Version>
     <Description>
         [h1]Detailed Player Info[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -44,11 +44,11 @@
 		</Mod>
 	</LoadBefore>
 <ChangeLog>
-	[h1]Update v2.0.0.453 to v2.0.0.454[/h1]
+	[h1]Update v2.0.0.454 to v2.0.0.489[/h1]
 	[list]
-		[*] upd
+		[*] update
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: c60c626cce21ac7e8ce9bee6fec8a51b5b8c6f75 -->
-<!-- LastProcessedVersion: 2.0.0.454 -->
+<!-- LastProcessedCommit: 60ea8ed015d1827091c86f6f4c1ab5a7bb3f212b -->
+<!-- LastProcessedVersion: 2.0.0.489 -->

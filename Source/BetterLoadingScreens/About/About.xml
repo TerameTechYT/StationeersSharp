@@ -7,11 +7,16 @@
 		[h1]Better Loading Screens[/h1]
 		[b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
 		See: https://github.com/StationeersLaunchPad/StationeersLaunchPad
+		
+		Most images are from Rocketwerks, so props to them for that, and their update artwork.
+		If you want your base/images included feel free to dm me on discord @vinuswastaken or ping me in the Stationeers discord
+		Adds many many new loading screen images, plus allows users to add their own loading screens, and disable the default one in config.
+		The path for custom loading screens is [i]Documents\My Games\Stationeers\loadingscreens[/i]
 
 		you can also go here to get the dll itself if you want to just put it in your bepinex/plugins folder:
 		https://github.com/TerameTechYT/StationeersSharp/
 	</Description>
-    <WorkshopHandle>0</WorkshopHandle>
+    <WorkshopHandle>3602779096</WorkshopHandle>
 	<Tags>
 		<Tag>Mod</Tag>
 		<Tag>BepInEx</Tag>
