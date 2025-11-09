@@ -3,6 +3,7 @@
 using Assets.Scripts;
 using Assets.Scripts.Objects;
 using BepInEx.Configuration;
+using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using LaunchPadBooster.Networking;
 using StationeersLaunchPad;
@@ -264,15 +265,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         }
 
         this.Log($"{this} is now loaded!");
-
-        // pause so we can look at logs
-#if DEBUG
-        if (LaunchPadConfig.Debug) {
-            LaunchPadConfig.AutoLoad = false;
-        }
-#endif
-
         this.OnStart();
+        this.OnSplashLoaded(new(SceneManager.GetActiveScene(), LoadSceneMode.Single)).Forget();
     }
 
     /// <inheritdoc/>

@@ -62,6 +62,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commands", "Commands", "{02
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterStackSize", "Source\BetterStackSize\BetterStackSize.csproj", "{73D709EF-F704-49F5-4018-F618CDD94E78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterLoadingScreens", "Source\BetterLoadingScreens\BetterLoadingScreens.csproj", "{54E70107-68BF-D81A-4554-780606046F8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -248,6 +250,18 @@ Global
 		{73D709EF-F704-49F5-4018-F618CDD94E78}.Release|x64.Build.0 = Release|x64
 		{73D709EF-F704-49F5-4018-F618CDD94E78}.Release|x86.ActiveCfg = Release|x86
 		{73D709EF-F704-49F5-4018-F618CDD94E78}.Release|x86.Build.0 = Release|x86
+		{54E70107-68BF-D81A-4554-780606046F8C}.Debug|x64.ActiveCfg = Debug|x64
+		{54E70107-68BF-D81A-4554-780606046F8C}.Debug|x64.Build.0 = Debug|x64
+		{54E70107-68BF-D81A-4554-780606046F8C}.Debug|x86.ActiveCfg = Debug|x86
+		{54E70107-68BF-D81A-4554-780606046F8C}.Debug|x86.Build.0 = Debug|x86
+		{54E70107-68BF-D81A-4554-780606046F8C}.Publish|x64.ActiveCfg = Publish|x64
+		{54E70107-68BF-D81A-4554-780606046F8C}.Publish|x64.Build.0 = Publish|x64
+		{54E70107-68BF-D81A-4554-780606046F8C}.Publish|x86.ActiveCfg = Publish|x86
+		{54E70107-68BF-D81A-4554-780606046F8C}.Publish|x86.Build.0 = Publish|x86
+		{54E70107-68BF-D81A-4554-780606046F8C}.Release|x64.ActiveCfg = Release|x64
+		{54E70107-68BF-D81A-4554-780606046F8C}.Release|x64.Build.0 = Release|x64
+		{54E70107-68BF-D81A-4554-780606046F8C}.Release|x86.ActiveCfg = Release|x86
+		{54E70107-68BF-D81A-4554-780606046F8C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -266,6 +280,7 @@ Global
 		{0B3DCE8D-B277-62B6-A979-EB5AEC96BB2C} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
 		{1B114F56-2DCD-1100-0167-3C7A07826013} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
 		{73D709EF-F704-49F5-4018-F618CDD94E78} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
+		{54E70107-68BF-D81A-4554-780606046F8C} = {F6C6F376-4E3B-4338-8A6E-CC0E2627CBA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {40BF085B-8E5B-4402-A4A9-84F4C85863BE}

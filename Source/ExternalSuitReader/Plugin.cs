@@ -22,7 +22,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "ExternalSuitReader",
         Guid = "externalsuitreader",
-        Version = new Version(1, 8, 0, 455),
+        Version = new Version(1, 8, 0, 490),
         WorkshopId = 3071985478ul,
         GameType = GameType.Both,
     };

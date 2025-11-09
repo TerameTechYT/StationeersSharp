@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Stack Size [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.0.0.322</Version>
+    <Version>1.0.0.326</Version>
     <Description>
         [h1]Better Stack Size[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -32,11 +32,11 @@
 		</Mod>
 	</LoadBefore>
 <ChangeLog>
-	[h1]Update v1.0.0.278 to v1.0.0.322[/h1]
+	[h1]Update v1.0.0.322 to v1.0.0.326[/h1]
 	[list]
-		[*] update
+		[*] upd
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: cbdd37f58b1cd9ae308ea564a1765eb520ebc06c -->
-<!-- LastProcessedVersion: 1.0.0.322 -->
+<!-- LastProcessedCommit: c60c626cce21ac7e8ce9bee6fec8a51b5b8c6f75 -->
+<!-- LastProcessedVersion: 1.0.0.326 -->
