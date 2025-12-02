@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>External Suit Reader [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.8.0.491</Version>
+    <Version>1.8.0.492</Version>
     <Description>
         [h1]External Suit Reader[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -41,11 +41,11 @@
 		</Mod>
 	</LoadBefore>
 <ChangeLog>
-	[h1]Update v1.8.0.456 to v1.8.0.491[/h1]
+	[h1]Update v1.8.0.491 to v1.8.0.492[/h1]
 	[list]
-		[*] update
+		[*] upd
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 60ea8ed015d1827091c86f6f4c1ab5a7bb3f212b -->
-<!-- LastProcessedVersion: 1.8.0.491 -->
+<!-- LastProcessedCommit: 7e9a468dff4e9c8973d7992dd7c77acc85a102ed -->
+<!-- LastProcessedVersion: 1.8.0.492 -->

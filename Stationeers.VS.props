@@ -3,12 +3,16 @@
 
 	<PropertyGroup>
 		<TargetFramework>net4.8</TargetFramework>
+		<TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
 		<AnalysisLevel>latest-all</AnalysisLevel>
 		<LangVersion>preview</LangVersion>
 		<ErrorReport>none</ErrorReport>
-
-		<NuGetAuditLevel>low</NuGetAuditLevel>
-		<NuGetAuditMode>all</NuGetAuditMode>
+		<LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
+		
+		<NoStandardLibraries>true</NoStandardLibraries>
+		<NoStdLib>true</NoStdLib>
+		<NoConfig>true</NoConfig>
+		<DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
 
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -26,6 +30,7 @@
 		<WarningLevel>4</WarningLevel>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<NoWarn>$(NoWarn);MSB3277</NoWarn>
 
 		<StationeersDirectory>$(SteamLibraryDirectory)\Stationeers</StationeersDirectory>
 

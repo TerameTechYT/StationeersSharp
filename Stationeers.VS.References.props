@@ -1,13 +1,14 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup>
-		<Reference Include="netstandard">
-			<HintPath>$(StationeersManagedDirectory)\netstandard.dll</HintPath>
+		<!-- System DLL's -->
+		<SystemDll Include="$(StationeersManagedDirectory)\mscorlib.dll" />
+		<SystemDll Include="$(StationeersManagedDirectory)\netstandard.dll" />
+		<SystemDll Include="$(StationeersManagedDirectory)\System*.dll" />
+		<SystemRefs Include="@(SystemDll->'%(Filename)')">
+			<HintPath>$(StationeersManagedDirectory)\%(Identity).dll</HintPath>
 			<Private>False</Private>
-		</Reference>
-		<Reference Include="mscorlib">
-			<HintPath>$(StationeersManagedDirectory)\mscorlib.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+		</SystemRefs>
+		<Reference Include="@(SystemRefs)" />
 		
 		
         <!-- BepInEx DLL's -->

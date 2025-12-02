@@ -24,7 +24,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
-        Version = new Version(1, 3, 0, 492),
+        Version = new Version(1, 3, 0, 496),
         WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };
