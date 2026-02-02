@@ -20,7 +20,7 @@ internal static class Functions {
 
     internal static string GetWindTurbineInfo(ref WindTurbineGenerator generator, float turbineRotationSpeed) {
         StringBuilder stringBuilder = new();
-        stringBuilder.AppendLine($"{GeneratingPower.AsString(generator.GenerationRate.ToStringRounded())}");
+        stringBuilder.AppendLine($"{GeneratingPower.AsString(generator.CalculateGenerationRate().ToStringRounded())}");
         stringBuilder.AppendLine($"{GlobalSpeed.AsString(turbineRotationSpeed.ToStringRounded())}");
 
         return stringBuilder.ToString();

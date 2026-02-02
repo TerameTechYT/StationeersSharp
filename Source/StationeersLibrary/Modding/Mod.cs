@@ -7,7 +7,7 @@ using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using LaunchPadBooster.Networking;
 using StationeersLaunchPad;
-
+using StationeersLaunchPad.Loading;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -424,12 +424,12 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     private bool DoAssembliesPatch(out int patched) {
         int assemblies = 0;
         bool success = true;
-        foreach ((LoadedAssembly assembly, List<ConditionalPatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
+        foreach ((Assembly assembly, List<ConditionalPatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
             using ModProfiler? _ = this.Profile();
 
             assemblies++;
 
-            this.LogDebug($"Harmony patching assembly ({assembly.Assembly.FullName()})");
+            this.LogDebug($"Harmony patching assembly ({assembly.FullName()})");
 
             int patches = 0;
             try {

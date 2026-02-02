@@ -36,11 +36,11 @@ public static class HarmonyExtensions {
         return processors;
     }
 
-    public static Dictionary<LoadedAssembly, List<ConditionalPatchClassProcessor>> CreatePatchersForAssemblies(this Harmony harmony, IEnumerable<LoadedAssembly> assemblies) {
-        Dictionary<LoadedAssembly, List<ConditionalPatchClassProcessor>> processors = [];
+    public static Dictionary<Assembly, List<ConditionalPatchClassProcessor>> CreatePatchersForAssemblies(this Harmony harmony, IEnumerable<Assembly> assemblies) {
+        Dictionary<Assembly, List<ConditionalPatchClassProcessor>> processors = [];
 
-        foreach (LoadedAssembly assembly in assemblies) {
-            processors.TryAdd(assembly, harmony.CreateConditionalClassProcessors(assembly.Assembly));
+        foreach (Assembly assembly in assemblies) {
+            processors.TryAdd(assembly, harmony.CreateConditionalClassProcessors(assembly));
         }
 
         return processors;
