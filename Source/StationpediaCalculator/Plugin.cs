@@ -19,14 +19,12 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "StationpediaCalculator",
         Guid = "stationpediacalculator",
-        Version = new Version(1, 5, 0, 501),
+        Version = new Version(1, 5, 0, 522),
         WorkshopId = 3305312105ul,
         GameType = GameType.Client,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
-
-    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
     public override void OnStart() { }
 }

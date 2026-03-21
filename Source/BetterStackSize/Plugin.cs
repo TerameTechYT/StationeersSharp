@@ -34,14 +34,12 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
-        Version = new Version(1, 0, 0, 368),
+        Version = new Version(1, 0, 0, 389),
         WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
-
-    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
     public override void OnStart() {
         Prefab.OnPrefabsLoaded += this.OnPrefabsLoaded;
@@ -183,7 +181,6 @@ public class Plugin : Mod<Plugin> {
             }
             return;
 
-            case ResearchPod:
             case Wreckage: return;
         }
 

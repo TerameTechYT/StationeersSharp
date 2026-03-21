@@ -5,6 +5,7 @@ using HarmonyLib;
 using StationeersLibrary;
 using System.Reflection;
 using System.Reflection.Emit;
+using StationeersLibrary.Modding;
 
 #endregion
 
@@ -12,7 +13,8 @@ namespace BetterWaterCombustor;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    [HarmonyPatch(typeof(Atmosphere), nameof(Atmosphere.CombustForWater))]
+    [HarmonyPatchVersion("0.0.0.0", "0.2.6182.26959")]
+    [HarmonyPatch(typeof(Atmosphere), "CombustForWater")]
     [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> AtmosphereCombustForWaterTranspiler(IEnumerable<CodeInstruction> instructions) {
         try {

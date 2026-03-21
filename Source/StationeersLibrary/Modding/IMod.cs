@@ -1,8 +1,10 @@
 ﻿#region
 
+using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using StationeersLibrary.Args;
 using System.Collections;
+using System.Reflection;
 using UnityEngine;
 
 #endregion
@@ -14,7 +16,7 @@ public interface IMod {
     /// Called by <see cref="StationeersLaunchPad"/> with any prefabs.
     /// </summary>
     /// <param name="prefabs">Prefabs this mod should have</param>
-    public abstract void OnLoaded(List<GameObject> prefabs);
+    public abstract void OnLoaded(List<GameObject> prefabs, List<Assembly> assemblies, ConfigFile config, ModData data);
 
     /// <summary>
     /// Called when the mod is being unloaded.

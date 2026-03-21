@@ -60,8 +60,11 @@
 		<CopyItemsTextures Include="$(ProjectDir)\Textures\**\*.*" />
 	</ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'Publish'">
+	<Target Name="PreBuild" AfterTargets="PreBuildEvent" Condition="'$(Configuration)' != 'Publish'">
 		<RemoveDir Directories="$(StationeersDocumentsDirectory)\mods\$(ModName)" />
+	</Target>
+	
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'Publish'">
 		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)" ContinueOnError="false" />
 		<Copy SourceFiles="$(PackageLicenseFile)" DestinationFiles="$(StationeersDocumentsDirectory)\mods\$(ModName)\LICENSE.md" ContinueOnError="false" />
 		<Copy SourceFiles="@(CopyItemsGameData)" DestinationFolder="$(StationeersDocumentsDirectory)\mods\$(ModName)\GameData\%(RecursiveDir)" ContinueOnError="true" />

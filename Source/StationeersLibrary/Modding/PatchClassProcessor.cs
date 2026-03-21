@@ -11,12 +11,12 @@ using System.Reflection;
 namespace StationeersLibrary.Modding;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-public class HarmonyPatchCondition : Attribute {
+public abstract class HarmonyPatchConditionAttribute : Attribute {
     public virtual bool ShouldPatch => false;
 }
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-public sealed class HarmonyPatchVersion(string minimum, string maximum) : HarmonyPatchCondition {
+public sealed class HarmonyPatchVersion(string minimum, string maximum) : HarmonyPatchConditionAttribute {
     public Version MinimumVersion => new(minimum);
     public Version MaximumVersion => new(maximum);
 
@@ -24,21 +24,21 @@ public sealed class HarmonyPatchVersion(string minimum, string maximum) : Harmon
 }
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-public sealed class HarmonyPatchVersions(params string[] versions) : HarmonyPatchCondition {
+public sealed class HarmonyPatchVersions(params string[] versions) : HarmonyPatchConditionAttribute {
     public Version[] Versions => [.. versions.Select(v => new Version(v))];
 
     public override bool ShouldPatch => this.Versions.Contains(Constants.GAME_VERSION);
 }
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-public sealed class HarmonyPatchBranch(GameBranch branch) : HarmonyPatchCondition {
+public sealed class HarmonyPatchBranch(GameBranch branch) : HarmonyPatchConditionAttribute {
     public GameBranch GameBranch => branch;
     
     public override bool ShouldPatch => Constants.GAME_BRANCH == this.GameBranch;
 }
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-public sealed class HarmonyPatchConfig<T>(string section, string key) : HarmonyPatchCondition where T : Mod<T> {
+public sealed class HarmonyPatchConfig<T>(string section, string key) : HarmonyPatchConditionAttribute where T : Mod<T> {
     public string Section => section;
     public string Key => key;
 
@@ -64,7 +64,7 @@ public class ConditionalPatchClassProcessor : PatchClassProcessor {
                 continue;
             }
 
-            foreach (HarmonyPatchCondition condition in info.method.GetCustomAttributes(true).OfType<HarmonyPatchCondition>()) {
+            foreach (HarmonyPatchConditionAttribute condition in info.method.GetCustomAttributes(true).OfType<HarmonyPatchConditionAttribute>()) {
                 if (condition.ShouldPatch) {
                     continue;
                 }

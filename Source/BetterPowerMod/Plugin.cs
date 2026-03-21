@@ -20,15 +20,12 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterPowerMod",
         Guid = "betterpowermod",
-        Version = new Version(1, 6, 0, 501),
+        Version = new Version(1, 6, 0, 522),
         WorkshopId = 3234916147ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
-
-    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
-
     public override void OnStart() { }
 
     public override void OnConfigLoad() {

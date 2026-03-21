@@ -2,18 +2,15 @@
 
 using Assets.Scripts;
 using Assets.Scripts.Objects;
+using Assets.Scripts.Util;
 using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using LaunchPadBooster.Networking;
-using StationeersLaunchPad;
-using StationeersLaunchPad.Loading;
 using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Logger = StationeersLaunchPad.Logger;
 
 #endregion
 
@@ -36,26 +33,6 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// Should this mod initalize the logger?
     /// </summary>
     public abstract bool UseLogger { get; }
-
-    /// <summary>
-    /// Should this mod log to stationeers?
-    /// </summary>
-    public virtual bool LogToStationeers { get; } = false;
-
-    /// <summary>
-    /// This mods <see cref="StationeersLaunchPad.Logger"/> instance
-    /// </summary>
-    public Logger Logger { get; private set; }
-
-    /// <summary>
-    /// This mods <see cref="StationeersLaunchPad.LogBuffer"/> instance
-    /// </summary>
-    protected LogBuffer Buffer => this.Logger.Buffer;
-
-    /// <summary>
-    /// This mods <see cref="Logger"/> name
-    /// </summary>
-    public string LoggerName => this.Logger.Name;
 
     #endregion // LOGGER
 
@@ -141,46 +118,15 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// </summary>
     internal LaunchPadBooster.Mod InternalMod { get; private set; }
 
-    /// <summary>
-    /// Internal <see cref="StationeersLaunchPad.LoadedMod"/> instance.
-    /// </summary>
-    internal LoadedMod LoadedMod { get; private set; }
-
-    internal Logger LoadedLogger => this.LoadedMod.Logger;
-
-    internal LogBuffer LoadedBuffer => this.LoadedLogger.Buffer;
-
     #endregion // INTERNAL
 
     #region INTERNAL METHODS
 
-    /// <summary>
-    /// Default constructor
-    /// </summary>
-    protected Mod() {
-        // Fetches the caller of this constructor, which should be the class that inherits this one.
-        if (ModLoader.TryGetStackTraceMod(new StackTrace(1), out LoadedMod mod)) {
-            this.LoadedMod = mod;
-
-            if (this.UseLogger) {
-                this.Logger = Logger.Global.CreateChild(this.ModName);
-                this.DoLoggerMove();
-                this.LogDebug("Fetched and moved logger.");
-            }
-        } else {
-            Logger.Global.LogError($"Could not get LoadedMod for {this}", false);
-        }
-    }
-
     /// <inheritdoc/>
-    public override void OnLoaded(List<GameObject> prefabs) {
+    public override void OnLoaded(List<GameObject> prefabs, List<Assembly> assemblies, ConfigFile config, ModData data) {
         using ModProfiler? _ = this.Profile();
 
         this.LogDebug($"{this} is now loading...");
-
-        if (this.UseLogger && this.Logger == null) {
-            this.Logger = Logger.Global.CreateChild(this.ModName);
-        }
 
         if (Utilities.IsLoaded(this.ModGuid)) {
             this.LogFatal($"{this} has already been loaded!");
@@ -221,18 +167,20 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         }
 
         if (this.UseConfig) {
-            string path = Path.Combine(Constants.BIE_CONFIG_FOLDER, this.ModGuid);
-            if (File.Exists(path)) {
-                // made oopsie, forgot to add .cfg to the config file path...
-                File.Delete(path);
-            }
-
-            this.Config = new ConfigFile($"{path}.cfg", this.SaveConfigOnCreate) {
-                SaveOnConfigSet = this.AutoSaveConfig
-            };
+            this.Config = config;
             this.Config.SettingChanged += this.ConfigChanged;
             this.Config.ConfigReloaded += this.ConfigReloaded;
-            this.LoadedMod?.ConfigFiles?.Add(this.Config);
+
+            string path = $"{Path.Combine(Constants.BIE_CONFIG_FOLDER, this.ModGuid)}.cfg";
+            if (File.Exists(path)) {
+                ConfigFile oldConfig = new ConfigFile(path, false);
+                foreach ((ConfigDefinition key, ConfigEntryBase value) in oldConfig) {
+                    this.Config.Bind(key, value);
+                }
+                oldConfig.Clear();
+
+                File.Delete(path);
+            }
 
             this.DoLoadConfiguration();
         }
@@ -240,7 +188,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         if (this.UseHarmony) {
             this.Harmony = new Harmony(this.ModGuid);
 
-            this.DoHarmonyPatch();
+            this.DoHarmonyPatch(assemblies);
         }
 
         this.Prefabs.AddRange(prefabs ?? []);
@@ -363,21 +311,6 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     }
 
     /// <summary>
-    /// Internal logger move function, moves the contents of SLP's logger into ours
-    /// </summary>
-    private void DoLoggerMove() {
-        using ModProfiler? _ = this.Profile();
-
-        // i know this is jank, but we dont really want to have 2 logger instances for the same mod
-        for (int i = 0; i < this.LoadedBuffer.Count; i++) {
-            LogLine line = this.LoadedBuffer[i];
-            this.Buffer.Add(this.LoggerName, line.Message, line.Severity);
-        }
-        this.LoadedMod.Logger.Clear();
-        this.LoadedMod.Logger = this.Logger;
-    }
-
-    /// <summary>
     /// Internal <see cref="DoLoadConfiguration"/> method.
     /// Called when mod is ready to load configuration
     /// </summary>
@@ -400,7 +333,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// Internal <see cref="DoHarmonyPatch"/>
     /// Called when mod is ready to do patches.
     /// </summary>
-    private void DoHarmonyPatch() {
+    private void DoHarmonyPatch(List<Assembly> _assemblies) {
         using ModProfiler? _ = this.Profile();
 
         bool success = true;
@@ -409,7 +342,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
             int assemblies = 0;
             try {
-                success = this.DoAssembliesPatch(out assemblies);
+                success = this.DoAssembliesPatch(_assemblies, out assemblies);
             } catch (Exception ex) {
                 this.LogFatal("Harmony patching failed!");
                 this.LogException(ex);
@@ -421,10 +354,10 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         this.OnHarmonyPatched(success);
     }
 
-    private bool DoAssembliesPatch(out int patched) {
+    private bool DoAssembliesPatch(List<Assembly> _assemblies, out int patched) {
         int assemblies = 0;
         bool success = true;
-        foreach ((Assembly assembly, List<ConditionalPatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(this.LoadedMod.Assemblies)) {
+        foreach ((Assembly assembly, List<ConditionalPatchClassProcessor> processors) in this.Harmony.CreatePatchersForAssemblies(_assemblies)) {
             using ModProfiler? _ = this.Profile();
 
             assemblies++;
@@ -542,10 +475,9 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="severity"></param>
     public override void Log(string message, LogSeverity severity = LogSeverity.Information) {
         if (this.UseLogger) {
-            this.Logger?.Log(message, severity, false);
+            //this.Logger?.Log(message, severity, false);
+            UnityEngine.Debug.Log(message);
         }
-
-        this.LogStationeers(message, severity);
     }
 
     /// <summary>
@@ -555,48 +487,9 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="exception">Exception</param>
     public override void Log(Exception exception) {
         if (this.UseLogger) {
-            this.Logger?.Log(exception);
+            //this.Logger?.Log(exception);
+            UnityEngine.Debug.LogException(exception);
         }
-
-        this.LogStationeers(exception);
-    }
-
-    /// <summary>
-    /// Log function that logs to stationeers console.
-    /// Can be overriden to add or remove functionality.
-    /// </summary>
-    /// <param name="message"></param>
-    /// <param name="severity"></param>
-    public virtual void LogStationeers(string message, LogSeverity severity = LogSeverity.Information) {
-        if (!this.LogToStationeers) {
-            return;
-        }
-
-        switch (severity) {
-            default:
-            case LogSeverity.Debug:
-                ConsoleWindow.Print(message, ConsoleColor.Gray);
-                break;
-            case LogSeverity.Information:
-                ConsoleWindow.Print(message);
-                break;
-            case LogSeverity.Warning:
-                ConsoleWindow.PrintAction(message);
-                break;
-            case LogSeverity.Error:
-            case LogSeverity.Exception:
-            case LogSeverity.Fatal:
-                ConsoleWindow.PrintError(message);
-                break;
-        }
-    }
-
-    public virtual void LogStationeers(Exception exception) {
-        if (!this.LogToStationeers) {
-            return;
-        }
-
-        ConsoleWindow.PrintError(exception);
     }
 
     /// <summary>
@@ -608,21 +501,9 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="args">params object[]</param>
     public override void LogFormat(LogSeverity severity, string format, params object[] args) {
         if (this.UseLogger) {
-            this.Logger?.LogFormat(false, severity, format, args);
+            //this.Logger?.LogFormat(false, severity, format, args);
+            UnityEngine.Debug.LogFormat(format, args);
         }
-
-        this.LogFormatStationeers(severity, format, args);
-    }
-
-    /// <summary>
-    /// Log function that logs to stationeers console.
-    /// Can be overriden to add or remove functionality.
-    /// </summary>
-    /// <param name="severity"></param>
-    /// <param name="format"></param>
-    /// <param name="args"></param>
-    public virtual void LogFormatStationeers(LogSeverity severity, string format, params object[] args) {
-        this.LogStationeers(string.Format(format, args), severity);
     }
 
     #endregion // LOGGING METHODS
@@ -703,7 +584,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         StackTrace stackTrace = new StackTrace();
         StackFrame frame = stackTrace.GetFrame(1);
 
-        return new ModProfiler(this.Logger, frame.GetMethod(), isUpdateMethod);
+        return new ModProfiler(/*this.Logger,*/ frame.GetMethod(), isUpdateMethod);
     }
 
     /// <summary>

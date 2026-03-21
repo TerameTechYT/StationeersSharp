@@ -17,9 +17,9 @@ public static class PatchFunctions {
     [HarmonyPostfix]
     public static void AdvancedTabletDeserializeSave(ref AdvancedTablet __instance, ThingSaveData savedData) => Traverse.Create(__instance).Method("GetCartridge").GetValue();
 
-    [HarmonyPatch(typeof(AdvancedTablet), nameof(AdvancedTablet.InteractWith))]
+    /*[HarmonyPatch(typeof(AdvancedTablet), nameof(AdvancedTablet.InteractWith))]
     [HarmonyPostfix]
-    public static void AdvancedTabletInteractWith(ref AdvancedTablet __instance, ref Thing.DelayedActionInstance __result, ref int ___currentCartSlot, Interactable interactable, Interaction interaction, bool doAction) {
+    public static void AdvancedTabletInteractWith(ref AdvancedTablet __instance, ref Thing.DelayedActionInstance __result, Interactable interactable, Interaction interaction, bool doAction, ref int ___currentCartSlot) {
         if (__instance == null || !doAction) {
             return;
         }
@@ -35,11 +35,11 @@ public static class PatchFunctions {
         } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
-    }
+    }*/
 
     [HarmonyPatch(typeof(Item), nameof(Item.OnUsePrimary))]
     [HarmonyPrefix]
-    public static bool ItemOnUsePrimary(Item __instance, Vector3 targetLocation, Quaternion targetRotation, ulong steamId, bool authoringMode) {
+    public static bool ItemOnUsePrimary(ref Item __instance, Vector3 targetLocation, Quaternion targetRotation, ulong steamId, bool authoringMode) {
         if (__instance == null || __instance is not AdvancedTablet advancedTablet) {
             return true;
         }

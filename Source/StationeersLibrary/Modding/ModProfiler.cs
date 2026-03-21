@@ -1,6 +1,5 @@
 ﻿#region
 
-using StationeersLaunchPad;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -8,14 +7,14 @@ using System.Reflection;
 
 namespace StationeersLibrary.Modding;
 
-// Adapted from https://github.com/TheRealBeef/Stationeers-ModProfile-Lib/  
+// Adapted from https://github.com/TheRealBeef/Stationeers-ModProfile-Lib/
 public class ModProfiler : IDisposable {
     internal static readonly Dictionary<MethodBase, int> _belowThresholdCounts = [];
 
     public const double NORMAL_THRESHOLD = 0.001;
     public const double UPDATE_THRESHOLD = 1;
 
-    private readonly Logger _logger;
+    //private readonly Logger _logger;
     private readonly MethodBase _method;
     private readonly bool _isUpdateMethod;
     private readonly Stopwatch _stopwatch;
@@ -24,7 +23,7 @@ public class ModProfiler : IDisposable {
 
     public double ElapsedMilliseconds => this.Elapsed.TotalMilliseconds;
 
-    internal ModProfiler(Logger logger, MethodBase method, bool isUpdateMethod = false) {
+    internal ModProfiler(/* Logger logger,*/ MethodBase method, bool isUpdateMethod = false) {
 #if DEBUG
         this._logger = logger;
         this._method = method;

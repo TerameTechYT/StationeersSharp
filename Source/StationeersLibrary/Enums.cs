@@ -4,6 +4,17 @@
 
 namespace StationeersLibrary;
 
+[Flags]
+public enum LogSeverity {
+    Debug = 1 << 0,
+    Information = 1 << 1,
+    Warning = 1 << 2,
+    Error = 1 << 3,
+    Exception = 1 << 4,
+    Fatal = 1 << 5,
+    All = Debug | Information | Warning | Error | Exception | Fatal,
+}
+
 public enum DependencyType {
     /// <summary>
     /// There is no dependency.

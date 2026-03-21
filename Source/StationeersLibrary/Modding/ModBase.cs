@@ -1,10 +1,10 @@
 ﻿#region
 
+using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
-using StationeersLaunchPad;
 using StationeersLibrary.Args;
-
 using System.Collections;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -84,7 +84,7 @@ public abstract class ModBase : MonoBehaviour, IMod, ILogger, IEquatable<ModBase
     #region METHODS
 
     /// <inheritdoc/>
-    public abstract void OnLoaded(List<GameObject> prefabs);
+    public abstract void OnLoaded(List<GameObject> prefabs, List<Assembly> assemblies, ConfigFile config, ModData data);
 
     /// <inheritdoc/>
     public abstract void OnUnloaded();

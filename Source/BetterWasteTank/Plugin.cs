@@ -20,14 +20,12 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWasteTank",
         Guid = "betterwastetank",
-        Version = new Version(1, 8, 0, 501),
+        Version = new Version(1, 8, 0, 522),
         WorkshopId = 3071913936ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
-
-    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
     public override void OnStart() { }
 

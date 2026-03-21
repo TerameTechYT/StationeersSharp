@@ -19,19 +19,15 @@ public class Plugin : Mod<Plugin> {
     public override bool UseConfig => true;
     public override bool UseHarmony => true;
 
-    public override bool LogToStationeers => true;
-
     public override ModInfo Data => new ModInfo() {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
-        Version = new Version(1, 3, 0, 502),
+        Version = new Version(1, 3, 0, 523),
         WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
-
-    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
     public override void OnStart() {
         Prefab.OnPrefabsLoaded += Functions.PrefabsLoaded;

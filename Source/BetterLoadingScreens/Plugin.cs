@@ -18,21 +18,17 @@ public class Plugin : Mod<Plugin> {
 
     public override bool UseLogger => true;
     public override bool UseConfig => true;
-    public override bool LogToStationeers => true;
     public override bool UseHarmony => true;
 
     public override ModInfo Data => new ModInfo() {
         Name = "BetterLoadingScreens",
         Guid = "betterloadingscreens",
-        Version = new Version(1, 0, 0, 43),
+        Version = new Version(1, 0, 0, 64),
         WorkshopId = 0ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
-
-    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
-
     public override void OnConfigLoad() {
         this.RegisterConfig(new ConfigData<bool>(
             true,

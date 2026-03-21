@@ -22,14 +22,12 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "ExternalSuitReader",
         Guid = "externalsuitreader",
-        Version = new Version(1, 8, 0, 501),
+        Version = new Version(1, 8, 0, 522),
         WorkshopId = 3071985478ul,
         GameType = GameType.Both,
     };
 
     public Plugin() : base() => Plugin.Instance = this;
-
-    public override void OnLoaded(List<GameObject> prefabs) => base.OnLoaded(prefabs);
 
     public override void OnStart() { }
 }
@@ -83,15 +81,15 @@ internal struct Data {
                 {LogicType.RatioCarbonDioxideOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.CarbonDioxide)},
                 {LogicType.RatioLiquidCarbonDioxideOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidCarbonDioxide)},
 
-                // volatiles
-                {LogicType.RatioVolatilesOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Volatiles)},
-                {LogicType.RatioLiquidVolatilesOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidVolatiles)},
+                // methane
+                {LogicType.RatioMethaneOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Methane)},
+                {LogicType.RatioLiquidMethaneOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidMethane)},
 
                 // pollutant
                 {LogicType.RatioPollutantOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Pollutant)},
                 {LogicType.RatioLiquidPollutantOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidPollutant)},
 
-                // nitrous oxide 
+                // nitrous oxide
                 {LogicType.RatioNitrousOxideOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.NitrousOxide)},
                 {LogicType.RatioLiquidNitrousOxideOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidNitrousOxide)},
 
@@ -99,6 +97,30 @@ internal struct Data {
                 {LogicType.RatioSteam, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Steam)},
                 {LogicType.RatioWaterOutput, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Water)},
                 {LogicType.RatioWaterOutput2, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.PollutedWater)},
+
+                // hydrogen
+                {LogicType.RatioHydrogen, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Hydrogen)},
+                {LogicType.RatioLiquidHydrogen, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidHydrogen)},
+
+                //hydrazine
+                {LogicType.RatioHydrazine, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Hydrazine)},
+                {LogicType.RatioLiquidHydrazine, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidHydrazine)},
+
+                // silanol
+                {LogicType.RatioSilanol, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Silanol)},
+                {LogicType.RatioLiquidSilanol, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidSilanol)},
+
+
+                // acids
+                {LogicType.RatioLiquidAlcohol, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidAlcohol)},
+                {LogicType.RatioHydrochloricAcid, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.HydrochloricAcid)},
+                {LogicType.RatioLiquidHydrochloricAcid, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidHydrochloricAcid)},
+
+                // ozone
+                {LogicType.RatioOzone, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Ozone)},
+                {LogicType.RatioLiquidOzone, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.LiquidOzone)},
+
+                {LogicType.RatioHelium, (suit) => suit.WorldAtmosphere.GetGasTypeRatio(Chemistry.GasType.Helium)},
 
                 // data channels
                 /*{LogicType.Channel0, (suit) => Functions.GetSuitChannel(suit.ReferenceId, 0)},

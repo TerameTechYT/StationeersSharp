@@ -32,11 +32,6 @@
         </Reference>
 
         <!-- StationeersLaunchPad DLL's -->
-        <Reference Include="StationeersLaunchPad">
-            <HintPath>$(StationeersLaunchPadDirectory)\StationeersLaunchPad.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-            
         <Reference Include="LaunchPadBooster">
             <HintPath>$(StationeersLaunchPadDirectory)\LaunchPadBooster.dll</HintPath>
             <Private>False</Private>

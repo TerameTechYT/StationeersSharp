@@ -1,7 +1,5 @@
 ﻿#region
 
-using StationeersLaunchPad;
-
 #endregion
 
 namespace StationeersLibrary.Modding;

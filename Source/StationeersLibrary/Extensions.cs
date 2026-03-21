@@ -2,8 +2,6 @@
 
 using Assets.Scripts.Atmospherics;
 using HarmonyLib;
-using StationeersLaunchPad;
-using StationeersLibrary.Enums;
 using StationeersLibrary.Modding;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -19,7 +17,7 @@ public static class HarmonyExtensions {
 
         foreach (Type type in AccessTools.GetTypesFromAssembly(assembly ?? Assembly.GetCallingAssembly())) {
             bool cancel = false;
-            foreach (HarmonyPatchCondition condition in type.GetCustomAttributes(true).OfType<HarmonyPatchCondition>()) {
+            foreach (HarmonyPatchConditionAttribute condition in type.GetCustomAttributes(true).OfType<HarmonyPatchConditionAttribute>()) {
                 if (!condition.ShouldPatch) {
                     cancel = true;
                     break;
@@ -44,12 +42,6 @@ public static class HarmonyExtensions {
         }
 
         return processors;
-    }
-}
-
-public static class EnumExtensions {
-    public static bool IsDefinedByDefault<TEnum>(this TEnum enumValue) where TEnum : Enum {
-        return !EnumCacheProvider.TryGetManager(typeof(TEnum), out IEnumCache? manager) || !manager.Keys.Contains(enumValue);
     }
 }
 

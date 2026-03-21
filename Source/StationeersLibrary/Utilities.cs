@@ -43,7 +43,7 @@ public static class Utilities {
 
     public static Chemistry.GasType GetSpeciesAirType(SpeciesClass species) => species switch {
         SpeciesClass.Human => Chemistry.GasType.Oxygen,
-        SpeciesClass.Zrilian => Chemistry.GasType.Volatiles,
+        SpeciesClass.Zrilian => Chemistry.GasType.Hydrogen,
         _ => Chemistry.GasType.Undefined,
     };
 
