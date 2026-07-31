@@ -3,7 +3,6 @@
 
 using StationeersLibrary;
 using StationeersLibrary.Modding;
-using UnityEngine;
 
 #endregion
 
@@ -20,7 +19,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterFabricator",
         Guid = "betterfabricator",
-        Version = new Version(1, 3, 0, 522),
+        Version = new Version(1, 3, 0, 539),
         WorkshopId = 0ul,
         GameType = GameType.Both,
     };

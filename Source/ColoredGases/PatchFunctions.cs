@@ -20,8 +20,7 @@ public static class PatchFunctions {
     public static bool AtmosphericsManagerEmitAirVisualizerParticles(DensePool<Atmosphere> targetContainer, ParticleSystem emitter, Vector3 particleAtmosphereSpawnOffset, Predicate<Atmosphere> emitCondition, bool localSpace = false) {
         try {
             return Functions.EmitAirParticles(targetContainer, emitter, particleAtmosphereSpawnOffset, emitCondition, localSpace);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 
@@ -34,8 +33,7 @@ public static class PatchFunctions {
     public static bool AtmosphericFogEmitAtmosphericFogParticles() {
         try {
             return Functions.EmitFogParticles();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
 

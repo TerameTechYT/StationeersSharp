@@ -3,7 +3,6 @@
 using BepInEx.Configuration;
 using StationeersLibrary;
 using StationeersLibrary.Modding;
-using UnityEngine;
 
 #endregion
 
@@ -19,7 +18,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "ColoredGases",
         Guid = "coloredgases",
-        Version = new Version(1, 4, 0, 523),
+        Version = new Version(1, 4, 0, 540),
         WorkshopId = 3523162910ul,
         GameType = GameType.Client,
     };

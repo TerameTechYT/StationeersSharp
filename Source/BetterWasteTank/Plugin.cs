@@ -4,7 +4,6 @@ using Assets.Scripts.Objects.Entities;
 using BepInEx.Configuration;
 using StationeersLibrary;
 using StationeersLibrary.Modding;
-using UnityEngine;
 
 #endregion
 
@@ -20,7 +19,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWasteTank",
         Guid = "betterwastetank",
-        Version = new Version(1, 8, 0, 522),
+        Version = new Version(1, 8, 0, 539),
         WorkshopId = 3071913936ul,
         GameType = GameType.Both,
     };

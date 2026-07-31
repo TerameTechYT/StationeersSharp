@@ -1,6 +1,5 @@
 ﻿#region
 
-using BepInEx.Configuration;
 using HarmonyLib;
 
 using System.Collections;
@@ -33,7 +32,7 @@ public sealed class HarmonyPatchVersions(params string[] versions) : HarmonyPatc
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public sealed class HarmonyPatchBranch(GameBranch branch) : HarmonyPatchConditionAttribute {
     public GameBranch GameBranch => branch;
-    
+
     public override bool ShouldPatch => Constants.GAME_BRANCH == this.GameBranch;
 }
 

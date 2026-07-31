@@ -133,6 +133,9 @@ internal static class Functions {
         Jetpack? jetpack = human?.BackpackSlot.Get<Jetpack>();
         GasCanister? jetpackPropellant = jetpack?.PropellentSlot.Get<GasCanister>();
 
+        JetpackElectric? jetpackElectric = jetpack is JetpackElectric ? jetpack as JetpackElectric : null;
+        BatteryCell? jetpackBattery = jetpackElectric?.BatterySlot.Get<BatteryCell>();
+
         // Set Pressure Unit
         _internalPressureUnit?.text = _externalPressureUnit?.text = _jetpackPressureUnit?.text = Utilities.GetPressureSymbol(ConfigData.PreferredPressureUnit);
 
@@ -205,6 +208,12 @@ internal static class Functions {
         window.InfoJetpackPressureDeltaText.text = pressureDeltaText;
         window.InfoJetpackPressureDeltaText.fontSize = ConfigData.FontSize;
 
+        float jetpackCharge = jetpackBattery?.PowerRatio ?? 0f;
+        float jetpackChargeDisplay = jetpackCharge * 100f;
+        string jetpackChargeText = jetpackChargeDisplay.ToStringPrecision();
+        window.InfoJetpackPowerText.text = jetpackChargeText;
+        window.InfoJetpackPowerText.fontSize = ConfigData.FontSize;
+
         // Jetpack Thrust Setting
         float jetpackSetting = jetpack?.OutputSetting ?? 0f;
         int jetpackSettingRounded = Mathf.CeilToInt(jetpackSetting * 10f) * 5;
@@ -253,6 +262,35 @@ internal static class Functions {
         string hydrationLeftText = hydrationLeft.ToStringPrecision();
         window.HydrationPercentage.text = hydrationLeftText;
         window.HydrationPercentage.fontSize = ConfigData.FontSize;
+
+        // Character Santiation
+        float waste = human?.SanitationRatio ?? 0f;
+        float wasteDisplay = waste * 100f;
+        string wasteText = wasteDisplay.ToStringPrecision();
+        window.WastePercentage.text = wasteText;
+        window.WastePercentage.fontSize = ConfigData.FontSize;
+        window.WastePercentageObject.SetActive(true);
+
+        // Character Mood
+        float mood = human?.Mood ?? 0f;
+        float moodDisplay = mood * 100f;
+        string moodText = moodDisplay.ToStringPrecision();
+        window.MoodText.text = moodText;
+        window.MoodText.fontSize = ConfigData.FontSize;
+
+        // Character Hygiene
+        float hygiene = human?.Hygiene ?? 0f;
+        float hygieneDisplay = hygiene * 100f;
+        string hygieneText = hygieneDisplay.ToStringPrecision();
+        window.HygieneText.text = hygieneText;
+        window.HygieneText.fontSize = ConfigData.FontSize;
+
+        // Character Food Quality
+        float foodQuality = human?.FoodQuality ?? 0f;
+        float foodQualityDisplay = foodQuality * 100f;
+        string foodQualityText = foodQualityDisplay.ToStringPrecision();
+        window.FoodQualityText.text = foodQualityText;
+        window.FoodQualityText.fontSize = ConfigData.FontSize;
 
         // Character Look Angle
         float eulerAnglesY = human?.EntityRotation.eulerAngles.y ?? 0f;

@@ -1,9 +1,7 @@
 ﻿#region
 
 
-using Cysharp.Threading.Tasks;
 using StationeersLibrary;
-using StationeersLibrary.Args;
 using StationeersLibrary.Modding;
 using System.Reflection;
 using ThingImport;
@@ -23,7 +21,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterLoadingScreens",
         Guid = "betterloadingscreens",
-        Version = new Version(1, 0, 0, 64),
+        Version = new Version(1, 0, 0, 81),
         WorkshopId = 0ul,
         GameType = GameType.Both,
     };

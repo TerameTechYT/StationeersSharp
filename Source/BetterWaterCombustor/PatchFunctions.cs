@@ -3,9 +3,9 @@
 using Assets.Scripts.Atmospherics;
 using HarmonyLib;
 using StationeersLibrary;
+using StationeersLibrary.Modding;
 using System.Reflection;
 using System.Reflection.Emit;
-using StationeersLibrary.Modding;
 
 #endregion
 

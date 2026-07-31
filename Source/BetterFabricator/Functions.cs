@@ -1,8 +1,12 @@
 ﻿#region 
 
+using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Appliances;
 using Assets.Scripts.Objects.Electrical;
+using Assets.Scripts.Objects.Items;
+using Assets.Scripts.Objects.Pipes;
 using HarmonyLib;
+using UnityEngine;
 
 #endregion
 
@@ -83,7 +87,18 @@ public static class Functions {
             return;
         }
 
-        //recipeData.Recipe.Check();
-        //Fabricator.RecipeComparable.AddRecipe(recipeData);
+        recipeData.Recipe.Check();
+        Fabricator.RecipeComparable.AddRecipe(recipeData, null);
+    }
+
+    public static void Smelt(ref FurnaceBase furnace, ref DynamicThing dynamicThing) {
+        if (dynamicThing is Ore ore) {
+            int smeltAmount = (int) Mathf.Lerp(1, ore.Quantity, Mathf.Clamp01((ore.Temperature / furnace.InternalAtmosphere.Temperature).ToFloat()));
+            for (int i = 0; i < smeltAmount; i++) {
+                ore.Smelt(furnace.InternalAtmosphere, furnace.ReagentMixture);
+            }
+        } else {
+            dynamicThing.Smelt(furnace.InternalAtmosphere, furnace.ReagentMixture);
+        }
     }
 }

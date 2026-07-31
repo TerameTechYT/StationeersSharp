@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Stationpedia Calculator [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.5.0.502</Version>
+    <Version>1.5.0.523</Version>
     <Description>
         [h1]Stationpedia Calculator[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -35,11 +35,11 @@
 		</Mod>
 	</LoadBefore>
 <ChangeLog>
-	[h1]Update v1.5.0.496 to v1.5.0.502[/h1]
+	[h1]Update v1.5.0.502 to v1.5.0.523[/h1]
 	[list]
-		[*] Update for new stationeers version
+		[*] Update for new Stationeers version, refactor enums/logging
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 03ae7495b78aebc3279e64cc71e92fda4b304636 -->
-<!-- LastProcessedVersion: 1.5.0.502 -->
+<!-- LastProcessedCommit: 1fdc1e94be8a8b8da36bca387b9d31a4c6540921 -->
+<!-- LastProcessedVersion: 1.5.0.523 -->

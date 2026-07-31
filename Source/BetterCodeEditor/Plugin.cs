@@ -4,7 +4,6 @@ using Assets.Scripts.UI;
 using BepInEx.Configuration;
 using StationeersLibrary;
 using StationeersLibrary.Modding;
-using UnityEngine;
 
 #endregion
 
@@ -22,7 +21,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterCodeEditor",
         Guid = "bettercodeeditor",
-        Version = new Version(1, 4, 0, 522),
+        Version = new Version(1, 4, 0, 539),
         WorkshopId = 0ul,
         GameType = GameType.Client,
     };

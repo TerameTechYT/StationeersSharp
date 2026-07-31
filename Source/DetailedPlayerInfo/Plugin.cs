@@ -8,7 +8,6 @@ using StationeersLibrary.Args;
 
 using StationeersLibrary.Modding;
 using System.Reflection;
-using UnityEngine;
 
 #endregion
 
@@ -24,7 +23,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 520),
+        Version = new Version(2, 0, 0, 537),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };
@@ -35,10 +34,11 @@ public class Plugin : Mod<Plugin> {
 
     public override UniTask OnBaseLoaded(SceneLoadArgs args) {
         try {
-            var type = Type.GetType("PlantsnNutritionRebalance.Scripts.MaxHydrationStoragePatch/PlayerStateWindowPatches, stationeers-PlantsnNutritionRebalance");
-
-            this.Harmony.Patch(type.GetMethod("PlayerStateWindowPatch", BindingFlags.Public | BindingFlags.Static),
-                new HarmonyMethod(typeof(PatchFunctions).GetMethod("PNNPatch", BindingFlags.Public | BindingFlags.Static)));
+            Type type = Type.GetType("PlantsnNutritionRebalance.Scripts.MaxHydrationStoragePatch/PlayerStateWindowPatches, stationeers-PlantsnNutritionRebalance");
+            if (type != null) {
+                this.Harmony.Patch(type.GetMethod("PlayerStateWindowPatch", BindingFlags.Public | BindingFlags.Static),
+                    new HarmonyMethod(typeof(PatchFunctions).GetMethod("PNNPatch", BindingFlags.Public | BindingFlags.Static)));
+            }
         } catch (Exception ex) {
             this.LogException(ex);
         }

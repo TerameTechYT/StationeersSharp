@@ -2,7 +2,6 @@
 
 
 using StationeersLibrary.Modding;
-using UnityEngine;
 
 #endregion
 
@@ -18,7 +17,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "StationeersLibrary",
         Guid = "stationeerslibrary",
-        Version = new Version(2, 0, 0, 547),
+        Version = new Version(2, 0, 0, 564),
         WorkshopId = 3389894703ul,
         GameType = GameType.Both,
     };

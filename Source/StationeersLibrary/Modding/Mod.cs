@@ -1,8 +1,6 @@
 ﻿#region
 
-using Assets.Scripts;
 using Assets.Scripts.Objects;
-using Assets.Scripts.Util;
 using BepInEx.Configuration;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
@@ -109,9 +107,14 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     #region INTERNAL
 
     /// <summary>
-    /// Override to provide your own version checking function.
+    /// Override to provide your own version validator function.
     /// </summary>
-    public virtual Func<string, bool> VersionCheck { get; private set; }
+    public virtual IVersionValidator VersionValidator { get; private set; }
+    public virtual IJoinValidator JoinValidator { get; private set; }
+    public virtual IJoinPrefixSerializer JoinPrefixSerializer { get; private set; }
+    public virtual IJoinSuffixSerializer JoinSuffixSerializer { get; private set; }
+    public virtual IUpdatePrefixSerializer UpdatePrefixSerializer { get; private set; }
+    public virtual IUpdateSuffixSerializer UpdateSuffixSerializer { get; private set; }
 
     /// <summary>
     /// Internal <see cref="LaunchPadBooster.Mod"/> instance.
@@ -197,12 +200,13 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         if (this.HasPrefabs) {
             this.InternalMod.AddPrefabs(this.Prefabs.AsReadOnly());
         }
-        if (this.VersionCheck != null) {
-            this.InternalMod.SetVersionCheck(this.VersionCheck);
-        }
-        if (this.ModGameType == GameType.Both) {
-            this.InternalMod.SetMultiplayerRequired();
-        }
+        this.InternalMod.Networking.Required = this.ModGameType == GameType.Both;
+        this.InternalMod.Networking.VersionValidator = this.VersionValidator;
+        this.InternalMod.Networking.JoinValidator = this.JoinValidator;
+        this.InternalMod.Networking.JoinPrefixSerializer = this.JoinPrefixSerializer;
+        this.InternalMod.Networking.JoinSuffixSerializer = this.JoinSuffixSerializer;
+        this.InternalMod.Networking.UpdatePrefixSerializer = this.UpdatePrefixSerializer;
+        this.InternalMod.Networking.UpdateSuffixSerializer = this.UpdateSuffixSerializer;
 
         SceneManager.sceneLoaded += this.SceneLoaded;
         SceneManager.sceneUnloaded += this.SceneUnloaded;
@@ -539,12 +543,20 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// Registers a network message.
     /// </summary>
     /// <typeparam name="TNetworkMessage">A network message type.</typeparam>
-    public void RegisterNetworkMessage<TNetworkMessage>() where TNetworkMessage : ModNetworkMessage<TNetworkMessage>, new() {
+    public void RegisterNetworkMessage<TNetworkMessage>() where TNetworkMessage : INetworkMessage, new() {
         using ModProfiler? _ = this.Profile();
 
         this.LogDebug($"Registering NetworkMessage {typeof(TNetworkMessage).Name}...");
-        this.InternalMod.RegisterNetworkMessage<TNetworkMessage>();
+        this.InternalMod.Networking.RegisterMessage<TNetworkMessage>();
         this.LogDebug($"Registered NetworkMessage!");
+    }
+
+    public void RegisterRPC<TNetworkRPC>() where TNetworkRPC : INetworkRPC, new() {
+        using ModProfiler? _ = this.Profile();
+
+        this.LogDebug($"Registering NetworkRPC {typeof(TNetworkRPC).Name}...");
+        this.InternalMod.Networking.RegisterRPC<TNetworkRPC>();
+        this.LogDebug($"Registered NetworkRPC!");
     }
 
     /// <summary>
@@ -726,7 +738,7 @@ public struct ConfigData<T> : IEquatable<ConfigData<T>> where T : IComparable {
         this.Description = new(description, new AcceptableValueRange<T>(min, max), tags);
     }
 
-    public readonly override bool Equals(object obj) =>
+    public override readonly bool Equals(object obj) =>
         obj is ConfigData<T> data && this.Equals(data);
 
     public readonly bool Equals(ConfigData<T> data) =>

@@ -1,5 +1,7 @@
 ﻿#region
 
+using Assets.Scripts.Objects;
+using Assets.Scripts.Objects.Pipes;
 using HarmonyLib;
 using StationeersLibrary;
 using System.Reflection;
@@ -49,5 +51,20 @@ public static class PatchFunctions {
         }
 
         return instructions;
+    }
+
+    [HarmonyPatch(typeof(FurnaceBase), nameof(FurnaceBase.Smelt))]
+    [HarmonyPrefix]
+    public static bool FurnaceBaseSmelt(ref FurnaceBase __instance, ref bool __result, DynamicThing dynamicThing) {
+        try {
+            Functions.Smelt(ref __instance, ref dynamicThing);
+
+            __result = true;
+            return false;
+        } catch (Exception ex) {
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
+        }
+
+        return true;
     }
 }

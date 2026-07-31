@@ -4,7 +4,6 @@ using Assets.Scripts;
 using Assets.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using NCalc;
-using UnityEngine;
 using UnityObject = UnityEngine.Object;
 
 #endregion

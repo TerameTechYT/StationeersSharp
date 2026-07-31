@@ -4,7 +4,6 @@ using Assets.Scripts.Objects.Items;
 using Assets.Scripts.Objects.Motherboards;
 using StationeersLibrary;
 using StationeersLibrary.Modding;
-using UnityEngine;
 
 #endregion
 
@@ -20,7 +19,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterHydroponics",
         Guid = "betterhydroponics",
-        Version = new Version(1, 4, 0, 522),
+        Version = new Version(1, 4, 0, 539),
         WorkshopId = 3449149492ul,
         GameType = GameType.Both,
     };

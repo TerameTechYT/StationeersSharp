@@ -2,7 +2,6 @@
 
 using Assets.Scripts;
 using BepInEx;
-using StationeersLibrary.Modding;
 using Steamworks;
 
 #endregion

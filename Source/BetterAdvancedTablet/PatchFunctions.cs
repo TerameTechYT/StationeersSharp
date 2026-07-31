@@ -1,6 +1,5 @@
 ﻿#region
 
-using Assets.Scripts.Atmospherics;
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Items;
 using HarmonyLib;
