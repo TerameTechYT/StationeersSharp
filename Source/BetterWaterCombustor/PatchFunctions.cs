@@ -1,6 +1,7 @@
 ﻿#region
 
 using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Objects.Pipes;
 using HarmonyLib;
 using StationeersLibrary;
 using StationeersLibrary.Modding;
@@ -13,7 +14,8 @@ namespace BetterWaterCombustor;
 
 [HarmonyPatch]
 public static class PatchFunctions {
-    [HarmonyPatchVersion("0.0.0.0", "0.2.6182.26959")]
+    // https://store.steampowered.com/news/app/544550/view/521990850610203005
+    [HarmonyPatchVersionMaximum("0.2.6182.26959")]
     [HarmonyPatch(typeof(Atmosphere), "CombustForWater")]
     [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> AtmosphereCombustForWaterTranspiler(IEnumerable<CodeInstruction> instructions) {
@@ -43,4 +45,23 @@ public static class PatchFunctions {
 
         return instructions;
     }
+
+    /*// https://store.steampowered.com/news/app/544550/view/491593545667313734
+    [HarmonyPatchVersionMinimum("0.2.6217.27046")]
+    [HarmonyPatch("CombustorMachine", "OnAtmosphericTick")]
+    [HarmonyPrefix]
+    public static bool CombustorMachineOnAtmosphericTick(ref CombustorMachine __instance) {
+        if (__instance == null) {
+            return false;
+        }
+
+        try {
+            Functions.OnAtmosphericTick(ref __instance);
+            return false;
+        } catch (Exception ex) {
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
+        }
+
+        return true;
+    }*/
 }

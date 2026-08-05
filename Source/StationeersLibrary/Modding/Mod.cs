@@ -2,6 +2,7 @@
 
 using Assets.Scripts.Objects;
 using BepInEx.Configuration;
+using BepInEx.Logging;
 using Cysharp.Threading.Tasks;
 using HarmonyLib;
 using LaunchPadBooster.Networking;
@@ -31,6 +32,11 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// Should this mod initalize the logger?
     /// </summary>
     public abstract bool UseLogger { get; }
+
+    /// <summary>
+    /// This mods <see cref="ManualLogSource"/> instance.
+    /// </summary>
+    public ManualLogSource? Logger { get; private set; }
 
     #endregion // LOGGER
 
@@ -109,12 +115,32 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <summary>
     /// Override to provide your own version validator function.
     /// </summary>
-    public virtual IVersionValidator VersionValidator { get; private set; }
-    public virtual IJoinValidator JoinValidator { get; private set; }
-    public virtual IJoinPrefixSerializer JoinPrefixSerializer { get; private set; }
-    public virtual IJoinSuffixSerializer JoinSuffixSerializer { get; private set; }
-    public virtual IUpdatePrefixSerializer UpdatePrefixSerializer { get; private set; }
-    public virtual IUpdateSuffixSerializer UpdateSuffixSerializer { get; private set; }
+    public virtual IVersionValidator? VersionValidator { get; private set; }
+
+    /// <summary>
+    /// Override to provide your own version join function.
+    /// </summary>
+    public virtual IJoinValidator? JoinValidator { get; private set; }
+
+    /// <summary>
+    /// Override to provide your own version join prefix serializer function.
+    /// </summary>
+    public virtual IJoinPrefixSerializer? JoinPrefixSerializer { get; private set; }
+
+    /// <summary>
+    /// Override to provide your own version join suffix serializer function.
+    /// </summary>
+    public virtual IJoinSuffixSerializer? JoinSuffixSerializer { get; private set; }
+
+    /// <summary>
+    /// Override to provide your own version update prefix serializer function.
+    /// </summary>
+    public virtual IUpdatePrefixSerializer? UpdatePrefixSerializer { get; private set; }
+
+    /// <summary>
+    /// Override to provide your own version update suffix serializer function.
+    /// </summary>
+    public virtual IUpdateSuffixSerializer? UpdateSuffixSerializer { get; private set; }
 
     /// <summary>
     /// Internal <see cref="LaunchPadBooster.Mod"/> instance.
@@ -128,6 +154,11 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <inheritdoc/>
     public override void OnLoaded(List<GameObject> prefabs, List<Assembly> assemblies, ConfigFile config, ModData data) {
         using ModProfiler? _ = this.Profile();
+
+        if (this.UseLogger) {
+            this.Logger = new ManualLogSource(this.ModGuid);
+            BepInEx.Logging.Logger.Sources.Add(this.Logger);
+        }
 
         this.LogDebug($"{this} is now loading...");
 
@@ -200,13 +231,16 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         if (this.HasPrefabs) {
             this.InternalMod.AddPrefabs(this.Prefabs.AsReadOnly());
         }
-        this.InternalMod.Networking.Required = this.ModGameType == GameType.Both;
-        this.InternalMod.Networking.VersionValidator = this.VersionValidator;
-        this.InternalMod.Networking.JoinValidator = this.JoinValidator;
-        this.InternalMod.Networking.JoinPrefixSerializer = this.JoinPrefixSerializer;
-        this.InternalMod.Networking.JoinSuffixSerializer = this.JoinSuffixSerializer;
-        this.InternalMod.Networking.UpdatePrefixSerializer = this.UpdatePrefixSerializer;
-        this.InternalMod.Networking.UpdateSuffixSerializer = this.UpdateSuffixSerializer;
+
+        if (this.ModGameType == GameType.Both) {
+            this.InternalMod.Networking.Required = true;
+            this.InternalMod.Networking.VersionValidator = this.VersionValidator;
+            this.InternalMod.Networking.JoinValidator = this.JoinValidator;
+            this.InternalMod.Networking.JoinPrefixSerializer = this.JoinPrefixSerializer;
+            this.InternalMod.Networking.JoinSuffixSerializer = this.JoinSuffixSerializer;
+            this.InternalMod.Networking.UpdatePrefixSerializer = this.UpdatePrefixSerializer;
+            this.InternalMod.Networking.UpdateSuffixSerializer = this.UpdateSuffixSerializer;
+        }
 
         SceneManager.sceneLoaded += this.SceneLoaded;
         SceneManager.sceneUnloaded += this.SceneUnloaded;
@@ -471,6 +505,19 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
     #region LOGGING METHODS
 
+    public static LogLevel ToLogLevel(LogSeverity severity) {
+        return severity switch {
+            LogSeverity.Debug => LogLevel.Debug,
+            LogSeverity.Information => LogLevel.Info,
+            LogSeverity.Warning => LogLevel.Warning,
+            LogSeverity.Error => LogLevel.Error,
+            LogSeverity.Fatal => LogLevel.Fatal,
+            LogSeverity.Exception => LogLevel.Error,
+            LogSeverity.All => LogLevel.All,
+            _ => LogLevel.Info
+        };
+    }
+
     /// <summary>
     /// Log function that is redirected to <see cref="Logger"/>
     /// Can be overriden to add or remove functionality.
@@ -479,8 +526,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="severity"></param>
     public override void Log(string message, LogSeverity severity = LogSeverity.Information) {
         if (this.UseLogger) {
-            //this.Logger?.Log(message, severity, false);
-            UnityEngine.Debug.Log(message);
+            this.Logger?.Log(ToLogLevel(severity), severity);
         }
     }
 
@@ -491,8 +537,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="exception">Exception</param>
     public override void Log(Exception exception) {
         if (this.UseLogger) {
-            //this.Logger?.Log(exception);
-            UnityEngine.Debug.LogException(exception);
+            this.Logger?.Log(ToLogLevel(LogSeverity.Exception), LogSeverity.Exception);
         }
     }
 
@@ -505,8 +550,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="args">params object[]</param>
     public override void LogFormat(LogSeverity severity, string format, params object[] args) {
         if (this.UseLogger) {
-            //this.Logger?.LogFormat(false, severity, format, args);
-            UnityEngine.Debug.LogFormat(format, args);
+            this.Logger?.Log(ToLogLevel(severity), string.Format(format, args));
         }
     }
 

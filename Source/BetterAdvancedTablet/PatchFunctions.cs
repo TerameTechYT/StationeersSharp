@@ -14,31 +14,26 @@ namespace BetterAdvancedTablet;
 public static class PatchFunctions {
     [HarmonyPatch(typeof(AdvancedTablet), nameof(AdvancedTablet.DeserializeSave))]
     [HarmonyPostfix]
-    public static void AdvancedTabletDeserializeSave(ref AdvancedTablet __instance, ThingSaveData savedData) => Traverse.Create(__instance).Method("GetCartridge").GetValue();
+    public static void AdvancedTabletDeserializeSavePostfix(ref AdvancedTablet __instance, ThingSaveData savedData) => Traverse.Create(__instance).Method("GetCartridge").GetValue();
 
-    /*[HarmonyPatch(typeof(AdvancedTablet), nameof(AdvancedTablet.InteractWith))]
+    [HarmonyPatch(typeof(AdvancedTablet), "InteractWith")]
     [HarmonyPostfix]
-    public static void AdvancedTabletInteractWith(ref AdvancedTablet __instance, ref Thing.DelayedActionInstance __result, Interactable interactable, Interaction interaction, bool doAction, ref int ___currentCartSlot) {
-        if (__instance == null || !doAction) {
+    public static void AdvancedTabletInteractWithPostfix(ref AdvancedTablet __instance, Interactable interactable, Interaction interaction, bool doAction) {
+        if (__instance == null || interactable == null || !doAction || interactable.Action == InteractableType.Activate) {
             return;
         }
-
-        if (interactable.Action != InteractableType.Button1 && interactable.Action != InteractableType.Button2) {
-            return;
-        }
-
         try {
-            if (__instance.CartridgeSlots[__instance.Mode % __instance.CartridgeSlots.Count].IsEmpty()) {
-                __result = __instance.InteractWith(interactable, interaction, doAction);
+            if (__instance.CartridgeSlots.Any((slot) => slot.Contains<Cartridge>()) && !__instance.CartridgeSlots[__instance.Mode].Contains<Cartridge>()) {
+                __instance.InteractWith(interactable, interaction, doAction);
             }
         } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }
-    }*/
+    }
 
     [HarmonyPatch(typeof(Item), nameof(Item.OnUsePrimary))]
     [HarmonyPrefix]
-    public static bool ItemOnUsePrimary(ref Item __instance, Vector3 targetLocation, Quaternion targetRotation, ulong steamId, bool authoringMode) {
+    public static bool ItemOnUsePrimaryPrefix(ref Item __instance, Vector3 targetLocation, Quaternion targetRotation, ulong steamId, bool authoringMode) {
         if (__instance == null || __instance is not AdvancedTablet advancedTablet) {
             return true;
         }

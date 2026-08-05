@@ -34,7 +34,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterStackSize",
         Guid = "betterstacksize",
-        Version = new Version(1, 0, 0, 406),
+        Version = new Version(1, 0, 0, 420),
         WorkshopId = 3530757130ul,
         GameType = GameType.Both,
     };

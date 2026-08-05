@@ -32,7 +32,7 @@ public static class Utilities {
             IsBepInExModLoaded(guid);
 
     private static bool IsHarmonyPatched(string guid) => Harmony.HasAnyPatches(guid);
-
+    
     private static bool IsModLoaded(string guid) => ModBase.AllMods.Find((modb) => modb is ModBase mod && mod.ModGuid == guid) != null;
 
     private static bool IsBoosterModLoaded(string guid) => LaunchPadBooster.Mod.AllMods.Find((mod) => mod.ID.Name == guid) != null;

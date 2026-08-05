@@ -23,7 +23,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 537),
+        Version = new Version(2, 0, 0, 551),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };
@@ -47,47 +47,100 @@ public class Plugin : Mod<Plugin> {
     }
 
     public override void OnConfigLoad() {
-        ConfigData.preferredPressureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Pressure Unit"),
-                             PressureUnit.Pascal,
-                             new ConfigDescription("Will change most things to use this unit of measurement."));
 
-        ConfigData.preferredTemperatureUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Temperature Unit"),
-                TemperatureUnit.Celcius,
-                new ConfigDescription("Will change most things to use this unit of measurement."));
+        ConfigData.preferredPressureUnit = this.RegisterConfig(new ConfigData<PressureUnit>(
+            PressureUnit.Pascal,
+            "Units", "Preferred Pressure Unit",
+            "Will change most things to use this unit of measurement."
+        ));
 
-        ConfigData.preferredVolumeUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Volume Unit"),
-                VolumeUnit.Liter,
-                new ConfigDescription("Will change most things to use this unit of measurement."));
+        ConfigData.preferredTemperatureUnit = this.RegisterConfig(new ConfigData<TemperatureUnit>(
+            TemperatureUnit.Celcius,
+            "Units", "Preferred Temperature Unit",
+            "Will change most things to use this unit of measurement."
+        ));
 
-        ConfigData.preferredVelocityUnit = Config.Bind(new ConfigDefinition("Units", "Preferred Velocity Unit"),
-                VelocityUnit.Meters,
-                new ConfigDescription("Will change most things to use this unit of measurement."));
+        ConfigData.preferredVolumeUnit = this.RegisterConfig(new ConfigData<VolumeUnit>(
+            VolumeUnit.Liter,
+            "Units", "Preferred Volume Unit",
+            "Will change most things to use this unit of measurement."
+        ));
 
-        ConfigData.customFramerate = Config.Bind(new ConfigDefinition("Configurables", "CustomFramerate"),
-                true,
-                new ConfigDescription("Should the framerate text only display FPS."));
+        ConfigData.preferredVelocityUnit = this.RegisterConfig(new ConfigData<VelocityUnit>(
+            VelocityUnit.Meters,
+            "Units", "Preferred Velocity Unit",
+            "Will change most things to use this unit of measurement."
+        ));
 
-        ConfigData.changeFontSize = Config.Bind(new ConfigDefinition("Configurables", "ChangeFontSize"),
-                true,
-                new ConfigDescription("Should the font size be changed."));
+        ConfigData.customFramerate = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            "Configurables", "CustomFramerate",
+            "Should the framerate text only display FPS."
+        ));
 
-        ConfigData.extraInfoPower = Config.Bind(new ConfigDefinition("Configurables", "ExtraInfoPower"),
-                true,
-                new ConfigDescription("Should a extra text label be placed next to the status like waste tank status."));
+        ConfigData.changeFontSize = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            "Configurables", "ChangeFontSize",
+            "Should the font size be changed."  
+        ));
 
-        ConfigData.extraInfoFilter = Config.Bind(new ConfigDefinition("Configurables", "ExtraInfoFilter"),
-                true,
-                new ConfigDescription("Should a extra text label be placed next to the status like waste tank status."));
+        ConfigData.extraInfoPower = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            "Configurables", "ExtraInfoPower",
+            "Should a extra text label be placed next to the status like waste tank status."
+        ));
 
-        ConfigData.numberPrecision = Config.Bind(new ConfigDefinition("Configurables", "NumberPrecision"),
-                2,
-                new ConfigDescription("How many decimal points should be displayed on numbers.",
-                new AcceptableValueRange<int>(1, 4)));
+        ConfigData.extraInfoFilter = this.RegisterConfig(new ConfigData<bool>(
+            true,
+            "Configurables", "ExtraInfoFilter",
+            "Should a extra text label be placed next to the status like waste tank status."
+        ));
 
-        ConfigData.fontSize = Config.Bind(new ConfigDefinition("Configurables", "FontSize"),
-                21,
-                new ConfigDescription("What font size should the labels be changed to.",
-                new AcceptableValueRange<int>(14, 28)));
+        ConfigData.alwaysDisplaySanitation = this.RegisterConfig(new ConfigData<bool>(
+            false,
+            "Configurables", "AlwaysDisplaySanitation",
+            "Should the sanitation status always be displayed."
+        ));
+
+        ConfigData.alwaysDisplayCognition = this.RegisterConfig(new ConfigData<bool>(
+            false,
+            "Configurables", "AlwaysDisplayCognition",
+            "Should the cognition status always be displayed."
+        ));
+
+        ConfigData.alwaysDisplayHealth = this.RegisterConfig(new ConfigData<bool>(
+            false,
+            "Configurables", "AlwaysDisplayHealth",
+            "Should the health status always be displayed."
+        ));
+
+        ConfigData.alwaysDisplayBodyHealth = this.RegisterConfig(new ConfigData<bool>(
+            false,
+            "Configurables", "AlwaysDisplayBodyHealth",
+            "Should the body health status display/mannequin always be displayed."
+        ));
+
+        ConfigData.alwaysDisplayToxin = this.RegisterConfig(new ConfigData<bool>(
+            false,
+            "Configurables", "AlwaysDisplayToxin",
+            "Should the toxin status always be displayed."
+        ));
+
+        ConfigData.numberPrecision = this.RegisterConfig(new ConfigData<int>(
+            2,
+            1,
+            4,
+            "Configurables", "NumberPrecision",
+            "How many decimal points should be displayed on numbers."
+        ));
+
+        ConfigData.fontSize = this.RegisterConfig(new ConfigData<int>(
+            21,
+            14,
+            28,
+            "Configurables", "FontSize",
+            "What font size should the labels be changed to."
+        ));
     }
 }
 
@@ -129,9 +182,30 @@ internal struct ConfigData {
     public static bool ExtraInfoFilter => extraInfoFilter?.Value ?? false;
 
     //
+    public static ConfigEntry<bool>? alwaysDisplayHealth;
+    public static bool AlwaysDisplayHealth => alwaysDisplayHealth?.Value ?? false;
+
+    //
+    public static ConfigEntry<bool>? alwaysDisplayBodyHealth;
+    public static bool AlwaysDisplayBodyHealth => alwaysDisplayBodyHealth?.Value ?? false;
+
+    //
+    public static ConfigEntry<bool>? alwaysDisplayCognition;
+    public static bool AlwaysDisplayCognition => alwaysDisplayCognition?.Value ?? false;
+
+    //
+    public static ConfigEntry<bool>? alwaysDisplaySanitation;
+    public static bool AlwaysDisplaySanitation => alwaysDisplaySanitation?.Value ?? false;
+
+    //
+    public static ConfigEntry<bool>? alwaysDisplayToxin;
+    public static bool AlwaysDisplayToxin => alwaysDisplayToxin?.Value ?? false;
+
+    //
     public static ConfigEntry<int>? numberPrecision;
     public static int NumberPrecision => numberPrecision?.Value ?? 0;
 
+    //
     public const string ExternalTemperatureUnit =
             "GameCanvas/PanelStatusInfo/PanelExternalNavigation/PanelExternal/PanelTemp/ValueTemp/TextUnitTemp";
 

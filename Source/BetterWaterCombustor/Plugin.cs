@@ -18,7 +18,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterWaterCombustor",
         Guid = "betterwatercombustor",
-        Version = new Version(1, 4, 0, 539),
+        Version = new Version(1, 4, 0, 553),
         WorkshopId = 3404201609ul,
         GameType = GameType.Both,
     };

@@ -4,7 +4,10 @@ using Assets.Scripts;
 using Assets.Scripts.Atmospherics;
 using Assets.Scripts.GridSystem;
 using Assets.Scripts.Inventory;
+using Assets.Scripts.Localization2;
+using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Clothing;
+using Assets.Scripts.Objects.Clothing.Suits;
 using Assets.Scripts.Objects.Entities;
 using Assets.Scripts.Objects.Items;
 using Assets.Scripts.Serialization;
@@ -119,22 +122,15 @@ internal static class Functions {
 
         // Suit stuff
         Human? human = window.Parent;
-        Suit? suit = human?.SuitSlot.Get<Suit>();
-        AdvancedSuit? advancedSuit = suit is AdvancedSuit ? suit as AdvancedSuit : null;
-
-        // Suit slot stuff
-        BatteryCell? suitBattery = suit?.BatterySlot.Get<BatteryCell>();
-        GasFilter? filter1 = suit?.FilterSlot1.Get<GasFilter>();
-        GasFilter? filter2 = suit?.FilterSlot2.Get<GasFilter>();
-        GasFilter? filter3 = suit?.FilterSlot3.Get<GasFilter>();
-        GasFilter? filter4 = advancedSuit?.FilterSlot4.Get<GasFilter>();
+        ISuit? suit = human.SuitSlot.Get<ISuit>();
+        BatteryCell? suitBattery = suit.Battery;
 
         // Jetpack stuff
         Jetpack? jetpack = human?.BackpackSlot.Get<Jetpack>();
         GasCanister? jetpackPropellant = jetpack?.PropellentSlot.Get<GasCanister>();
 
         JetpackElectric? jetpackElectric = jetpack is JetpackElectric ? jetpack as JetpackElectric : null;
-        BatteryCell? jetpackBattery = jetpackElectric?.BatterySlot.Get<BatteryCell>();
+        BatteryCell? jetpackBattery = jetpackElectric?.Battery;
 
         // Set Pressure Unit
         _internalPressureUnit?.text = _externalPressureUnit?.text = _jetpackPressureUnit?.text = Utilities.GetPressureSymbol(ConfigData.PreferredPressureUnit);
@@ -152,6 +148,14 @@ internal static class Functions {
 
         // Change filter percentage text
         if (ConfigData.ExtraInfoFilter && (StatusUpdates.Instance.IsFilterCaution() || StatusUpdates.Instance.IsFilterCritical())) {
+            Suit? normalSuit = suit as Suit;
+            GasFilter? filter1 = normalSuit?.Filter1;
+            GasFilter? filter2 = normalSuit?.Filter2;
+            GasFilter? filter3 = normalSuit?.Filter3;
+            AdvancedSuit? advancedSuit = suit as AdvancedSuit;
+            HARMSuit? harmSuit = suit as HARMSuit;
+            GasFilter? filter4 = advancedSuit?.Filter4 ?? harmSuit?.FilterSlot4.Get<GasFilter>();
+
             float[] filterRatios = [filter1?.RemainingRatio ?? -1f, filter2?.RemainingRatio ?? -1f, filter3?.RemainingRatio ?? -1f, filter4?.RemainingRatio ?? -1f];
             float filterRatio = Mathf.Min(filterRatios.Where((value) => value != -1f).ToArray());
             float percentage = filterRatio * 100f;
@@ -231,19 +235,35 @@ internal static class Functions {
         string stunDamageText = stunDamage.ToStringPrecision();
         window.CognitionPercentage.text = stunDamageText;
         window.CognitionPercentage.fontSize = ConfigData.FontSize;
+        if (ConfigData.AlwaysDisplayCognition) {
+            window.CognitionPercentageObject.SetActive(true);
+        }
 
         // Character Toxin Damage
         float toxinDamage = human?.DamageState.Toxic ?? 0f;
         string toxinDamageText = toxinDamage.ToStringPrecision();
         window.ToxinPercentage.text = toxinDamageText;
         window.ToxinPercentage.fontSize = ConfigData.FontSize;
+        window.ToxinPercentageObject.SetActive(true);
+        if (ConfigData.AlwaysDisplayToxin) {
+            window.ToxinPercentageObject.SetActive(true);
+        }
 
         // Character Total Damage
-        float totalDamage = human?.DamageState.TotalRatio * 100f ?? 0f;
+        float totalDamage = (human?.DamageState.TotalRatio * 100f) ?? 0f;
         float healthLeft = 100f - totalDamage;
         string healthLeftText = healthLeft.ToStringPrecision();
         window.HealthPercentage.text = healthLeftText;
         window.HealthPercentage.fontSize = ConfigData.FontSize;
+        if (ConfigData.AlwaysDisplayHealth) {
+            window.HealthPercentageObject.SetActive(true);
+        }
+
+        // Character Body Health
+        // TODO: add text for each limb health, maybe a tooltip with the limb healths
+        if (ConfigData.AlwaysDisplayBodyHealth) {
+            window.PersonDamageObject.SetActive(true);
+        }
 
         // Character Hunger Left
         float hunger = human?.Nutrition ?? 0f;
@@ -264,12 +284,14 @@ internal static class Functions {
         window.HydrationPercentage.fontSize = ConfigData.FontSize;
 
         // Character Santiation
-        float waste = human?.SanitationRatio ?? 0f;
-        float wasteDisplay = waste * 100f;
-        string wasteText = wasteDisplay.ToStringPrecision();
-        window.WastePercentage.text = wasteText;
+        float sanitation = human?.SanitationRatio ?? 0f;
+        float sanitationDisplay = sanitation * 100f;
+        string sanitationText = sanitationDisplay.ToStringPrecision();
+        window.WastePercentage.text = sanitationText;
         window.WastePercentage.fontSize = ConfigData.FontSize;
-        window.WastePercentageObject.SetActive(true);
+        if (ConfigData.AlwaysDisplaySanitation) {
+            window.WastePercentageObject.SetActive(true);
+        }
 
         // Character Mood
         float mood = human?.Mood ?? 0f;
@@ -298,9 +320,21 @@ internal static class Functions {
         string orientationText = orientation.ToStringPrecision();
         window.NavigationText.text = orientationText;
         window.NavigationText.fontSize = ConfigData.FontSize;
+
+        // Room Number Display
+        ExteriorState exteriorState = human?.GetExteriorState() ?? ExteriorState.World;
+        string exteriorStateText = EnumCollections.ExteriorStates.GetName(exteriorState);
+        string externalText = exteriorStateText;
+
+        if (exteriorState == ExteriorState.Room && human?.Room is Room room && room.IsValid()) {
+            externalText = $"{exteriorStateText} {room.RoomId}";
+        }
+
+        window.HeaderExternalText.text = externalText;
+        //window.HeaderExternalText.fontSize = ConfigData.FontSize;
     }
 
-    internal static void UpdateAnalyzer(ref AtmosAnalyser analyser, ref bool isGasPipe, ref string pressureValueText, ref string liquidVolumeValueText, ref string capacityValueText, ref string temperatureValueText, ref string energyConvectedText, ref string energyRadiatedText, ref string latentText, ref string stressText) {
+    /*internal static void UpdateAnalyzer(ref AtmosAnalyser analyser, ref bool isGasPipe, ref string pressureValueText, ref string liquidVolumeValueText, ref string capacityValueText, ref string temperatureValueText, ref string energyConvectedText, ref string energyRadiatedText, ref string latentText, ref string stressText) {
         Atmosphere atmosphere = analyser.ScannedAtmosphere;
         float pressure = atmosphere.PressureGassesAndLiquidsInPa.ToPreferredUnit(ConfigData.PreferredPressureUnit);
         float temperature = atmosphere.Temperature.ToPreferredUnit(ConfigData.PreferredTemperatureUnit);
@@ -369,7 +403,7 @@ internal static class Functions {
         moleDisplay.IsActive = mole.Quantity > MoleQuantity.Zero;
     }
 
-    /*internal static void DisplayGasInfo(ref StringBuilder stringBuilder, ref Pipe.ContentType contentType, ref Atmosphere atmosphere) {
+    internal static void DisplayGasInfo(ref StringBuilder stringBuilder, ref Pipe.ContentType contentType, ref Atmosphere atmosphere) {
         string none = GameStrings.None.AsColor("yellow");
 
         float temperature = atmosphere.Temperature.ToPreferredUnit(ConfigData.PreferredTemperatureUnit);

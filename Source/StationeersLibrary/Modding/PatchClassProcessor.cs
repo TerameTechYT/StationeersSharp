@@ -23,6 +23,20 @@ public sealed class HarmonyPatchVersion(string minimum, string maximum) : Harmon
 }
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public sealed class HarmonyPatchVersionMinimum(string version) : HarmonyPatchConditionAttribute {
+    public Version MinimumVersion => new(version);
+
+    public override bool ShouldPatch => this.MinimumVersion < Constants.GAME_VERSION;
+}
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public sealed class HarmonyPatchVersionMaximum(string version) : HarmonyPatchConditionAttribute {
+    public Version MaximumVersion => new(version);
+
+    public override bool ShouldPatch => this.MaximumVersion > Constants.GAME_VERSION;
+}
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public sealed class HarmonyPatchVersions(params string[] versions) : HarmonyPatchConditionAttribute {
     public Version[] Versions => [.. versions.Select(v => new Version(v))];
 
