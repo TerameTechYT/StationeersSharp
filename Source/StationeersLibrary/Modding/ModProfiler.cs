@@ -1,5 +1,6 @@
 ﻿#region
 
+using BepInEx.Logging;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -14,7 +15,7 @@ public class ModProfiler : IDisposable {
     public const double NORMAL_THRESHOLD = 0.001;
     public const double UPDATE_THRESHOLD = 1;
 
-    //private readonly Logger _logger;
+    private readonly ManualLogSource _logger;
     private readonly MethodBase _method;
     private readonly bool _isUpdateMethod;
     private readonly Stopwatch _stopwatch;
@@ -23,7 +24,7 @@ public class ModProfiler : IDisposable {
 
     public double ElapsedMilliseconds => this.Elapsed.TotalMilliseconds;
 
-    internal ModProfiler(/* Logger logger,*/ MethodBase method, bool isUpdateMethod = false) {
+    internal ModProfiler(ManualLogSource logger, MethodBase method, bool isUpdateMethod = false) {
 #if DEBUG
         this._logger = logger;
         this._method = method;
@@ -42,7 +43,7 @@ public class ModProfiler : IDisposable {
                 ModProfiler._belowThresholdCounts[this._method] = 0;
             }
 
-            this._logger.LogDebug($"{this._method.Name} completed in {this.ElapsedMilliseconds:F3} ms{(value > 0 ? $" - {value} executions below threshold ({threshold:F3})ms" : "")}");
+            this._logger?.LogDebug($"{this._method.Name} completed in {this.ElapsedMilliseconds:F3} ms{(value > 0 ? $" - {value} executions below threshold ({threshold:F3})ms" : "")}");
         } else {
             if (ModProfiler._belowThresholdCounts.TryGetValue(this._method, out int value)) {
                 ModProfiler._belowThresholdCounts[this._method] = value + 1;

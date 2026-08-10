@@ -55,7 +55,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <summary>
     /// This mods ModInfo instance.
     /// </summary>
-    public override abstract ModInfo Data { get; }
+    public abstract override ModInfo Data { get; }
 
     #endregion // MOD INFO
 
@@ -88,7 +88,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <summary>
     /// This mods <see cref="ConfigFile"/> instance.
     /// </summary>
-    public ConfigFile Config { get; private set; }
+    public ConfigFile? Config { get; private set; }
 
     #endregion // CONFIG
 
@@ -106,7 +106,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <summary>
     /// This mods <see cref="HarmonyLib.Harmony"/> instance.
     /// </summary>
-    public Harmony Harmony { get; private set; }
+    public Harmony? Harmony { get; private set; }
 
     #endregion // HARMONY
 
@@ -153,12 +153,12 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
     /// <inheritdoc/>
     public override void OnLoaded(List<GameObject> prefabs, List<Assembly> assemblies, ConfigFile config, ModData data) {
-        using ModProfiler? _ = this.Profile();
-
         if (this.UseLogger) {
-            this.Logger = new ManualLogSource(this.ModGuid);
-            BepInEx.Logging.Logger.Sources.Add(this.Logger);
+            this.Logger = BepInEx.Logging.Logger.CreateLogSource(this.ModGuid);
+            this.Logger.LogEvent += this.OnLogEvent;
         }
+
+        using ModProfiler? _ = this.Profile();
 
         this.LogDebug($"{this} is now loading...");
 
@@ -505,6 +505,8 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
     #region LOGGING METHODS
 
+    public virtual void OnLogEvent(object sender, LogEventArgs e) { }
+
     public static LogLevel ToLogLevel(LogSeverity severity) {
         return severity switch {
             LogSeverity.Debug => LogLevel.Debug,
@@ -526,7 +528,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="severity"></param>
     public override void Log(string message, LogSeverity severity = LogSeverity.Information) {
         if (this.UseLogger) {
-            this.Logger?.Log(ToLogLevel(severity), severity);
+            this.Logger?.Log(ToLogLevel(severity), message);
         }
     }
 
@@ -537,7 +539,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <param name="exception">Exception</param>
     public override void Log(Exception exception) {
         if (this.UseLogger) {
-            this.Logger?.Log(ToLogLevel(LogSeverity.Exception), LogSeverity.Exception);
+            this.Logger?.Log(ToLogLevel(LogSeverity.Exception), exception);
         }
     }
 
@@ -568,7 +570,9 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         using ModProfiler? _ = this.Profile();
 
         this.LogDebug($"Registering prefab {typeof(TPrefab).Name} with name {prefab}.");
-        return this.InternalMod.SetupPrefabs<TPrefab>(prefab);
+        LaunchPadBooster.PrefabSetup<TPrefab> prefabSetup = this.InternalMod.SetupPrefabs<TPrefab>(prefab);
+        this.LogDebug($"Registered prefab {typeof(TPrefab).Name} with name {prefab}.");
+        return prefabSetup;
     }
 
     /// <summary>
@@ -637,10 +641,10 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     }
 
     public ModProfiler? Profile(bool isUpdateMethod = false) {
-        StackTrace stackTrace = new StackTrace();
+        StackTrace stackTrace = new();
         StackFrame frame = stackTrace.GetFrame(1);
 
-        return new ModProfiler(/*this.Logger,*/ frame.GetMethod(), isUpdateMethod);
+        return new ModProfiler(this.Logger, frame.GetMethod(), isUpdateMethod);
     }
 
     /// <summary>

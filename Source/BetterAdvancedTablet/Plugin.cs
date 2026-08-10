@@ -21,7 +21,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "BetterAdvancedTablet",
         Guid = "betteradvancedtablet",
-        Version = new Version(1, 3, 0, 554),
+        Version = new Version(1, 3, 0, 565),
         WorkshopId = 3523321721ul,
         GameType = GameType.Both,
     };
@@ -39,6 +39,12 @@ public class Plugin : Mod<Plugin> {
             "How many additional cartridge slots do you want to add to the advanced tablet?",
             new AcceptableValueRange<int>(0, 6)
         ));
+
+        ConfigData.preventInventoryScrollWithTablet = this.RegisterConfig(new ConfigData<bool>(
+            false,
+            "Configurables", "Prevent Inventory Scroll With Tablets",
+            "If true, the inventory menu will not scroll when tablet is in main hand and on."
+        ));
     }
 }
 
@@ -51,5 +57,8 @@ internal struct ConfigData {
 
     // Config
     public static ConfigEntry<int>? additionalTabletSlots;
-    public static int AdditionalTabletSlots = additionalTabletSlots?.Value ?? 2;
+    public static int AdditionalTabletSlots => additionalTabletSlots?.Value ?? 2;
+
+    public static ConfigEntry<bool>? preventInventoryScrollWithTablet;
+    public static bool PreventInventoryScrollWithTablet => preventInventoryScrollWithTablet?.Value ?? false;
 }

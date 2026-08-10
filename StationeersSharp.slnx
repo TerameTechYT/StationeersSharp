@@ -1,0 +1,104 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Publish" />
+    <BuildType Name="Release" />
+
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+
+  <Folder Name="/Commands/">
+    <File Path="Commands/Increment-Version.ps1" />
+  </Folder>
+
+  <Folder Name="/Data/">
+    <File Path="Directory.Build.props" />
+    <File Path="Stationeers.VS.props" />
+    <File Path="Stationeers.VS.References.props" />
+    <File Path="Stationeers.VS.User.props" />
+  </Folder>
+
+  <Folder Name="/Extras/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="CODE_OF_CONDUCT.md" />
+    <File Path="LICENSE.md" />
+    <File Path="MODS.md" />
+    <File Path="README.md" />
+
+    <Project Path="Template/Template.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+      <Build Project="false" />
+    </Project>
+  </Folder>
+
+  <Folder Name="/Mods/">
+    <Project Path="Source/BetterAdvancedTablet/BetterAdvancedTablet.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/BetterCodeEditor/BetterCodeEditor.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/BetterFabricator/BetterFabricator.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/BetterHydroponics/BetterHydroponics.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/BetterLoadingScreens/BetterLoadingScreens.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/BetterPowerMod/BetterPowerMod.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/BetterStackSize/BetterStackSize.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/BetterWasteTank/BetterWasteTank.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/BetterWaterCombustor/BetterWaterCombustor.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/ColoredGases/ColoredGases.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/DetailedPlayerInfo/DetailedPlayerInfo.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+
+    <Project Path="Source/ExternalSuitReader/ExternalSuitReader.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+  </Folder>
+
+  <Project Path="Source/StationeersLibrary/StationeersLibrary.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+</Solution>

@@ -22,7 +22,7 @@ The following BepInEx versions are currently being supported with updates.
 ## Prerequisites:
 [Stationeers](https://store.steampowered.com/app/544550/Stationeers/)<br>
 [BepInEx 5.4.x](https://docs.bepinex.dev/articles/user_guide/installation/index.html) and [StationeersLaunchPad](https://github.com/StationeersLaunchPad/StationeersLaunchPad?tab=readme-ov-file#fresh)<br> 
-[Visual Studio 2019+](https://visualstudio.microsoft.com)<br>
+[Visual Studio 2026](https://visualstudio.microsoft.com)<br>
 
 ## Setup
 - Download source code

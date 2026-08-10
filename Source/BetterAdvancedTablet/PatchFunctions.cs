@@ -1,9 +1,12 @@
 ﻿#region
 
+using Assets.Scripts.Inventory;
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Items;
+using Assets.Scripts.UI;
 using HarmonyLib;
 using StationeersLibrary;
+using StationeersLibrary.Modding;
 using UnityEngine;
 
 #endregion
@@ -22,6 +25,7 @@ public static class PatchFunctions {
         if (__instance == null || interactable == null || !doAction || interactable.Action == InteractableType.Activate) {
             return;
         }
+
         try {
             if (__instance.CartridgeSlots.Any((slot) => slot.Contains<Cartridge>()) && !__instance.CartridgeSlots[__instance.Mode].Contains<Cartridge>()) {
                 __instance.InteractWith(interactable, interaction, doAction);
@@ -44,6 +48,32 @@ public static class PatchFunctions {
 
         try {
             Functions.UsePrimary(ref advancedTablet);
+        } catch (Exception ex) {
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
+        }
+
+        return true;
+    }
+
+    [HarmonyPatch(typeof(InventoryWindowManager), "NextButton")]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Prevent Inventory Scroll With Tablets")]
+    [HarmonyPrefix]
+    public static bool InventoryWindowManagerNextButtonPrefix() {
+        try {
+            return !(InventoryManager.ActiveHandSlot.Contains(out Tablet tablet) && tablet.OnOff);
+        } catch (Exception ex) {
+            Utilities.ExceptionReporter(Plugin.Instance, ref ex);
+        }
+
+        return true;
+    }
+
+    [HarmonyPatch(typeof(InventoryWindowManager), "PreviousButton")]
+    [HarmonyPatchConfig<Plugin>("Configurables", "Prevent Inventory Scroll With Tablets")]
+    [HarmonyPrefix]
+    public static bool InventoryWindowManagerPreviousButtonPrefix() {
+        try {
+            return !(InventoryManager.ActiveHandSlot.Contains(out Tablet tablet) && tablet.OnOff);
         } catch (Exception ex) {
             Utilities.ExceptionReporter(Plugin.Instance, ref ex);
         }

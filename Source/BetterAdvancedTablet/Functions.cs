@@ -43,8 +43,8 @@ public static class Functions {
             tabletPrefab.AllowSelfUse = true;
 
             Slot template = tabletPrefab.Slots.Find((slot) => slot.Type == Slot.Class.Cartridge);
-            tabletPrefab.Slots[1].StringKey = template.StringKey;
-            tabletPrefab.Slots[1].StringHash = template.StringHash;
+            tabletPrefab.Slots[2].StringKey = template.StringKey;
+            tabletPrefab.Slots[2].StringHash = template.StringHash;
             for (int i = 0; i < ConfigData.AdditionalTabletSlots; i++) {
                 tabletPrefab.Slots.Add(Functions.CloneSlot(template));
             }
