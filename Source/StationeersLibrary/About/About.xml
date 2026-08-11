@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Stationeers Library [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>2.0.0.586</Version>
+    <Version>2.0.0.598</Version>
     <Description>
         [h1] This is [b]NOT[/b] StationeersLaunchPad [/h1]
 
@@ -28,11 +28,11 @@
         </Mod>
     </LoadBefore>
 <ChangeLog>
-	[h1]Update v2.0.0.548 to v2.0.0.586[/h1]
+	[h1]Update v2.0.0.586 to v2.0.0.598[/h1]
 	[list]
 		[*] 
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 2f003bab653da15922b8088c7b4482ea7384df0a -->
-<!-- LastProcessedVersion: 2.0.0.586 -->
+<!-- LastProcessedCommit: 170d4148ed869dbffc3bcb388b904a4b88c4ca70 -->
+<!-- LastProcessedVersion: 2.0.0.598 -->

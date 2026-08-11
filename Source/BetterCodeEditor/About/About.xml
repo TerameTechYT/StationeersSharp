@@ -2,7 +2,7 @@
 <ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Name>Better Code Editor [StationeersLaunchPad]</Name>
     <Author>vinus</Author>
-    <Version>1.4.0.554</Version>
+    <Version>1.4.0.565</Version>
     <Description>
         [h1]Better Code Editor[/h1]
         [b]WARNING:[/b] This is a StationeersLaunchPad Plugin Mod. It requires Bepinex to be installed with the StationeersLaunchPad plugin.
@@ -32,11 +32,11 @@
 		</Mod>
 	</LoadBefore>
 <ChangeLog>
-	[h1]Update v1.4.0.523 to v1.4.0.554[/h1]
+	[h1]Update v1.4.0.554 to v1.4.0.565[/h1]
 	[list]
 		[*] 
 	[/list]
 </ChangeLog>
 </ModMetadata>
-<!-- LastProcessedCommit: 2f003bab653da15922b8088c7b4482ea7384df0a -->
-<!-- LastProcessedVersion: 1.4.0.554 -->
+<!-- LastProcessedCommit: 170d4148ed869dbffc3bcb388b904a4b88c4ca70 -->
+<!-- LastProcessedVersion: 1.4.0.565 -->

@@ -90,6 +90,10 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// </summary>
     public ConfigFile? Config { get; private set; }
 
+    public ModData? ModData { get; private set; }
+
+    public ModAbout? ModAbout { get; private set; }
+
     #endregion // CONFIG
 
     #region HARMONY
@@ -244,7 +248,10 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
         SceneManager.sceneLoaded += this.SceneLoaded;
         SceneManager.sceneUnloaded += this.SceneUnloaded;
-        //MainMenuWindowManager.OnPageEnabled += this.MenuPageEnabled;
+        Patches.OnMainMenuCurrentPageChanged += this.MenuPageEnabled;
+
+        this.ModData = data;
+        this.ModAbout = this.ModData.GetAboutData();
 
         lock (_lock) {
             ModBase.AllMods.Add(this);
@@ -262,7 +269,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
         this.LogDebug($"{this} is now unloading...");
 
         if (this.UseConfig) {
-            this.Config.Save();
+            this.Config?.Save();
         }
 
         if (this.UseHarmony) {
@@ -275,7 +282,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
 
         SceneManager.sceneLoaded -= this.SceneLoaded;
         SceneManager.sceneUnloaded -= this.SceneUnloaded;
-        //MainMenuWindowManager.OnPageEnabled -= this.MenuPageEnabled;
+        Patches.OnMainMenuCurrentPageChanged -= this.MenuPageEnabled;
 
         lock (_lock) {
             ModBase.AllMods.Remove(this);
