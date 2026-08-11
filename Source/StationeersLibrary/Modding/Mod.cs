@@ -145,7 +145,7 @@ public abstract class Mod<T> : ModBase, IModSingleton<T>, IEquatable<Mod<T>>, IE
     /// <summary>
     /// Internal <see cref="LaunchPadBooster.Mod"/> instance.
     /// </summary>
-    internal LaunchPadBooster.Mod InternalMod { get; private set; }
+    internal LaunchPadBooster.Mod? InternalMod { get; private set; }
 
     #endregion // INTERNAL
 
