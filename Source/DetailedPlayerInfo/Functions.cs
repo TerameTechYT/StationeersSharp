@@ -244,7 +244,6 @@ internal static class Functions {
         string toxinDamageText = toxinDamage.ToStringPrecision();
         window.ToxinPercentage.text = toxinDamageText;
         window.ToxinPercentage.fontSize = ConfigData.FontSize;
-        window.ToxinPercentageObject.SetActive(true);
         if (ConfigData.AlwaysDisplayToxin) {
             window.ToxinPercentageObject.SetActive(true);
         }
