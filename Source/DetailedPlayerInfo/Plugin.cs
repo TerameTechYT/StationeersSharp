@@ -23,7 +23,7 @@ public class Plugin : Mod<Plugin> {
     public override ModInfo Data => new ModInfo() {
         Name = "DetailedPlayerInfo",
         Guid = "detailedplayerinfo",
-        Version = new Version(2, 0, 0, 561),
+        Version = new Version(2, 0, 0, 562),
         WorkshopId = 3071950159ul,
         GameType = GameType.Client,
     };
